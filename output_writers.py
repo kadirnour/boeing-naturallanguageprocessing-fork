@@ -1,8 +1,9 @@
 import csv
 import documentInformation
+import os
 
 # Output location
-output = 'C:\\Users\\blcsi\\OneDrive\\Desktop\\pilot-operating-handbook-text-analysis-master\\output\\' 
+output = os.getcwd() + '\\output\\' 
 
 def to_csv(docInfo, totalTimeStr, costPerNounStr, total_nouns, unqNouns, sumNouns):
     # Open csv files to write to
