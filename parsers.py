@@ -4,7 +4,7 @@ file: parser.py
 description: handles all methods for parsing the 
 document into sentences and nouns
 '''''''''''''''''''''''''''''''''''''''''''''''''''
-
+import time
 import os
 from os import path
 from noun import Noun
@@ -24,6 +24,8 @@ parameters: fname, the path to the pdf
 
 returns: a pdf object
 '''''''''''''''''''''''''''''''''''''''''''''''''''
+
+
 def open_pdf(fname):
     print("Opening " + fname)
 
@@ -40,6 +42,7 @@ def open_pdf(fname):
 
     return pdf
 
+
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 function: open_doc
 
@@ -49,6 +52,8 @@ parameters: fname, the path to the docx file
 
 returns: 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
+
+
 def open_doc(fname):
     print("Opening " + fname)
 
@@ -65,6 +70,7 @@ def open_doc(fname):
 
     return docx
 
+
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 function: extract_pdf_text
 
@@ -74,15 +80,18 @@ parameters: pdf, a pdf object
 
 returns: a list of strings
 '''''''''''''''''''''''''''''''''''''''''''''''''''
+
+
 def extract_pdf_text(pdf):
     page_text = []
 
     for page in pdf.pages:
-        if (page.extract_text() != None) : # Skips empty pages
+        if (page.extract_text() != None):  # Skips empty pages
             text = page.extract_text().rstrip()
             page_text.append(text)
 
     return page_text
+
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 function: extract_docx_text
@@ -93,6 +102,8 @@ parameters: docx a Document object
 
 returns: a list of strings
 '''''''''''''''''''''''''''''''''''''''''''''''''''
+
+
 def extract_docx_text(docx):
     page_text = []
 
@@ -100,6 +111,7 @@ def extract_docx_text(docx):
         page_text.append(paragraph.text)
 
     return page_text
+
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 function: validate_file
@@ -110,12 +122,14 @@ parameters: file_path
 
 returns: true if valid, false otherwise
 '''''''''''''''''''''''''''''''''''''''''''''''''''
+
+
 def validate_file(file_path):
     # check for valid path
     if not path.exists(file_path):
         print("File", file_path, "does not exist. Skipping...")
         return False
-    
+
     # get the file extension
     extension = os.path.splitext(file_path)[1]
     if extension == '.docx' or extension == '.pdf':
@@ -123,6 +137,7 @@ def validate_file(file_path):
     else:
         print("Unsuported file type", extension, ". Skipping...")
         return False
+
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 function: get_sentences
@@ -135,14 +150,20 @@ parameters: page_text, a list of strings
 returns: a list of the Span objects from the spaCy library, 
 representing each sentence. 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
+
+
 def get_sentences(page_text):
+    start_time = time.time()
+
     total_sentences = []
     nlp = spacy.load('en_core_web_sm')
-    for text in page_text: # go through each page of text
 
+    print("Parsing sentences\n")
+    for text in page_text:  # go through each page of text
         # parse text
         about_text = nlp(text)
-        sentences = list(about_text.sents) # store each span (sentence) object in a list
+        # store each span (sentence) object in a list
+        sentences = list(about_text.sents)
 
         # append the span objects to the total_sentences list
         for sentence in sentences:
@@ -153,7 +174,10 @@ def get_sentences(page_text):
             if sentence_text_cleaned != "":
                 total_sentences.append(sentence)
 
+    duration = time.time() - start_time
+    print(f"Parsing sentences took {round(duration, 2)} seconds")
     return total_sentences
+
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 function: get_nouns
@@ -165,20 +189,25 @@ parameters: sentences, a list of span objects
 
 returns: a list of noun objects 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
+
+
 def get_nouns(sentences):
+    start_time = time.time()
+
     total_nouns = []   # list of noun objects
 
+    print("Parsing nouns\n")
     for sentence in sentences:
 
         for token in sentence:
             # Skips over numbers
             if token.like_num:
                 continue
-            
+
             if token.pos_ == 'NOUN' or token.pos_ == 'PROPN':
                 # Process noun
-                noun_text = token.lemma_ # First take the lemma
-                noun_text = noun_text.lower() # Make it lower case
+                noun_text = token.lemma_  # First take the lemma
+                noun_text = noun_text.lower()  # Make it lower case
 
                 # Now determine if this noun has already had an object created for it or not
                 found = False
@@ -197,8 +226,8 @@ def get_nouns(sentences):
 
         for chunk in sentence.noun_chunks:
 
-            #if chunk.like_num: # skips over numbers
-                #continue
+            # if chunk.like_num: # skips over numbers
+            # continue
 
             noun_text = chunk.text.lstrip()
             noun_text = noun_text.rstrip()
@@ -219,7 +248,10 @@ def get_nouns(sentences):
                 new_noun = Noun(noun_text, sentence.text.rstrip())
                 total_nouns.append(new_noun)
 
+    duration = time.time() - start_time
+    print(f"Parsing nouns took {round(duration, 2)} seconds")
     return total_nouns
+
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 function: run_parsers
@@ -231,14 +263,17 @@ parameters: file_path
 
 returns: the sentences, info, and nouns from a file 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
+
+
 def run_parsers(file_path):
-    print("Processing file: " + file_path)
+    print("Processing file: " + file_path + '\n')
     # get the file extension
     extension = os.path.splitext(file_path)[1]
-    
+
     # file types should probably be delegated to some sort of factory method eventually, but this works for now
     if extension == '.pdf':
         # open file
+        print("extracting text from pdf\n")
         pdf = open_pdf(file_path)
         text = extract_pdf_text(pdf)
         docInfo = None
@@ -246,21 +281,25 @@ def run_parsers(file_path):
         # get document info
         with open(file_path, 'rb') as f:
             reader = PdfFileReader(f)
-            reader.getNumPages() # work around for decrpyting file (Checks if decrypted or return exception)
+            # work around for decrpyting file (Checks if decrypted or return exception)
+            reader.getNumPages()
             pdfInfo = reader.getDocumentInfo()
-        
+
         # retrieve attributes from pdf
         docInfo = DocumentInformation(pdfInfo.title, pdfInfo.author, file_path)
     elif extension == '.docx':
         docx = open_doc(file_path)
         text = extract_docx_text(docx)
         # can't really extract information dynamically from docx files
-        docInfo = DocumentInformation(os.path.splitext(file_path)[0], "", file_path)
+        docInfo = DocumentInformation(
+            os.path.splitext(file_path)[0], "", file_path)
 
     # Perform parsing and identification
-    total_sentences = get_sentences(text)  # get list of span objects - one for each sentence in pdf file
-    total_nouns = get_nouns(total_sentences)   # get list of token (noun) objects
-    
+    # get list of span objects - one for each sentence in pdf file
+    total_sentences = get_sentences(text)
+    # get list of token (noun) objects
+    total_nouns = get_nouns(total_sentences)
+
     return docInfo, total_nouns, total_sentences
 
 # def get_noun_phrases(sentences, total_nouns):   # use to identify noun phrases containing a particular noun
