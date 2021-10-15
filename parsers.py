@@ -78,8 +78,9 @@ def extract_pdf_text(pdf):
     page_text = []
 
     for page in pdf.pages:
-        text = page.extract_text().rstrip()
-        page_text.append(text)
+        if (page.extract_text() != None) : # Skips empty pages
+            text = page.extract_text().rstrip()
+            page_text.append(text)
 
     return page_text
 
@@ -245,7 +246,7 @@ def run_parsers(file_path):
         # get document info
         with open(file_path, 'rb') as f:
             reader = PdfFileReader(f)
-            reader.getNumPages() # work around for decrpyting file
+            reader.getNumPages() # work around for decrpyting file (Checks if decrypted or return exception)
             pdfInfo = reader.getDocumentInfo()
         
         # retrieve attributes from pdf

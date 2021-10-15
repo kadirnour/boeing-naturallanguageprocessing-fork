@@ -20,13 +20,19 @@ def to_csv(docInfo, totalTimeStr, costPerNounStr, total_nouns, unqNouns, sumNoun
     if csv_name[0:4] == "data":
         csv_name = csv_name[5:]
 
-    with open(output + csv_name, 'w', newline='') as csvfile:
+    with open(output + csv_name, 'w', newline='', encoding='utf-8') as csvfile: # Added encoding for non-printable characters
         nounwriter = csv.writer(csvfile)
         nounwriter.writerow([docInfo.document_name, docInfo.authors]) # can add more attributes too
         nounwriter.writerow(["Unique nouns: " + str(unqNouns), " Total nouns: " + str(sumNouns)])
         nounwriter.writerow([totalTimeStr, costPerNounStr])
+        
         for noun in total_nouns:
+            
+            #try:
             nounwriter.writerow([noun.text, noun.context_sentences, noun.num_occur])
+            #except UnicodeEncodeError:
+                #print(noun)
+
         print('Data has been successfully saved to ' + csv_name)
     
     return csv_name
