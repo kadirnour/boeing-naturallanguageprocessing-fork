@@ -45,7 +45,6 @@ def main():
         
             output_writers.to_csv(docInfo, totalTimeStr, costPerNounStr, total_nouns, unqNouns, sumNouns)
 
-
     # args = parse_args(sys.argv[1:])
     
     # for file_path in args.file:
@@ -95,8 +94,6 @@ def main():
     # unit_tests.test_accuracy()
     # unit_tests.test_info_parsing()
     # unit_tests.test_sentence_punc()
-
-
 
 if __name__ == "__main__":
     main()
