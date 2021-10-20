@@ -3,7 +3,7 @@ import csv
 import os
 
 # Output location
-output = os.getcwd() + '\\parser\\output\\'  # Added \\parser to fix output location
+output = os.getcwd() + '\\Parser\\output\\'  # Added \\parser to fix output location
 
 def to_csv(docInfo, totalTimeStr, costPerNounStr, total_nouns, unqNouns, sumNouns):
     # Open csv files to write to
