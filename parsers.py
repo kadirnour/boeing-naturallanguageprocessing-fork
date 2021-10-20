@@ -27,15 +27,15 @@ returns: a pdf object
 
 
 def open_pdf(fname):
-    print("Opening " + fname)
+    print("-->Opening " + fname, end='\n')
 
     # check for valid path and extension
     if not path.exists(fname):
         print("File " + fname + " does not exist. Exiting...")
-        exit()
+        exit()  # exit statements within a proccess have the potential to break code when reached
     elif not fname.endswith('.pdf'):
         print("File " + fname + " is not a pdf. Exiting...")
-        exit()
+        exit()  # exit statements within a proccess have the potential to break code when reached
 
     # open pdf
     pdf = pdfplumber.open(fname)
@@ -153,12 +153,10 @@ representing each sentence.
 
 
 def get_sentences(page_text):
-    start_time = time.time()
 
     total_sentences = []
     nlp = spacy.load('en_core_web_sm')
 
-    print("Parsing sentences\n")
     for text in page_text:  # go through each page of text
         # parse text
         about_text = nlp(text)
@@ -174,8 +172,6 @@ def get_sentences(page_text):
             if sentence_text_cleaned != "":
                 total_sentences.append(sentence)
 
-    duration = time.time() - start_time
-    print(f"Parsing sentences took {round(duration, 2)} seconds")
     return total_sentences
 
 
@@ -196,7 +192,6 @@ def get_nouns(sentences):
 
     total_nouns = []   # list of noun objects
 
-    print("Parsing nouns\n")
     for sentence in sentences:
 
         for token in sentence:
@@ -248,8 +243,6 @@ def get_nouns(sentences):
                 new_noun = Noun(noun_text, sentence.text.rstrip())
                 total_nouns.append(new_noun)
 
-    duration = time.time() - start_time
-    print(f"Parsing nouns took {round(duration, 2)} seconds")
     return total_nouns
 
 
@@ -266,15 +259,15 @@ returns: the sentences, info, and nouns from a file
 
 
 def run_parsers(file_path):
-    print("Processing file: " + file_path + '\n')
+    print("->Processing file: " + file_path + '\n')
     # get the file extension
     extension = os.path.splitext(file_path)[1]
 
     # file types should probably be delegated to some sort of factory method eventually, but this works for now
     if extension == '.pdf':
         # open file
-        print("extracting text from pdf\n")
         pdf = open_pdf(file_path)
+        print("-->extracting text from pdf...\n")
         text = extract_pdf_text(pdf)
         docInfo = None
 
@@ -296,9 +289,20 @@ def run_parsers(file_path):
 
     # Perform parsing and identification
     # get list of span objects - one for each sentence in pdf file
+
+    start_time_sentences = time.time()
     total_sentences = get_sentences(text)
+    duration_sentences = time.time() - start_time_sentences
+    print(
+        f"-->Parsing sentences in {file_path}__  [{round(duration_sentences, 2)}s]")
+
     # get list of token (noun) objects
+
+    start_time_nouns = time.time()
     total_nouns = get_nouns(total_sentences)
+    duration_nouns = time.time() - start_time_nouns
+    print(
+        f"-->Parsing nouns in {file_path}__  [{round(duration_nouns, 2)}s]")
 
     return docInfo, total_nouns, total_sentences
 

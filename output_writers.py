@@ -4,7 +4,7 @@ import documentInformation
 import os
 
 # Output location
-output = os.getcwd() + '\\output\\'
+output = os.getcwd() + '/output/'
 
 
 def to_csv(docInfo, totalTimeStr, costPerNounStr, total_nouns, unqNouns, sumNouns):
@@ -17,11 +17,8 @@ def to_csv(docInfo, totalTimeStr, costPerNounStr, total_nouns, unqNouns, sumNoun
         csv_name = docInfo.document_name + '_nouns.csv'
     else:
         # get name of file from file_path (removes ".pdf" too)
+        # file_path in form: data/file_name.pdf
         csv_name = (docInfo.location.split('/'))[-1][:-4] + '_nouns.csv'
-
-    # print(csv_name)
-    if csv_name[0:4] == "data":
-        csv_name = csv_name[5:]
 
     # Added encoding for non-printable characters
     with open(output + csv_name, 'w', newline='', encoding='utf-8') as csvfile:

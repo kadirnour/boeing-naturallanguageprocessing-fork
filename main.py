@@ -1,4 +1,5 @@
 import argparse
+from genericpath import exists
 from documentInformation import DocumentInformation
 import parsers
 import database
@@ -42,8 +43,9 @@ def parse(file):
     totalTimeStr = "Total time: Uncomputed"
     costPerNounStr = "Cost per noun: Uncomputed"
 
-    # output_writers.to_csv(docInfo, totalTimeStr,
-    #   costPerNounStr, total_nouns, unqNouns, sumNouns)
+    output_writers.to_csv(docInfo, totalTimeStr,
+                          costPerNounStr, total_nouns, unqNouns, sumNouns)
+    pass
 
 
 def parse_all(files):
@@ -55,13 +57,16 @@ def main():
     print("Start of Parser program\n")
     path = parse_args(sys.argv).path[0]
 
+    # prefix all files with
     folder = os.listdir(path)
-    folder = [path + '\\' + file for file in folder]
+    folder = [path + "/" + file for file in folder]
+
+    [print(file) for file in folder]
 
     start_time = time.time()
     parse_all(folder)
     duration = time.time() - start_time
-    print(f"Total parse total, {round(duration, 2)} seconds\n")
+    print(f"Total parse time [{round(duration, 2)}s]\n")
 
     # args = parse_args(sys.argv[1:])
 
