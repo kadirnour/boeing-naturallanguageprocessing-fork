@@ -12,18 +12,19 @@ from Parser import output_writers
 
 import os
 
-def dir_path(path):
-    if os.path.isdir(path):
-        return path
-    else:
-        raise argparse.ArgumentTypeError(f"readable_dir:{path} is not a valid path")
+# Removed, use our program launcher instead and enter locations through command line
+# def dir_path(path): 
+#     if os.path.isdir(path):
+#         return path
+#     else:
+#         raise argparse.ArgumentTypeError(f"readable_dir:{path} is not a valid path")
 
-def parse_args(args):
-    parser = argparse.ArgumentParser()
-    # parser.add_argument('--file', '-f', type=str, required=True, nargs='+', help='path to file to parse')
-    parser.add_argument('--path', '-f', type=dir_path, required=True, nargs='+', help='path to file to parse')
-    # parser.add_argument('--database', '-d', action='store_true', required=False, help='triggers the use of a mysql database')
-    return parser.parse_args()
+# def parse_args(args):
+#     parser = argparse.ArgumentParser()
+#     # parser.add_argument('--file', '-f', type=str, required=True, nargs='+', help='path to file to parse')
+#     parser.add_argument('--path', '-f', type=dir_path, required=True, nargs='+', help='path to file to parse')
+#     # parser.add_argument('--database', '-d', action='store_true', required=False, help='triggers the use of a mysql database')
+#     return parser.parse_args()
 
 def main():
     #path = parse_args(sys.argv).path[0]
@@ -41,12 +42,13 @@ def main():
             unqNouns = len(total_nouns)
             sumNouns = Noun.calculate_num_nouns_occur(total_nouns)
 
-            # placeholders for now
+            # placeholders for now, need to fix
             totalTimeStr = "Total time: Uncomputed"
             costPerNounStr = "Cost per noun: Uncomputed"
         
             output_writers.to_csv(docInfo, totalTimeStr, costPerNounStr, total_nouns, unqNouns, sumNouns, file)
 
+    # Removed, old code, we need to fix the timer
     # args = parse_args(sys.argv[1:])
     
     # for file_path in args.file:
@@ -97,5 +99,6 @@ def main():
     # unit_tests.test_info_parsing()
     # unit_tests.test_sentence_punc()
 
-if __name__ == "__main__":
-    main()
+# Removed, use our program instead
+# if __name__ == "__main__":
+#     main()

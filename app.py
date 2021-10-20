@@ -18,8 +18,10 @@ def main():
     if response.lower() == 'y':
         parser.main() # Runs parser on new all files in \Parser\data
 
+    # TODO:
     # corpus.py: Use BootCaT to find related text and output to "extra_data" folder
-    # extraction.py: Run parser on BootCaT corpus'. Calculate frequency and weights of each term
+    # convert2PDF.py: Converts .txt to .pdf and saves to Parser\data
+    # extraction.py: Run parser on corpus in Parser\output. Calculate frequency and weights of each term
     # categorization.py: NER Tagger. Morpho-syntactic relations using oxford dictionary API
         
 if __name__ == "__main__":

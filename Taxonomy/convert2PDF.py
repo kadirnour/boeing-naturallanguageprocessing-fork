@@ -3,10 +3,8 @@ import os
 
 class fpdf:
    
+    # Converts .txt from BootCaT to .pdf to be used by parser
     def convert():
-
-        doConvert = False
-
         while True:
             path = os.getcwd() + '\\Taxonomy\\extra_data\\' # Assumes output will be in correctly place
             response = input('If you used BootCaT, what is the corpus name (name of folder in extra_data)? (Enter \'C\' to cancel) ')
@@ -16,7 +14,7 @@ class fpdf:
             if (response.lower() == 'c'):
                 break
 
-            try: 
+            try: # Checks if the corpus name is correct
                 folder = os.listdir(path)
             except:
                 print("wrong corpus name")
@@ -34,6 +32,6 @@ class fpdf:
                     for text in text_file:
                         pdf.cell(200, 10, txt=text, ln=1, align='L')
 
-                    pdf.output(os.getcwd() + '\\Parser\\data\\' + (file.split('/'))[-1][:-4] + '.pdf', 'F') # Changes doc name (shouldn't matter) and saves it to Parser\Data
+                    pdf.output(os.getcwd() + '\\Parser\\data\\' + (file.split('/'))[-1][:-4] + '.pdf', 'F') # Changes doc name (shouldn't matter) and saves it to Parser\data
                     #.encode('utf-8')
                 break
