@@ -1,0 +1,5 @@
+categories
+genres
+styles
+types
+videogames
