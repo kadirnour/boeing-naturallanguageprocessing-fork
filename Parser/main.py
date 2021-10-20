@@ -32,7 +32,6 @@ def main():
     folder = os.listdir(path)
  
     for file in folder:
-
             file_path = path + '\\' + file 
 
             # parse file
@@ -46,7 +45,7 @@ def main():
             totalTimeStr = "Total time: Uncomputed"
             costPerNounStr = "Cost per noun: Uncomputed"
         
-            output_writers.to_csv(docInfo, totalTimeStr, costPerNounStr, total_nouns, unqNouns, sumNouns)
+            output_writers.to_csv(docInfo, totalTimeStr, costPerNounStr, total_nouns, unqNouns, sumNouns, file)
 
     # args = parse_args(sys.argv[1:])
     

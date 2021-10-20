@@ -13,12 +13,14 @@ def main():
     if response == 'y':
         convert2PDF.fpdf.convert() # Converts txt to pdf
 
-    parser.main() # Runs parser on new BootCaT corpus
+    response = input('Create .csv of Nouns for documents? (Y) ')
+
+    if response.lower() == 'y':
+        parser.main() # Runs parser on new all files in \Parser\data
 
     # corpus.py: Use BootCaT to find related text and output to "extra_data" folder
     # extraction.py: Run parser on BootCaT corpus'. Calculate frequency and weights of each term
     # categorization.py: NER Tagger. Morpho-syntactic relations using oxford dictionary API
-        
         
 if __name__ == "__main__":
     main()

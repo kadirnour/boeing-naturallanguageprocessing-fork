@@ -4,12 +4,10 @@ class BootCaT:
    
     def gatherDocs():
         while True:
-            response = input('Would you like to open BootCaT? (Y/N) ')
-            if response.lower() == 'y':
-                subprocess.call('"C:\\Program Files\\BootCaT\\BootCaT.exe"') # Assumes this file location for BootCaT
-                return response # Also waits until BootCaT finishes before continuing
-            elif response.lower() == 'n':
-                return response
-            else:            
-                response = input('Would you like to open BootCaT? (Y/N)')
+            response = input('Would you like to open BootCaT? (Y) ')
 
+            #print('!Make sure to save corpora in \\Taxonomy\\extra_data and to remember the project name!')
+
+            if response.lower() == 'y':
+                subprocess.call('"C:\\Program Files\\BootCaT\\BootCaT.exe"') # Assumes this file location for BootCaT and waits until BootCaT finishes before continuing
+            return response

@@ -1,57 +1,39 @@
-import fpdf
+from fpdf import FPDF
 import os
 
 class fpdf:
    
     def convert():
-        path = os.getcwd() + '\\Taxonomy\\output\\' # Assumes output will be in correctly place
 
-        response = input('If you used BootCaT, what is the name of your project? (Enter nothing if you didn\'t) ')
-        
-        path = path + response
+        doConvert = False
 
-        try: 
-            folder = os.listdir(path)
-        except:
-            print("Wrong project name")
-    
-        for file in folder:
+        while True:
+            path = os.getcwd() + '\\Taxonomy\\extra_data\\' # Assumes output will be in correctly place
+            response = input('If you used BootCaT, what is the corpus name (name of folder in extra_data)? (Enter \'C\' to cancel) ')
+            path = path + response + '\\corpus'
+            folder = ''
 
-            file_path = path + '\\' + file 
+            if (response.lower() == 'c'):
+                break
 
-        # pdf = fpdf() 
-        # # create or add a page in pdf
-        # pdf.add_page() 
-        # # set font style and size for text 
-        # pdf.set_font('arial', size=10)
-        # # create cells and insert text in pdf
-        # # left aligned text
-        # pdf.cell(200, 10, txt="Line 1 (left aligned)",ln=1,align='L')
-        # # center aligned text
-        # pdf.cell(200, 10, txt="Line 2 (center aligned)",ln=1,align='C')
-        # # right aligned text
-        # pdf.cell(200, 10, txt="Line 3 (right aligned)",ln=1,align='R')
-        # # save the pdf with any_name.pdf 
-        # pdf.output('text_pdf.pdf')
+            try: 
+                folder = os.listdir(path)
+            except:
+                print("wrong corpus name")
 
+            if folder != '': 
+                for file in folder: # Gets every .txt file and converts it into a .pdf
+                    file_path = path + '\\' + file 
+                    pdf = FPDF()
+                    pdf.add_page()
+                    pdf.add_font('Arial', '', 'c:/windows/fonts/arial.ttf', uni=True)
+                    pdf.set_font("Arial", size = 10)
+                    text_file = open(file_path, 'r')
+                    #, encoding='utf-8')
 
-# path = os.getcwd() + '\\Parser\\data' # Gets path from assumed position instead of args
+                    for text in text_file:
+                        pdf.cell(200, 10, txt=text, ln=1, align='L')
 
-#     folder = os.listdir(path)
- 
-#     for file in folder:
-
-#             file_path = path + '\\' + file 
-
-#             # parse file
-#             docInfo, total_nouns, total_sentences = parsers.run_parsers(file_path)
-
-#             # calculate unique nouns, total nouns
-#             unqNouns = len(total_nouns)
-#             sumNouns = Noun.calculate_num_nouns_occur(total_nouns)
-
-#             # placeholders for now
-#             totalTimeStr = "Total time: Uncomputed"
-#             costPerNounStr = "Cost per noun: Uncomputed"
-        
-#             output_writers.to_csv(docInfo, totalTimeStr, costPerNounStr, total_nouns, unqNouns, sumNouns)
+                    pdf.output(os.getcwd() + '\\Parser\\data\\' + (file.split('/'))[-1][:-4] + '.pdf', 'F') # Changes doc name (shouldn't matter) and saves it to Parser\Data
+                    #.encode('utf-8')
+                break
