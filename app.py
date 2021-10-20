@@ -14,6 +14,9 @@ def main():
         convert2PDF.fpdf.convert() # Converts txt to pdf
 
     parser.main() # Runs parser on new BootCaT corpus
+    
+    #print to consel
+    print(extraction.Parsing.extract_frequencies_from_csv())
 
     # corpus.py: Use BootCaT to find related text and output to "extra_data" folder
     # extraction.py: Run parser on BootCaT corpus'. Calculate frequency and weights of each term
@@ -22,3 +25,4 @@ def main():
         
 if __name__ == "__main__":
     main()
+    
