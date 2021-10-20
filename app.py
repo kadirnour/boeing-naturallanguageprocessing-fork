@@ -12,11 +12,16 @@ def main():
 
     if response == 'y':
         convert2PDF.fpdf.convert() # Converts txt to pdf
-
+    
     response = input('Create .csv of Nouns for documents? (Y) ')
 
     if response.lower() == 'y':
         parser.main() # Runs parser on new all files in \Parser\data
+
+    response = input('Create dict of weights for terms? (Y) ')
+    
+    if response.lower() == 'y':
+        print(extraction.Parsing.extract_frequencies_from_csv())
 
     # TODO:
     # corpus.py: Use BootCaT to find related text and output to "extra_data" folder
@@ -26,3 +31,4 @@ def main():
         
 if __name__ == "__main__":
     main()
+    

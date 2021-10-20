@@ -4,6 +4,19 @@ import os
 
 # Output location
 output = os.getcwd() + '\\Parser\\output\\'  # Added \\parser to fix output location
+<<<<<<< HEAD
+
+def to_csv(docInfo, totalTimeStr, costPerNounStr, total_nouns, unqNouns, sumNouns):
+    # Open csv files to write to
+
+    #print(docInfo.document_name)
+    #print(docInfo.document_name)
+
+    if docInfo.document_name != None:
+        csv_name = docInfo.document_name + '_nouns.csv'
+    else:
+        csv_name = (docInfo.location.split('/'))[-1][:-4] + '_nouns.csv' # get name of file from file_path (removes ".pdf" too)
+=======
     
 def to_csv(docInfo, totalTimeStr, costPerNounStr, total_nouns, unqNouns, sumNouns, file): # Open csv files to write to
     # Removed, gets doc name from file name instead
@@ -11,6 +24,7 @@ def to_csv(docInfo, totalTimeStr, costPerNounStr, total_nouns, unqNouns, sumNoun
     #     csv_name = docInfo.document_name + '_nouns.csv'
     # else:
     #     csv_name = (docInfo.location.split('/'))[-1][:-4] + '_nouns.csv' # get name of file from file_path (removes ".pdf" too)
+>>>>>>> main
 
     csv_name = (file.split('/'))[-1][:-4] + '_nouns.csv' # Changed logic so that it uses file name instead of docInfo.document_name (removes ".pdf" too)
 
