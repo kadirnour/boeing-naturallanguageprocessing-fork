@@ -1,0 +1,30 @@
+,
+Unique nouns: 25, Total nouns: 33
+Total time: 0.922 sec,Cost per noun: 27.943 ms
+aircraft,"['While the 777 is one of the most technologically advanced commercial aircraft in \nthe world, pilots should always remember that the 777 is still a very large aircraft.', 'Therefore, large aircraft rules apply to the 777.', 'For instance, pilots should not try a \nvery short approach with very tight turns as if they were flying a 737 or other \nsmaller aircraft.']",4
+world,"['While the 777 is one of the most technologically advanced commercial aircraft in \nthe world, pilots should always remember that the 777 is still a very large aircraft.']",1
+pilot,"['While the 777 is one of the most technologically advanced commercial aircraft in \nthe world, pilots should always remember that the 777 is still a very large aircraft.', 'For instance, pilots should not try a \nvery short approach with very tight turns as if they were flying a 737 or other \nsmaller aircraft.', 'The 777’s power can offset some pilot errors, but the power can \nalso cause problems during tight maneuvers.']",3
+the most technologically advanced commercial aircraft,"['While the 777 is one of the most technologically advanced commercial aircraft in \nthe world, pilots should always remember that the 777 is still a very large aircraft.']",1
+the world,"['While the 777 is one of the most technologically advanced commercial aircraft in \nthe world, pilots should always remember that the 777 is still a very large aircraft.']",1
+pilots,"['While the 777 is one of the most technologically advanced commercial aircraft in \nthe world, pilots should always remember that the 777 is still a very large aircraft.', 'For instance, pilots should not try a \nvery short approach with very tight turns as if they were flying a 737 or other \nsmaller aircraft.']",2
+a very large aircraft,"['While the 777 is one of the most technologically advanced commercial aircraft in \nthe world, pilots should always remember that the 777 is still a very large aircraft.']",1
+rule,"['Therefore, large aircraft rules apply to the 777.']",1
+large aircraft rules,"['Therefore, large aircraft rules apply to the 777.']",1
+instance,"['For instance, pilots should not try a \nvery short approach with very tight turns as if they were flying a 737 or other \nsmaller aircraft.']",2
+approach,"['For instance, pilots should not try a \nvery short approach with very tight turns as if they were flying a 737 or other \nsmaller aircraft.']",1
+turn,"['For instance, pilots should not try a \nvery short approach with very tight turns as if they were flying a 737 or other \nsmaller aircraft.']",1
+"a 
+very short approach","['For instance, pilots should not try a \nvery short approach with very tight turns as if they were flying a 737 or other \nsmaller aircraft.']",1
+very tight turns,"['For instance, pilots should not try a \nvery short approach with very tight turns as if they were flying a 737 or other \nsmaller aircraft.']",1
+they,"['For instance, pilots should not try a \nvery short approach with very tight turns as if they were flying a 737 or other \nsmaller aircraft.']",1
+"a 737 or other 
+smaller aircraft","['For instance, pilots should not try a \nvery short approach with very tight turns as if they were flying a 737 or other \nsmaller aircraft.']",1
+power,"['The 777’s power can offset some pilot errors, but the power can \nalso cause problems during tight maneuvers.']",2
+error,"['The 777’s power can offset some pilot errors, but the power can \nalso cause problems during tight maneuvers.']",1
+problem,"['The 777’s power can offset some pilot errors, but the power can \nalso cause problems during tight maneuvers.']",1
+maneuver,"['The 777’s power can offset some pilot errors, but the power can \nalso cause problems during tight maneuvers.']",1
+the 777’s power,"['The 777’s power can offset some pilot errors, but the power can \nalso cause problems during tight maneuvers.']",1
+some pilot errors,"['The 777’s power can offset some pilot errors, but the power can \nalso cause problems during tight maneuvers.']",1
+the power,"['The 777’s power can offset some pilot errors, but the power can \nalso cause problems during tight maneuvers.']",1
+problems,"['The 777’s power can offset some pilot errors, but the power can \nalso cause problems during tight maneuvers.']",1
+tight maneuvers,"['The 777’s power can offset some pilot errors, but the power can \nalso cause problems during tight maneuvers.']",1

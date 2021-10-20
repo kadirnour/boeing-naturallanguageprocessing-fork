@@ -1,0 +1,6 @@
+BootCaT-1.42.msi filter=lfs diff=lfs merge=lfs -text
+*.exe filter=lfs diff=lfs merge=lfs -text
+C:/Users/blcsi/OneDrive/Desktop/pilot-operating-handbook-text-analysis-master/Taxonomy/downloads filter=lfs diff=lfs merge=lfs -text
+Taxonomy/downloads filter=lfs diff=lfs merge=lfs -text
+*.Taxonomy/downloads filter=lfs diff=lfs merge=lfs -text
+*./pilot-operating-handbook-text-analysis-master filter=lfs diff=lfs merge=lfs -text
