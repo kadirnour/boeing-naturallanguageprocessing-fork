@@ -13,7 +13,6 @@ class categorization:
         tagged_terms = tagger.tag(terms)
 
         [print(x) for x in terms]
-
         [print(x) for x in tagged_terms if x[1] != 'O']
 
         return tagged_terms
