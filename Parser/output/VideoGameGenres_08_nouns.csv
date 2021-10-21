@@ -1,166 +1,79 @@
-VideoGameGenres_08_nouns.csv,
-Unique nouns: 163, Total nouns: 313
+VideoGameGenres_08_nouns.csv
+Unique nouns: 76, Total nouns: 180
 Total time: Uncomputed,Cost per noun: Uncomputed
 replies,['3 Replies'],1
-3 replies,['3 Replies'],1
 classification,"['There are many classifications of video games.', 'These classifications are also known as genres.']",2
 video,"['There are many classifications of video games.', 'Video games can be classified into several distinct genres.', 'Video games are most often classified into groups that represent what kind of system they are played on, like games that are made for computer systems or games that are made for consoles.', 'Video games can be put into many different categories based on the way they are played.', '\n\nAction video games are games that usually emphasize physical challenges, including hand-eye coordination and reaction time.', ""\n\nShooter video games also test a players's speed and reaction time."", '\n\nAction-adventure games are video games that combines elements of the adventure game genre with various action game elements.', '\n\nAn adventure game is a video game in which the player assumes the role of protagonist in an interactive story driven by exploration and puzzle-solving.', 'Â\xa0Role-playing video games typically rely on a highly developed story and setting which is divided into a number of quests.', '\n\nSimulation video games are games that are designed to closely simulate aspects of a real or fictional reality.', '\n\nStrategy video games focus on careful planning and skillful resource management in order to achieve a Â\xa0goal.', '\n\nPuzzle video games require the player to solve logic puzzles or even navigate complex locations.', 'In addition, a video game can fit into many different genres.', 'For example, a video game called Grand Theft Auto has included basically all the genres within their video games.', 'Because of this, Grand Theft Auto has become the top selling franchise of a video game.']",16
 game,"['There are many classifications of video games.', 'Video games can be classified into several distinct genres.', 'Video games are most often classified into groups that represent what kind of system they are played on, like games that are made for computer systems or games that are made for consoles.', 'Video games can be put into many different categories based on the way they are played.', 'Shooter games like Call of Duty are much different then puzzle games like Tetris.', '\n\nAction video games are games that usually emphasize physical challenges, including hand-eye coordination and reaction time.', 'In most action games, the player typically controls the character of a protagonist.', 'The player wins the game by finishing a sequence of levels.', ""\n\nShooter video games also test a players's speed and reaction time."", 'Shooter games tend to focus on a character using some sort of weapon, usually a gun.', 'The purpose of shooter games is to shoot opponents and proceed through missions.', '\n\nAction-adventure games are video games that combines elements of the adventure game genre with various action game elements.', '\n\nAn adventure game is a video game in which the player assumes the role of protagonist in an interactive story driven by exploration and puzzle-solving.', 'Nearly all adventure games are designed for a single player.', '\n\nA role-playing game is a game in which players assume the roles of characters in fictional setting.', 'Â\xa0Role-playing video games typically rely on a highly developed story and setting which is divided into a number of quests.', '\n\nSimulation video games are games that are designed to closely simulate aspects of a real or fictional reality.', 'Majority of all games fits into this category.', '\n\nStrategy video games focus on careful planning and skillful resource management in order to achieve a Â\xa0goal.', 'These are also know as the thinking games.', '\n\nPuzzle video games require the player to solve logic puzzles or even navigate complex locations.', 'In addition, a video game can fit into many different genres.', 'The more genres a game includes, the better the player enjoys the game.', 'For example, a video game called Grand Theft Auto has included basically all the genres within their video games.', 'Because of this, Grand Theft Auto has become the top selling franchise of a video game.']",37
-many classifications,['There are many classifications of video games.'],1
-video games,"['There are many classifications of video games.', 'Video games can be classified into several distinct genres.', 'Video games are most often classified into groups that represent what kind of system they are played on, like games that are made for computer systems or games that are made for consoles.', 'Video games can be put into many different categories based on the way they are played.', '\n\nAction-adventure games are video games that combines elements of the adventure game genre with various action game elements.', '\n\nPuzzle video games require the player to solve logic puzzles or even navigate complex locations.']",6
 genre,"['These classifications are also known as genres.', 'Video games can be classified into several distinct genres.', '\n\nThese genre include action, shooter, action-adventure, adventure, role-playing, simulation, strategy, puzzles, cards, and race.', '\n\nAction-adventure games are video games that combines elements of the adventure game genre with various action game elements.', 'It is perhaps the broadest and most diverse genre in gaming.', '\n\nThe last to genres are cards and race which are self explanatory.', 'In addition, a video game can fit into many different genres.', 'The more genres a game includes, the better the player enjoys the game.', 'For example, a video game called Grand Theft Auto has included basically all the genres within their video games.']",9
-these classifications,['These classifications are also known as genres.'],1
-genres,"['These classifications are also known as genres.', '\n\nThe last to genres are cards and race which are self explanatory.']",2
-several distinct genres,['Video games can be classified into several distinct genres.'],1
 group,"['Video games are most often classified into groups that represent what kind of system they are played on, like games that are made for computer systems or games that are made for consoles.']",1
 kind,"['Video games are most often classified into groups that represent what kind of system they are played on, like games that are made for computer systems or games that are made for consoles.']",1
-system,"['Video games are most often classified into groups that represent what kind of system they are played on, like games that are made for computer systems or games that are made for consoles.']",3
+system,"['Video games are most often classified into groups that represent what kind of system they are played on, like games that are made for computer systems or games that are made for consoles.']",2
 computer,"['Video games are most often classified into groups that represent what kind of system they are played on, like games that are made for computer systems or games that are made for consoles.']",1
 console,"['Video games are most often classified into groups that represent what kind of system they are played on, like games that are made for computer systems or games that are made for consoles.']",1
-groups,"['Video games are most often classified into groups that represent what kind of system they are played on, like games that are made for computer systems or games that are made for consoles.']",1
-what kind,"['Video games are most often classified into groups that represent what kind of system they are played on, like games that are made for computer systems or games that are made for consoles.']",1
-they,"['Video games are most often classified into groups that represent what kind of system they are played on, like games that are made for computer systems or games that are made for consoles.', 'Video games can be put into many different categories based on the way they are played.']",2
-games,"['Video games are most often classified into groups that represent what kind of system they are played on, like games that are made for computer systems or games that are made for consoles.', '\n\nAction video games are games that usually emphasize physical challenges, including hand-eye coordination and reaction time.', '\n\nSimulation video games are games that are designed to closely simulate aspects of a real or fictional reality.']",4
-computer systems,"['Video games are most often classified into groups that represent what kind of system they are played on, like games that are made for computer systems or games that are made for consoles.']",1
-consoles,"['Video games are most often classified into groups that represent what kind of system they are played on, like games that are made for computer systems or games that are made for consoles.']",1
-action,"['\n\nThese genre include action, shooter, action-adventure, adventure, role-playing, simulation, strategy, puzzles, cards, and race.', '\n\nAction video games are games that usually emphasize physical challenges, including hand-eye coordination and reaction time.', 'In most action games, the player typically controls the character of a protagonist.', '\n\nAction-adventure games are video games that combines elements of the adventure game genre with various action game elements.']",7
-shooter,"['\n\nThese genre include action, shooter, action-adventure, adventure, role-playing, simulation, strategy, puzzles, cards, and race.']",2
-adventure,"['\n\nThese genre include action, shooter, action-adventure, adventure, role-playing, simulation, strategy, puzzles, cards, and race.', '\n\nAction-adventure games are video games that combines elements of the adventure game genre with various action game elements.', '\n\nAn adventure game is a video game in which the player assumes the role of protagonist in an interactive story driven by exploration and puzzle-solving.', 'Nearly all adventure games are designed for a single player.']",7
+action,"['\n\nThese genre include action, shooter, action-adventure, adventure, role-playing, simulation, strategy, puzzles, cards, and race.', '\n\nAction video games are games that usually emphasize physical challenges, including hand-eye coordination and reaction time.', 'In most action games, the player typically controls the character of a protagonist.', '\n\nAction-adventure games are video games that combines elements of the adventure game genre with various action game elements.']",6
+shooter,"['\n\nThese genre include action, shooter, action-adventure, adventure, role-playing, simulation, strategy, puzzles, cards, and race.']",1
+adventure,"['\n\nThese genre include action, shooter, action-adventure, adventure, role-playing, simulation, strategy, puzzles, cards, and race.', '\n\nAction-adventure games are video games that combines elements of the adventure game genre with various action game elements.', '\n\nAn adventure game is a video game in which the player assumes the role of protagonist in an interactive story driven by exploration and puzzle-solving.', 'Nearly all adventure games are designed for a single player.']",6
 role,"['\n\nThese genre include action, shooter, action-adventure, adventure, role-playing, simulation, strategy, puzzles, cards, and race.', '\n\nAn adventure game is a video game in which the player assumes the role of protagonist in an interactive story driven by exploration and puzzle-solving.', '\n\nA role-playing game is a game in which players assume the roles of characters in fictional setting.', 'Â\xa0Role-playing video games typically rely on a highly developed story and setting which is divided into a number of quests.']",5
 playing,"['\n\nThese genre include action, shooter, action-adventure, adventure, role-playing, simulation, strategy, puzzles, cards, and race.']",1
-simulation,"['\n\nThese genre include action, shooter, action-adventure, adventure, role-playing, simulation, strategy, puzzles, cards, and race.', '\n\nSimulation video games are games that are designed to closely simulate aspects of a real or fictional reality.']",3
-strategy,"['\n\nThese genre include action, shooter, action-adventure, adventure, role-playing, simulation, strategy, puzzles, cards, and race.', '\n\nStrategy video games focus on careful planning and skillful resource management in order to achieve a Â\xa0goal.']",3
+simulation,"['\n\nThese genre include action, shooter, action-adventure, adventure, role-playing, simulation, strategy, puzzles, cards, and race.', '\n\nSimulation video games are games that are designed to closely simulate aspects of a real or fictional reality.']",2
+strategy,"['\n\nThese genre include action, shooter, action-adventure, adventure, role-playing, simulation, strategy, puzzles, cards, and race.', '\n\nStrategy video games focus on careful planning and skillful resource management in order to achieve a Â\xa0goal.']",2
 puzzle,"['\n\nThese genre include action, shooter, action-adventure, adventure, role-playing, simulation, strategy, puzzles, cards, and race.', 'Shooter games like Call of Duty are much different then puzzle games like Tetris.', '\n\nAn adventure game is a video game in which the player assumes the role of protagonist in an interactive story driven by exploration and puzzle-solving.', '\n\nPuzzle video games require the player to solve logic puzzles or even navigate complex locations.']",4
 card,"['\n\nThese genre include action, shooter, action-adventure, adventure, role-playing, simulation, strategy, puzzles, cards, and race.', '\n\nThe last to genres are cards and race which are self explanatory.']",2
-race,"['\n\nThese genre include action, shooter, action-adventure, adventure, role-playing, simulation, strategy, puzzles, cards, and race.', '\n\nThe last to genres are cards and race which are self explanatory.']",4
-these genre,"['\n\nThese genre include action, shooter, action-adventure, adventure, role-playing, simulation, strategy, puzzles, cards, and race.']",1
-action-adventure,"['\n\nThese genre include action, shooter, action-adventure, adventure, role-playing, simulation, strategy, puzzles, cards, and race.']",1
-role-playing,"['\n\nThese genre include action, shooter, action-adventure, adventure, role-playing, simulation, strategy, puzzles, cards, and race.']",1
-puzzles,"['\n\nThese genre include action, shooter, action-adventure, adventure, role-playing, simulation, strategy, puzzles, cards, and race.']",1
-cards,"['\n\nThese genre include action, shooter, action-adventure, adventure, role-playing, simulation, strategy, puzzles, cards, and race.', '\n\nThe last to genres are cards and race which are self explanatory.']",2
+race,"['\n\nThese genre include action, shooter, action-adventure, adventure, role-playing, simulation, strategy, puzzles, cards, and race.', '\n\nThe last to genres are cards and race which are self explanatory.']",2
 category,"['Video games can be put into many different categories based on the way they are played.', 'Majority of all games fits into this category.']",2
 way,['Video games can be put into many different categories based on the way they are played.'],1
-many different categories,['Video games can be put into many different categories based on the way they are played.'],1
-the way,['Video games can be put into many different categories based on the way they are played.'],1
-call,['Shooter games like Call of Duty are much different then puzzle games like Tetris.'],2
-duty,['Shooter games like Call of Duty are much different then puzzle games like Tetris.'],2
-tetris,['Shooter games like Call of Duty are much different then puzzle games like Tetris.'],2
-shooter games,"['Shooter games like Call of Duty are much different then puzzle games like Tetris.', 'Shooter games tend to focus on a character using some sort of weapon, usually a gun.', 'The purpose of shooter games is to shoot opponents and proceed through missions.']",3
-much different then puzzle games,['Shooter games like Call of Duty are much different then puzzle games like Tetris.'],1
+call,['Shooter games like Call of Duty are much different then puzzle games like Tetris.'],1
+duty,['Shooter games like Call of Duty are much different then puzzle games like Tetris.'],1
+tetris,['Shooter games like Call of Duty are much different then puzzle games like Tetris.'],1
 challenge,"['\n\nAction video games are games that usually emphasize physical challenges, including hand-eye coordination and reaction time.']",1
 hand,"['\n\nAction video games are games that usually emphasize physical challenges, including hand-eye coordination and reaction time.']",1
 eye,"['\n\nAction video games are games that usually emphasize physical challenges, including hand-eye coordination and reaction time.']",1
 coordination,"['\n\nAction video games are games that usually emphasize physical challenges, including hand-eye coordination and reaction time.']",1
 reaction,"['\n\nAction video games are games that usually emphasize physical challenges, including hand-eye coordination and reaction time.', ""\n\nShooter video games also test a players's speed and reaction time.""]",2
 time,"['\n\nAction video games are games that usually emphasize physical challenges, including hand-eye coordination and reaction time.', ""\n\nShooter video games also test a players's speed and reaction time.""]",2
-action video games,"['\n\nAction video games are games that usually emphasize physical challenges, including hand-eye coordination and reaction time.']",1
-physical challenges,"['\n\nAction video games are games that usually emphasize physical challenges, including hand-eye coordination and reaction time.']",1
-hand-eye coordination,"['\n\nAction video games are games that usually emphasize physical challenges, including hand-eye coordination and reaction time.']",1
-reaction time,"['\n\nAction video games are games that usually emphasize physical challenges, including hand-eye coordination and reaction time.', ""\n\nShooter video games also test a players's speed and reaction time.""]",2
 player,"['In most action games, the player typically controls the character of a protagonist.', 'The player wins the game by finishing a sequence of levels.', ""\n\nShooter video games also test a players's speed and reaction time."", '\n\nAn adventure game is a video game in which the player assumes the role of protagonist in an interactive story driven by exploration and puzzle-solving.', 'Nearly all adventure games are designed for a single player.', '\n\nA role-playing game is a game in which players assume the roles of characters in fictional setting.', '\n\nPuzzle video games require the player to solve logic puzzles or even navigate complex locations.', 'The more genres a game includes, the better the player enjoys the game.']",8
 character,"['In most action games, the player typically controls the character of a protagonist.', 'The character must navigate a level, collecting objects, avoiding obstacles, and battling enemies with various attacks.', 'Shooter games tend to focus on a character using some sort of weapon, usually a gun.', '\n\nA role-playing game is a game in which players assume the roles of characters in fictional setting.']",4
-protagonist,"['In most action games, the player typically controls the character of a protagonist.', '\n\nAn adventure game is a video game in which the player assumes the role of protagonist in an interactive story driven by exploration and puzzle-solving.']",3
-most action games,"['In most action games, the player typically controls the character of a protagonist.']",1
-the player,"['In most action games, the player typically controls the character of a protagonist.', 'The player wins the game by finishing a sequence of levels.', '\n\nAn adventure game is a video game in which the player assumes the role of protagonist in an interactive story driven by exploration and puzzle-solving.', '\n\nPuzzle video games require the player to solve logic puzzles or even navigate complex locations.', 'The more genres a game includes, the better the player enjoys the game.']",5
-the character,"['In most action games, the player typically controls the character of a protagonist.', 'The character must navigate a level, collecting objects, avoiding obstacles, and battling enemies with various attacks.']",2
-a protagonist,"['In most action games, the player typically controls the character of a protagonist.']",1
+protagonist,"['In most action games, the player typically controls the character of a protagonist.', '\n\nAn adventure game is a video game in which the player assumes the role of protagonist in an interactive story driven by exploration and puzzle-solving.']",2
 level,"['The character must navigate a level, collecting objects, avoiding obstacles, and battling enemies with various attacks.', 'The player wins the game by finishing a sequence of levels.']",2
 object,"['The character must navigate a level, collecting objects, avoiding obstacles, and battling enemies with various attacks.']",1
 obstacle,"['The character must navigate a level, collecting objects, avoiding obstacles, and battling enemies with various attacks.']",1
 enemy,"['The character must navigate a level, collecting objects, avoiding obstacles, and battling enemies with various attacks.']",1
 attack,"['The character must navigate a level, collecting objects, avoiding obstacles, and battling enemies with various attacks.']",1
-a level,"['The character must navigate a level, collecting objects, avoiding obstacles, and battling enemies with various attacks.']",1
-objects,"['The character must navigate a level, collecting objects, avoiding obstacles, and battling enemies with various attacks.']",1
-obstacles,"['The character must navigate a level, collecting objects, avoiding obstacles, and battling enemies with various attacks.']",1
-enemies,"['The character must navigate a level, collecting objects, avoiding obstacles, and battling enemies with various attacks.']",1
-various attacks,"['The character must navigate a level, collecting objects, avoiding obstacles, and battling enemies with various attacks.']",1
 sequence,['The player wins the game by finishing a sequence of levels.'],1
-the game,"['The player wins the game by finishing a sequence of levels.', 'The more genres a game includes, the better the player enjoys the game.']",2
-a sequence,['The player wins the game by finishing a sequence of levels.'],1
-levels,['The player wins the game by finishing a sequence of levels.'],1
 speed,"[""\n\nShooter video games also test a players's speed and reaction time.""]",1
-shooter video games,"[""\n\nShooter video games also test a players's speed and reaction time.""]",1
-a players's speed,"[""\n\nShooter video games also test a players's speed and reaction time.""]",1
 sort,"['Shooter games tend to focus on a character using some sort of weapon, usually a gun.']",1
-weapon,"['Shooter games tend to focus on a character using some sort of weapon, usually a gun.']",2
+weapon,"['Shooter games tend to focus on a character using some sort of weapon, usually a gun.']",1
 gun,"['Shooter games tend to focus on a character using some sort of weapon, usually a gun.']",1
-a character,"['Shooter games tend to focus on a character using some sort of weapon, usually a gun.']",1
-some sort,"['Shooter games tend to focus on a character using some sort of weapon, usually a gun.']",1
-usually a gun,"['Shooter games tend to focus on a character using some sort of weapon, usually a gun.']",1
 purpose,['The purpose of shooter games is to shoot opponents and proceed through missions.'],1
 opponent,['The purpose of shooter games is to shoot opponents and proceed through missions.'],1
 mission,['The purpose of shooter games is to shoot opponents and proceed through missions.'],1
-the purpose,['The purpose of shooter games is to shoot opponents and proceed through missions.'],1
-opponents,['The purpose of shooter games is to shoot opponents and proceed through missions.'],1
-missions,['The purpose of shooter games is to shoot opponents and proceed through missions.'],1
 element,['\n\nAction-adventure games are video games that combines elements of the adventure game genre with various action game elements.'],2
-action-adventure games,['\n\nAction-adventure games are video games that combines elements of the adventure game genre with various action game elements.'],1
-elements,['\n\nAction-adventure games are video games that combines elements of the adventure game genre with various action game elements.'],1
-the adventure game genre,['\n\nAction-adventure games are video games that combines elements of the adventure game genre with various action game elements.'],1
-various action game elements,['\n\nAction-adventure games are video games that combines elements of the adventure game genre with various action game elements.'],1
-gaming,['It is perhaps the broadest and most diverse genre in gaming.'],2
-it,['It is perhaps the broadest and most diverse genre in gaming.'],1
-the broadest and most diverse genre,['It is perhaps the broadest and most diverse genre in gaming.'],1
+gaming,['It is perhaps the broadest and most diverse genre in gaming.'],1
 story,"['\n\nAn adventure game is a video game in which the player assumes the role of protagonist in an interactive story driven by exploration and puzzle-solving.', 'Â\xa0Role-playing video games typically rely on a highly developed story and setting which is divided into a number of quests.']",2
-exploration,['\n\nAn adventure game is a video game in which the player assumes the role of protagonist in an interactive story driven by exploration and puzzle-solving.'],2
+exploration,['\n\nAn adventure game is a video game in which the player assumes the role of protagonist in an interactive story driven by exploration and puzzle-solving.'],1
 solving,['\n\nAn adventure game is a video game in which the player assumes the role of protagonist in an interactive story driven by exploration and puzzle-solving.'],1
-an adventure game,['\n\nAn adventure game is a video game in which the player assumes the role of protagonist in an interactive story driven by exploration and puzzle-solving.'],1
-a video game,"['\n\nAn adventure game is a video game in which the player assumes the role of protagonist in an interactive story driven by exploration and puzzle-solving.', 'In addition, a video game can fit into many different genres.', 'For example, a video game called Grand Theft Auto has included basically all the genres within their video games.', 'Because of this, Grand Theft Auto has become the top selling franchise of a video game.']",4
-the role,['\n\nAn adventure game is a video game in which the player assumes the role of protagonist in an interactive story driven by exploration and puzzle-solving.'],1
-an interactive story,['\n\nAn adventure game is a video game in which the player assumes the role of protagonist in an interactive story driven by exploration and puzzle-solving.'],1
-puzzle-solving,['\n\nAn adventure game is a video game in which the player assumes the role of protagonist in an interactive story driven by exploration and puzzle-solving.'],1
-nearly all adventure games,['Nearly all adventure games are designed for a single player.'],1
-a single player,['Nearly all adventure games are designed for a single player.'],1
-setting,"['\n\nA role-playing game is a game in which players assume the roles of characters in fictional setting.', 'Â\xa0Role-playing video games typically rely on a highly developed story and setting which is divided into a number of quests.']",3
-a role-playing game,['\n\nA role-playing game is a game in which players assume the roles of characters in fictional setting.'],1
-a game,"['\n\nA role-playing game is a game in which players assume the roles of characters in fictional setting.', 'The more genres a game includes, the better the player enjoys the game.']",2
-players,['\n\nA role-playing game is a game in which players assume the roles of characters in fictional setting.'],1
-the roles,['\n\nA role-playing game is a game in which players assume the roles of characters in fictional setting.'],1
-characters,['\n\nA role-playing game is a game in which players assume the roles of characters in fictional setting.'],1
-fictional setting,['\n\nA role-playing game is a game in which players assume the roles of characters in fictional setting.'],1
+setting,"['\n\nA role-playing game is a game in which players assume the roles of characters in fictional setting.', 'Â\xa0Role-playing video games typically rely on a highly developed story and setting which is divided into a number of quests.']",2
 â,"['Â\xa0Role-playing video games typically rely on a highly developed story and setting which is divided into a number of quests.', '\n\nStrategy video games focus on careful planning and skillful resource management in order to achieve a Â\xa0goal.']",2
 number,['Â\xa0Role-playing video games typically rely on a highly developed story and setting which is divided into a number of quests.'],1
 quest,['Â\xa0Role-playing video games typically rely on a highly developed story and setting which is divided into a number of quests.'],1
-â role-playing video games,['Â\xa0Role-playing video games typically rely on a highly developed story and setting which is divided into a number of quests.'],1
-a highly developed story,['Â\xa0Role-playing video games typically rely on a highly developed story and setting which is divided into a number of quests.'],1
-a number,['Â\xa0Role-playing video games typically rely on a highly developed story and setting which is divided into a number of quests.'],1
-quests,['Â\xa0Role-playing video games typically rely on a highly developed story and setting which is divided into a number of quests.'],1
 aspect,['\n\nSimulation video games are games that are designed to closely simulate aspects of a real or fictional reality.'],1
 reality,['\n\nSimulation video games are games that are designed to closely simulate aspects of a real or fictional reality.'],1
-simulation video games,['\n\nSimulation video games are games that are designed to closely simulate aspects of a real or fictional reality.'],1
-aspects,['\n\nSimulation video games are games that are designed to closely simulate aspects of a real or fictional reality.'],1
-a real or fictional reality,['\n\nSimulation video games are games that are designed to closely simulate aspects of a real or fictional reality.'],1
-majority,['Majority of all games fits into this category.'],2
-all games,['Majority of all games fits into this category.'],1
-this category,['Majority of all games fits into this category.'],1
+majority,['Majority of all games fits into this category.'],1
 planning,['\n\nStrategy video games focus on careful planning and skillful resource management in order to achieve a Â\xa0goal.'],1
 resource,['\n\nStrategy video games focus on careful planning and skillful resource management in order to achieve a Â\xa0goal.'],1
 management,['\n\nStrategy video games focus on careful planning and skillful resource management in order to achieve a Â\xa0goal.'],1
-order,['\n\nStrategy video games focus on careful planning and skillful resource management in order to achieve a Â\xa0goal.'],2
+order,['\n\nStrategy video games focus on careful planning and skillful resource management in order to achieve a Â\xa0goal.'],1
 goal,['\n\nStrategy video games focus on careful planning and skillful resource management in order to achieve a Â\xa0goal.'],1
-strategy video games,['\n\nStrategy video games focus on careful planning and skillful resource management in order to achieve a Â\xa0goal.'],1
-careful planning,['\n\nStrategy video games focus on careful planning and skillful resource management in order to achieve a Â\xa0goal.'],1
-skillful resource management,['\n\nStrategy video games focus on careful planning and skillful resource management in order to achieve a Â\xa0goal.'],1
-a â goal,['\n\nStrategy video games focus on careful planning and skillful resource management in order to achieve a Â\xa0goal.'],1
 thinking,['These are also know as the thinking games.'],1
-the thinking games,['These are also know as the thinking games.'],1
 logic,['\n\nPuzzle video games require the player to solve logic puzzles or even navigate complex locations.'],1
 location,['\n\nPuzzle video games require the player to solve logic puzzles or even navigate complex locations.'],1
-logic puzzles,['\n\nPuzzle video games require the player to solve logic puzzles or even navigate complex locations.'],1
-complex locations,['\n\nPuzzle video games require the player to solve logic puzzles or even navigate complex locations.'],1
 self,['\n\nThe last to genres are cards and race which are self explanatory.'],1
-addition,"['In addition, a video game can fit into many different genres.']",2
-many different genres,"['In addition, a video game can fit into many different genres.']",1
-the more genres,"['The more genres a game includes, the better the player enjoys the game.']",1
-example,"['For example, a video game called Grand Theft Auto has included basically all the genres within their video games.']",2
+addition,"['In addition, a video game can fit into many different genres.']",1
+example,"['For example, a video game called Grand Theft Auto has included basically all the genres within their video games.']",1
 grand,"['For example, a video game called Grand Theft Auto has included basically all the genres within their video games.', 'Because of this, Grand Theft Auto has become the top selling franchise of a video game.']",2
 theft,"['For example, a video game called Grand Theft Auto has included basically all the genres within their video games.', 'Because of this, Grand Theft Auto has become the top selling franchise of a video game.']",2
 auto,"['For example, a video game called Grand Theft Auto has included basically all the genres within their video games.', 'Because of this, Grand Theft Auto has become the top selling franchise of a video game.']",2
-grand theft auto,"['For example, a video game called Grand Theft Auto has included basically all the genres within their video games.', 'Because of this, Grand Theft Auto has become the top selling franchise of a video game.']",2
-basically all the genres,"['For example, a video game called Grand Theft Auto has included basically all the genres within their video games.']",1
-their video games,"['For example, a video game called Grand Theft Auto has included basically all the genres within their video games.']",1
 franchise,"['Because of this, Grand Theft Auto has become the top selling franchise of a video game.']",1
-the top selling franchise,"['Because of this, Grand Theft Auto has become the top selling franchise of a video game.']",1
 entry,['\n\nThis entry was posted in Uncategorized on'],1
-uncategorized,['\n\nThis entry was posted in Uncategorized on'],2
-this entry,['\n\nThis entry was posted in Uncategorized on'],1
+uncategorized,['\n\nThis entry was posted in Uncategorized on'],1
