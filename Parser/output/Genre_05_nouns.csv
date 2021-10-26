@@ -1,0 +1,99 @@
+Genre_05_nouns.csv
+Unique nouns: 96, Total nouns: 167
+Total time: Uncomputed,Cost per noun: Uncomputed
+video,"['Get informed about the major video game categories.', '\n\nThere are eight major video game categories:\n\nAction\n\nAction games tend to have a large amount of violence due to their fast-paced nature.']",2
+game,"['Get informed about the major video game categories.', '\n\nThere are eight major video game categories:\n\nAction\n\nAction games tend to have a large amount of violence due to their fast-paced nature.', 'This is the category that most ""M"" (mature-rated) games fall under which are inappropriate for children.', 'Some games are milder but may contain suggestive themes.', 'Action games may pit person against person or person against animal/alien.', 'Some examples of such problematic games include Halo, Star Wars:', 'Adventure and Role Playing\n\nAdventure and role playing games are usually less graphic than action games and typically have an element of surrealism and/or fantasy.', 'Many times these games are combined with a role playing element and allow the character to initiate dialogue.', 'While less intense than action games, they often do include violence.', 'It should be noted that these games tend to be among the most addictive due to the narrative fantasy themes.', 'Arcade\n\nArcade games can be almost anything from the violent Street Fighter to the classic Pacman.', 'This category includes games that cover the entire spectrum of ratings.', 'Many older arcade games have been updated and turned 3-D.', '\n\nStrategy\n\nStrategy games most often involve tactical movement of troops and/or players.', 'These games may be warfare based or may be as simple as chess.', 'The content of many of these games can be appropriate for children but they tend to be difficult to play.', '\n\nSimulation\n\nSimulation games are often aircraft simulations.', 'Some games in this category include Secret Weapons Over Normandy and SimCity.', '\n\nDriving\n\nDriving games are most often racing, but some are also crash derby or mission-based.', 'Some of these games are Project Gotham Racing, ATV Offroad Fury, and the highly offensive Grand Theft Auto.', ""Puzzle games are almost never rated higher than 'E' (for everyone)."", 'A common puzzle game is Tetris.', 'Many games incorporate puzzle aspects but are not true puzzles.', 'Some of the puzzle-incorporating games fall under Action or Role-Playing.']",26
+category,"['Get informed about the major video game categories.', '\n\nThere are eight major video game categories:\n\nAction\n\nAction games tend to have a large amount of violence due to their fast-paced nature.', 'This is the category that most ""M"" (mature-rated) games fall under which are inappropriate for children.', 'This category includes games that cover the entire spectrum of ratings.', 'Some games in this category include Secret Weapons Over Normandy and SimCity.']",5
+action,"['\n\nThere are eight major video game categories:\n\nAction\n\nAction games tend to have a large amount of violence due to their fast-paced nature.', 'Action games may pit person against person or person against animal/alien.', 'Adventure and Role Playing\n\nAdventure and role playing games are usually less graphic than action games and typically have an element of surrealism and/or fantasy.', 'While less intense than action games, they often do include violence.', 'Some of the puzzle-incorporating games fall under Action or Role-Playing.']",6
+amount,['\n\nThere are eight major video game categories:\n\nAction\n\nAction games tend to have a large amount of violence due to their fast-paced nature.'],1
+violence,"['\n\nThere are eight major video game categories:\n\nAction\n\nAction games tend to have a large amount of violence due to their fast-paced nature.', 'While less intense than action games, they often do include violence.']",2
+nature,['\n\nThere are eight major video game categories:\n\nAction\n\nAction games tend to have a large amount of violence due to their fast-paced nature.'],1
+m,"['This is the category that most ""M"" (mature-rated) games fall under which are inappropriate for children.']",1
+child,"['This is the category that most ""M"" (mature-rated) games fall under which are inappropriate for children.', 'The content of many of these games can be appropriate for children but they tend to be difficult to play.']",2
+milder,['Some games are milder but may contain suggestive themes.'],1
+theme,"['Some games are milder but may contain suggestive themes.', 'It should be noted that these games tend to be among the most addictive due to the narrative fantasy themes.']",2
+person,['Action games may pit person against person or person against animal/alien.'],3
+animal,['Action games may pit person against person or person against animal/alien.'],1
+example,"['Some examples of such problematic games include Halo, Star Wars:', 'Examples of this genre are Starfox Adventures, Final Fantasy, Legend of Mana and Billy Hatcher.', 'Some examples are Pacman, Soul Caliber 2 and Frogger.', 'Some examples are Advanced Wars I & II and ChessmasterÂ® 2000.']",4
+halo,"['Some examples of such problematic games include Halo, Star Wars:']",1
+star,"['Some examples of such problematic games include Halo, Star Wars:']",1
+wars,"['Some examples of such problematic games include Halo, Star Wars:', 'Some examples are Advanced Wars I & II and ChessmasterÂ® 2000.']",2
+jedi,['Jedi Knight and Enter the Matrix.'],1
+knight,['Jedi Knight and Enter the Matrix.'],1
+matrix,['Jedi Knight and Enter the Matrix.'],1
+adventure,['Adventure and Role Playing\n\nAdventure and role playing games are usually less graphic than action games and typically have an element of surrealism and/or fantasy.'],2
+role,"['Adventure and Role Playing\n\nAdventure and role playing games are usually less graphic than action games and typically have an element of surrealism and/or fantasy.', 'Many times these games are combined with a role playing element and allow the character to initiate dialogue.', 'Some of the puzzle-incorporating games fall under Action or Role-Playing.']",4
+playing,"['Adventure and Role Playing\n\nAdventure and role playing games are usually less graphic than action games and typically have an element of surrealism and/or fantasy.', 'Some of the puzzle-incorporating games fall under Action or Role-Playing.']",3
+element,"['Adventure and Role Playing\n\nAdventure and role playing games are usually less graphic than action games and typically have an element of surrealism and/or fantasy.', 'Many times these games are combined with a role playing element and allow the character to initiate dialogue.']",2
+surrealism,['Adventure and Role Playing\n\nAdventure and role playing games are usually less graphic than action games and typically have an element of surrealism and/or fantasy.'],1
+fantasy,"['Adventure and Role Playing\n\nAdventure and role playing games are usually less graphic than action games and typically have an element of surrealism and/or fantasy.', 'It should be noted that these games tend to be among the most addictive due to the narrative fantasy themes.', 'Examples of this genre are Starfox Adventures, Final Fantasy, Legend of Mana and Billy Hatcher.']",3
+time,"['Many times these games are combined with a role playing element and allow the character to initiate dialogue.', 'Combat is often slower paced and allows time for strategic thinking.', 'Players usually get a choice of car and get better and better cars over time.']",3
+character,['Many times these games are combined with a role playing element and allow the character to initiate dialogue.'],1
+dialogue,['Many times these games are combined with a role playing element and allow the character to initiate dialogue.'],1
+genre,"['Examples of this genre are Starfox Adventures, Final Fantasy, Legend of Mana and Billy Hatcher.']",1
+starfox,"['Examples of this genre are Starfox Adventures, Final Fantasy, Legend of Mana and Billy Hatcher.']",1
+adventures,"['Examples of this genre are Starfox Adventures, Final Fantasy, Legend of Mana and Billy Hatcher.']",1
+final,"['Examples of this genre are Starfox Adventures, Final Fantasy, Legend of Mana and Billy Hatcher.']",1
+legend,"['Examples of this genre are Starfox Adventures, Final Fantasy, Legend of Mana and Billy Hatcher.']",1
+mana,"['Examples of this genre are Starfox Adventures, Final Fantasy, Legend of Mana and Billy Hatcher.']",1
+billy,"['Examples of this genre are Starfox Adventures, Final Fantasy, Legend of Mana and Billy Hatcher.']",1
+hatcher,"['Examples of this genre are Starfox Adventures, Final Fantasy, Legend of Mana and Billy Hatcher.']",1
+arcade,"['Arcade\n\nArcade games can be almost anything from the violent Street Fighter to the classic Pacman.', 'Many older arcade games have been updated and turned 3-D.']",3
+street,['Arcade\n\nArcade games can be almost anything from the violent Street Fighter to the classic Pacman.'],1
+fighter,['Arcade\n\nArcade games can be almost anything from the violent Street Fighter to the classic Pacman.'],1
+pacman,"['Arcade\n\nArcade games can be almost anything from the violent Street Fighter to the classic Pacman.', 'Some examples are Pacman, Soul Caliber 2 and Frogger.']",2
+spectrum,['This category includes games that cover the entire spectrum of ratings.'],1
+rating,['This category includes games that cover the entire spectrum of ratings.'],1
+d.,['Many older arcade games have been updated and turned 3-D.'],1
+soul,"['Some examples are Pacman, Soul Caliber 2 and Frogger.']",1
+caliber,"['Some examples are Pacman, Soul Caliber 2 and Frogger.']",1
+frogger,"['Some examples are Pacman, Soul Caliber 2 and Frogger.']",1
+strategy,['\n\nStrategy\n\nStrategy games most often involve tactical movement of troops and/or players.'],2
+movement,['\n\nStrategy\n\nStrategy games most often involve tactical movement of troops and/or players.'],1
+troop,['\n\nStrategy\n\nStrategy games most often involve tactical movement of troops and/or players.'],1
+player,"['\n\nStrategy\n\nStrategy games most often involve tactical movement of troops and/or players.', 'Players usually get a choice of car and get better and better cars over time.']",2
+warfare,['These games may be warfare based or may be as simple as chess.'],1
+chess,['These games may be warfare based or may be as simple as chess.'],1
+content,['The content of many of these games can be appropriate for children but they tend to be difficult to play.'],1
+combat,['Combat is often slower paced and allows time for strategic thinking.'],1
+thinking,"['Combat is often slower paced and allows time for strategic thinking.', 'They all take thinking and logic skills.']",2
+advanced,['Some examples are Advanced Wars I & II and ChessmasterÂ® 2000.'],1
+i,['Some examples are Advanced Wars I & II and ChessmasterÂ® 2000.'],1
+ii,['Some examples are Advanced Wars I & II and ChessmasterÂ® 2000.'],1
+®,['Some examples are Advanced Wars I & II and ChessmasterÂ® 2000.'],1
+simulation,['\n\nSimulation\n\nSimulation games are often aircraft simulations.'],3
+aircraft,['\n\nSimulation\n\nSimulation games are often aircraft simulations.'],1
+jet,['You get to fly a jet or a helicopter.'],1
+helicopter,['You get to fly a jet or a helicopter.'],1
+destruction,['Most have nothing more to them other than the destruction of enemies; rarely they use excessive language.'],1
+enemy,['Most have nothing more to them other than the destruction of enemies; rarely they use excessive language.'],1
+language,['Most have nothing more to them other than the destruction of enemies; rarely they use excessive language.'],1
+secret,['Some games in this category include Secret Weapons Over Normandy and SimCity.'],1
+weapons,['Some games in this category include Secret Weapons Over Normandy and SimCity.'],1
+normandy,['Some games in this category include Secret Weapons Over Normandy and SimCity.'],1
+simcity,['Some games in this category include Secret Weapons Over Normandy and SimCity.'],1
+driving,"['\n\nDriving\n\nDriving games are most often racing, but some are also crash derby or mission-based.']",1
+derby,"['\n\nDriving\n\nDriving games are most often racing, but some are also crash derby or mission-based.']",1
+mission,"['\n\nDriving\n\nDriving games are most often racing, but some are also crash derby or mission-based.']",1
+choice,['Players usually get a choice of car and get better and better cars over time.'],1
+car,['Players usually get a choice of car and get better and better cars over time.'],2
+project,"['Some of these games are Project Gotham Racing, ATV Offroad Fury, and the highly offensive Grand Theft Auto.']",1
+gotham,"['Some of these games are Project Gotham Racing, ATV Offroad Fury, and the highly offensive Grand Theft Auto.']",1
+racing,"['Some of these games are Project Gotham Racing, ATV Offroad Fury, and the highly offensive Grand Theft Auto.']",1
+atv,"['Some of these games are Project Gotham Racing, ATV Offroad Fury, and the highly offensive Grand Theft Auto.']",1
+offroad,"['Some of these games are Project Gotham Racing, ATV Offroad Fury, and the highly offensive Grand Theft Auto.']",1
+fury,"['Some of these games are Project Gotham Racing, ATV Offroad Fury, and the highly offensive Grand Theft Auto.']",1
+grand,"['Some of these games are Project Gotham Racing, ATV Offroad Fury, and the highly offensive Grand Theft Auto.']",1
+theft,"['Some of these games are Project Gotham Racing, ATV Offroad Fury, and the highly offensive Grand Theft Auto.']",1
+auto,"['Some of these games are Project Gotham Racing, ATV Offroad Fury, and the highly offensive Grand Theft Auto.']",1
+puzzle,"['\n\nPuzzle', ""Puzzle games are almost never rated higher than 'E' (for everyone)."", 'A common puzzle game is Tetris.', 'Many games incorporate puzzle aspects but are not true puzzles.', 'Some of the puzzle-incorporating games fall under Action or Role-Playing.']",6
+e,"[""Puzzle games are almost never rated higher than 'E' (for everyone).""]",1
+logic,['They all take thinking and logic skills.'],1
+skill,"['They all take thinking and logic skills.', 'Many others are Tetris-like or involve color matching skills.']",2
+tetris,"['A common puzzle game is Tetris.', 'Many others are Tetris-like or involve color matching skills.']",2
+other,['Many others are Tetris-like or involve color matching skills.'],1
+color,['Many others are Tetris-like or involve color matching skills.'],1
+matching,['Many others are Tetris-like or involve color matching skills.'],1
+aspect,['Many games incorporate puzzle aspects but are not true puzzles.'],1
+cta,['\n\nDynamic CTA Template'],1
+template,['\n\nDynamic CTA Template'],1

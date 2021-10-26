@@ -1,0 +1,6 @@
+Create New
+Since video games are visual by definition, it's of course important to see what's going on. Save for the rare invisible enemy or Interface Screw , not being able to see what you need in a game can make it frustrating instead of fun.
+When dealing with 2D graphics, it's relatively simple to make the viewing clear. Everything's on a single plane, and then it's just a matter of designing the levels well. Even in faux 3D, it's still on a single plane. Heck, even in the earliest Polygonal Graphics , either movement was limited, the levels were auto-scrolled, or the games were in first person.
+Advertisement:
+But then third person 3D graphics advanced enough to allow free movement, and it stopped being simple. It turned out no matter the view chosen, even the best designed games were at risk for Camera Screw (and with not-so-well designed games, it was a certainty). Thus it could become vital to not only design levels for best visibility, but also to choose the best camera. Should the camera be locked, or should the player have control over the camera? And if the latter, which kind of control?
+So as you can see, there are lots of choices for how a developer shows a game, "But choose wisely" .

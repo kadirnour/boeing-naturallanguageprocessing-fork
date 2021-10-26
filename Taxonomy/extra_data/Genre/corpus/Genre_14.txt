@@ -1,0 +1,57 @@
+Popularity of mobile game art styles and genres – data breakdown
+Erno Kiiski, Chief Game Analyst - US
+24 March
+| Game Design , Genres
+It's been over two years since we last took a look at the visual elements of top mobile games on the market, so we thought it would be time to see if there had been any changes in the market. We'll deep dive into which game art styles and genres are rocking the US, Chinese and Japanese markets, breaking data down on a game category level to understand their popularity in different game types.
+Editor's note: This blog post was originally published in February 2019. The data and the analyses were updated on March 2021.
+The data and examples shown here are gathered from the GameRefinery service, which you can access here . If you're interested in researching over 200 in-game features, their popularity, and implementations or checking out feature deconstructions of hundreds of games, you might want to pay a visit!
+Before diving deeper, it's good to understand how we at GameRefinery view the mobile game market in terms of genres and game types. In order to classify games in a meaningful way, we take into consideration games' feature-set, theme, and defining mechanics. This creates a three-layered taxonomy where every game has one (and only one) i) Category → ii) Genre → iii) Subgenre. For example, Summoners War would go under Mid-core → RPG → Turn-based RPG.
+Here's a visual representation of our categories, genres, and subgenres to help you get a better idea of our taxonomy. If you want to read more about our mobile game genre taxonomy, we highly recommend checking out our blog post on the topic ! In this post, we'll stick to the (highest) category level when going through the data.
+GameRefinery's Genre Taxonomy
+So what are game art genres?
+Game art genres describe the world and the era/age in which the game takes place.
+For example, the artistic genre of a game about knights, castles, and catapults set in a realistic world similar to ours would be Realistic – Historic. But if there are also wizards, trolls, and dragons, the genre would be Fantasy.
+First, let's get an overview of the 200 top-grossing games in all three markets in 2021 vs. 2019.
+Comparison:
+Sci-fi's not too hot of an art genre in any of the major markets.
+Realistic – Modern is much more popular in the US compared to Asian markets.
+Other includes games that don't fit into any other art genre, e.g., Angry Birds. Before, the genre was even more prevalent in the US than in Asia, but it's been increasing its share in China and Japan during these past two years.
+In Asia, historic themes seem to be more popular (Three Kingdoms and Japanese Edo-era games are the most common).
+Hybrid themes (e.g., mixing Fantasy + Sci-fi) are more popular in Asian markets, especially in Japan.
+Breaking down game art genres into categories
+Let's now look at art genre stats in terms of our categories to see which art genres are popular in what kinds of games.
+Comparison:
+In two years, the number of Mid-Core games in the top 200 has decreased in the US, making Casual distinctly bigger than Mid-Core (in terms of the number of games in the top 200). In comparison, Japan and China are dominated by Mid-core games.
+Around 30% of Mid-core games in the US and Japan are Fantasy themed, but the number is even higher in China, with over 60%.
+Pretty much all Realistic – Historic games are Mid-Core games.
+Hybrid games (where there's a mix of different genres, e.g., Fantasy + Sci-fi) have the strongest showing in Japan, covering around a fifth of Mid-core games.
+Sports & Racing games are dominated by Realistic – Modern across almost all markets. There are only a couple of games outside this art genre in all three markets combined.
+The number of Casino games in the top 200 grossing has increased significantly in the US between 2019 and 2021. In Asia, we can see a slight increase in Casino games in China, but the genre is not that popular in Japan. Most of the Casino games are Realistic – Modern art genre.
+How about game art styles then?
+Game art styles describe the visual style of characters, buildings, items, etc., within the game.
+Let's take another look at the top three markets.
+When comparing game art style popularity between 2019 and 2021, not much has changed in the US and China markets. The US market is almost evenly split between Realistic and Cartoon game art styles, as Manga hasn't been able to garner that much attention. The Chinese market is more equal in this regard, where the biggest share goes to Realistic with Manga and Cartoon following closely. The most significant change between 2019 and 2021 has happened in Japan market, where the Cartoon art style has taken up shares from Manga. Still, Manga is the art style of choice in 54% of the top 200 games. The last 46% is pretty evenly shared by Realistic and "western" Cartoon styles.
+Comparison:
+Manga rules Japan and has a significant share in China as well, but it only has a minor share in the US.
+Cartoon style is easily the most popular in the US compared to other markets.
+Realistic is clearly not as popular style choice in Japan as it is in the US and China.
+Breaking down game art styles into categories
+The Cartoon style dominates the US Casual market with over 77% share, whereas the Realistic style is the most popular in other categories.
+In China, Manga and Realistic game art styles are near equally represented in Mid-Core. But in Casual games, Cartoon and Manga are dominating, and Realistic style art is almost non-existent.
+In Japan, Manga is the most prominent art style in the two biggest categories (Casual, Mid-Core). However, the Cartoon art style has been gaining more and more popularity in the Casual category, which has also been the trend in other markets.
+Comparison:
+Casual games don't use Realistic art almost at all in Asia, but in the US, it has a 27% share.
+Only 50% of Sports & Racing games in Japan are Realistic when the share is far more significant in the US and China.
+Almost all of the US' Manga-styled games are Mid-Core games.
+Art genre + art style
+Finally, let's look at art genres and art styles together.
+When looking at the current situation, the number of games that use the Realistic – Modern art genre has increased about 20% in the US top 200 grossing since 2019. In comparison, the number of games that use the Fantasy art genre has decreased by about a third in two years. Moreover, the Realistic art style has previously been the most popular style in the Fantasy art genre, but now Cartoon has replaced Realistic as the most popular one.
+In 2019, the Realistic – Modern and Fantasy art genres were almost equally popular in Japan's top 200 grossing, but now in 2021, Realistic – Modern is clearly the most popular one. However, both art genres have grown smaller in terms of the number of games in the top 200 grossing, while, for instance, the Realistic – History art genre is now much bigger than in 2019.
+Comparison:
+Manga style is the most used in Hybrid games in all markets (even in the US).
+In 2019, very few Realistic – Historical or Sci-fi games had Cartoon art in any market. However, in 2021, we can see a small increase in the use of Cartoon art within these art genres.
+Games with Other art genre are more or less exclusively Cartoon styled.
+Did we see a shift?
+This research provides us with a general overview of the current market situation. When we compare the situation between 2019 and 2021, not much has changed in terms of art style and genre popularity. Nevertheless, it will be interesting to see if the market will be the same after five years or more.
+Two years ago, we were speculating if Mario Kart's release would bring more Cartoon styled games to Sports & Racing in its wake or would we see a surge in the popularity of the Sci-fi genre, which is quite popular in other entertainment mediums. Now, after two years, we can say that neither of these speculations did happen. Nonetheless, we'll be following the future market developments closely here at GameRefinery.
+Are you interested in doing market research of your own? You can use our Market Explorer to mix and match any of over 200 mobile game features to conduct similar research with just a couple of clicks. Sign up here .

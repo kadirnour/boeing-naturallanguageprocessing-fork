@@ -17,11 +17,12 @@ class categorization:
         # [print(x) for x in terms]
         # [print(x) for x in tagged_terms if x[1] != 'O']
 
-        # after NER remove terms
+        #after NER remove terms
 
-        # get term syn
-        # check syn ag terms[i]
-        # if match then add term to d
+        #get term syn
+        #check syn ag terms[i]
+        #if match then add term to d
+        
 
         for term in terms:
             response = requests.get(url + term)
@@ -38,6 +39,6 @@ class categorization:
             except:
                 pass
 
-        print(cat)
+            print(cat)
 
         # term: [term syn]

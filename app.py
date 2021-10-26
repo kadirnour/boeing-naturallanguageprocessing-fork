@@ -10,15 +10,15 @@ from Parser import main as parser
 
 
 def main():
-    # response = corpus.BootCaT.gatherDocs()  # Opens BootCaT app
+    response = corpus.BootCaT.gatherDocs()  # Opens BootCaT app
 
-    # if response == 'y':
-    #     convert2PDF.fpdf.convert()  # Converts txt to pdf
+    if response == 'y':
+        convert2PDF.fpdf.convert()  # Converts txt to pdf
 
-    # response = input('Create .csv of Nouns for documents? (Y) ')
+    response = input('Create .csv of Nouns for documents? (Y) ')
 
-    # if response.lower() == 'y':
-    #     parser.main()  # Runs parser on new all files in \Parser\data
+    if response.lower() == 'y':
+        parser.main()  # Runs parser on new all files in \Parser\data
 
     response = input('Create dict of weights for terms? (Y) ')
 

@@ -1,0 +1,10 @@
+types genres styles
+videogames genres styles
+categories types styles
+genres videogames types
+categories types videogames
+genres categories videogames
+genres styles categories
+videogames types styles
+types categories genres
+categories styles videogames

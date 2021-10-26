@@ -1,0 +1,116 @@
+Genre_03_nouns.csv
+Unique nouns: 113, Total nouns: 189
+Total time: Uncomputed,Cost per noun: Uncomputed
+shutterstock,"[""Shutterstock /  Iryna Tiumentseva\n\nToday's computer games are loaded with action, and there are many different categories or genres of games.""]",1
+iryna,"[""Shutterstock /  Iryna Tiumentseva\n\nToday's computer games are loaded with action, and there are many different categories or genres of games.""]",1
+tiumentseva,"[""Shutterstock /  Iryna Tiumentseva\n\nToday's computer games are loaded with action, and there are many different categories or genres of games.""]",1
+today,"[""Shutterstock /  Iryna Tiumentseva\n\nToday's computer games are loaded with action, and there are many different categories or genres of games.""]",1
+computer,"[""Shutterstock /  Iryna Tiumentseva\n\nToday's computer games are loaded with action, and there are many different categories or genres of games."", 'Here is some information that will help you to better understand the various computer game genres.']",2
+game,"[""Shutterstock /  Iryna Tiumentseva\n\nToday's computer games are loaded with action, and there are many different categories or genres of games."", 'But, many games can be considered to be more than one genre.', 'For instance, a soccer game could be considered a sports game, as well as a simulation game.', 'Here is some information that will help you to better understand the various computer game genres.', 'Massively Multiplayer Online (MMO)\n\nThese games are played over a LAN (local area network) or via the Internet.', 'Players use a network and interact with other players in the virtual game room.', 'The creation of these games involves thousands of hours of programming, giving you, the player, the most amazing gaming experience possible.', 'Simulations\n\nThese games involve taking control of real-world vehicles, including tanks, ships, and aircraft.', 'You learn how to control these vehicles, and use simulation games that can also be used to train professionals.', 'These are usually single player games, and are often set in fantasy or adventure worlds.', 'The game generally starts with a back story of your character, and let you know what your mission is.', 'For these games, you usually need to build up your inventory of items, armies, etc.', 'Similar to a strategy game, RTS games move in real-time, and players can play at once without taking turns so you can play together at the same time.', 'These games appeal to those who love to solve difficult puzzles .', 'There are many levels, from beginner to expert, and games usually have coloured shapes and simple actions.', 'These are brain games, with no action involved.', 'You need to be fast to enjoy these fast-paced games, and you need to have excellent reflexes.', 'These tend to be war games or spy-based games, where you use stealth to defeat your enemies.', 'You are the protagonist, and the game is viewed through your eyes .', 'You can really get into these games.', 'The only downfall is that you are not able to see how you look in the game, because you are seeing things through your own eyes.', 'As you work up through the various skill levels, your game will involve mimicking real professional athletes and how they move.', 'The most popular sports games are usually based around specific popular sporting events.', 'Role-Playing (RPG)\n\nIf you love fantasy, you will love role-playing games.', ""You get to act out the part of the main character, be the hero, etc., and make decisions that go along with the games' story lines."", 'Many of these games have narrative guides.', 'Educational\n\nWhile many parents and teachers complain about video games, there are some great educational games out there that can help with the learning process.', 'Train in a variety of subjects, using games to make learning fun instead of boring.', 'The most common types of education games are for math, science, and ICT.']",35
+action,"[""Shutterstock /  Iryna Tiumentseva\n\nToday's computer games are loaded with action, and there are many different categories or genres of games."", 'There are many levels, from beginner to expert, and games usually have coloured shapes and simple actions.', 'These are brain games, with no action involved.', 'Action', 'Complete challenges by fighting with enemies, and use a character of your choice to represent yourself and jump into the action.']",5
+category,"[""Shutterstock /  Iryna Tiumentseva\n\nToday's computer games are loaded with action, and there are many different categories or genres of games.""]",1
+genre,"[""Shutterstock /  Iryna Tiumentseva\n\nToday's computer games are loaded with action, and there are many different categories or genres of games."", 'But, many games can be considered to be more than one genre.', 'Here is some information that will help you to better understand the various computer game genres.']",3
+instance,"['For instance, a soccer game could be considered a sports game, as well as a simulation game.']",1
+soccer,"['For instance, a soccer game could be considered a sports game, as well as a simulation game.', 'Sports\n\nPlay real-world sports like baseball, basketball, soccer, and more.']",2
+sport,"['For instance, a soccer game could be considered a sports game, as well as a simulation game.', 'Sports\n\nPlay real-world sports like baseball, basketball, soccer, and more.', 'The most popular sports games are usually based around specific popular sporting events.']",4
+simulation,"['For instance, a soccer game could be considered a sports game, as well as a simulation game.', 'Simulations\n\nThese games involve taking control of real-world vehicles, including tanks, ships, and aircraft.', 'You learn how to control these vehicles, and use simulation games that can also be used to train professionals.']",3
+information,['Here is some information that will help you to better understand the various computer game genres.'],1
+multiplayer,['Massively Multiplayer Online (MMO)\n\nThese games are played over a LAN (local area network) or via the Internet.'],1
+online,['Massively Multiplayer Online (MMO)\n\nThese games are played over a LAN (local area network) or via the Internet.'],1
+mmo,['Massively Multiplayer Online (MMO)\n\nThese games are played over a LAN (local area network) or via the Internet.'],1
+lan,['Massively Multiplayer Online (MMO)\n\nThese games are played over a LAN (local area network) or via the Internet.'],1
+area,['Massively Multiplayer Online (MMO)\n\nThese games are played over a LAN (local area network) or via the Internet.'],1
+network,"['Massively Multiplayer Online (MMO)\n\nThese games are played over a LAN (local area network) or via the Internet.', 'Players use a network and interact with other players in the virtual game room.']",2
+internet,['Massively Multiplayer Online (MMO)\n\nThese games are played over a LAN (local area network) or via the Internet.'],1
+player,"['Players use a network and interact with other players in the virtual game room.', 'The creation of these games involves thousands of hours of programming, giving you, the player, the most amazing gaming experience possible.', 'These are usually single player games, and are often set in fantasy or adventure worlds.', 'Similar to a strategy game, RTS games move in real-time, and players can play at once without taking turns so you can play together at the same time.']",5
+room,['Players use a network and interact with other players in the virtual game room.'],1
+people,['You can play against people from all over the world.'],1
+world,"['You can play against people from all over the world.', 'Simulations\n\nThese games involve taking control of real-world vehicles, including tanks, ships, and aircraft.', 'These are usually single player games, and are often set in fantasy or adventure worlds.', 'Sports\n\nPlay real-world sports like baseball, basketball, soccer, and more.']",4
+creation,"['The creation of these games involves thousands of hours of programming, giving you, the player, the most amazing gaming experience possible.']",1
+thousand,"['The creation of these games involves thousands of hours of programming, giving you, the player, the most amazing gaming experience possible.']",1
+hour,"['The creation of these games involves thousands of hours of programming, giving you, the player, the most amazing gaming experience possible.']",1
+programming,"['The creation of these games involves thousands of hours of programming, giving you, the player, the most amazing gaming experience possible.']",1
+gaming,"['The creation of these games involves thousands of hours of programming, giving you, the player, the most amazing gaming experience possible.']",1
+experience,"['The creation of these games involves thousands of hours of programming, giving you, the player, the most amazing gaming experience possible.']",1
+control,"['Simulations\n\nThese games involve taking control of real-world vehicles, including tanks, ships, and aircraft.', 'You need good reflexes, and the ability to use the controls for all kinds of fighting moves.']",2
+vehicle,"['Simulations\n\nThese games involve taking control of real-world vehicles, including tanks, ships, and aircraft.', 'You learn how to control these vehicles, and use simulation games that can also be used to train professionals.']",2
+tank,"['Simulations\n\nThese games involve taking control of real-world vehicles, including tanks, ships, and aircraft.']",1
+ship,"['Simulations\n\nThese games involve taking control of real-world vehicles, including tanks, ships, and aircraft.']",1
+aircraft,"['Simulations\n\nThese games involve taking control of real-world vehicles, including tanks, ships, and aircraft.']",1
+professional,"['You learn how to control these vehicles, and use simulation games that can also be used to train professionals.']",1
+fact,"['In fact, many pilots are trained using airplane simulators before they actually take flight.\n\n3.']",1
+pilot,"['In fact, many pilots are trained using airplane simulators before they actually take flight.\n\n3.']",1
+airplane,"['In fact, many pilots are trained using airplane simulators before they actually take flight.\n\n3.']",1
+simulator,"['In fact, many pilots are trained using airplane simulators before they actually take flight.\n\n3.']",1
+flight,"['In fact, many pilots are trained using airplane simulators before they actually take flight.\n\n3.']",1
+adventure,"['Adventure', 'These are usually single player games, and are often set in fantasy or adventure worlds.']",2
+fantasy,"['These are usually single player games, and are often set in fantasy or adventure worlds.', 'Role-Playing (RPG)\n\nIf you love fantasy, you will love role-playing games.']",2
+puzzle,"['You complete puzzles to advance levels.', 'Puzzle', 'These games appeal to those who love to solve difficult puzzles .']",3
+advance,['You complete puzzles to advance levels.'],1
+level,"['You complete puzzles to advance levels.', 'There are many levels, from beginner to expert, and games usually have coloured shapes and simple actions.', 'As you work up through the various skill levels, your game will involve mimicking real professional athletes and how they move.']",3
+story,"['The game generally starts with a back story of your character, and let you know what your mission is.', ""You get to act out the part of the main character, be the hero, etc., and make decisions that go along with the games' story lines.""]",2
+character,"['The game generally starts with a back story of your character, and let you know what your mission is.', 'Complete challenges by fighting with enemies, and use a character of your choice to represent yourself and jump into the action.', ""You get to act out the part of the main character, be the hero, etc., and make decisions that go along with the games' story lines.""]",3
+mission,"['The game generally starts with a back story of your character, and let you know what your mission is.', 'You have to figure out how to complete the mission.']",2
+time,"['Real-Time Strategy (RTS)', 'Similar to a strategy game, RTS games move in real-time, and players can play at once without taking turns so you can play together at the same time.']",3
+strategy,"['Real-Time Strategy (RTS)', 'Similar to a strategy game, RTS games move in real-time, and players can play at once without taking turns so you can play together at the same time.']",2
+rts,"['Real-Time Strategy (RTS)', 'Similar to a strategy game, RTS games move in real-time, and players can play at once without taking turns so you can play together at the same time.']",2
+inventory,"['For these games, you usually need to build up your inventory of items, armies, etc.']",1
+item,"['For these games, you usually need to build up your inventory of items, armies, etc.']",1
+army,"['For these games, you usually need to build up your inventory of items, armies, etc.']",1
+turn,"['Similar to a strategy game, RTS games move in real-time, and players can play at once without taking turns so you can play together at the same time.']",1
+beginner,"['There are many levels, from beginner to expert, and games usually have coloured shapes and simple actions.']",1
+expert,"['There are many levels, from beginner to expert, and games usually have coloured shapes and simple actions.']",1
+shape,"['There are many levels, from beginner to expert, and games usually have coloured shapes and simple actions.']",1
+brain,"['These are brain games, with no action involved.']",1
+reflex,"['You need to be fast to enjoy these fast-paced games, and you need to have excellent reflexes.', 'You need good reflexes, and the ability to use the controls for all kinds of fighting moves.']",2
+challenge,"['Complete challenges by fighting with enemies, and use a character of your choice to represent yourself and jump into the action.']",1
+enemy,"['Complete challenges by fighting with enemies, and use a character of your choice to represent yourself and jump into the action.', 'These tend to be war games or spy-based games, where you use stealth to defeat your enemies.']",2
+choice,"['Complete challenges by fighting with enemies, and use a character of your choice to represent yourself and jump into the action.', 'There are testing functions, where you can answer multiple choice questions.']",2
+stealth,['Stealth Shooter'],1
+shooter,['Stealth Shooter'],1
+war,"['These tend to be war games or spy-based games, where you use stealth to defeat your enemies.']",1
+spy,"['These tend to be war games or spy-based games, where you use stealth to defeat your enemies.']",1
+combat,"['Combat\n\nFight one on one with opponents, up close and personal.']",1
+opponent,"['Combat\n\nFight one on one with opponents, up close and personal.']",1
+ability,"['You need good reflexes, and the ability to use the controls for all kinds of fighting moves.']",1
+kind,"['You need good reflexes, and the ability to use the controls for all kinds of fighting moves.']",1
+move,"['You need good reflexes, and the ability to use the controls for all kinds of fighting moves.']",1
+person,['First Person Shooters (FPS)'],1
+shooters,['First Person Shooters (FPS)'],1
+fps,['First Person Shooters (FPS)'],1
+protagonist,"['You are the protagonist, and the game is viewed through your eyes .']",1
+eye,"['You are the protagonist, and the game is viewed through your eyes .', 'The only downfall is that you are not able to see how you look in the game, because you are seeing things through your own eyes.']",2
+downfall,"['The only downfall is that you are not able to see how you look in the game, because you are seeing things through your own eyes.']",1
+thing,"['The only downfall is that you are not able to see how you look in the game, because you are seeing things through your own eyes.']",1
+baseball,"['Sports\n\nPlay real-world sports like baseball, basketball, soccer, and more.']",1
+basketball,"['Sports\n\nPlay real-world sports like baseball, basketball, soccer, and more.']",1
+skill,"['As you work up through the various skill levels, your game will involve mimicking real professional athletes and how they move.']",1
+athlete,"['As you work up through the various skill levels, your game will involve mimicking real professional athletes and how they move.']",1
+sporting,['The most popular sports games are usually based around specific popular sporting events.'],1
+event,['The most popular sports games are usually based around specific popular sporting events.'],1
+role,"['Role-Playing (RPG)\n\nIf you love fantasy, you will love role-playing games.']",2
+playing,"['Role-Playing (RPG)\n\nIf you love fantasy, you will love role-playing games.']",1
+rpg,"['Role-Playing (RPG)\n\nIf you love fantasy, you will love role-playing games.']",1
+part,"[""You get to act out the part of the main character, be the hero, etc., and make decisions that go along with the games' story lines.""]",1
+hero,"[""You get to act out the part of the main character, be the hero, etc., and make decisions that go along with the games' story lines.""]",1
+decision,"[""You get to act out the part of the main character, be the hero, etc., and make decisions that go along with the games' story lines.""]",1
+line,"[""You get to act out the part of the main character, be the hero, etc., and make decisions that go along with the games' story lines.""]",1
+narrative,['Many of these games have narrative guides.'],1
+guide,['Many of these games have narrative guides.'],1
+parent,"['Educational\n\nWhile many parents and teachers complain about video games, there are some great educational games out there that can help with the learning process.']",1
+teacher,"['Educational\n\nWhile many parents and teachers complain about video games, there are some great educational games out there that can help with the learning process.']",1
+video,"['Educational\n\nWhile many parents and teachers complain about video games, there are some great educational games out there that can help with the learning process.']",1
+learning,"['Educational\n\nWhile many parents and teachers complain about video games, there are some great educational games out there that can help with the learning process.']",1
+process,"['Educational\n\nWhile many parents and teachers complain about video games, there are some great educational games out there that can help with the learning process.']",1
+train,"['Train in a variety of subjects, using games to make learning fun instead of boring.']",1
+variety,"['Train in a variety of subjects, using games to make learning fun instead of boring.']",1
+subject,"['Train in a variety of subjects, using games to make learning fun instead of boring.']",1
+fun,"['Train in a variety of subjects, using games to make learning fun instead of boring.']",1
+testing,"['There are testing functions, where you can answer multiple choice questions.']",1
+function,"['There are testing functions, where you can answer multiple choice questions.']",1
+question,"['There are testing functions, where you can answer multiple choice questions.']",1
+type,"['The most common types of education games are for math, science, and ICT.']",1
+education,"['The most common types of education games are for math, science, and ICT.']",1
+math,"['The most common types of education games are for math, science, and ICT.']",1
+science,"['The most common types of education games are for math, science, and ICT.']",1
+ict,"['The most common types of education games are for math, science, and ICT.']",1

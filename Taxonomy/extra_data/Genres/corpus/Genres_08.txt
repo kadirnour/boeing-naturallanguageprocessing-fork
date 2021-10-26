@@ -1,0 +1,28 @@
+Sep 25, 2018 · 4 min read
+The multi-billion dollar video game industry is booming: it is growing at several times the rate of the overall economy. The industry generates revenues from gaming content, in-game purchases, and hardware and accessories for better gameplay. Games are played on computers, mobile devices, and dedicated gaming consoles.
+Games can be organized by gameplay characteristics, objective type, and subject type (for example, sports, action, or racing).
+This post seeks to provide non-gamers with an overview of the industry's most commonly used abbreviations: FPS, RTS, MOBA, RPG, MMO, and MMORPG (among others).
+FPS: First Person Shooter
+Action games are currently the most popular genre of games, and FPS games form the most popular sub-genre within action games. FPS games feature three dimensional environments and are centered around weapon-based combat in the first-person perspective (so that the player sees the environment as the character would see it).
+A first person shooter game.
+TPS or Third Person Shooters are similar to FPS games, except that the player views the character they are controlling from behind.
+RTS: Real Time Strategy
+In RTS games, players maneuver units under their control to defeat their opponents' assets and secure key areas on a map. In most environments, it is possible to create more population units and to build civilian and military structures within the game. Collection of a resource is usually a major key to achieving these goals. For example, controlling a gold mine within a game allows a player to fund the construction of buildings and the creation (or training) of new population units, which are in turn helpful in future missions. The tasks a player must perform to succeed in an RTS game usually grow in complexity as the levels progress.
+0 AD is a real time strategy game.
+MOBA: Multiplayer Online Battle Arena
+In MOBA games, the player controls a single character in a team, which competes with other teams in an environment. The objective is usually to destroy computer-generated entities and to defeat other teams in the environment. In most MOBA games, each player assumes a specific role on the team. Various roles exist in these environments. For example, 'support' roles provide peripheral assistance to a team and its allies, for example by distracting or slightly harming enemies while the central members of the team fight them.
+Vain Glory is a multiplayer online battle arena game.
+MOBA games are a fusion of action games, role playing games and real time strategy games. MOBA is often referred to as 'A-RTS' or action real-time strategy, though 'strategy' in this case refers to how a team collaborates and plays the map to succeed.
+RPG: Role Playing Game
+In RPGs, a player controls the actions of a character in a well-defined fantasy or science fiction universe. Players can often do things that are not possible in real life. The aim is usually for the player to complete a series of quests to reach the conclusion of a central storyline. In these environments, character development occurs through narrative elements and storytelling. Most RPGs include comprehensive 3D experiences.
+Final Fantasy is a role playing game.
+MMO: Massively Multiplayer Online
+MMO games usually feature enormous persistent open worlds and have thousands of users playing on the same server. These games require network-capable platforms such as smart phones, computers, and internet-connected game consoles.
+In MMOs, players can cooperate and interact with one another on a large scale. There are MMOs across a range of different gameplay types and genres. MMOs can be FPS, RPG, or RTS, across fields as diverse as combat, sports, racing, social, and others.
+DC Universe Online is an example of an MMO.
+MMORPG: Massively Multiplayer Online Role Playing Games
+MMORPGs are a combination of MMOs and RPGs. They feature very large numbers of players interacting with one another in a constantly open virtual world.
+The player assumes the role of a character and can collaborate or compete with other players in the game's persistent world. The world continues to exist and evolve while the player is offline or away from the game. Popular MMORPGs are based on fantasy themes that include elements of crime, sorcery, and science fiction. Some MMORPG communities have developed their own sub-cultures that have their own slang, influencers, and social rules.
+World of Warcraft is a popular MMORPG with over 10 million subscribers.
+Conclusion
+As the video game industry continues to grow rapidly and globally, these game genres will continue to evolve. As computing power grows and as virtual reality and augmented reality technology becomes mainstream, more complex gaming environments will become possible.
