@@ -88,7 +88,7 @@ def extract_pdf_text(pdf):
     page_text = []
 
     for page in pdf.pages:
-        if (page.extract_text() != None):  # Skips empty pages
+        if (page.extract_text() != None):  # Skips empty pages MAKE THIS INTO AN EXCEPTION!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             text = page.extract_text().rstrip()
             page_text.append(text)
 
