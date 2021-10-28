@@ -10,6 +10,8 @@ from Parser import main as parser
 
 
 def main():
+    parser.main()
+
     # response = corpus.BootCaT.gatherDocs()  # Opens BootCaT app
 
     # if response == 'y':
@@ -26,8 +28,7 @@ def main():
     #     parsed_terms = extraction.Parsing.extract_frequencies_from_csv()
     #     categorization.categorization.term_categorization(
     #         list(parsed_terms.keys()))
-    
-    parser.main()
+
 
 
 if __name__ == "__main__":

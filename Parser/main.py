@@ -5,7 +5,7 @@ from Parser import Spacy
 #import database
 #import csv
 #import time
-#from Taxonomy import 
+# from Taxonomy import
 from Parser import noun as Noun
 import sys
 from Parser import output_writers
@@ -13,9 +13,10 @@ from Parser import output_writers
 
 import os
 from Parser import NLTK
+from pathlib import Path
 
 # Removed, use our program launcher instead and enter locations through command line
-# def dir_path(path): 
+# def dir_path(path):
 #     if os.path.isdir(path):
 #         return path
 #     else:
@@ -28,32 +29,56 @@ from Parser import NLTK
 #     # parser.add_argument('--database', '-d', action='store_true', required=False, help='triggers the use of a mysql database')
 #     return parser.parse_args()
 
+
 def main():
+
+    print('starting')
     #path = parse_args(sys.argv).path[0]
-    path = os.getcwd() + '\\Parser\\data' # Gets path from assumed position instead of args
+    # Gets path from assumed position instead of args
 
-    folder = os.listdir(path)
- 
-    for file in folder:
-            file_path = path + '\\' + file 
+    # path = os.getcwd() + '\\Parser\\data'
+    # folder = os.listdir(path)
 
-            # parse file
-            docInfo, total_nouns, total_sentences = Spacy.run_parsers(file_path)
-            #docInfo, total_nouns, total_sentences = NLTK.run_parsers(file_path)
+    data = Path('Parser/data')
 
-            # calculate unique nouns, total nouns
-            unqNouns = len(total_nouns)
-            sumNouns = Noun.calculate_num_nouns_occur(total_nouns)
+    for file in data.iterdir():
+        #docInfo, total_nouns, total_sentences = parsers.run_parsers(file)
 
-            # placeholders for now, need to fix
-            totalTimeStr = "Total time: Uncomputed"
-            costPerNounStr = "Cost per noun: Uncomputed"
-        
-            output_writers.to_csv(docInfo, totalTimeStr, costPerNounStr, total_nouns, unqNouns, sumNouns, file)
+        # parse file
+        docInfo, total_nouns, total_sentences = Spacy.run_parsers(file)
+        #docInfo, total_nouns, total_sentences = NLTK.run_parsers(file_path)
+
+        # calculate unique nouns, total nouns
+        unqNouns = len(total_nouns)
+        sumNouns = Noun.calculate_num_nouns_occur(total_nouns)
+
+        # placeholders for now, need to fix
+        totalTimeStr = "Total time: Uncomputed"
+        costPerNounStr = "Cost per noun: Uncomputed"
+
+        output_writers.to_csv(
+            docInfo, totalTimeStr, costPerNounStr, total_nouns, unqNouns, sumNouns, file)
+
+    # for file in folder:
+    #     file_path = path + '\\' + file
+
+    #     # parse file
+    #     docInfo, total_nouns, total_sentences = parsers.run_parsers(file_path)
+
+    #     # calculate unique nouns, total nouns
+    #     unqNouns = len(total_nouns)
+    #     sumNouns = Noun.calculate_num_nouns_occur(total_nouns)
+
+    #     # placeholders for now, need to fix
+    #     totalTimeStr = "Total time: Uncomputed"
+    #     costPerNounStr = "Cost per noun: Uncomputed"
+
+    #     output_writers.to_csv(
+    #         docInfo, totalTimeStr, costPerNounStr, total_nouns, unqNouns, sumNouns, file)
 
     # Removed, old code, we need to fix the timer
     # args = parse_args(sys.argv[1:])
-    
+
     # for file_path in args.file:
     #     if not parsers.validate_file(file_path):
     #         continue
@@ -75,7 +100,7 @@ def main():
     #     # calculate cost per noun in milliseconds
     #     costPerNoun = (elapsedTime * 1000) / sumNouns
     #     costPerNounStr = "Cost per noun: " + str(round(costPerNoun, 3)) + " ms" # used in .csv file
-    
+
     #     if args.database is True:
     #         # Get server information from user and create a new database in the server
     #         (session_host, session_user, session_password) = database.get_server_info()
@@ -97,11 +122,10 @@ def main():
     #         print("Data has been successfully exported to the database %s", db_name)
     #     else:
     #         output_writers.to_csv(docInfo, totalTimeStr, costPerNounStr, total_nouns, unqNouns, sumNouns)
-    
+
     # unit_tests.test_accuracy()
     # unit_tests.test_info_parsing()
     # unit_tests.test_sentence_punc()
-
 # Removed, use our program instead
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()

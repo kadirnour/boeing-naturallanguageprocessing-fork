@@ -282,7 +282,7 @@ returns: the sentences, info, and nouns from a file
 
 
 def run_parsers(file_path):
-    print("Processing file: " + file_path)
+    print("Processing file: " + file_path.name)
     # get the file extension
     #extension = os.path.splitext(file_path)[1]
 

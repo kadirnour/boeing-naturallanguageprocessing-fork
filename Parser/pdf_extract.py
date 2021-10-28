@@ -14,14 +14,14 @@ returns: a pdf object
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
 def open_pdf(fname):
-    print("Opening " + fname)
+    print("Opening " + fname.name)
 
     # check for valid path and extension
-    if not path.exists(fname):
-        print("File " + fname + " does not exist. Exiting...")
+    if not fname.exists():
+        print("File " + fname.name + " does not exist. Exiting...")
         exit()
-    elif not fname.endswith('.pdf'):
-        print("File " + fname + " is not a pdf. Exiting...")
+    elif not fname.suffix == ".pdf":
+        print("File " + fname.name + " is not a pdf. Exiting...")
         exit()
 
     # open pdf
