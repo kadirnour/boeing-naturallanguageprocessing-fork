@@ -38,7 +38,7 @@ def main():
     # path = os.getcwd() + '\\Parser\\data'
     # folder = os.listdir(path)
 
-    data = Path('parser/data')
+    data = Path('Parser/data')
 
     for file in data.iterdir():
         docInfo, total_nouns, total_sentences = parsers.run_parsers(file)
