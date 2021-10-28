@@ -218,29 +218,29 @@ def get_nouns(sentences):
                     new_noun = Noun.Noun(noun_text, sentence.text.rstrip())
                     total_nouns.append(new_noun)
 
-        # for chunk in sentence.noun_chunks:
+        for chunk in sentence.noun_chunks:
 
-        #     #if chunk.like_num: # skips over numbers
-        #         #continue
+            # if chunk.like_num: # skips over numbers
+            # continue
 
-        #     noun_text = chunk.text.lstrip()
-        #     noun_text = noun_text.rstrip()
-        #     noun_text = noun_text.lower()  # Make it lower case
+            noun_text = chunk.text.lstrip()
+            noun_text = noun_text.rstrip()
+            noun_text = noun_text.lower()  # Make it lower case
 
-        #     found = False
-        #     for noun in total_nouns:
-        #         if noun.text == noun_text:
-        #             found = True
-        #             break
+            found = False
+            for noun in total_nouns:
+                if noun.text == noun_text:
+                    found = True
+                    break
 
-        #     if found:
-        #         # if there's an object already, we'll update the object accordingly
-        #         noun.add_occur(sentence.text.rstrip())
+            if found:
+                # if there's an object already, we'll update the object accordingly
+                noun.add_occur(sentence.text.rstrip())
 
-        #     else:
-        #         # if not, we'll create a new noun object for it
-        #         new_noun = Noun.Noun(noun_text, sentence.text.rstrip())
-        #         total_nouns.append(new_noun)
+            else:
+                # if not, we'll create a new noun object for it
+                new_noun = Noun.Noun(noun_text, sentence.text.rstrip())
+                total_nouns.append(new_noun)
 
     return total_nouns
 
