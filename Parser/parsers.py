@@ -6,7 +6,6 @@ document into sentences and nouns
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
 import os
-from os import path
 from Parser import noun as Noun
 #from noun import Noun
 import pdfplumber
@@ -28,19 +27,19 @@ returns: a pdf object
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
 
-def open_pdf(fname):
-    print("Opening " + fname)
+def open_pdf(file):
+    print("Opening " + file.name)
 
     # check for valid path and extension
-    if not path.exists(fname):
-        print("File " + fname + " does not exist. Exiting...")
+    if not file.exists():
+        print("File " + file.name + " does not exist. Exiting...")
         exit()
-    elif not fname.endswith('.pdf'):
-        print("File " + fname + " is not a pdf. Exiting...")
+    elif file.suffix != '.pdf':
+        print("File " + file.name + " is not a pdf. Exiting...")
         exit()
 
     # open pdf
-    pdf = pdfplumber.open(fname)
+    pdf = pdfplumber.open(file)
 
     return pdf
 
@@ -56,19 +55,19 @@ returns:
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
 
-def open_doc(fname):
-    print("Opening " + fname)
+def open_doc(file):
+    print("Opening " + file.name)
 
     # check for valid path and extension
-    if not path.exists(fname):
-        print("File " + fname + " does not exist. Exiting...")
+    if not file.exists():
+        print("File " + file.name + " does not exist. Exiting...")
         exit()
-    elif not fname.endswith('.docx'):
-        print("File " + fname + " is not a docx file. Exiting...")
+    elif file.suffix != '.docx':
+        print("File " + file.name + " is not a docx file. Exiting...")
         exit()
 
     # open docx
-    docx = Document(fname)
+    docx = Document(file)
 
     return docx
 
@@ -88,7 +87,8 @@ def extract_pdf_text(pdf):
     page_text = []
 
     for page in pdf.pages:
-        if (page.extract_text() != None):  # Skips empty pages MAKE THIS INTO AN EXCEPTION!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        # Skips empty pages MAKE THIS INTO AN EXCEPTION!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        if (page.extract_text() != None):
             text = page.extract_text().rstrip()
             page_text.append(text)
 
@@ -126,14 +126,14 @@ returns: true if valid, false otherwise
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
 
-def validate_file(file_path):
+def validate_file(file):
     # check for valid path
-    if not path.exists(file_path):
-        print("File", file_path, "does not exist. Skipping...")
+    if not file.exists():
+        print("File", file.name, "does not exist. Skipping...")
         return False
 
     # get the file extension
-    extension = os.path.splitext(file_path)[1]
+    extension = file.suffix
     if extension == '.docx' or extension == '.pdf':
         return True
     else:
@@ -257,20 +257,20 @@ returns: the sentences, info, and nouns from a file
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
 
-def run_parsers(file_path):
-    print("Processing file: " + file_path)
+def run_parsers(file):
+    print("Processing file: " + file.name)
     # get the file extension
-    extension = os.path.splitext(file_path)[1]
+    extension = file.suffix
 
     # file types should probably be delegated to some sort of factory method eventually, but this works for now
     if extension == '.pdf':
         # open file
-        pdf = open_pdf(file_path)
+        pdf = open_pdf(file)
         text = extract_pdf_text(pdf)
         docInfo = None
 
         # get document info
-        with open(file_path, 'rb') as f:
+        with file.open('rb') as f:
             reader = PdfFileReader(f)
             # work around for decrpyting file (Checks if decrypted or return exception)
             reader.getNumPages()
@@ -278,13 +278,13 @@ def run_parsers(file_path):
 
         # retrieve attributes from pdf
         docInfo = documentInformation.DocumentInformation(
-            pdfInfo.title, pdfInfo.author, file_path)
+            pdfInfo.title, pdfInfo.author, str(file.resolve()))
     elif extension == '.docx':
-        docx = open_doc(file_path)
+        docx = open_doc(file)
         text = extract_docx_text(docx)
         # can't really extract information dynamically from docx files
         docInfo = documentInformation.DocumentInformation(
-            os.path.splitext(file_path)[0], "", file_path)
+            file.name, "", str(file.resolve()))
 
     # Perform parsing and identification
     # get list of span objects - one for each sentence in pdf file
