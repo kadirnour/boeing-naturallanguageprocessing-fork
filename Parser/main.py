@@ -1,7 +1,7 @@
 import argparse
 
 #from documentInformation import DocumentInformation
-from Parser import parsers
+from Parser import Spacy
 #import database
 #import csv
 #import time
@@ -12,6 +12,7 @@ from Parser import output_writers
 #import unit_tests
 
 import os
+from Parser import NLTK
 
 # Removed, use our program launcher instead and enter locations through command line
 # def dir_path(path): 
@@ -37,7 +38,8 @@ def main():
             file_path = path + '\\' + file 
 
             # parse file
-            docInfo, total_nouns, total_sentences = parsers.run_parsers(file_path)
+            docInfo, total_nouns, total_sentences = Spacy.run_parsers(file_path)
+            #docInfo, total_nouns, total_sentences = NLTK.run_parsers(file_path)
 
             # calculate unique nouns, total nouns
             unqNouns = len(total_nouns)
