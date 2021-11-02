@@ -224,8 +224,12 @@ def get_nouns(sentences):
 
             noun_text = ""
             for token in chunk:
-                if token.text != "(": # Exception handler for (
-                    noun_text += token.lemma_ + " "
+                try:
+                    if token.text != "(": # Exception handler for (
+                        noun_text += token.lemma_ + " "
+                except (ValueError):
+                    #print("invalid token")
+                    continue
             noun_text = noun_text.lstrip().rstrip().lower()
             # print(chunk)
             # print(noun_text)
