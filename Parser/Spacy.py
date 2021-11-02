@@ -168,7 +168,9 @@ def get_sentences(page_text):
         # append the span objects to the total_sentences list
 
         for sentence in sentences: 
-            sentence_text_cleaned = " ".join(sentence.text.split())
+            sentence_text_cleaned = re.sub(' +', ' ', sentence.text.replace("\\n", "").replace("b'", ""))
+            #" ".join(sentence.text.split())
+            #print(sentence_text_cleaned)
 
             if sentence_text_cleaned != "":
                 total_sentences.append(sentence_text_cleaned) #Cleans string and converts from Span to string.
@@ -213,8 +215,47 @@ def get_nouns(sentences):
     total_nouns = []   # list of noun objects
 
     for sentence in sentences:
+        for chunk in sentence.noun_chunks:
 
-        for token in sentence:
+            #if chunk.like_num: # skips over numbers
+                #continue
+            # noun_text = chunk.text.lstrip()
+            # noun_text = noun_text.rstrip()
+            # noun_text = noun_text.lower()  # Make it lower case
+
+
+            noun_text = ""
+            for token in chunk:
+                noun_text += token.lemma_ + " "
+            noun_text = noun_text.lstrip().rstrip().lower()
+            # print(chunk)
+            # print(noun_text)
+            
+
+            if len(noun_text.split()) > 1: # Skips singular nouns that are not noun phrases
+                
+                found = False
+
+                for noun in total_nouns: # Checks through current nouns
+
+                    if noun_text in noun.text or noun.text in noun_text: # Checks if chunk is already in current nouns
+                        # UPDATE!!!!!!!!!!!! Right now it just uses the first found instance, but later on lets change it to the longer of the two
+                        found = True
+                        break
+
+                if found:
+                    # if there's an object already, we'll update the object accordingly
+                    noun.add_occur(sentence.text.rstrip())
+
+                else:
+                    # if not, we'll create a new noun object for it
+                    new_noun = Noun.Noun(noun_text, sentence.text.rstrip().lstrip())
+                    total_nouns.append(new_noun)
+                    
+            # else:
+            #     print(noun_text)
+
+        for token in sentence: # MOVED FINDING SINGULAR NOUNS TO AFTER FINDING NOUN PHRASES!!!!!!!!!
             # Skips over numbers
             if token.like_num:
                 continue
@@ -226,45 +267,21 @@ def get_nouns(sentences):
 
                 # Now determine if this noun has already had an object created for it or not
                 found = False
+
                 for noun in total_nouns:
-                    if noun.text == noun_text:
+                    if noun.text in noun_text or noun_text in noun.text:
+                        # UPDATE!!!!!!!!!!!! Right now it just uses the first found instance, but later on lets change it to the longer of the two
+                        # Also only to the first instance it finds in csv, doesn't take into account context or anything 
                         found = True
                         break
 
                 if found:
                     # if there's an object already, we'll update the object accordingly
-                    noun.add_occur(sentence.text.rstrip())
+                    noun.add_occur(sentence.text.rstrip().lstrip())
                 else:
                     # if not, we'll create a new noun object for it
                     new_noun = Noun.Noun(noun_text, sentence.text.rstrip())
                     total_nouns.append(new_noun)
-
-        for chunk in sentence.noun_chunks:
-
-            #if chunk.like_num: # skips over numbers
-                #continue
-
-            noun_text = chunk.text.lstrip()
-            noun_text = noun_text.rstrip()
-            noun_text = noun_text.lower()  # Make it lower case
-
-            # Right now this is only printing chunks, not noun phrases print(noun_text)
-
-            found = False
-
-            for noun in total_nouns:
-                if noun.text == noun_text:
-                    found = True
-                    break
-
-            if found:
-                # if there's an object already, we'll update the object accordingly
-                noun.add_occur(sentence.text.rstrip())
-
-            else:
-                # if not, we'll create a new noun object for it
-                new_noun = Noun.Noun(noun_text, sentence.text.rstrip())
-                total_nouns.append(new_noun)
 
     return total_nouns
 
