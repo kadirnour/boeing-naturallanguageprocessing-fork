@@ -1,4 +1,4 @@
-from Parser import parsers
+from Parser import Spacy as parsers
 from Parser import noun
 # import database
 from Parser import output_writers
@@ -32,7 +32,7 @@ def test_blank_pdf():
 
 def test_accuracy():
     correct_noun_counts = {"commercial": 1, "aircraft": 4, "world": 1, "pilot": 3, "rule": 1, "instance": 1, "approach": 1,
-                           "turn": 1, "power": 2, "error": 1, "problems": 1, "maneuvers": 1}
+                           "turn": 1, "power": 2, "error": 1, "problem": 1, "maneuver": 1}
 
     docInfo, total_nouns, total_sentences = parsers.run_parsers(
         test_data / 'test_paragraph.pdf')
@@ -118,3 +118,6 @@ def test_non_english_input():
 
 def test_existing_database():
     pass
+
+if __name__ == "__main__":
+    test_accuracy()

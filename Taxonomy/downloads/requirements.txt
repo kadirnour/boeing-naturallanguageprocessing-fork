@@ -4,3 +4,4 @@ git LFS
 pip install nltk
 nltk.download('averaged_perceptron_tagger')
 nltk.download('wordnet')
+pytest
