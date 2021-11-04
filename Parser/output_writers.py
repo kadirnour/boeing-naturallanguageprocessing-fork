@@ -23,7 +23,7 @@ def to_csv(docInfo, totalTimeStr, costPerNounStr, total_nouns, unqNouns, sumNoun
     #     csv_name = csv_name[5:]
 
     # Added encoding for non-printable characters
-    with open(output / csv_name, 'w', newline='', encoding='utf-8') as csvfile:
+    with open(output / csv_name, 'w', newline='', encoding='utf-8') as csvfile: # Add ability to update xcl while it is open!!!!!!!!!!!!!!!!!!!!!!
         nounwriter = csv.writer(csvfile)
         nounwriter.writerow([csv_name])
         # , docInfo.authors]) Not really necessary for now

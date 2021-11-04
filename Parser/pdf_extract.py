@@ -2,6 +2,7 @@ from os import path
 import pdfplumber
 from PyPDF2 import PdfFileReader
 from Parser import documentInformation
+import re
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 function: open_pdf
@@ -29,6 +30,41 @@ def open_pdf(fname):
 
     return pdf
 
+'''''''''''''''''''''''''''''''''''''''''''''''
+function: text_replacer
+
+description: checks the strng for bytes and cleans from text
+
+parameters: text to be checked
+
+returns: cleaned text
+
+TODO: find alternative to if statements
+
+'''''''''''''''''''''''''''''''''''''''''''''''
+
+def text_replacer(text):
+    
+    if text.find("\\xe2\\x80\\x99")!=-1:
+        text = text.replace("\\xe2\\x80\\x99", "'")
+    
+    if text.find("\\xe2\\x80\\x9c")!=-1:
+        text = text.replace("\\xe2\\x80\\x9c", "\"")
+    
+    if text.find("\\xe2\\x80\\x9d")!=-1:
+        text = text.replace("\\xe2\\x80\\x9d","\"")
+
+    if text.find("\\'")!=-1:
+        text = text.replace("\\'", "'")
+
+    if text.find("b'")!=-1:
+        text = text.replace("b'", "")
+
+    if text.find('\\n')!=-1:
+        text = text.replace('\\n', '')
+
+    return text
+
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 function: extract_pdf_text
@@ -48,14 +84,13 @@ def extract_pdf_text(pdf):
             text = page.extract_text().encode('utf-8') # Converts to bytes
             #print(text)
             text = str(text) # Converts back to string
-            text = (text.replace("\\xe2\\x80\\x99", "'").replace("\\xe2\\x80\\x9c", "\"").replace("\\xe2\\x80\\x9d","\""))
-            #.replace("b'", "").lstrip().rstrip()) # Replaces hex code with correct ascii !!!!!!!!!!!!!! Change this to case structure
-            
-            # print(text.decode('utf-8'))
+            #text = (text.replace("\\xe2\\x80\\x99", "'").replace("\\xe2\\x80\\x9c", "\"").replace("\\xe2\\x80\\x9d","\"").replace("\\'", "'").replace("b'", "").replace('\\n', '')) # Replaces hex code with correct ascii !!!!!!!!!!!!!! Change this to case structure
+            text = text_replacer(text)
+            #print(text)
 
             page_text.append(text)
 
-    print(page_text)
+    # print(page_text)
 
     return page_text
 

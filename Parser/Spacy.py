@@ -168,9 +168,12 @@ def get_sentences(page_text):
         # append the span objects to the total_sentences list
 
         for sentence in sentences: 
-            sentence_text_cleaned = re.sub(' +', ' ', sentence.text.replace("\\n", "").replace("b'", "")) # Cleans sentences
+            sentence_text_cleaned = re.sub(' +', ' ', sentence.text) # Gets rid of extra spaces
             #" ".join(sentence.text.split())
             #print(sentence_text_cleaned)
+
+            #sentence_text_cleaned = sentence.text
+
 
             if sentence_text_cleaned != "":
                 total_sentences.append(sentence_text_cleaned) # Cleans string and converts from Span to string.
@@ -215,29 +218,45 @@ def get_nouns(sentences):
     total_nouns = []   # list of noun objects
 
     for sentence in sentences:
+        lastChunk=""
         for chunk in sentence.noun_chunks:
             #if chunk.like_num: # skips over numbers
                 #continue
-            # noun_text = chunk.text.lstrip()
-            # noun_text = noun_text.rstrip()
-            # noun_text = noun_text.lower()  # Make it lower case
-
-            noun_text = ""
+            # noun_lemma = chunk.text.lstrip()
+            # noun_lemma = noun_lemma.rstrip()
+            # noun_lemma = noun_lemma.lower()  # Make it lower case
+            noun_lemma = ""
             for token in chunk:
                 try:
-                    if token.text != "(": # Exception handler for (
-                        noun_text += token.lemma_ + " "
+                    #print(token)
+                    if token.text != "(": # Exception handler for ( !!!!!!!!!!!!!!!!!!!!!!!MAYBE WE DO BETTER
+                        
+                        if (token.text == "'s"): # Exception handling a word followed by 's creates a unneccesary space, this deletes the space
+                            noun_lemma = noun_lemma[0: -len(lastChunk) - 1]
+                            noun_lemma += lastChunk + token.text + " "
+                            #print(noun_lemma)
+
+                        #lastChunk = token.text
+                        
+                        else:
+                            lastChunk = token.text
+                            noun_lemma += token.lemma_ + " "
+
                 except (ValueError):
-                    #print("invalid token")
+                    print("invalid token")
                     continue
-            noun_text = noun_text.lstrip().rstrip().lower()
-            # print(chunk)
-            # print(noun_text)
+            #print(noun_lemma)
+            #noun_lemma = chunk.lemma_
+
+            noun_lemma = noun_lemma.lstrip().rstrip().lower()
+            #print(chunk)
+            #print(noun_lemma)
             
-            # if len(noun_text.split()) > 1: # Skips singular nouns that are not noun phrases
+            # if len(noun_lemma.split()) > 1: # Skips singular nouns that are not noun phrases
             found = False
+
             for noun in total_nouns: # Checks through current nouns
-                if noun_text in noun.text or noun.text in noun_text: # Checks if chunk is already in current nouns
+                if noun_lemma == noun.text or noun.text == noun_lemma: # Checks if chunk is already in current nouns
                     # UPDATE!!!!!!!!!!!! Right now it just uses the first found instance, but later on lets change it to the longer of the two
                     found = True
                     break
@@ -246,11 +265,11 @@ def get_nouns(sentences):
                 noun.add_occur(sentence.text.rstrip())
             else:
                 # if not, we'll create a new noun object for it
-                new_noun = Noun.Noun(noun_text, sentence.text.rstrip().lstrip())
+                new_noun = Noun.Noun(noun_lemma, sentence.text.rstrip().lstrip())
                 total_nouns.append(new_noun)
                     
             # else:
-            #     print(noun_text)
+            #     print(noun_lemma)
 
         # for token in sentence: # CHUNKS ALREADY FINDS NOUNS
         #     # Skips over numbers
@@ -295,7 +314,7 @@ returns: the sentences, info, and nouns from a file
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
 
-def run_parsers(file_path):
+def run_parsers(file_path): # CHANGE THIS TO ACCEPT TEXT INSTEAD OF FILE PATH, DO FILE PATH INSIDE DIFFERENT MODULE!!!!!!!!!!!!!!!!!
     print("Processing file: " + file_path.name)
     # get the file extension
     #extension = os.path.splitext(file_path)[1]
@@ -319,6 +338,10 @@ def run_parsers(file_path):
     #         pdfInfo.title, pdfInfo.author, file_path)
 
     text, docInfo = pdf_extract.get_info(file_path)
+
+    #text=["(RPG)", " (DOOM)", " (Metal Gear)"]
+
+    #text = ["TEST STRING"]
 
     # Need to implement and debug later
     # elif extension == '.docx':
