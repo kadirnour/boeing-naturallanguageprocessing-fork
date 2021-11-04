@@ -1,6 +1,4 @@
 from Parser import Spacy as parsers
-import spacy
-from Parser import noun
 # import database
 from Parser import output_writers
 import os
@@ -43,7 +41,6 @@ def test_blank_pdf():
 
 
 def test_accuracy():
-
     docInfo, total_nouns, total_sentences = parsers.run_parsers(
         test_data / 'test_sentences_10.pdf')
 
@@ -148,7 +145,5 @@ def test_non_english_input():
 def test_existing_database():
     pass
 
-
 if __name__ == "__main__":
-    # legacy_test_accuracy()
     test_accuracy()

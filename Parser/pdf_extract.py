@@ -46,17 +46,18 @@ def extract_pdf_text(pdf):
     for page in pdf.pages:
         if (page.extract_text() != None):  # Skips empty pages MAKE THIS INTO AN EXCEPTION!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             text = page.extract_text().encode('utf-8') # Converts to bytes
+            #print(text)
             text = str(text) # Converts back to string
-            text = (text.replace("\\xe2\\x80\\x99", "'").replace("\\xe2\\x80\\x9c", "\"").replace("\\xe2\\x80\\x9d","\"")) # Replaces hex code with correct ascii
+            text = (text.replace("\\xe2\\x80\\x99", "'").replace("\\xe2\\x80\\x9c", "\"").replace("\\xe2\\x80\\x9d","\""))
+            #.replace("b'", "").lstrip().rstrip()) # Replaces hex code with correct ascii !!!!!!!!!!!!!! Change this to case structure
             
             # print(text.decode('utf-8'))
 
             page_text.append(text)
 
+    print(page_text)
+
     return page_text
-
-
-
 
 
 
