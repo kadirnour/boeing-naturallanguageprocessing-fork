@@ -1,5 +1,4 @@
 from Parser import Spacy as parsers
-from Parser import noun
 # import database
 from Parser import output_writers
 import os
@@ -9,6 +8,17 @@ from pathlib import Path
 
 test_data = Path('tests/test_data')
 output = Path('Parser/output')
+
+# TODO: make multiple dicionaries with varying sizes, counts and punctuation
+
+tsd1 = {"the queen": 1, "england": 1, "buckingham palace": 1,
+        "some stock": 1, "the painting": 1, "something": 1, "we": 1, "our difference": 1,
+        "30 jacket": 1, "the golden age": 1, "many country": 1, "war": 1, "mask": 1,
+        "this big snake": 1}
+tsd2 = {}
+tsd3 = {}
+tsd4 = {}
+tsd5 = {}
 
 
 def test_sentence_no_punc():
@@ -31,39 +41,55 @@ def test_blank_pdf():
 
 
 def test_accuracy():
-    correct_noun_counts = {"commercial": 1, "aircraft": 4, "world": 1, "pilot": 3, "rule": 1, "instance": 1, "approach": 1,
-                           "turn": 1, "power": 2, "error": 1, "problem": 1, "maneuver": 1}
-
     docInfo, total_nouns, total_sentences = parsers.run_parsers(
-        test_data / 'test_paragraph.pdf')
+        test_data / 'test_sentences_10.pdf')
 
     correct_counts = 0
     missing_counts = 0
     extra_counts = 0
 
+    print("---------------------------------------------------------")
+    print("Actual breakdown:")
+    print("---------------------------------------------------------\n")
+    {print(x, ", ", tsd1[x]) for x in tsd1}
+    print("\n---------------------------------------------------------")
+
+    print("Parsed brakdown:")
+    print("---------------------------------------------------------\n")
     for noun in total_nouns:
         print(noun.text, noun.num_occur)
 
         # CHECK IF NOUN IN correct_noun_counts
-        if noun.text in correct_noun_counts.keys():
-            if correct_noun_counts[noun.text] == noun.num_occur:
+        if noun.text in tsd1.keys():
+            if tsd1[noun.text] == noun.num_occur:
                 correct_counts += noun.num_occur
             else:
                 # COUNTED EXTRA
-                if correct_noun_counts[noun.text] < noun.num_occur:
+                if tsd1[noun.text] < noun.num_occur:
                     extra_counts += noun.num_occur - \
-                        correct_noun_counts[noun.text]
+                        tsd1[noun.text]
                 # MISSED COUNTS
                 else:
-                    missing_counts += correct_noun_counts[noun.text] - \
+                    missing_counts += tsd1[noun.text] - \
                         noun.num_occur
         else:
             extra_counts += noun.num_occur
 
     # print(correct_counts, missing_counts, extra_counts)
+    print("---------------------------------------------------------\n")
 
-    accuracy = round(correct_counts / 18 * 100, 2)
+    accuracy = round(correct_counts / sum(tsd1.values()) * 100, 2)
     print("Accuracy:", accuracy)
+
+
+def test_accuracy_():
+    # TODO: Mock data in test_data dir
+
+    # nlp = spacy.load('en_core_web_sm')
+    # noun_chunks = [[print(c.lemma_) for c in s.noun_chunks] for s in doc.sents]
+
+    docInfo, total_nouns, total_sentences = parsers.run_parsers(
+        test_data / 'test_sentences_10.pdf')
 
 
 def test_info_parsing():
