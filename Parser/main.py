@@ -1,4 +1,4 @@
-import argparse
+#import argparse
 
 #from documentInformation import DocumentInformation
 from Parser import Spacy
@@ -7,14 +7,18 @@ from Parser import Spacy
 import time
 # from Taxonomy import
 from Parser import noun as Noun
-import sys
+#import sys
 from Parser import output_writers
 #import unit_tests
 #import parsers
 
-import os
-from Parser import NLTK
+#import os
+#from Parser import NLTK
 from pathlib import Path
+
+#import pdf_extract
+#from Parser import txt_extract
+from Parser import text_factory
 
 #import noun
 
@@ -45,13 +49,20 @@ def main():
     data = Path('Parser/data')
 
     for file in data.iterdir():
+        print("Processing file: " + file.name)
         #docInfo, total_nouns, total_sentences = parsers.run_parsers(file)
 
         #start timer
         startTime = time.time()
 
+        # Get text from file
+        #text, docInfo = pdf_extract.get_info(file)
+        #text = txt_extract.get_info(file)
+        text = text_factory.get_text(file)
+
         # parse file
-        docInfo, total_nouns, total_sentences = Spacy.run_parsers(file)
+        total_nouns, total_sentences = Spacy.run_parsers(text)
+        #docInfo, total_nouns, total_sentences = Spacy.run_parsers(file)
         #docInfo, total_nouns, total_sentences = NLTK.run_parsers(file_path)
 
         # #     # end timer
@@ -72,8 +83,7 @@ def main():
         costPerNounStr = "Cost per noun: " + str(round(costPerNoun, 3)) + " ms" # used in .csv file
 
 
-        output_writers.to_csv(
-            docInfo, totalTimeStr, costPerNounStr, total_nouns, unqNouns, sumNouns, file)
+        output_writers.to_csv(totalTimeStr, costPerNounStr, total_nouns, unqNouns, sumNouns, file)
 
     # for file in folder:
     #     file_path = path + '\\' + file

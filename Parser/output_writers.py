@@ -6,8 +6,8 @@ from pathlib import Path
 # Added \\parser to fix output location
 output = Path('Parser/output')
 
-
-def to_csv(docInfo, totalTimeStr, costPerNounStr, total_nouns, unqNouns, sumNouns, file):  # Open csv files to write to
+# Removed doc info, wasn't being used
+def to_csv(totalTimeStr, costPerNounStr, total_nouns, unqNouns, sumNouns, file):  # Open csv files to write to
     # Removed, gets doc name from file name instead
     # if docInfo.document_name != None:
     #     csv_name = docInfo.document_name + '_nouns.csv'

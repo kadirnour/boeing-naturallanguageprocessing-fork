@@ -5,18 +5,18 @@ description: handles all methods for parsing the
 document into sentences and nouns
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
-import os
-from os import path
+#import os
+#from os import path
 from Parser import noun as Noun
 #from noun import Noun
-import pdfplumber
+#import pdfplumber
 import re
 import spacy
-from docx import Document
-from PyPDF2 import PdfFileReader
-from Parser import documentInformation
+#from docx import Document
+#from PyPDF2 import PdfFileReader
+#from Parser import documentInformation
 #from documentInformation import DocumentInformation
-from Parser import pdf_extract
+#from Parser import pdf_extract
 
 # '''''''''''''''''''''''''''''''''''''''''''''''''''
 # function: open_pdf
@@ -116,30 +116,30 @@ from Parser import pdf_extract
 #     return page_text
 
 
-'''''''''''''''''''''''''''''''''''''''''''''''''''
-function: validate_file
+# '''''''''''''''''''''''''''''''''''''''''''''''''''
+# function: validate_file
 
-description: checks that the file_path is valid.
+# description: checks that the file_path is valid.
 
-parameters: file_path
+# parameters: file_path
 
-returns: true if valid, false otherwise
-'''''''''''''''''''''''''''''''''''''''''''''''''''
+# returns: true if valid, false otherwise
+# '''''''''''''''''''''''''''''''''''''''''''''''''''
 
 
-def validate_file(file_path):
-    # check for valid path
-    if not path.exists(file_path):
-        print("File", file_path, "does not exist. Skipping...")
-        return False
+# def validate_file(file_path):
+#     # check for valid path
+#     if not path.exists(file_path):
+#         print("File", file_path, "does not exist. Skipping...")
+#         return False
 
-    # get the file extension
-    extension = os.path.splitext(file_path)[1]
-    if extension == '.docx' or extension == '.pdf':
-        return True
-    else:
-        print("Unsuported file type", extension, ". Skipping...")
-        return False
+#     # get the file extension
+#     extension = os.path.splitext(file_path)[1]
+#     if extension == '.docx' or extension == '.pdf':
+#         return True
+#     else:
+#         print("Unsuported file type", extension, ". Skipping...")
+#         return False
 
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -153,7 +153,6 @@ parameters: page_text, a list of strings
 returns: a list of the Span objects from the spaCy library, 
 representing each sentence. 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
-
 
 def get_sentences(page_text):
     total_sentences = []
@@ -201,7 +200,6 @@ def get_sentences(page_text):
 
     return result
 
-
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 function: get_nouns
 
@@ -213,11 +211,12 @@ parameters: sentences, a list of span objects
 returns: a list of noun objects 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
-
 def get_nouns(sentences):
+    
     total_nouns = []   # list of noun objects
 
     for sentence in sentences:
+        #print(sentence)
         lastChunk=""
         for chunk in sentence.noun_chunks:
             #if chunk.like_num: # skips over numbers
@@ -231,7 +230,7 @@ def get_nouns(sentences):
                     #print(token)
                     if token.text != "(": # Exception handler for ( !!!!!!!!!!!!!!!!!!!!!!!MAYBE WE DO BETTER
                         
-                        if (token.text == "'s"): # Exception handling a word followed by 's creates a unneccesary space, this deletes the space
+                        if ("'s" == token.text): # Exception handling a word followed by 's creates a unneccesary space, this deletes the space !!!! NEED TO TEST FOR THINGS OTHER THEN 's
                             noun_lemma = noun_lemma[0: -len(lastChunk) - 1]
                             noun_lemma += lastChunk + token.text + " "
                             #print(noun_lemma)
@@ -313,9 +312,8 @@ parameters: file_path
 returns: the sentences, info, and nouns from a file 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
-
-def run_parsers(file_path): # CHANGE THIS TO ACCEPT TEXT INSTEAD OF FILE PATH, DO FILE PATH INSIDE DIFFERENT MODULE!!!!!!!!!!!!!!!!!
-    print("Processing file: " + file_path.name)
+def run_parsers(text): # CHANGE THIS TO ACCEPT TEXT INSTEAD OF FILE PATH, DO FILE PATH INSIDE DIFFERENT MODULE!!!!!!!!!!!!!!!!!
+    #print("Processing file: " + file_path.name)
     # get the file extension
     #extension = os.path.splitext(file_path)[1]
 
@@ -337,11 +335,13 @@ def run_parsers(file_path): # CHANGE THIS TO ACCEPT TEXT INSTEAD OF FILE PATH, D
     #     docInfo = documentInformation.DocumentInformation(
     #         pdfInfo.title, pdfInfo.author, file_path)
 
-    text, docInfo = pdf_extract.get_info(file_path)
+    #text, docInfo = pdf_extract.get_info(file_path)
 
-    #text=["(RPG)", " (DOOM)", " (Metal Gear)"]
+    #text=["(RPG)", " (DOOM)", " (Metal Gear) "]
 
     #text = ["TEST STRING"]
+
+    #text=["I'd.", "I'm.", " he'd. ", "the character's. ", "the person's boat."]
 
     # Need to implement and debug later
     # elif extension == '.docx':
@@ -357,7 +357,7 @@ def run_parsers(file_path): # CHANGE THIS TO ACCEPT TEXT INSTEAD OF FILE PATH, D
     # get list of token (noun) objects
     total_nouns = get_nouns(total_sentences)
 
-    return docInfo, total_nouns, total_sentences
+    return total_nouns, total_sentences
 
 # def get_noun_phrases(sentences, total_nouns):   # use to identify noun phrases containing a particular noun
 #     for sentence in sentences:

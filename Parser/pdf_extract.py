@@ -1,8 +1,9 @@
-from os import path
+#from os import path
 import pdfplumber
-from PyPDF2 import PdfFileReader
-from Parser import documentInformation
-import re
+#from PyPDF2 import PdfFileReader
+#from Parser import documentInformation
+#import re
+from Parser import text_replacer as text_replacer
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 function: open_pdf
@@ -29,42 +30,6 @@ def open_pdf(fname):
     pdf = pdfplumber.open(fname)
 
     return pdf
-
-'''''''''''''''''''''''''''''''''''''''''''''''
-function: text_replacer
-
-description: checks the strng for bytes and cleans from text
-
-parameters: text to be checked
-
-returns: cleaned text
-
-TODO: find alternative to if statements
-
-'''''''''''''''''''''''''''''''''''''''''''''''
-
-def text_replacer(text):
-    
-    if text.find("\\xe2\\x80\\x99")!=-1:
-        text = text.replace("\\xe2\\x80\\x99", "'")
-    
-    if text.find("\\xe2\\x80\\x9c")!=-1:
-        text = text.replace("\\xe2\\x80\\x9c", "\"")
-    
-    if text.find("\\xe2\\x80\\x9d")!=-1:
-        text = text.replace("\\xe2\\x80\\x9d","\"")
-
-    if text.find("\\'")!=-1:
-        text = text.replace("\\'", "'")
-
-    if text.find("b'")!=-1:
-        text = text.replace("b'", "")
-
-    if text.find('\\n')!=-1:
-        text = text.replace('\\n', '')
-
-    return text
-
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 function: extract_pdf_text
@@ -100,17 +65,17 @@ def get_info(file_path):
     # open file
     pdf = open_pdf(file_path)
     text = extract_pdf_text(pdf)
-    docInfo = None
+    # docInfo = None
 
-    # get document info
-    with open(file_path, 'rb') as f:
-        reader = PdfFileReader(f)
-        # work around for decrpyting file (Checks if decrypted or return exception)
-        reader.getNumPages()
-        pdfInfo = reader.getDocumentInfo()
+    # # get document info !!! DOC INFO ISN'T BEING USED
+    # with open(file_path, 'rb') as f:
+    #     reader = PdfFileReader(f)
+    #     # work around for decrpyting file (Checks if decrypted or return exception)
+    #     reader.getNumPages()
+    #     pdfInfo = reader.getDocumentInfo()
 
-    # retrieve attributes from pdf
-    docInfo = documentInformation.DocumentInformation(
-        pdfInfo.title, pdfInfo.author, file_path)
+    # # retrieve attributes from pdf
+    # docInfo = documentInformation.DocumentInformation(
+    #     pdfInfo.title, pdfInfo.author, file_path)
 
-    return text, docInfo
+    return text#, docInfo
