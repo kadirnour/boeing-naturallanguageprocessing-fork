@@ -45,41 +45,33 @@ def test_accuracy():
         test_data / 'test_sentences_10.pdf')
 
     correct_counts = 0
-    missing_counts = 0
     extra_counts = 0
+    d = {}
 
     print("---------------------------------------------------------")
-    print("Actual breakdown:")
+    print("Expected:")
     print("---------------------------------------------------------\n")
     {print(x, ", ", tsd1[x]) for x in tsd1}
     print("\n---------------------------------------------------------")
 
-    print("Parsed brakdown:")
-    print("---------------------------------------------------------\n")
     for noun in total_nouns:
-        print(noun.text, noun.num_occur)
-
-        # CHECK IF NOUN IN correct_noun_counts
-        if noun.text in tsd1.keys():
-            if tsd1[noun.text] == noun.num_occur:
-                correct_counts += noun.num_occur
-            else:
-                # COUNTED EXTRA
-                if tsd1[noun.text] < noun.num_occur:
-                    extra_counts += noun.num_occur - \
-                        tsd1[noun.text]
-                # MISSED COUNTS
-                else:
-                    missing_counts += tsd1[noun.text] - \
-                        noun.num_occur
+        d[noun.text] = noun.num_occur
+        if(noun.text in tsd1):
+            correct_counts += 1
         else:
-            extra_counts += noun.num_occur
+            extra_counts += 1
 
-    # print(correct_counts, missing_counts, extra_counts)
+    print("Actual:")
     print("---------------------------------------------------------\n")
+    {print(noun, ", ", occur) for noun, occur, in d.items()}
+    print("\n---------------------------------------------------------\n")
 
-    accuracy = round(correct_counts / sum(tsd1.values()) * 100, 2)
-    print("Accuracy:", accuracy)
+    print(str(correct_counts) + '/' + str(len(tsd1)) + " Terms Found")
+    print(str(extra_counts) + " False Positives")
+    print(str(sum(tsd1.values())) + " Expected Occur")
+    print(str(sum(d.values())) + " Actual Occur")
+
+    # print("Total accuracy = " + str(round(correct_counts / sum(d.values()), 2) * 100))
 
 
 def test_accuracy_():
@@ -144,6 +136,7 @@ def test_non_english_input():
 
 def test_existing_database():
     pass
+
 
 if __name__ == "__main__":
     test_accuracy()
