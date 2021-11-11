@@ -4,16 +4,10 @@ def extract_txt_text(txt):
     page_text = []
 
     for line in txt:
-
         text = line.encode('utf-8') # Converts to bytes
-            #print(text)
         text = str(text)
-
         text = text_replacer.text_replacer(text)
-
         page_text.append(text)
-
-    #print(page_text)
 
     return page_text
 
@@ -27,8 +21,7 @@ def open_txt(fname):
     elif not fname.suffix == ".txt":
         print("File " + fname.name + " is not a txt. Exiting...")
         exit()
-
-    # open pdf with pdfplumber
+        
     txt = open(fname, encoding="utf-8")
 
     return txt

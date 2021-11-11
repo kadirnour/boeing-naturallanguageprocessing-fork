@@ -1,8 +1,4 @@
-#from os import path
 import pdfplumber
-#from PyPDF2 import PdfFileReader
-#from Parser import documentInformation
-#import re
 from Parser import text_replacer
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -43,7 +39,6 @@ returns: a list of strings
 
 def extract_pdf_text(pdf):
 
-
     def not_within_bboxes(obj):
     #"""Check if the object is in any of the table's bbox."""
 
@@ -55,8 +50,6 @@ def extract_pdf_text(pdf):
             return (h_mid >= x0) and (h_mid < x1) and (v_mid >= top) and (v_mid < bottom)
 
         return not any(obj_in_bbox(__bbox) for __bbox in bboxes)
-
-
 
     page_text = []
 
@@ -75,46 +68,16 @@ def extract_pdf_text(pdf):
                 )
             ]
 
-            #print( page.filter(not_within_bboxes).extract_text())
-
             text = page.filter(not_within_bboxes).extract_text().encode('utf-8')
-         
-            #text = page.extract_text().encode('utf-8') # Converts to bytes
-            #print(text)
             text = str(text) # Converts back to string
-            #text = (text.replace("\\xe2\\x80\\x99", "'").replace("\\xe2\\x80\\x9c", "\"").replace("\\xe2\\x80\\x9d","\"").replace("\\'", "'").replace("b'", "").replace('\\n', '')) # Replaces hex code with correct ascii !!!!!!!!!!!!!! Change this to case structure
             text = text_replacer.text_replacer(text)
-            #print(text)
-
-
             page_text.append(text)
 
-    # print(page_text)
-
     return page_text
-
-
-
-
-
-
-
 
 def get_info(file_path):
     # open file
     pdf = open_pdf(file_path)
     text = extract_pdf_text(pdf)
-    # docInfo = None
 
-    # # get document info !!! DOC INFO ISN'T BEING USED
-    # with open(file_path, 'rb') as f:
-    #     reader = PdfFileReader(f)
-    #     # work around for decrpyting file (Checks if decrypted or return exception)
-    #     reader.getNumPages()
-    #     pdfInfo = reader.getDocumentInfo()
-
-    # # retrieve attributes from pdf
-    # docInfo = documentInformation.DocumentInformation(
-    #     pdfInfo.title, pdfInfo.author, file_path)
-
-    return text#, docInfo
+    return text
