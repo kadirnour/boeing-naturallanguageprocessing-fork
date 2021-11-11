@@ -1,6 +1,6 @@
 New Text Document_nouns.csv
 Unique nouns: 158, Total nouns: 193
-Total time: 1.354 sec,Cost per noun: 7.014 ms
+Total time: 0.853 sec,Cost per noun: 4.42 ms
 game type,"[""Game Type and ' Game Genre '"", ""By Lindsay Grace ' Game Type ' Although sometimes used interchangeably in the industry, there is a distinct ' difference between game type and game genre in video games."", ""When ' discussing game story, we distinguish game type as a description of game play, ' and game genre as a description of the narrative content of the game. '"", ""The following is brief list of game types: ' Action: ' Games that offer intensity of action as the primary attraction. '"", ""Multiple Game Types and Game Genres Combined: ' It is important to realize that few modern games fall neatly into a single category ' of game type and game genre.""]",5
 ' game genre,"[""Game Type and ' Game Genre '""]",1
 lindsay grace ' game type,"[""By Lindsay Grace ' Game Type ' Although sometimes used interchangeably in the industry, there is a distinct ' difference between game type and game genre in video games.""]",1
