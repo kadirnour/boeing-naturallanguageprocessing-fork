@@ -16,16 +16,6 @@ class Noun:
         if noun_phrase not in self.noun_phrases:   # checks to ensure same phrase will not be listed multiple times
             self.noun_phrases.append(noun_phrase)
 
-'''''''''''''''''''''''''''''''''''''''''''''''''''
-function: calculate_num_nouns_occur
-
-description: sums the num_occur of each noun
-in a list
-
-parameters: nouns, a list of Noun objects 
-
-returns: the total number of noun occurences 
-'''''''''''''''''''''''''''''''''''''''''''''''''''
 def calculate_num_nouns_occur(nouns):
     sumNouns = 0       
     for noun in nouns:
