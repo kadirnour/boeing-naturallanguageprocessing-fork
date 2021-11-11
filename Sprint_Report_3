@@ -3,11 +3,13 @@
 ## What's New (User Facing)
  * Bug Fix 1: Removed noun chunker
  * Bug Fix 2: Added exceptions for parser 
- * Feature 3: Exception handler
- * Feature 4: Better sentence cleaning
- * Feature 5: Added parser timer
- * Feature 6: Added parser tests
- * Feature 7: Added ability to parse .txt and .doc files
+ * Bug Fix 3: Added table handling to parser
+ * Feature 4: Exception handler
+ * Feature 5: Better sentence cleaning
+ * Feature 6: Added parser timer
+ * Feature 7: Added parser tests
+ * Feature 8: Added ability to parse .txt and .doc files
+ * Feature 9: Added frequency and weight
 
 
 ## Work Summary (Developer Facing)
@@ -19,41 +21,27 @@ There are still exceptions that need to be handled in the parser. We anticipate 
 ## Completed Issues/User Stories
 Here are links to the issues that we completed in this sprint:
 
- * https://github.com/WSUCptSCapstone-Fall2021Spring2022/boeing-naturallanguageprocessing/issues/2
- * https://github.com/WSUCptSCapstone-Fall2021Spring2022/boeing-naturallanguageprocessing/issues/5
- * https://github.com/WSUCptSCapstone-Fall2021Spring2022/boeing-naturallanguageprocessing/issues/7#
-
- * Each completed pull request should include a link to a "Before and After" video
+ * https://github.com/WSUCptSCapstone-Fall2021Spring2022/boeing-naturallanguageprocessing/issues/11
  
  ## Incomplete Issues/User Stories
  Here are links to issues we worked on but did not complete in this sprint:
  
- * https://github.com/WSUCptSCapstone-Fall2021Spring2022/boeing-naturallanguageprocessing/issues/9
-   - We were able to get a working protoype, but it is very innacurate and inefficent
+ * https://github.com/WSUCptSCapstone-Fall2021Spring2022/boeing-naturallanguageprocessing/issues/16
+   - We would still like to have exception handling for foreign languages
 
 ## Code Files for Review
 Please review the following code files, which were actively developed during this sprint, for quality:
  * [Parser](https://github.com/WSUCptSCapstone-Fall2021Spring2022/boeing-naturallanguageprocessing/tree/main/Parser)
- * [Txonomy](https://github.com/WSUCptSCapstone-Fall2021Spring2022/boeing-naturallanguageprocessing/tree/main/Taxonomy)
  
 ## Retrospective Summary
 Here's what went well:
-  * We were able to implement BootCaT to find extra corpus material
-  * We were able to convert .txt to .pdf
-  * We were able to create a weighted dictionary from the .pdf's
-  * We were able to make a prototype of the taxonomy
+  * We were able to find and fix a lot of exceptions in the parser
+  * We were able to create a better starting point for taxonomy creation
  
 Here's what we'd like to improve:
-   * Parser accuracy
-   * Taxonomy accuracy
-   * Instead of using BootCaT, implement our own version
-   * Ability to parse .txt and .docx
+   * Parser exceptions
+   * Effiecency for larger documents
   
 Here are changes we plan to implement in the next sprint:
-   * We will mainly focus on improving the parser
-     - Ability to parse .txt and .docx natively
-     - Ability to swap API's in parser
-     - Ability to test accuracy of API's
-     - Creation of a exception module
-     - Ability to parse noun phrases
-     - Ability to parse foreign language phrases
+   * More parser exceptions
+   * Taxonomy creation
