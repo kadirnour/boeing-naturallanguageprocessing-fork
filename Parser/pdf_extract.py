@@ -3,7 +3,7 @@ import pdfplumber
 #from PyPDF2 import PdfFileReader
 #from Parser import documentInformation
 #import re
-from Parser import text_replacer as text_replacer
+from Parser import text_replacer
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 function: open_pdf
@@ -42,22 +42,61 @@ returns: a list of strings
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
 def extract_pdf_text(pdf):
+
+
+    def not_within_bboxes(obj):
+    #"""Check if the object is in any of the table's bbox."""
+
+        def obj_in_bbox(_bbox):
+            #"""See https://github.com/jsvine/pdfplumber/blob/stable/pdfplumber/table.py#L404"""
+            v_mid = (obj["top"] + obj["bottom"]) / 2
+            h_mid = (obj["x0"] + obj["x1"]) / 2
+            x0, top, x1, bottom = _bbox
+            return (h_mid >= x0) and (h_mid < x1) and (v_mid >= top) and (v_mid < bottom)
+
+        return not any(obj_in_bbox(__bbox) for __bbox in bboxes)
+
+
+
     page_text = []
 
     for page in pdf.pages:
         if (page.extract_text() != None):  # Skips empty pages MAKE THIS INTO AN EXCEPTION!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            text = page.extract_text().encode('utf-8') # Converts to bytes
+
+            bboxes = [
+                table.bbox
+                for table in page.find_tables(
+                    table_settings={
+                        "vertical_strategy": "explicit",
+                        "horizontal_strategy": "explicit",
+                        "explicit_vertical_lines": page.curves + page.edges,
+                        "explicit_horizontal_lines": page.curves + page.edges,
+                    }
+                )
+            ]
+
+            #print( page.filter(not_within_bboxes).extract_text())
+
+            text = page.filter(not_within_bboxes).extract_text().encode('utf-8')
+         
+            #text = page.extract_text().encode('utf-8') # Converts to bytes
             #print(text)
             text = str(text) # Converts back to string
             #text = (text.replace("\\xe2\\x80\\x99", "'").replace("\\xe2\\x80\\x9c", "\"").replace("\\xe2\\x80\\x9d","\"").replace("\\'", "'").replace("b'", "").replace('\\n', '')) # Replaces hex code with correct ascii !!!!!!!!!!!!!! Change this to case structure
-            text = text_replacer(text)
+            text = text_replacer.text_replacer(text)
             #print(text)
+
 
             page_text.append(text)
 
     # print(page_text)
 
     return page_text
+
+
+
+
+
 
 
 

@@ -227,13 +227,16 @@ def get_nouns(sentences):
             noun_lemma = ""
             for token in chunk:
                 try:
-                    #print(token)
+                    print(token.text)
                     if token.text != "(": # Exception handler for ( !!!!!!!!!!!!!!!!!!!!!!!MAYBE WE DO BETTER
                         
                         if ("'s" == token.text): # Exception handling a word followed by 's creates a unneccesary space, this deletes the space !!!! NEED TO TEST FOR THINGS OTHER THEN 's
                             noun_lemma = noun_lemma[0: -len(lastChunk) - 1]
                             noun_lemma += lastChunk + token.text + " "
                             #print(noun_lemma)
+
+                        #if ("-" == token.text):
+                            
 
                         #lastChunk = token.text
                         

@@ -1,4 +1,4 @@
-from Parser import text_replacer as text_replacer
+from Parser import text_replacer
 
 def extract_txt_text(txt):
     page_text = []
@@ -9,7 +9,7 @@ def extract_txt_text(txt):
             #print(text)
         text = str(text)
 
-        text = text_replacer(text)
+        text = text_replacer.text_replacer(text)
 
         page_text.append(text)
 
