@@ -11,7 +11,6 @@ TODO: find alternative to if statements
 
 '''''''''''''''''''''''''''''''''''''''''''''''
 
-
 def text_replacer(text):
 
     if text.find("\\xe2\\x80\\x99") != -1:
@@ -42,3 +41,22 @@ def text_replacer(text):
         text = text.replace("b\"", "")
 
     return text
+
+def token_replacer(token, foundDash):
+    if token.text != "(": # Exception handler for ( !!!!!!!!!!!!!!!!!!!!!!!MAYBE WE DO BETTER         
+        if ("'s" == token.text): # Exception handling a word followed by 's creates a unneccesary space, this deletes the space !!!! NEED TO TEST FOR THINGS OTHER THEN 's
+            return token.text, False
+
+        elif ("," == token.text):
+            return token.text, False
+
+        elif ("-" == token.text):
+            return token.text, True
+
+        elif (foundDash == True):
+            return token.text, False
+
+        else:
+            return " " + token.lemma_, False
+    else:
+        return "", False

@@ -52,25 +52,45 @@ def extract_pdf_text(pdf):
         return not any(obj_in_bbox(__bbox) for __bbox in bboxes)
 
     page_text = []
+    table_content = ""
 
     for page in pdf.pages:
         if (page.extract_text() != None):  # Skips empty pages MAKE THIS INTO AN EXCEPTION!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            
+            try:
+                bboxes = [
+                    table.bbox
+                    for table in page.find_tables(
+                        table_settings={
+                            "vertical_strategy": "explicit",
+                            "horizontal_strategy": "explicit",
+                            "explicit_vertical_lines": page.curves + page.edges,
+                            "explicit_horizontal_lines": page.curves + page.edges,
+                        }
+                    )
+                ]
+            except:
+                print("TABLE ERROR")
 
-            bboxes = [
-                table.bbox
-                for table in page.find_tables(
-                    table_settings={
-                        "vertical_strategy": "explicit",
-                        "horizontal_strategy": "explicit",
-                        "explicit_vertical_lines": page.curves + page.edges,
-                        "explicit_horizontal_lines": page.curves + page.edges,
-                    }
-                )
-            ]
-
-            text = page.filter(not_within_bboxes).extract_text().encode('utf-8')
+            text = page.filter(not_within_bboxes).extract_text().encode('utf-8') # Skips tables
             text = str(text) # Converts back to string
-            text = text_replacer.text_replacer(text)
+            text = text_replacer.text_replacer(text[:-1]) # Gets rid of leading 'b and following '
+
+            try:
+                tables = page.extract_tables()
+
+                for table in tables: # Adds table with each cell as its own sentence
+                    for row in table:
+                        for item in row:
+                            table_text = item.encode('utf-8')
+                            table_text = str(table_text)
+                            table_text = text_replacer.text_replacer(table_text[:-1])
+                            table_text = table_content.capitalize() # Needs this so spacy knows each sentence is a capital
+                            table_content += '. ' + table_text + '. ' 
+                page_text.append(table_content + ".") # Bug where last sentence merges with last cell in table.
+            except:
+                print("TABLE ERROR")
+
             page_text.append(text)
 
     return page_text

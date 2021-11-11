@@ -1,6 +1,7 @@
 from Parser import noun as Noun
 import re
 import spacy
+from Parser import text_replacer
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 function: get_sentences
@@ -15,6 +16,7 @@ representing each sentence.
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
 def get_sentences(page_text):
+    print("Getting sentences from file...")
     total_sentences = []
     nlp = spacy.load('en_core_web_sm')
     for text in page_text:  # go through each page of text
@@ -31,6 +33,8 @@ def get_sentences(page_text):
             if sentence_text_cleaned != "":
                 total_sentences.append(sentence_text_cleaned) # Cleans string and converts from Span to string.
     
+    #print(total_sentences)
+
     cleaned_total_sentences = " ".join(total_sentences) # Creates one big setence
     test = nlp(cleaned_total_sentences)
     test_sentences = list(test.sents)
@@ -53,35 +57,22 @@ returns: a list of noun objects
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
 def get_nouns(sentences):
-    
+    print("Getting nouns and noun chunks from sentences...")
     total_nouns = []   # list of noun objects
 
     for sentence in sentences:
-        lastChunk=""
+        foundDash = False
         for chunk in sentence.noun_chunks:
-            noun_lemma = ""
+            noun_chunk = ""
             for token in chunk:
-                try:
-                    #print(token.text)
-                    if token.text != "(": # Exception handler for ( !!!!!!!!!!!!!!!!!!!!!!!MAYBE WE DO BETTER
-                        
-                        if ("'s" == token.text): # Exception handling a word followed by 's creates a unneccesary space, this deletes the space !!!! NEED TO TEST FOR THINGS OTHER THEN 's
-                            noun_lemma = noun_lemma[0: -len(lastChunk) - 1]
-                            noun_lemma += lastChunk + token.text + " "
-
-                        else:
-                            lastChunk = token.text
-                            noun_lemma += token.lemma_ + " "
-
-                except (ValueError):
-                    print("invalid token")
-                    continue
-
-            noun_lemma = noun_lemma.lstrip().rstrip().lower()
+                noun, foundDash = text_replacer.token_replacer(token, foundDash)
+                noun_chunk += noun
+                
+            noun_chunk = noun_chunk.lstrip().rstrip().lower()
             found = False
 
             for noun in total_nouns: # Checks through current nouns
-                if noun_lemma == noun.text or noun.text == noun_lemma: # Checks if chunk is already in current nouns
+                if noun_chunk == noun.text:# or noun.text == noun_chunk: # Checks if chunk is already in current nouns
                     found = True
                     break
             if found:
@@ -89,7 +80,7 @@ def get_nouns(sentences):
                 noun.add_occur(sentence.text.rstrip())
             else:
                 # if not, we'll create a new noun object for it
-                new_noun = Noun.Noun(noun_lemma, sentence.text.rstrip().lstrip())
+                new_noun = Noun.Noun(noun_chunk, sentence.text.rstrip().lstrip())
                 total_nouns.append(new_noun)
 
     return total_nouns
