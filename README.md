@@ -30,9 +30,9 @@ be divided into the following parts:
 
 ### Add-ons
 
-1. BootCat
-2. NER Tagger
-3. DictionaryAPI.dev
+# Not used 1. BootCat
+# Not used 2. NER Tagger
+# Not used 3. DictionaryAPI.dev
 
 ### Installation Steps
 
