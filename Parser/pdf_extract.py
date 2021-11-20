@@ -76,20 +76,20 @@ def extract_pdf_text(pdf):
             text = str(text) # Converts back to string
             text = text_replacer.text_replacer(text[:-1]) # Gets rid of leading 'b and following '
 
-            try:
-                tables = page.extract_tables()
+            # try:
+            #     tables = page.extract_tables()
 
-                for table in tables: # Adds table with each cell as its own sentence
-                    for row in table:
-                        for item in row:
-                            table_text = item.encode('utf-8')
-                            table_text = str(table_text)
-                            table_text = text_replacer.text_replacer(table_text[:-1])
-                            table_text = table_content.capitalize() # Needs this so spacy knows each sentence is a capital
-                            table_content += '. ' + table_text + '. ' 
-                page_text.append(table_content + ".") # Bug where last sentence merges with last cell in table.
-            except:
-                print("TABLE ERROR")
+            #     for table in tables: # Adds table with each cell as its own sentence
+            #         for row in table:
+            #             for item in row:
+            #                 table_text = item.encode('utf-8')
+            #                 table_text = str(table_text)
+            #                 table_text = text_replacer.text_replacer(table_text[:-1])
+            #                 table_text = table_content.capitalize() # Needs this so spacy knows each sentence is a capital
+            #                 table_content += '. ' + table_text + '. ' 
+            #     page_text.append(table_content + ".") # Bug where last sentence merges with last cell in table.
+            # except:
+            #     print("TABLE ERROR")
 
             page_text.append(text)
 

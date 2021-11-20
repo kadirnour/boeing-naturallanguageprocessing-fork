@@ -40,23 +40,40 @@ def text_replacer(text):
     if text.find("b\"") != -1:
         text = text.replace("b\"", "")
 
+    if text.find("\\xef\\xa3\\xa9") != -1:
+        text = text.replace("\\xef\\xa3\\xa9", "")
+
+    if text.find("\\xe2\\x80\\x98") != -1:
+        text = text.replace("\\xe2\\x80\\x98", "'")
+
+    if text.find("\\xe2\\x80\\x93") != -1:
+        text = text.replace("\\xe2\\x80\\x93", "-")
+
     return text
 
-def token_replacer(token, foundDash):
-    if token.text != "(": # Exception handler for ( !!!!!!!!!!!!!!!!!!!!!!!MAYBE WE DO BETTER         
+def token_replacer(token, foundDash, foundSlash):
+    
+    if token.text != "(":# or token.text != ")": # Exception handler for ( !!!!!!!!!!!!!!!!!!!!!!!MAYBE WE DO BETTER         
         if ("'s" == token.text): # Exception handling a word followed by 's creates a unneccesary space, this deletes the space !!!! NEED TO TEST FOR THINGS OTHER THEN 's
-            return token.text, False
+            return token.text, False, False
 
         elif ("," == token.text):
-            return token.text, False
+            return token.text, False, False
 
         elif ("-" == token.text):
-            return token.text, True
+            return token.text, True, False
+
+        elif ("/" == token.text):
+            return token.text, False, True
 
         elif (foundDash == True):
-            return token.text, False
+            return token.text, False, False
+
+        elif (foundSlash == True):
+            return token.text, False, False
 
         else:
-            return " " + token.lemma_, False
+            return " " + token.lemma_, False, False
     else:
-        return "", False
+        #print(token)
+        return "", False, False

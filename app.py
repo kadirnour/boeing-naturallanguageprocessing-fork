@@ -7,7 +7,7 @@ def main():
     parser.main()
 
     parsed_terms = extraction.Parsing.extract_frequencies_from_csv()
-    print(parsed_terms)
+    #print(parsed_terms)
 
 if __name__ == "__main__":
     main()

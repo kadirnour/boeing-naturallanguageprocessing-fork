@@ -2,6 +2,7 @@ from Parser import noun as Noun
 import re
 import spacy
 from Parser import text_replacer
+#from Parser import text_factory
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 function: get_sentences
@@ -61,11 +62,12 @@ def get_nouns(sentences):
     total_nouns = []   # list of noun objects
 
     for sentence in sentences:
-        foundDash = False
+        foundDash = False # Fixes extra spaces in front and behind of dash
+        foundSlash = False # Fixes extra spaces in front and being slash
         for chunk in sentence.noun_chunks:
             noun_chunk = ""
             for token in chunk:
-                noun, foundDash = text_replacer.token_replacer(token, foundDash)
+                noun, foundDash, foundSlash = text_replacer.token_replacer(token, foundDash, foundSlash)
                 noun_chunk += noun
                 
             noun_chunk = noun_chunk.lstrip().rstrip().lower()
@@ -101,4 +103,4 @@ def run_parsers(text):
     total_sentences = get_sentences(text)
     total_nouns = get_nouns(total_sentences)
 
-    return total_nouns, total_sentences
+    return total_nouns
