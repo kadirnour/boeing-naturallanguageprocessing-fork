@@ -3,18 +3,19 @@ from Parser import pdf_extract
 from Parser import text_extract
 from Parser import doc_extract
 
-
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: get_text
+Description: calls the correct extraction method for different document types
+Parameters: fi
+Returns: cleaned token, and booleans for found special characters
+'''''''''''''''''''''''''''''''''''''''''''''''''''
 def get_text(file_path):
+    extension = os.path.splitext(file_path)[1] # input file extension
 
-    # get the file extension
-    extension = os.path.splitext(file_path)[1]
-
-    # file types should probably be delegated to some sort of factory method eventually, but this works for now
     if extension == '.pdf':
-        text = pdf_extract.get_info(file_path)
+        file_text = pdf_extract.get_info(file_path)
     elif extension == '.txt':
-        text = text_extract.get_info(file_path)
+        file_text = text_extract.get_info(file_path)
     elif extension == '.docx':
-        text = doc_extract.get_info(file_path)
-
-    return text
+        file_text = doc_extract.get_info(file_path)
+    return file_text

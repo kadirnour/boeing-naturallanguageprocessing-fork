@@ -1,34 +1,49 @@
 from Parser import text_replacer
 
-def extract_txt_text(txt):
-    page_text = []
-
-    for line in txt:
-        text = line.encode('utf-8') # Converts to bytes
-        text = str(text)
-        text = text_replacer.text_replacer(text)
-        page_text.append(text[:-1])
-
-    return page_text
-
-def open_txt(fname):
-    print("Opening " + fname.name)
-
-    # check for valid path and extension
-    if not fname.exists():
-        print("File " + fname.name + " does not exist. Exiting...")
-        exit()
-    elif not fname.suffix == ".txt":
-        print("File " + fname.name + " is not a txt. Exiting...")
-        exit()
-        
-    txt = open(fname, encoding="utf-8")
-
-    return txt
-
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: get_info
+Description: gets the text from a .txt file
+Parameters: file location
+Returns: list containing text
+'''''''''''''''''''''''''''''''''''''''''''''''''''
 def get_info(file_path):
-    # open file
-    txt = open_txt(file_path)
-    text = extract_txt_text(txt)
+    # STEP 1: Get file from file_path
+    file = open_txt(file_path)
 
-    return text
+    # STEP 2: Get text from file object
+    file_text = extract_txt_text(file)
+    return file_text
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: extract_txt_text
+Description: extracts text from .txt file
+Parameters: .txt object
+Returns: List containing text
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+def extract_txt_text(file):
+    file_text = []
+
+    for line in file:
+        text = line.encode('utf-8') # converts string to bytes
+        text = str(text) # converts bytes back to string
+        text = text_replacer.text_replacer(text) # replaces special characters
+        file_text.append(text[:-1])
+    return file_text
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: open_txt
+Description: opens the .txt file
+Parameters: file location
+Returns: txt object
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+def open_txt(file_path):
+    print("Opening " + file_path.name)
+
+    if not file_path.exists(): # file location does not exist
+        print("File " + file_path.name + " does not exist. Exiting...")
+        exit()
+    elif not file_path.suffix == ".txt": # file is not .txt
+        print("File " + file_path.name + " is not a txt. Exiting...")
+        exit()
+    file = open(file_path, encoding="utf-8")
+    return file

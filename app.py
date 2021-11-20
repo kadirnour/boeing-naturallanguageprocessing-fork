@@ -1,13 +1,20 @@
 from Parser import main as parser
 from Taxonomy import extraction
 
-# Can interact with out code and old code
-
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: main
+Description: main, runs all functions
+Parameters:
+Returns:
+'''''''''''''''''''''''''''''''''''''''''''''''''''
 def main():
-    parser.main()
+    # STEP 1: Run parser and extract terms from documents
+    parser.parse()
 
-    parsed_terms = extraction.Parsing.extract_frequencies_from_csv()
+    # STEP 2: Find frequencies and weights of terms
+    parsed_terms = extraction.find_frequencies_and_weights()
     #print(parsed_terms)
+
 
 if __name__ == "__main__":
     main()
