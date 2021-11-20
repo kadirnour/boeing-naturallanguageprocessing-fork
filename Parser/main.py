@@ -6,7 +6,6 @@ from pathlib import Path
 from Parser import text_factory
 
 def main():
-
     print('starting')
     data = Path('Parser/data')
 
@@ -18,7 +17,7 @@ def main():
         text = text_factory.get_text(file)
 
         # parse file
-        total_nouns, total_sentences = Spacy.run_parsers(text)
+        total_nouns = Spacy.run_parsers(text)
 
         # end timer
         elapsedTime = time.time() - startTime

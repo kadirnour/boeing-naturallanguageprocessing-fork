@@ -38,6 +38,6 @@ class categorization:
             except:
                 pass
 
-        print(cat)
+        #print(cat)
 
         # term: [term syn]
