@@ -29,6 +29,10 @@ def text_replacer(text):
         text = text.replace("\\xe2\\x80\\x98", "'")
     if text.find("\\xe2\\x80\\x93") != -1:
         text = text.replace("\\xe2\\x80\\x93", "-")
+    if text.find("\\xe2\\x80\\x94") != -1:
+        text = text.replace("\\xe2\\x80\\x94", "-")
+    if text.find("\\xe2\\x80\\xa2") != -1:
+        text = text.replace("\\xe2\\x80\\xa2", "")
     return text
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''

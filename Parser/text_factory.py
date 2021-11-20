@@ -1,7 +1,7 @@
 import os
 from Parser import pdf_extract
 from Parser import text_extract
-from Parser import doc_extract
+from Parser import docx_extract
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 Function: get_text
@@ -17,5 +17,5 @@ def get_text(file_path):
     elif extension == '.txt':
         file_text = text_extract.get_info(file_path)
     elif extension == '.docx':
-        file_text = doc_extract.get_info(file_path)
+        file_text = docx_extract.get_info(file_path)
     return file_text

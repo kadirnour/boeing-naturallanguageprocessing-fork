@@ -1,0 +1,289 @@
+Game Genres 
+Video Game Technologies 
+11498: MSc in Computer Science and Engineering 
+11156: MSc in Game Design and Development 
+Chap. 1 — Game Genres
+Taken from the course CSC207, Java Games Programming
+by Philip Hanna
+Queen’s University, Belfast, Ireland
+Game Genres
+Outline
+• Objectives
+• The concepts of computer game, console game, and video game.
+• Game genres: 
+• Discussion
+Game Genres
+Objectives
+• To distinguish a computer game from a video game and a console game
+• To distinguish amonsgt several types or genres of games
+• To become games a serious matter
+Game Genres
+Definitions (taken from Wikipedia)
+• A computer game is a computer-controlled game. 
+• A video game is a computer game where a video display such as a monitor or 
+television is the primary feedback device. 
+• The phrase interactive entertainment is the formal reference to computer 
+and video games. 
+• In common usage:
+– Computer game or a PC game is played on a PC
+– Console game is played on a device specifically designed for gaming
+– Video game has evolved into a catchall phrase that encompasses the above along 
+with any game made for mobile phones, PDAs, etc.
+Game Genres
+Game genres
+However, the classification of games is not always consistent and can 
+be somewhat arbitrary. Does this really matter?
+For some food for thought read 
+Wittgenstein’s Philosophical Investigations 
+http://en.wikipedia.org/wiki/Philosophical_Investigations
+adventure games; action games; action-adventure games; platform games; fighting games; first-person shooter games; real-time 
+strategy games; turn-based strategy games; role playing games; massively multiplayer online games; stealth games; survival horror 
+games; simulation games; racing games; sports games; rythm games; puzzle games; board games; educational games; serious games.
+Games are often classified into genres, which purport to define games in 
+terms of having a common style or set of characteristics, e.g. as defined 
+in terms of perspective, gameplay, interaction, objective, etc. 
+Game Genres
+Adventure games
+• Typically the player is the protagonist of a story 
+and in order to progress must solve puzzles. The 
+puzzles can often involve manipulating and 
+interacting with in-game objects, characters, etc.
+• Text-based adventures and graphical
+• Examples:
+– Zork
+– King’s Quest 
+– Grim Fandango 
+– Fahrenheit
+You can play the original Zork at:
+http://thcnet.net/error/index.php
+Game Genres
+Action games
+• A number of other action-oriented genres can be broadly 
+classified as belonging to this genre. Action games are 
+typified by fast-paced events and movement which often 
+have to be performed reflexively. 
+• Games such as Pong and Space Invaders initially 
+defined the genre.
+Game Genres
+Action-adventure games
+• Action-adventure games can be described in terms of a 
+blend of the characteristics associated with both 
+adventure and action games, i.e. often involving both 
+exploration and puzzle solving alongside fast-paced action 
+sequences.
+• Adventure on Atari 2600 can be considered as initially 
+defining this genre. 
+• Other notable (more recent) examples include:
+– Legend of Zelda
+– Jak 3
+– Metroid Prime 2
+Game Genres
+Platform games aka platformers
+• This genre often requires the protagonist to run and jump 
+between surfaces (i.e. platforms) whilst avoiding game 
+objects and the detrimental effects of gravity.
+• Traditionally, platform games were side-on 2D in 
+perspective and very popular on earlier gaming platforms.
+• The genre has declined in popularity in recent years, 
+although some titles have successfully redefined the genre 
+to include 3D environments. 
+• Exemplos:
+– Pitfall! 
+– Super Mario Bros
+– Sonic the Hedgehog 
+– Super Mario 64
+– Tomb Raider
+– Prince of Persia
+Game Genres
+Fighting games
+• In fighting games the player typically fights other players or 
+the computer in some form of one-on-one combat.
+• Notable classics include:
+– Double Dragon
+– Mortal Kombat
+– Street Fighter 
+• More recent renditions include:
+– Virtua Fighter
+– Tekken
+Game Genres
+First-person shooter (FPS) games
+• Action games where the player is “behind the eyes” of the 
+game character in a first-person perspective. Although a 
+number of FPS games also support third-person views.
+• Most FPSs are fast-paced and typically require actions to be 
+performed reflexively.
+• Notable examples include:
+– Wolfenstein 3D 
+– DOOM
+– Half-Life
+– Far Cry
+– F.E.A.R.
+Game Genres
+Real-time strategy (RTS) games
+• RTS games typically defined a number of goals around 
+resource collection, base and unit construction and 
+engagement in combat with other players or computer 
+opponents who also share similar goals.
+• Emphasis is often placed upon managing logistics, resources 
+and production.
+• Notable examples include:
+– Dune 2
+– Command and Conquer
+– Warcraft
+– Age of Empires
+Game Genres
+Turn-based strategy games
+• Turn-based games share similar aims to real-time strategy 
+games although players take turns in much the same was as 
+with many traditional board games. 
+• Notable examples include:
+– Civilization 
+– X-COM
+– Master of Orion
+– Jagged Alliance
+• There is a recent trend towards hybrid games that include 
+elements of both turn-based and real-time games, e.g. 
+Rome Total War
+Game Genres
+Role playing games (RPGs)
+• Originally started out as video games based on pen and 
+pencil games like Dungeons and Dragons. A fantasy theme 
+is often retained. 
+• Often characterised in terms of providing the player with 
+flexibility in terms of character development, problem 
+resolution, etc.
+• Notable examples include:
+– Final Fantasy
+– Baldur’s Gate
+– Wasteland
+– Neverwinter Nights
+– Elder Scrolls Oblivion
+Game Genres
+Massively multiplayer online 
+role-playing games (MMRPGs)
+• Typically a RPG set in a persistent virtual world populated 
+by thousands of other players. MMORPGs can be viewed 
+as evolving from text-based MUDs in mid-to-late 1990s.
+• The first highly popular MMORPG was Ultima Online
+whilst World of Warcraft holds the honor of being the 
+current most popular.
+• Aside: Apart from MMOPRGs there are also sizeable 
+communities around online first person shooters and 
+strategy games, e.g. Battlefield 2
+Game Genres
+Stealth games
+• Games which can be defined by a focus on subterfuge and/
+or precision play. 
+• Notable examples include:
+– Metal Gear
+– Thief 
+– Splinter Cell
+Game Genres
+Survival horror games
+• Often an action-adventure or first-person shooter 
+with a focus on fear and survival and adopting 
+many of the elements of traditional horror fiction.
+• Alone in the Dark provides a notable early 
+example, whilst the Resident Evil series is a 
+current notable example.
+Game Genres
+Simulation games
+• Many simulation games aim to simulate physical 
+activities such as flying an aircraft (Microsoft 
+Flight Simulator), playing golf or football etc. 
+(sometimes with as much realism as possible). 
+• Other forms of simulation game aim to provide 
+simulations of forms of management, e.g. football 
+management games, city management (SimCity), 
+railroading, etc. 
+• Often the simulation is intended to be fun as 
+opposed to accurate, e.g. Wing Commander 
+and X3 are notable space combat simulation 
+games
+• Others popular games in this category include 
+The Sims series where the player ‘controls’ the 
+lives of computer characters.
+Game Genres
+Racing games
+• Racing games typically place the player behind the 
+wheel and involve competing in a race against 
+other drivers and/or time. Two sub-genre can be 
+identified: simulation and arcade.
+• Notable examples include:
+– Pole Position
+– Mario Kart
+– Gran Turismo 
+– Need for Speed
+– GTR 
+Game Genres
+Sports games
+• Games that simulate the sporting experience – 
+including sports such as football, baseball, golf, 
+boxing, skate boarding, ice hockey, tennis, etc.
+• Some sports game place the emphasis on the 
+experience of playing the sport, whilst others 
+focus on the strategy behind the sport.
+• Notable examples include:
+– John Madden Football 
+– Tiger Woods’ Golf
+– Pro Evolution Soccer
+– Championship Manager
+Game Genres
+Rhythm games (music games)
+• Rhythm games require the player to undertake 
+some action (e.g. follow a sequence of movement 
+or develop specific rhythms) in response to some 
+stimulus (often music). 
+• Often the games require specialised controllers 
+such as dance pads. 
+• Dance Dance Revolution is the best known 
+example.
+Game Genres
+Puzzle games
+• Puzzle games often require the player to solve 
+puzzles or problems and can involve the exercise 
+of logic, memory, pattern matching, reaction time, 
+etc.
+• Notable examples include:
+– Tetris
+– Lemmings
+– Minesweeper
+– Boulder Dash
+Game Genres
+Traditional games
+• Traditional games represent computerised 
+versions of board, word, and card games and 
+include games such as chess, checkers, 
+backgammon, mah-jongg, go, scrabble, etc.
+Game Genres
+Educational games
+• Educational games are designed to teach 
+new skills which can span from pre-school 
+onwards.
+• Notable examples of this genre include:
+– Carmen Sandiego series
+– Mavis Beacon Teaching Typing
+– Dr Kawashima's Brain Training
+Game Genres
+Summary:
+• Objectives
+• The concepts of computer game, console game, and video game.
+• Game genres: 
+• Discussion
+Game Genres
+Questions & Further reading:
+– Difference between strategy and tactics?
+– Difference between First-Person Shooter (FPS) and Third-Person Shooter?
+– http://www.thocp.net/software/games/reference/genres.htm
+– http://www.lgrace.com/documents/Game_types_and_genres.pdf
+– http://tvtropes.org/pmwiki/pmwiki.php/Main/VideoGameGenres
+– http://www.robinlionheart.com/gamedev/genres.xhtml
+Game Genres
+Next class: 
+• Chapter 3: Game Engines
+– http://www.giantbomb.com/profile/michaelenger/blog/game-engines-how-do-they-work/101529/
+– http://www.develop-online.net/news/the-top-14-game-engines-the-list-in-full/0114330
+– http://www.develop-online.net/tools-and-tech/the-top-16-game-engines-for-2014/0192302
+– http://html5gameengine.com/
+– http://www.godotengine.org/wp/features/
+– http://citrusengine.com/
