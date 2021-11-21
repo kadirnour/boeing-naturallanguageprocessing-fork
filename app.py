@@ -1,5 +1,6 @@
 from Parser import main as parser
 from Taxonomy import extraction
+from tests import unit_tests
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 Function: main
@@ -13,7 +14,9 @@ def main():
 
     # STEP 2: Find frequencies and weights of terms
     parsed_terms = extraction.find_frequencies_and_weights()
-    #print(parsed_terms)
+    print(parsed_terms)
+
+    unit_tests.test_accuracy()
 
 
 if __name__ == "__main__":

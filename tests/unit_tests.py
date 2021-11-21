@@ -1,5 +1,6 @@
 from Parser import Spacy as parsers
 from Parser import output_writers
+from Parser import text_factory
 import os
 from pathlib import Path
 
@@ -36,8 +37,8 @@ def test_blank_pdf():
 
 
 def test_accuracy():
-    docInfo, total_nouns, total_sentences = parsers.run_parsers(
-        test_data / 'test_sentences_10.pdf')
+    text = text_factory.get_text(test_data / 'test_sentences_10.txt')
+    total_nouns = parsers.run_parsers(text)
     correct_counts = 0
     extra_counts = 0
     d = {}

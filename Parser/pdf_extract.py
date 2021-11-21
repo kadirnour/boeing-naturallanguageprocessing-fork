@@ -78,6 +78,7 @@ def extract_pdf_text(file):
                 )
             ]
             text = page.filter(not_within_bboxes).extract_text().encode('utf-8') # skips text found in table and encodes text into bytes
+            #text = page.extract_text().encode('utf-8')
             text = str(text) # converts bytes back to string
             text = text_replacer.text_replacer(text[: -1]) # replaces special characters
 
