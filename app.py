@@ -10,14 +10,14 @@ Parameters:
 Returns:
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 # def main():
-    # # STEP 1: Run parser and extract terms from documents
-    # parser.parse()
+#     # STEP 1: Run parser and extract terms from documents
+#     parser.parse()
 
-    # # STEP 2: Find frequencies and weights of terms
-    # parsed_terms = extraction.find_frequencies_and_weights()
-    # print(parsed_terms)
+#     # STEP 2: Find frequencies and weights of terms
+#     parsed_terms = extraction.find_frequencies_and_weights()
+#     print(parsed_terms)
 
-    # unit_tests.test_accuracy()
+#     unit_tests.test_accuracy()
 
 
 # if __name__ == "__main__":
@@ -25,7 +25,13 @@ Returns:
 
 app = Flask(__name__)
 
-@app.route('/parser')
-def parse():
-    print("HERE")
-    return "HELLO WORLD!"
+# @app.route('/path1')
+# def path1():
+#     print("HERE")
+#     return "HELLO WORLD!"
+
+@app.route('/path2')
+def path2():
+    json = {'time' : "HERE"}
+    return json
+    #selectFolder()
