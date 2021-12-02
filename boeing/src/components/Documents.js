@@ -33,8 +33,8 @@ class Documents extends React.Component {
                         &nbsp;
                         {this.state.inputConfirmed}
                     </div>
-                    <div className="folderSubmit">
-                        <button onClick={() => this.props.nextPage()}> Submit: </button>
+                    <div className="modeBtn">
+                        <button onClick={() => this.props.nextPage()}> Forward </button>
                     </div>
                 </div>
             </div>

@@ -90,6 +90,16 @@ class App extends React.Component {
     }
   }
 
+  prevPage = () => {
+    if (this.state.mode === 100) {
+      this.setState({mode: 99})
+    } else if (this.state.mode == 99) {
+      this.setState({mode: 66})
+    } else if (this.state.mode == 66) {
+      this.setState({mode: 33})
+    }
+  }
+
   setInput = (input) => {
     this.setState({input: input})
   }
@@ -125,6 +135,7 @@ class App extends React.Component {
                           dict={this.state.dict}
                           renderTable={this.renderTable}
                           nextPage={this.nextPage}
+                          prevPage={this.prevPage}
                           setOutput={this.setOutput}
                           //getFolder={this.getFolder}
                           /> :
@@ -134,8 +145,9 @@ class App extends React.Component {
                               getWeight={this.getWeight}
                               weights={this.state.weights}
                               renderTable={this.renderWeightTable}
-                              nextPage={this.nextPage}/> :
-                            <Taxonomy/>
+                              nextPage={this.nextPage}
+                              prevPage={this.prevPage}/> :
+                            <Taxonomy prevPage={this.prevPage}/>
         }  
       </>
     )

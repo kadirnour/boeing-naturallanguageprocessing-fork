@@ -64,9 +64,8 @@ class Terms extends React.Component {
                         </tbody>
                     </table>
                     <div className="modeBtn">
-                        <button onClick={() =>  this.props.nextPage()}>
-                            Submit
-                        </button>
+                        <button onClick={() => this.props.prevPage()}> Back </button>
+                        <button onClick={() =>  this.props.nextPage()}> Forward </button>
                     </div>
                 </div>
             </div>

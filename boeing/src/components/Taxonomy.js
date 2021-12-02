@@ -9,6 +9,9 @@ class Taxonomy extends React.Component {
                     <h1>
                         UNDER CONSTRUCTION
                     </h1>      
+                    <div className="modeBtn">
+                        <button onClick={() => this.props.prevPage()}> Back </button>
+                    </div>
                 </div>
             </div>
         )
