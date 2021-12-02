@@ -7,16 +7,16 @@ Description: Finds frequencies and weights of terms
 Parameters:
 Returns: A dictionary with Key: term, Value: {frequency, weight}
 '''''''''''''''''''''''''''''''''''''''''''''''''''
-def find_frequencies_and_weights():
+def find_frequencies_and_weights(input):
     # STEP 1: Get path and secondary information for calculations
     frequency_dict = {}
-    path = os.getcwd() + '\\Parser\\output\\' # input location
-    folder = os.listdir(path) # folder at input location
+    #path = os.getcwd() + '\\Parser\\output\\' # input location
+    folder = os.listdir(input) # folder at input location
     number_files = len(folder) # number of files for weight calculation
 
     # STEP 2: Calculate frequencies and weights
     for csv_name in folder:
-        file_path = path + '\\' + csv_name # csv from folder
+        file_path = input + '\\' + csv_name # csv from folder
 
         with open(file_path, 'r', encoding='utf-8') as f:
             rowreader = csv.reader(f, delimiter=',')

@@ -8,9 +8,9 @@ parameters: Time to find all nouns. Average time to find nouns. List of noun obj
             Number of unique nouns found. Total number of nouns found. File nouns are found in.
 returns:
 '''''''''''''''''''''''''''''''''''''''''''''''''''
-def to_csv(totalTimeStr, costPerNounStr, total_nouns, unqNouns, sumNouns, file):
+def to_csv(totalTimeStr, costPerNounStr, total_nouns, unqNouns, sumNouns, file, output):
     # STEP 1: Get path and file name
-    output = Path('Parser/output') # output folder location
+    output = Path(output) # output folder location
     csv_name = file.stem + '_nouns.csv' # name of .csv file
 
     # STEP 2: Write to .csv file
