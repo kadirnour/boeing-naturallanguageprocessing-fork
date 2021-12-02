@@ -5,7 +5,7 @@
     width: 100%;
     height: 100%;
     display: flex; 
-    background-color: rgb(68, 68, 185);
+    background-color: lightblue;
 }
 
 .centered {
@@ -14,7 +14,7 @@
 
 .modeBox {
     width: 90%;
-    height: 50%;
+    height: 85%;
     margin-left: 50px;
     margin-top: 50px;
     background-color: lightgray;
@@ -107,4 +107,31 @@
 
 .indexedStep2.accomplished2 {
     color: lightgreen;
+}
+
+.navbarLogo{
+    margin-left: 92.5%;
+    margin-top: -5%;
+    height: auto;
+    width: 150px;
+    position: relative;
+    opacity: 0.5;
+}
+
+.navbarLogo2{
+    margin-left: 0%;
+    margin-top: -7.5%;
+    height: auto;
+    width: 150px;
+    position: relative;
+    opacity: 0.5;
+}
+
+.outlineModeBox{
+    width: 95%;
+    height: 80%;
+    margin-left: 50px;
+    margin-top: 50px;
+    background-color: blue;
+    position: absolute
 }

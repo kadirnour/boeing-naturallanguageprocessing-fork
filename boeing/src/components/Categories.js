@@ -5,6 +5,8 @@ class Categories extends React.Component {
     render() {
         return (
             <div className="mode">
+                <h5> Boeing Natural Processing Language Project </h5>
+                <div className="outlineModeBox">
                 <div className="modeBox">
                     <h1>
                         Step 3: Categories
@@ -33,6 +35,7 @@ class Categories extends React.Component {
                         <button onClick={() => this.props.prevPage()}> Back </button>
                         <button onClick={() => this.props.nextPage()}> Forward </button>
                     </div>
+                </div>
                 </div>
             </div>
         )

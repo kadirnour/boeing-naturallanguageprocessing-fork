@@ -19,6 +19,8 @@ class Terms extends React.Component {
     render() {
         return (
             <div className="mode">
+                
+                <div className="outlineModeBox">
                 <div className="modeBox">
                     <h1>
                         Step 2: Term Extraction
@@ -68,6 +70,8 @@ class Terms extends React.Component {
                         <button onClick={() =>  this.props.nextPage()}> Forward </button>
                     </div>
                 </div>
+                </div>
+                <h5> Boeing Natural Processing Language Project </h5>
             </div>
         )
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import logo from '../images/boeing logo.jpg';
 import "react-step-progress-bar/styles.css";
 import { ProgressBar, Step } from "react-step-progress-bar";
 
@@ -72,6 +72,8 @@ class NavBar extends React.Component {
                         </Step>
                     </ProgressBar>
                 </div>
+                <img className="navbarLogo" src={logo}/>
+                <img className="navbarLogo2" src={logo}/>
             </div>
         ); 
     }

@@ -19,24 +19,27 @@ class Documents extends React.Component {
     render() {
         return (
             <div className="mode">
-                <div className="modeBox">
-                    <h1>
-                        Step 1: Document Corpus
-                    </h1>
-                    <div className="modeBtn">
-                        <input onChange={this.handleChange} name="input" placeholder="Enter Input Directory"/>
-                        <button onClick={() => this.submitInput()}> Enter: </button>
-                        {/* <button onClick={() => this.props.getFolder()}> Select Folder Directory: </button> */}
-                    </div>
-                    <div className="folderLocation">
-                        Input Location:
-                        &nbsp;
-                        {this.state.inputConfirmed}
-                    </div>
-                    <div className="modeBtn">
-                        <button onClick={() => this.props.nextPage()}> Forward </button>
+                <div className="outlineModeBox">
+                    <div className="modeBox">
+                        <h1>
+                            Step 1: Document Corpus
+                        </h1>
+                        <div className="modeBtn">
+                            <input onChange={this.handleChange} name="input" placeholder="Enter Input Directory"/>
+                            <button onClick={() => this.submitInput()}> Enter: </button>
+                            {/* <button onClick={() => this.props.getFolder()}> Select Folder Directory: </button> */}
+                        </div>
+                        <div className="folderLocation">
+                            Input Location:
+                            &nbsp;
+                            {this.state.inputConfirmed}
+                        </div>
+                        <div className="modeBtn">
+                            <button onClick={() => this.props.nextPage()}> Forward </button>
+                        </div>
                     </div>
                 </div>
+                <h5> Boeing Natural Processing Language Project </h5>
             </div>
         )
     }
