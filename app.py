@@ -71,8 +71,9 @@ def weights():
 # Returns: Retrieves dictionary of all the terms and cats and sends to method 
 #################################################################################################
 def recieveCategories():
+    #location = request.get_json(force=True)
+    #return categories.category_receive.(list(location.values())[0])
     pass
-    # Here we retrieve
 
 #################################################################################################
 # Function: sendCategories
@@ -80,4 +81,6 @@ def recieveCategories():
 # Returns: Dictionary of all the terms and cats with sizes so maybe {category:size}:{term1:weight, term2:weight,... }
 #################################################################################################
 def sendCategories():
+    #location = request.get_json(force=True)
+    #return categories.category_send(list(location.values())[0])
     pass
