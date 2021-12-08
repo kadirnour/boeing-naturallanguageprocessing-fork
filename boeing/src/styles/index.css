@@ -32,8 +32,10 @@
 
 .tableBody {
     display: block;
-    max-height: 300px;
+    max-height: 450px;
+    max-width: 500px;
     overflow: auto;
+    background-color: aquamarine;
 }
 
 /* DOCUMENTS CONTENT */
@@ -134,4 +136,8 @@
     margin-top: 50px;
     background-color: blue;
     position: absolute
+}
+
+.circle{
+    background-color: aqua;
 }

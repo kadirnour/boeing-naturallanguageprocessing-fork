@@ -59,7 +59,7 @@ class App extends React.Component {
   }
 
   /**
-   * 
+   * table of the terms pulled from the corpus
    * @returns table
    */
   renderTable = () => {

@@ -17,6 +17,7 @@ class Taxonomy extends React.Component {
                     <div className="modeBtn">
                         <button onClick={() => this.props.prevPage()}> Back </button>
                     </div>
+                    <div class="circle circle-lg">Category</div>
                 </div>
                 </div>
                 <h5> Boeing Natural Processing Language Project </h5>

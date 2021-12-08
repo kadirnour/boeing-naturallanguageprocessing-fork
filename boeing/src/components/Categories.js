@@ -35,6 +35,18 @@ class Categories extends React.Component {
                             } 
                         </tbody>
                     </table>
+                    <table>
+                        <thead className="table-light tableHead1">
+                            <tr>
+                                <th>CATEGORIES</th>
+                            </tr>
+                        </thead>
+                        <tbody className="table-light tableBody1">
+                            <tr>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
                     <div className="modeBtn">
                         <button onClick={() => this.props.prevPage()}> Back </button>
                         <button onClick={() => this.props.nextPage()}> Forward </button>

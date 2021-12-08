@@ -34,6 +34,11 @@ app = Flask(__name__)
 #     print("HERE")
 #     return "HELLO WORLD!"
 
+#################################################################################################
+# Function: Parse
+# Direction: Bac to Front
+# Returns: all the nouns and send to front end
+#################################################################################################
 @app.route('/parse', methods = ['POST'])
 def parse():
     #json = {'time' : "HERE"}
@@ -44,6 +49,11 @@ def parse():
     return total_nouns
     #selectFolder()
 
+#################################################################################################
+# Function: Weights
+# Direction: Bac to Front
+# Returns: all the weights, freq and noun data as dict and sends to front end
+#################################################################################################
 @app.route('/weights', methods = ['POST'])
 def weights():
     location = request.get_json(force=True)
@@ -54,3 +64,20 @@ def weights():
 #     #Tk().withdraw() # we don't want a full GUI, so keep the root window from appearing
 #     #dir = filedialog.askdirectory()
 #     return {'directory': dir}
+
+#################################################################################################
+# Function: recieveCategories
+# Direction: Front to Back
+# Returns: Retrieves dictionary of all the terms and cats and sends to method 
+#################################################################################################
+def recieveCategories():
+    pass
+    # Here we retrieve
+
+#################################################################################################
+# Function: sendCategories
+# Direction: Back to Front
+# Returns: Dictionary of all the terms and cats with sizes so maybe {category:size}:{term1:weight, term2:weight,... }
+#################################################################################################
+def sendCategories():
+    pass
