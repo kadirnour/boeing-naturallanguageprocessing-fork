@@ -2,6 +2,10 @@ import React from 'react';
 
 class Taxonomy extends React.Component {
 
+    /**
+     * Contains page where user can look at and manage generalized taxonomies.
+     * @returns taxonomy page
+     */
     render() {
         return (
             <div className="mode">

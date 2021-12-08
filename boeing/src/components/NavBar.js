@@ -5,6 +5,10 @@ import { ProgressBar, Step } from "react-step-progress-bar";
 
 class NavBar extends React.Component {
     
+    /**
+     * Shows progress through app on the top bar. 
+     * @returns navbar on top of all the pages
+     */
     render() {
         return (
             <div className="navBar">

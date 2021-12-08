@@ -7,6 +7,7 @@ import Taxonomy from './Taxonomy.js'
 
 class App extends React.Component {
 
+
   constructor(props) {
     super(props);
     this.state = {dict: {},
@@ -17,6 +18,9 @@ class App extends React.Component {
   }
 
 
+  /**
+   * fetches the parsing data from the json file
+   */
   Parser = async() => {
     let directories = {input: this.state.input,
             output: this.state.output}
@@ -36,6 +40,9 @@ class App extends React.Component {
       .then(data => {this.setState({dict: data})})
   }
 
+  /**
+   * fetches the weights from the JSON file for the table
+   */
   getWeight = async() => {
     let input = {input: this.state.output}
 
@@ -51,6 +58,10 @@ class App extends React.Component {
                           .then(data => {this.setState({weights: data})})
   }
 
+  /**
+   * 
+   * @returns table
+   */
   renderTable = () => {
     const table = []
     for (let r = 0; r < Object.keys(this.state.dict).length; r++) {
@@ -66,6 +77,10 @@ class App extends React.Component {
     return table;
   }
 
+  /**
+   * Adds the weights and frequecies to the weight/freq table on the third page
+   * @returns table
+   */
   renderWeightTable = () => {
     const table = []
     for (let r = 0; r < Object.keys(this.state.weights).length; r++) {
@@ -80,6 +95,9 @@ class App extends React.Component {
     return table;
   }
 
+  /**
+   * Takes us to the next page of the application
+   */
   nextPage = () => {
     if (this.state.mode === 33) {
       this.setState({mode: 66})
@@ -90,6 +108,9 @@ class App extends React.Component {
     }
   }
 
+  /**
+   * Takes us to the previous page of the application
+   */
   prevPage = () => {
     if (this.state.mode === 100) {
       this.setState({mode: 99})
@@ -118,6 +139,10 @@ class App extends React.Component {
   //                   .then(data => {this.setState({folder: data})})
   // }
 
+  /**
+   * Interfaces the top navbar to the forward and back buttons
+   * @returns navbar
+   */
   render() {
     return (
       <>

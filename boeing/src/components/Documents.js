@@ -16,6 +16,11 @@ class Documents extends React.Component {
                         this.props.setInput(this.state.inputConfirmed))
     }
 
+    /**
+     * Outline - 
+     * Where user selects document(s) or corpus to run the parser and weights calculator on.
+     * @returns first page: Documents
+     */
     render() {
         return (
             <div className="mode">

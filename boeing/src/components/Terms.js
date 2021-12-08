@@ -16,6 +16,10 @@ class Terms extends React.Component {
         this.setState({[event.target.name]: event.target.value})
     }
 
+    /**
+     * Where user managers terms and context.
+     * @returns The noun and terminology table
+     */
     render() {
         return (
             <div className="mode">

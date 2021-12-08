@@ -2,6 +2,10 @@ import React from 'react';
 
 class Categories extends React.Component {
 
+    /**
+     * The page that displays the freq/weights of the nouns/noun phrases.
+     * @returns page full of weights and frequencies... the third page
+     */
     render() {
         return (
             <div className="mode">
