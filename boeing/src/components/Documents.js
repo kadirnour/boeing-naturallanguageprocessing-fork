@@ -4,7 +4,7 @@ class Documents extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {inputConfirmed: ""}
+        this.state = {}
     }
 
     handleChange = (event) => {
@@ -12,34 +12,39 @@ class Documents extends React.Component {
     }
 
     submitInput = () => {
-        this.setState({inputConfirmed: this.state.input}, () =>
-                        this.props.setInput(this.state.inputConfirmed))
+        this.props.setInput(this.state.input)
     }
 
+    // Autocompletes output location to recommened location
+    recommend = () => {
+        this.props.setInput("C:\\Users\\blcsi\\OneDrive\\Desktop\\boeing-naturallanguageprocessing\\Parser\\data")
+    }
+    
     render() {
         return (
-            <div className="mode">
-                <div className="outlineModeBox">
-                    <div className="modeBox">
-                        <h1>
-                            Step 1: Document Corpus
-                        </h1>
+            <div className="page">
+                <h2 className="pageTitle"> Step 1: Document Corpus </h2>
+                <div className="pageBox">
+                    <div className="documentUploadSection">
+                        &nbsp;
                         <div className="modeBtn">
+                            &nbsp;&nbsp;
                             <input onChange={this.handleChange} name="input" placeholder="Enter Input Directory"/>
-                            <button onClick={() => this.submitInput()}> Enter: </button>
-                            {/* <button onClick={() => this.props.getFolder()}> Select Folder Directory: </button> */}
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <button className="btn" onClick={() => this.submitInput()}> Enter: </button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <button className="btn" onClick={() => this.recommend()}> Recommendation: </button>
                         </div>
                         <div className="folderLocation">
                             Input Location:
                             &nbsp;
-                            {this.state.inputConfirmed}
+                            {this.props.oldInput}
                         </div>
                         <div className="modeBtn">
-                            <button onClick={() => this.props.nextPage()}> Forward </button>
+                            <button className="right bottom1 btn" onClick={() => this.props.nextPage()}> Forward </button>
                         </div>
                     </div>
                 </div>
-                <h5> Boeing Natural Processing Language Project </h5>
             </div>
         )
     }
