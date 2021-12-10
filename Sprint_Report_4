@@ -1,0 +1,41 @@
+# Sprint 4 Report (12/09/21)
+
+## What's New (User Facing)
+ * Feature 1: Back-end api routes to serve parser output
+ * Feature 2: Front-end react core to visualize parser process
+ * Bug 1: Updated test case to use new parser syntax 
+ 
+
+## Work Summary (Developer Facing)
+Our team started to work on the front-end the client wanted. Focusing on creating a manual process for moving terms into a category list. Also created an flask API that allows various interactions with our parser code. 
+
+## Unfinished Work
+The taxonomy visualization implementation. Currently we can visualize the categories but we need to implement some type of graph or tree to see categories and their relationship together. Back-end route endpoints for more control.
+
+## Completed Issues/User Stories
+Here are links to the issues that we completed in this sprint:
+
+ * https://github.com/WSUCptSCapstone-Fall2021Spring2022/boeing-naturallanguageprocessing/issues/23
+ 
+ ## Incomplete Issues/User Stories 
+ Here are links to issues we worked on but did not complete in this sprint:
+ 
+ * https://github.com/WSUCptSCapstone-Fall2021Spring2022/boeing-naturallanguageprocessing/issues/16
+   - We would still like to have exception handling for foreign languages
+
+## Code Files for Review
+Please review the following code files, which were actively developed during this sprint, for quality:
+ * [Web app](https://github.com/WSUCptSCapstone-Fall2021Spring2022/boeing-naturallanguageprocessing/tree/main/boeing)
+ 
+## Retrospective Summary
+Here's what went well:
+  * We were able to create a functioning front-end that can demonstrate our parser and allow maual category creation
+  * We were able to create a back-end using flask to use allow the use of our parser methods via an API
+ 
+Here's what we'd like to improve:
+   * Effiecency for larger documents
+   * Add non functional requirements check
+  
+Here are changes we plan to implement in the next sprint:
+   * More parser exceptions (continual)
+   * Taxonomy category visualization
