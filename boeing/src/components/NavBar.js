@@ -20,10 +20,10 @@ class NavBar extends React.Component {
                             <Step>
                                 {({ accomplished }) => (
                                     <div className={`indexedStep1 ${accomplished ? "accomplished" : null}`}>
-                                        {this.props.mode == 33 ?
-                                            <img className="us" src={brandon}/> :
+                                        {/* {this.props.mode == 33 ?
+                                            <img className="us" src={brandon}/> : */}
                                             1
-                                        } 
+                                        {/* }  */}
                                         
                                     </div>
                                 )}
@@ -32,30 +32,30 @@ class NavBar extends React.Component {
                                 {({ accomplished }) => (
                                     <div className={`indexedStep1 ${accomplished ? "accomplished" : null}`}>
                                         
-                                        {this.props.mode == 66 ?
-                                            <img className="us" src={riley}/> :
+                                        {/* {this.props.mode == 66 ?
+                                            <img className="us" src={riley}/> : */}
                                             2
-                                        } 
+                                        {/* }  */}
                                     </div>
                                 )}
                             </Step>
                             <Step>
                                 {({ accomplished }) => (
                                     <div className={`indexedStep1 ${accomplished ? "accomplished" : null}`}>
-                                        {this.props.mode == 99 ?
-                                            <img className="us" src={kadir}/> :
+                                        {/* {this.props.mode == 99 ?
+                                            <img className="us" src={kadir}/> : */}
                                             2
-                                        } 
+                                        {/* }  */}
                                     </div>
                                 )}
                             </Step>
                             <Step>
                                 {({ accomplished }) => (
                                     <div className={`indexedStep1 ${accomplished ? "accomplished" : null}`}>
-                                        {this.props.mode == 100 ?
-                                            <img className="us" src={don}/> :
+                                        {/* {this.props.mode == 100 ?
+                                            <img className="us" src={don}/> : */}
                                             4
-                                        } 
+                                        {/* }  */}
                                     </div>
                                 )}
                             </Step>
@@ -94,10 +94,10 @@ class NavBar extends React.Component {
                         </ProgressBar>
                     </div>
                     <div>
-                        {this.props.mode == 100 ?
-                            <img className="us2" src={rocki}/> :
+                        {/* {this.props.mode == 100 ?
+                            <img className="us2" src={rocki}/> : */}
                             <img className="navbarLogo" src={logo}/>
-                        }
+                        {/* } */}
                         
                         {/* {this.props.mode == 33 ?
                             <img className="navbarLogo" src={logo}/> :
