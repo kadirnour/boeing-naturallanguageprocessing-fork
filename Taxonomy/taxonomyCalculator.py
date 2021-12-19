@@ -26,10 +26,8 @@ A master method that:
 Then passes result to tax_writer
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 def receive_categories(input, output):
-    #taxDict={}
-   # taxDict=process_taxonomy(input)
-   # taxonomy_writer(taxDict,output)
-    pass
+    taxDict = process_taxonomy(input)
+    taxonomy_writer(taxDict, output)
 
 
 '''
