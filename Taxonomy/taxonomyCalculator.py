@@ -66,9 +66,13 @@ def calculate_taxonomy(terms):
 
 '''
 Method: taxonomy_writer
-Input: {Category:Weight}:[Terms]
+Input: {Category:Weight}:{Terms:Weights}
 Output: A CSV file with: 
 Description: 
 '''
 def taxonomy_writer(input, output):
-    pass
+    with open(output, 'w') as out:
+        writer = csv.writer(out)
+        for taxonomy,terms in input:
+            for category,weight in taxonomy.items():
+                writer.writerow([category,weight,terms])
