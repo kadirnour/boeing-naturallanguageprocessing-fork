@@ -35,7 +35,7 @@ def receive_categories(input, output):
 '''
 Method: calculate_taxonomy
 Input: {categories:{terms:weights}}
-Output: {Category:Weight}:[Terms]
+Output: {Category:Weight},{terms:weights}
 Description:
 '''
 def process_taxonomy(input):
@@ -47,8 +47,13 @@ Input: categories:{terms:weights}
 Output: taxWeight
 Description: adds up the category weight of each term
 '''
-def calculate_taxonomy(input):
-    pass
+def calculate_taxonomy(terms):
+    taxWeight = 0
+    #print(input.values())
+    for term, weight in terms.items():
+        #print(weight)
+        taxWeight = weight + taxWeight
+    return taxWeight
 
 '''
 Method: taxonomy_writer
