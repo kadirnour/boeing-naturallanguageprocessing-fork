@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';  
 import { Modal } from 'react-bootstrap';  
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 // Popup modal to display badge information
 class ModalPopup extends Component {  

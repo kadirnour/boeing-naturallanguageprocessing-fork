@@ -1,9 +1,9 @@
 from Parser import main as parser
 from Taxonomy import extraction
-from Taxonomy import categories
 from tests import unit_tests
 from flask import Flask
 from flask import request
+from Taxonomy import categories
 
 # from tkinter import Tk
 # from tkinter import filedialog
@@ -30,19 +30,47 @@ Returns:
 
 app = Flask(__name__)
 
-# Route to run parser and returns a list of all nouns found
+# @app.route('/path1')
+# def path1():
+#     print("HERE")
+#     return "HELLO WORLD!"
+
+#################################################################################################
+# Function: Parse
+# Direction: Bac to Front
+# Returns: all the nouns and send to front end
+#################################################################################################
 @app.route('/parse', methods = ['POST'])
 def parse():
+    #json = {'time' : "HERE"}
     location = request.get_json(force=True)
+    #print(location)
+    #print(list(location.values())[0])
     total_nouns = parser.parse(list(location.values())[0], list(location.values())[1])
     return total_nouns
+    #selectFolder()
 
-# Route to run weights and returns list of all weights found
+#################################################################################################
+# Function: Weights
+# Direction: Bac to Front
+# Returns: all the weights, freq and noun data as dict and sends to front end
+#################################################################################################
 @app.route('/weights', methods = ['POST'])
 def weights():
     location = request.get_json(force=True)
     return extraction.find_frequencies_and_weights(list(location.values())[0])
 
+# @app.route('/folder')
+# def folder():
+#     #Tk().withdraw() # we don't want a full GUI, so keep the root window from appearing
+#     #dir = filedialog.askdirectory()
+#     return {'directory': dir}
+
+#################################################################################################
+# Function: recieveCategories
+# Direction: Front to Back
+# Returns: Retrieves dictionary of all the terms and cats and sends to method 
+#################################################################################################
 # NEED TO IMPLEMENT
 # Round to create a new category for taxonomy
 @app.route('/category', methods = ['POST'])
