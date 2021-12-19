@@ -33,13 +33,22 @@ def receive_categories(input, output):
 
 
 '''
-Method: calculate_taxonomy
+Method: process_taxonomy
 Input: {categories:{terms:weights}}
 Output: {Category:Weight},{terms:weights}
 Description:
 '''
 def process_taxonomy(input):
-    pass
+    taxList=[]
+    taxWeight = 0
+    for category,terms in input.items():
+        #print(terms)
+        taxWeight=calculate_taxonomy(terms)
+        #print(taxWeight)
+        taxVal = {category:taxWeight}
+        taxi = (taxVal,terms)
+        taxList.append(taxi)
+    return taxList
 
 '''
 Method: calculate_taxonomy
