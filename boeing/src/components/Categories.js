@@ -207,6 +207,10 @@ class Categories extends React.Component {
         this.changeMode(-1)
     }
 
+    saveCategories = () => {
+
+    }
+
     render() {
         return (
             <div className="page">
@@ -282,6 +286,14 @@ class Categories extends React.Component {
                                 </button> :
                                 null
                             }
+                            &nbsp;
+                            {this.state.cat === -1  ?
+                                <button className="btn" onClick={() => this.saveCategories()} className="modeBtn">
+                                    Save Categories
+                                </button> :
+                                null
+                            }
+
                         </div>
 
                         <div className="categoriesRight">
