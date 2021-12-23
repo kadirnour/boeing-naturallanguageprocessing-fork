@@ -145,6 +145,11 @@ class App extends React.Component {
                    weights: newWeights})
   }
 
+  //TODO!!!: save categories and pass to front end!!!
+  saveCategories = (cat) => {
+    
+  }
+
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //                       Webpage Functions
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -211,6 +216,7 @@ class App extends React.Component {
                               categories={this.state.categories}
                               addToWeights={this.addToWeights}
                               addToCategory={this.addToCategory}
+                              saveCategories={this.saveCategories}
                               deleteCategory={this.deleteCategory}/> :
                             <Taxonomy prevPage={this.prevPage}/>
         }  
