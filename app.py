@@ -84,11 +84,20 @@ def category():
 # Direction: Front to Back
 # Returns: Retrieves dictionary of all the terms and cats and sends to method 
 #################################################################################################
-# NEED TO IMPLEMENT
-# Round to create a new category for taxonomy
 @app.route('/saveCategories', methods = ['POST'])
 def saveCategories():
     inputInfo = request.get_json(force=True)
-    print(inputInfo)
+    #print(inputInfo['input'])
+    #print(inputInfo['data'])
+
+    #retrieves file location
+    file = inputInfo['input']
+
+    #retrieves category dictionary from the front end
+    categoryDict = inputInfo['data']
+
+    #Send to the csv writer
+    categories.receive_categories(file, categoryDict)
+
     return inputInfo
     #return categories.receive_categories(inputInfo)

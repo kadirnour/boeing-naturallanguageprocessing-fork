@@ -26,11 +26,12 @@ A master method that:
     {Category:Weight}:[Terms]
 Then passes result to tax_writer
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-def receive_categories(input):
-    print(input)
-    return input
-    #taxDict = process_taxonomy(input)
-    #taxonomy_writer(taxDict)
+def receive_categories(file, categoryDict):
+    print(file)
+    print(categoryDict)
+    #return input
+    taxDict = process_taxonomy(categoryDict)
+    taxonomy_writer(file, taxDict)
 
 
 '''
