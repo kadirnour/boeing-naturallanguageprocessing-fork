@@ -44,8 +44,8 @@ app = Flask(__name__)
 def parse():
     #json = {'time' : "HERE"}
     location = request.get_json(force=True)
-    #print(location)
-    #print(list(location.values())[0])
+    print(location)
+    print(list(location.values())[0])
     total_nouns = parser.parse(list(location.values())[0], list(location.values())[1])
     return total_nouns
     #selectFolder()
@@ -58,6 +58,7 @@ def parse():
 @app.route('/weights', methods = ['POST'])
 def weights():
     location = request.get_json(force=True)
+    print(location)
     return extraction.find_frequencies_and_weights(list(location.values())[0])
 
 # @app.route('/folder')
@@ -67,14 +68,27 @@ def weights():
 #     return {'directory': dir}
 
 #################################################################################################
-# Function: recieveCategories
+# Function: category
+# Direction: Front to Back to front
+# Returns: Helps to create the categories themselves
+#################################################################################################
+@app.route('/category', methods = ['POST'])
+def category():
+    category = request.get_json(force=True)
+    print(category)
+    #return categories.receive_categories(category)
+    return {category["Category"]: {}}
+
+#################################################################################################
+# Function: saveCategories
 # Direction: Front to Back
 # Returns: Retrieves dictionary of all the terms and cats and sends to method 
 #################################################################################################
 # NEED TO IMPLEMENT
 # Round to create a new category for taxonomy
-@app.route('/category', methods = ['POST'])
-def category():
-    category = request.get_json(force=True)
-    print(category["Category"])
-    return {category["Category"]: {}}
+@app.route('/saveCategories', methods = ['POST'])
+def saveCategories():
+    inputInfo = request.get_json(force=True)
+    print(inputInfo)
+    return inputInfo
+    #return categories.receive_categories(inputInfo)

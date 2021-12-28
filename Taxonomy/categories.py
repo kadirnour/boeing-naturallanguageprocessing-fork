@@ -26,9 +26,11 @@ A master method that:
     {Category:Weight}:[Terms]
 Then passes result to tax_writer
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-def receive_categories(input, output):
-    taxDict = process_taxonomy(input)
-    taxonomy_writer(taxDict, output)
+def receive_categories(input):
+    print(input)
+    return input
+    #taxDict = process_taxonomy(input)
+    #taxonomy_writer(taxDict)
 
 
 '''
@@ -69,7 +71,8 @@ Input: {Category:Weight}:{Terms:Weights}
 Output: A CSV file with: 
 Description: 
 '''
-def taxonomy_writer(input, output):
+def taxonomy_writer(input):
+    output = ""
     with open(output, 'w') as out:
         writer = csv.writer(out)
         for taxonomy,terms in input:

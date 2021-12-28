@@ -209,7 +209,7 @@ class Categories extends React.Component {
 
     //sends the categories to the flask route so we can save on csv
     saveCategories = () => {
-        this.props.saveCategories(this.state.cat)
+        this.props.saveCategories(this.state.categories)
     }
 
     render() {

@@ -69,6 +69,22 @@ class App extends React.Component {
               //     .then(data => {this.setState({categories: data})})
   }
 
+  //TODO!!!: save categories and pass to front end!!!
+  sendCategories = async(cat) => {
+    let inputInfo = {input: this.state.output, data:this.state.categories}
+    await fetch('/saveCategories', {
+      method: "POST",
+      headers:{
+          "content_type": "application/json",
+      },
+      body: JSON.stringify(inputInfo)})
+          .then(res => res.json())
+
+    //const newCat = {...this.state.categories}
+    //newCat[Object.keys(res)[0]] = Object.values(res)[0]
+    //this.setState({categories: newCat})
+  }
+
   // TODO: Create route to add term to weights and remove from category
   addToWeights = (termsIndex) => {
     const toDelete = []
@@ -145,9 +161,8 @@ class App extends React.Component {
                    weights: newWeights})
   }
 
-  //TODO!!!: save categories and pass to front end!!!
-  saveCategories = (cat) => {
-    
+  saveCategories = (cats) => {
+    this.sendCategories(cats)
   }
 
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
