@@ -39,15 +39,15 @@ def receive_categories(file, categoryDict):
 '''
 Method: process_taxonomy
 Input: {categories:{terms:{freq:#, weight:#}}}}
-Output: {Category}:{terms}
+Output: {Category}:[terms]
 Description:
 '''
 def process_taxonomy(input):
     taxDict = {}
     for category,terms in input.items():
-        termList = []
+        termList = {}
         for term,values in terms.items():
-            termList.append(term)
+            termList[term]=values['weight']
         taxDict[category] = termList
     return taxDict
 
@@ -56,7 +56,7 @@ Method: calculate_taxonomy
 Input: categories:{terms:weights}
 Output: taxWeight
 Description: adds up the category weight of each term
-'''
+
 def calculate_taxonomy(terms):
     taxWeight = 0
     #print(input.values())
@@ -64,16 +64,25 @@ def calculate_taxonomy(terms):
         #print(weight)
         taxWeight = weight + taxWeight
     return taxWeight
+'''
 
 '''
+TODO
 Method: taxonomy_writer
 Input: {Category:Weight}:{Terms}
 Output: A CSV file with: 
 Description: 
 '''
-def taxonomy_writer(file, taxDict):
-    with open(file, 'a') as out:
-        writer = csv.writer(out)
-        for taxonomy,terms in input:
-            for category,weight in taxonomy.items():
-                writer.writerow([category,weight,terms])
+def taxonomy_writer(folder, taxDict):
+    for csv_name in folder:
+        file = input + '\\' + csv_name # csv from folder
+        with open(file, 'r+',  encoding='utf-8') as out:
+          rowreader = csv.reader(out, delimiter=',')
+          next(rowreader) # skip first 3 lines
+          next(rowreader)
+          next(rowreader)
+          for row in rowreader:
+             term = row[0]
+
+
+    return 0
