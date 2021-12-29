@@ -29,28 +29,27 @@ Then passes result to tax_writer
 def receive_categories(file, categoryDict):
     print(file)
     print(categoryDict)
-    #return input
+    # input: {categories:{terms:{freq:#, weight:#}}}}
+    # Output: 
     taxDict = process_taxonomy(categoryDict)
+    print(taxDict)
     taxonomy_writer(file, taxDict)
 
 
 '''
 Method: process_taxonomy
-Input: {categories:{terms:weights}}
-Output: {Category:Weight},{terms:weights}
+Input: {categories:{terms:{freq:#, weight:#}}}}
+Output: {Category}:{terms}
 Description:
 '''
 def process_taxonomy(input):
-    taxList=[]
-    taxWeight = 0
+    taxDict = {}
     for category,terms in input.items():
-        #print(terms)
-        taxWeight=calculate_taxonomy(terms)
-        #print(taxWeight)
-        taxVal = {category:taxWeight}
-        taxi = (taxVal,terms)
-        taxList.append(taxi)
-    return taxList
+        termList = []
+        for term,values in terms.items():
+            termList.append(term)
+        taxDict[category] = termList
+    return taxDict
 
 '''
 Method: calculate_taxonomy
@@ -68,13 +67,12 @@ def calculate_taxonomy(terms):
 
 '''
 Method: taxonomy_writer
-Input: {Category:Weight}:{Terms:Weights}
+Input: {Category:Weight}:{Terms}
 Output: A CSV file with: 
 Description: 
 '''
-def taxonomy_writer(input):
-    output = ""
-    with open(output, 'w') as out:
+def taxonomy_writer(file, taxDict):
+    with open(file, 'a') as out:
         writer = csv.writer(out)
         for taxonomy,terms in input:
             for category,weight in taxonomy.items():
