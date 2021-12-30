@@ -91,13 +91,13 @@ def saveCategories():
     #print(inputInfo['data'])
 
     #retrieves file location
-    file = inputInfo['input']
+    folder = inputInfo['input']
 
     #retrieves category dictionary from the front end
     categoryDict = inputInfo['data']
 
     #Send to the csv writer
-    categories.receive_categories(file, categoryDict)
+    categories.receive_categories(folder, categoryDict)
 
     return inputInfo
     #return categories.receive_categories(inputInfo)

@@ -26,14 +26,14 @@ A master method that:
     {Category:Weight}:[Terms]
 Then passes result to tax_writer
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-def receive_categories(file, categoryDict):
-    print(file)
+def receive_categories(folder, categoryDict):
+    print(folder)
     print(categoryDict)
     # input: {categories:{terms:{freq:#, weight:#}}}}
     # Output: 
     taxDict = process_taxonomy(categoryDict)
     print(taxDict)
-    taxonomy_writer(file, taxDict)
+    taxonomy_writer(folder, taxDict)
 
 
 '''
@@ -73,16 +73,23 @@ Input: {Category:Weight}:{Terms}
 Output: A CSV file with: 
 Description: 
 '''
-def taxonomy_writer(folder, taxDict):
+def taxonomy_writer(foldr, taxDict):
+    folder = os.listdir(foldr) # folder at input location
+    print(folder)
     for csv_name in folder:
-        file = input + '\\' + csv_name # csv from folder
+        file = foldr + '\\' + csv_name # csv from folder
         with open(file, 'r+',  encoding='utf-8') as out:
           rowreader = csv.reader(out, delimiter=',')
           next(rowreader) # skip first 3 lines
           next(rowreader)
           next(rowreader)
           for row in rowreader:
-             term = row[0]
+             termToMatch = row[0]
+             for category,terms in taxDict.items():
+                for term,weight in terms.items():
+                    if term == termToMatch:
+                        print(category)
+                        #row.append(weight)
+                        #row.append(category)
 
-
-    return 0
+    #return 0
