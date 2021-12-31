@@ -1,5 +1,8 @@
 import csv
+from csv import writer
+from csv import reader
 import os
+#import pandas
 
 '''
 File Task:
@@ -78,7 +81,44 @@ def taxonomy_writer(foldr, taxDict):
     print(folder)
     for csv_name in folder:
         file = foldr + '\\' + csv_name # csv from folder
+        """ Append a column in existing csv using csv.reader / csv.writer classes"""
+        # Open the input_file in read mode and output_file in write mode
+        with open(file, 'r') as read_obj, \
+            open(file, 'w', newline='') as write_obj:
+            # Create a csv.reader object from the input file object
+            csv_reader = reader(read_obj)
+            # Create a csv.writer object from the output file object
+            csv_writer = writer(write_obj)
+            #Skip 3 lines
+            #next(csv_reader)
+            #next(csv_reader)
+            #next(csv_reader)
+            # Read each row of the input csv file as list
+            for row in csv_reader:
+                for category,terms in taxDict.items():
+                    for term,weight in terms.items():
+                        if row[0]==term:
+                            # Append the default text in the row / list
+                            row.append(weight)
+                            row.append(category)
+                            # Write the updated row / list to the output file
+                            csv_writer.writerow(row)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        '''
         with open(file, 'r+',  encoding='utf-8') as out:
+          
+         # writer = csv.writer(out)
           rowreader = csv.reader(out, delimiter=',')
           next(rowreader) # skip first 3 lines
           next(rowreader)
@@ -88,8 +128,26 @@ def taxonomy_writer(foldr, taxDict):
              for category,terms in taxDict.items():
                 for term,weight in terms.items():
                     if term == termToMatch:
-                        print(category)
+                                            
+                        print(row[4])
                         #row.append(weight)
-                        #row.append(category)
+        '''
+
+        '''
+        with open(file, 'w',newline="") as f: # output csv file
+            writer = csv.writer(f)
+            with open(file,'r') as csvfile: # input csv file
+                reader = csv.reader(csvfile, delimiter=',')
+                next(reader)
+                next(reader)
+                next(reader)
+                for row in reader:  
+                    row[3] = f1.readline() # edit the 8th column 
+                    writer.writerow(row)
+        f1.close()  
+        
+        
+        
 
     #return 0
+    '''
