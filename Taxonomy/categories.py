@@ -84,24 +84,25 @@ def taxonomy_writer(foldr, taxDict):
         """ Append a column in existing csv using csv.reader / csv.writer classes"""
         # Open the input_file in read mode and output_file in write mode
         with open(file, 'r') as read_obj, \
-            open(file, 'w', newline='') as write_obj:
+            open(file, 'a', newline='') as write_obj:
             # Create a csv.reader object from the input file object
             csv_reader = reader(read_obj)
             # Create a csv.writer object from the output file object
             csv_writer = writer(write_obj)
             #Skip 3 lines
-            #next(csv_reader)
-            #next(csv_reader)
-            #next(csv_reader)
+            next(csv_reader)
+            next(csv_reader)
+            next(csv_reader)
             # Read each row of the input csv file as list
             for row in csv_reader:
+                print(row)
                 for category,terms in taxDict.items():
                     for term,weight in terms.items():
                         if row[0]==term:
                             # Append the default text in the row / list
                             row.append(weight)
                             row.append(category)
-                            # Write the updated row / list to the output file
+                        # Write the updated row / list to the output file
                             csv_writer.writerow(row)
         
         
