@@ -1,5 +1,5 @@
 from Parser import main as parser
-from Taxonomy import extraction
+from Taxonomy import extraction, taxonomy
 from tests import unit_tests
 from flask import Flask
 from flask import request
@@ -100,4 +100,9 @@ def saveCategories():
     categories.receive_categories(folder, categoryDict)
 
     return inputInfo
-    #return categories.receive_categories(inputInfo)
+""" 
+@app.route('/sendTaxonomy', methods = ['POST'])
+def sendTaxonomy():
+    location = request.get_json(force=True)
+    return taxonomy.taxonomySender(location)
+    #return categories.receive_categories(inputInfo) """

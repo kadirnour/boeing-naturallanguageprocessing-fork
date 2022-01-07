@@ -1,6 +1,6 @@
 Game types and genres_nouns.csv
 Unique nouns: 140,Total nouns: 176
-Total time: 1.252 sec,Cost per noun: 7.112 ms
+Total time: 1.523 sec,Cost per noun: 8.654 ms
 game type,"['Game Type and Game Genre', 'By Lindsay Grace Game Type Although sometimes used interchangeably in the industry, there is a distinct difference between game type and game genre in video games.', 'When discussing game story, we distinguish game type as a description of game play, and game genre as a description of the narrative content of the game.', 'The following is brief list of game types:', 'Multiple Game Types and Game Genres Combined: It is important to realize that few modern games fall neatly into a single category of game type and game genre.']",5
 game genre,"['Game Type and Game Genre', 'By Lindsay Grace Game Type Although sometimes used interchangeably in the industry, there is a distinct difference between game type and game genre in video games.', 'When discussing game story, we distinguish game type as a description of game play, and game genre as a description of the narrative content of the game.', 'The following is a list of game genres.', 'Multiple Game Types and Game Genres Combined: It is important to realize that few modern games fall neatly into a single category of game type and game genre.']",5
 lindsay grace game type,"['By Lindsay Grace Game Type Although sometimes used interchangeably in the industry, there is a distinct difference between game type and game genre in video games.']",1
@@ -141,6 +141,13 @@ the grand theft auto series,"['The Grand Theft Auto series, for example, could b
 "a crime, fantasy genre","['The Grand Theft Auto series, for example, could be described as having a crime, fantasy genre and an action, role-playing game type.']",1
 "an action, role-playing game type","['The Grand Theft Auto series, for example, could be described as having a crime, fantasy genre and an action, role-playing game type.']",1
 grace,['Lindsay Grace'],1
-a description,"['When discussing game story, we distinguish game type as a description of game play, and game genre as a description of the narrative content of the game.']",2,2,boobfuck
-a comprehensive list,['This is not a comprehensive list.'],1,1,boobfuck
-"a crime, fantasy genre","['The Grand Theft Auto series, for example, could be described as having a crime, fantasy genre and an action, role-playing game type.']",1,1,boobfuck
+a distinct difference,"['By Lindsay Grace Game Type Although sometimes used interchangeably in the industry, there is a distinct difference between game type and game genre in video games.']",1,1,term
+a description,"['When discussing game story, we distinguish game type as a description of game play, and game genre as a description of the narrative content of the game.']",2,2,term
+a good adventure game player,"['Reasoning, creativity, and curiosity are the most common skills required of a good adventure game player.']",1,1,term2
+a simulation,"['Simulation: The primary game play element of a simulation is its ability to match real world situations.', 'Larry does not ""match real world situations"" but it is still a simulation.']",2,2,term3
+a genre,"['A genre is a narrative style that effects the structure of the story, the depth of character, and other storytelling elements.']",1,1,term2
+a narrative style,"['A genre is a narrative style that effects the structure of the story, the depth of character, and other storytelling elements.']",1,1,term3
+a list,['The following is a list of game genres.'],1,1,term2
+a comprehensive list,['This is not a comprehensive list.'],1,1,term
+a game genre,"['There could be, for example, a game genre for romance or history, but these are not listed here.']",1,1,term3
+a thoroughly entertaining collection,['Modern games take the best of all worlds and incorporate them into a thoroughly entertaining collection of game mechanics and storytelling conventions.'],1,1,term3

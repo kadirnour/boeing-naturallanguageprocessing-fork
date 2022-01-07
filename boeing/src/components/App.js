@@ -85,6 +85,22 @@ class App extends React.Component {
     //this.setState({categories: newCat})
   }
 
+  //TODO!!!: save categories and pass to front end!!!
+  sendTaxonomy = async() => {
+    let inputInfo = {input: this.state.output}
+    await fetch('/saveCategories', {
+      method: "POST",
+      headers:{
+          "content_type": "application/json",
+      },
+      body: JSON.stringify(inputInfo)})
+          .then(res => res.json())
+
+    //const newCat = {...this.state.categories}
+    //newCat[Object.keys(res)[0]] = Object.values(res)[0]
+    //this.setState({categories: newCat})
+  }
+
   // TODO: Create route to add term to weights and remove from category
   addToWeights = (termsIndex) => {
     const toDelete = []
@@ -165,6 +181,11 @@ class App extends React.Component {
     this.sendCategories(cats)
   }
 
+  //generates the the bubble chart for the taxonomy display
+  generateTaxonomy = () => {
+    this.sendTaxonomy()
+}
+
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //                       Webpage Functions
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -232,6 +253,7 @@ class App extends React.Component {
                               addToWeights={this.addToWeights}
                               addToCategory={this.addToCategory}
                               saveCategories={this.saveCategories}
+                              generateTaxonomy={this.generateTaxonomy}
                               deleteCategory={this.deleteCategory}/> :
                             <Taxonomy prevPage={this.prevPage}/>
         }  

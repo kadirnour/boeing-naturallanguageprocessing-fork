@@ -2,9 +2,18 @@ import csv
 import os
 
 '''
-Method: Taxonomy Reader
+Method: tax Sender
 Parameters:
 Input/Ouput:
+Descriptions: Sends the taxonomy data to the flask route
+'''
+def taxonomySender():
+    pass
+
+'''
+Method: Taxonomy Reader
+Parameters:
+Input/Ouput: In - csv file
 Descriptions: Reads the data off the csv
 '''
 def taxonomyReader():
@@ -20,7 +29,7 @@ def taxonomyCalculator():
     pass
 
 '''
-Method:
+Method: Tax processor
 Parameters:
 Input/Ouput:
 Descriptions: Processes the taxonomy into a dictionary
@@ -28,11 +37,3 @@ Descriptions: Processes the taxonomy into a dictionary
 def taxonomyProcessor():
     pass
 
-'''
-Method:
-Parameters:
-Input/Ouput:
-Descriptions: Sends the taxonomy data to the flask route
-'''
-def taxonomySender():
-    pass
