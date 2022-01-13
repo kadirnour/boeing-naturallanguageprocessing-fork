@@ -100,7 +100,7 @@ def taxonomy_writer(foldr, taxDict):
                     for term,weight in terms.items():
                         if row[0]==term:
                             # Append the default text in the row / list
-                            row.append(weight)
+                            #row.append(weight)
                             row.append(category)
                         # Write the updated row / list to the output file
                             csv_writer.writerow(row)

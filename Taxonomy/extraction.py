@@ -16,15 +16,23 @@ def find_frequencies_and_weights(input):
 
     # STEP 2: Calculate frequencies and weights
     for csv_name in folder:
-        file_path = input + '\\' + csv_name # csv from folder
+        file_path = input + '\\' + csv_name 
+        
+        # csv from folder
+        with open(file_path, 'r') as r, \
+            open(file_path, 'a') as w:
 
-        with open(file_path, 'r', encoding='utf-8') as f:
-            rowreader = csv.reader(f, delimiter=',')
-            next(rowreader) # skip first 3 lines
+            # objects for read and write
+            rowreader = csv.reader(r, delimiter=',')
+            writer = csv.writer(w)
+
+            # skip first 3 lines
+            next(rowreader) 
             next(rowreader)
             next(rowreader)
 
             for row in rowreader:
+                #print(row[0])
                 minidict = {} # {frequency, weight}
                 frequency = int(row[2])
                 weight = frequency / number_files # calculate weight of term
@@ -35,8 +43,19 @@ def find_frequencies_and_weights(input):
                     minidict["frequency"] = new_frequency # update term frequency
                     new_weight = new_frequency / number_files
                     minidict["weight"] = new_weight # update term weight
+                    row[2] = new_frequency
+                    row.append(new_weight)
+                    print("row"+str(row))
+                    #writer.writerow(row)
                 else: # term is not already in frequency_dict
                     minidict["frequency"] = frequency
                     minidict["weight"] = weight
+                    row.append(weight)
+                    print("row"+str(row))
+                    #writer.writerow(row)
+                #print(minidict)
                 frequency_dict[row[0]] = minidict # update frequency_dict
+                
+                #print(frequency_dict)
+    #print(frequency_dict)
     return frequency_dict
