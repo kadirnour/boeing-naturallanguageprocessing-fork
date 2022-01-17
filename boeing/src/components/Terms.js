@@ -7,9 +7,9 @@ class Terms extends React.Component {
         this.state = {selectedTerms: []}
     }
 
-    submitOutput = () => {
-        this.props.setOutput(this.state.output)
-    }
+    // submitOutput = () => {
+    //     this.props.setOutput(this.state.output)
+    // }
 
     handleChange = (event) => {
         this.setState({[event.target.name]: event.target.value})
@@ -49,15 +49,31 @@ class Terms extends React.Component {
         this.setState({selectedTerms: selectedTerms})
     }
 
-    // Renders term table
+    // // Renders term table
+    // renderTable = () => {
+    //     const table = []
+    //     for (let r = 0; r < Object.keys(this.props.dict).length; r++) {
+    //       table.push(
+    //         <tr key = {r} className={"centered weight" + (this.checkSelectedTerm(r) === true ? " weight-selected" : "")}
+    //             onClick={() => (this.checkSelectedTerm(r) ? this.removedSelectedTerm(r) : this.selectTerm(r))}>
+    //           <td>{Object.keys(this.props.dict)[r]}</td>
+    //           <td>{Object.values(this.props.dict)[r]}</td>
+    //         </tr>
+    //       )
+    //     }
+    //     return table;
+    // }
+
+    // Renders the weight table
     renderTable = () => {
         const table = []
-        for (let r = 0; r < Object.keys(this.props.dict).length; r++) {
+        for (let r = 0; r < Object.keys(this.props.weights).length; r++) {
           table.push(
             <tr key = {r} className={"centered weight" + (this.checkSelectedTerm(r) === true ? " weight-selected" : "")}
                 onClick={() => (this.checkSelectedTerm(r) ? this.removedSelectedTerm(r) : this.selectTerm(r))}>
-              <td>{Object.keys(this.props.dict)[r]}</td>
-              <td>{Object.values(this.props.dict)[r]}</td>
+                <td>{Object.keys(this.props.weights)[r]}</td>
+                <td>{Object.values(this.props.weights)[r].frequency}</td>
+                <td>{Object.values(this.props.weights)[r].weight}</td>
             </tr>
           )
         }
@@ -70,13 +86,13 @@ class Terms extends React.Component {
     }
 
     // Autocompletes output location to recommened location
-    recommend = () => {
-        this.props.setOutput("C:\\Users\\blcsi\\OneDrive\\Desktop\\boeing-naturallanguageprocessing\\Parser\\output")
-    }
+    // recommend = () => {
+    //     this.props.setOutput("C:\\Users\\blcsi\\OneDrive\\Desktop\\boeing-naturallanguageprocessing\\Parser\\output")
+    // }
 
     deleteTerms = () => {
         this.props.deleteTerms(this.state.selectedTerms)
-        this.clearSelected()
+        //this.clearSelected()
     }
 
     render() {
@@ -86,34 +102,23 @@ class Terms extends React.Component {
                 <div className="pageBox">
                     <div className="termUploadSection">
                         &nbsp;
-                        <div className="modeBtn">
-                            &nbsp;&nbsp;
-                            <input onChange={this.handleChange} name="output" placeholder="Enter Output Directory"/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <button className="btn" onClick={() => this.submitOutput()}> Enter: </button>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <button className="btn" onClick={() => this.recommend()}> Recommendation: </button>
-                        </div>
-                        <div className="folderLocation">
-                            Output Location:
-                            &nbsp;
-                            {this.props.oldOutput}
-                        </div>
                         &nbsp;
                         <div className="modeBtn">
                             &nbsp;
                             <button className="btn" onClick={() => this.props.Parser()}> Run Parser: </button>
+                            <button className="btn" onClick={() => this.props.getWeight()}> Get Weights: </button>
                         </div>
                         <h6 className="centered"> Select terms to remove </h6>
                         <table className="table table-hover tableBody t1">
                             <thead className="table-light">
                                 <tr>
-                                    <th className="cell-align-middle centered tableHeader">Term</th>
+                                    <th className="cell-align-middle centered tableHeader">NOUN</th>
                                     <th className="cell-align-middle centered tableHeader">FREQUENCY</th>
+                                    <th className="cell-align-middle centered tableHeader">WEIGHT</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {Object.keys(this.props.dict).length === 0 ?
+                                {Object.keys(this.props.weights).length === 0 ?
                                     <tr>
                                         <td></td>
                                     </tr>

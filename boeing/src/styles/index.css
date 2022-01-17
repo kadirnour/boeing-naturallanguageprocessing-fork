@@ -118,10 +118,6 @@
     float: right;
 }
 
-.bottom1 {
-    margin-top: 381px;
-}
-
 .bottom2 {
     margin-top: 423px;
 }
@@ -153,7 +149,7 @@
 }
 
 .btn:hover {
-    background-color: darkblue !important;
+    background-color: blue !important;
 }
 
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -162,11 +158,32 @@
 
 .documentUploadSection {
     width: 90%;
-    height: 527px;
+    height: 95%;
     margin-left: 5%;
-    margin-top: 2%;
+    margin-top: 0px;
     background-color: lightgray;
     border: 2px solid black;
+}
+
+.btn-forward-doc {
+    margin-top: 0%;
+}
+
+.btn-files {
+    background-color: lightgreen !important;
+    border: 2px solid !important;
+}
+
+.btn-files:hover {
+    background-color: darkgreen !important;
+}
+
+.btn-delete {
+    background-color: lightcoral !important;
+}
+
+.btn-delete:hover {
+    background-color: red !important;
 }
 
 

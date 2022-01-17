@@ -30,10 +30,15 @@ Returns:
 
 app = Flask(__name__)
 
-# @app.route('/path1')
-# def path1():
-#     print("HERE")
-#     return "HELLO WORLD!"
+
+
+# TODO: Need functions to check if file locations are correct.
+@app.route('/files', methods = ['POST'])
+def files():
+    location = request.get_json(force=True)
+    files = parser.getFiles(list(location.values())[0], list(location.values())[1])
+    return files
+
 
 #################################################################################################
 # Function: Parse
@@ -45,8 +50,8 @@ def parse():
     #json = {'time' : "HERE"}
     location = request.get_json(force=True)
     #print(location)
-    #print(list(location.values())[0])
-    total_nouns = parser.parse(list(location.values())[0], list(location.values())[1])
+    #print(list(location.values())[2])
+    total_nouns = parser.parse(list(location.values())[0], list(location.values())[1], list(location.values())[2])
     return total_nouns
     #selectFolder()
 
@@ -58,7 +63,7 @@ def parse():
 @app.route('/weights', methods = ['POST'])
 def weights():
     location = request.get_json(force=True)
-    return extraction.find_frequencies_and_weights(list(location.values())[0])
+    return extraction.find_frequencies_and_weights(list(location.values())[0], list(location.values())[1])
 
 # @app.route('/folder')
 # def folder():

@@ -41,44 +41,44 @@ returns: List containing text
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 def extract_pdf_text(file):
 
-    '''''''''''''''''''''''''''''''''''''''''''''''''''
-    function: not_within_bboxes
-    description: finds text found in table
-    parameters: table object
-    returns: text found in table
-    '''''''''''''''''''''''''''''''''''''''''''''''''''
-    def not_within_bboxes(obj):
+    # '''''''''''''''''''''''''''''''''''''''''''''''''''
+    # function: not_within_bboxes
+    # description: finds text found in table
+    # parameters: table object
+    # returns: text found in table
+    # '''''''''''''''''''''''''''''''''''''''''''''''''''
+    # def not_within_bboxes(obj):
 
-        '''''''''''''''''''''''''''''''''''''''''''''''''''
-        function: obj_in_bbox
-        description: finds table in .pdf
-        parameters: .pdf object
-        returns: table
-        '''''''''''''''''''''''''''''''''''''''''''''''''''
-        def obj_in_bbox(_bbox): # Check if the object is in any of the table's bbox.
-            v_mid = (obj["top"] + obj["bottom"]) / 2
-            h_mid = (obj["x0"] + obj["x1"]) / 2
-            x0, top, x1, bottom = _bbox
-            return (h_mid >= x0) and (h_mid < x1) and (v_mid >= top) and (v_mid < bottom)
-        return not any(obj_in_bbox(__bbox) for __bbox in bboxes)
+    #     '''''''''''''''''''''''''''''''''''''''''''''''''''
+    #     function: obj_in_bbox
+    #     description: finds table in .pdf
+    #     parameters: .pdf object
+    #     returns: table
+    #     '''''''''''''''''''''''''''''''''''''''''''''''''''
+    #     def obj_in_bbox(_bbox): # Check if the object is in any of the table's bbox.
+    #         v_mid = (obj["top"] + obj["bottom"]) / 2
+    #         h_mid = (obj["x0"] + obj["x1"]) / 2
+    #         x0, top, x1, bottom = _bbox
+    #         return (h_mid >= x0) and (h_mid < x1) and (v_mid >= top) and (v_mid < bottom)
+    #     return not any(obj_in_bbox(__bbox) for __bbox in bboxes)
 
     file_text = []
     #table_content = ""
     for page in file.pages:
         if (page.extract_text() != None):  # page is not empty (ex. full page image)
-            bboxes = [ # defines what a table is in the .pdf
-                table.bbox
-                for table in page.find_tables(
-                    table_settings={
-                        "vertical_strategy": "explicit",
-                        "horizontal_strategy": "explicit",
-                        "explicit_vertical_lines": page.curves + page.edges,
-                        "explicit_horizontal_lines": page.curves + page.edges,
-                    }
-                )
-            ]
-            text = page.filter(not_within_bboxes).extract_text().encode('utf-8') # skips text found in table and encodes text into bytes
-            #text = page.extract_text().encode('utf-8')
+            # bboxes = [ # defines what a table is in the .pdf
+            #     table.bbox
+            #     for table in page.find_tables(
+            #         table_settings={
+            #             "vertical_strategy": "explicit",
+            #             "horizontal_strategy": "explicit",
+            #             "explicit_vertical_lines": page.curves + page.edges,
+            #             "explicit_horizontal_lines": page.curves + page.edges,
+            #         }
+            #     )
+            # ]
+            # text = page.filter(not_within_bboxes).extract_text().encode('utf-8') # skips text found in table and encodes text into bytes
+            text = page.extract_text().encode('utf-8')
             text = str(text) # converts bytes back to string
             text = text_replacer.text_replacer(text[: -1]) # replaces special characters
 
