@@ -2,11 +2,11 @@ import React from 'react';
 import logo from '../images/logo.png';
 import "react-step-progress-bar/styles.css";
 import { ProgressBar, Step } from "react-step-progress-bar";
-import brandon from '../images/brandon.png';
-import kadir from '../images/kadir.png';
-import riley from '../images/riley.png';
-import don from '../images/don.png';
-import rocki from '../images/rocki.png';
+///images/brandon.png';
+//import kadir from '../images/kadir.png';
+//import riley from '../images/riley.png';
+//import don from '../images/don.png';
+//import rocki from '../images/rocki.png';
 
 // Displays a navbar and shows current progress in webpage
 class NavBar extends React.Component {
@@ -44,7 +44,7 @@ class NavBar extends React.Component {
                                     <div className={`indexedStep1 ${accomplished ? "accomplished" : null}`}>
                                         {/* {this.props.mode == 99 ?
                                             <img className="us" src={kadir}/> : */}
-                                            2
+                                            3
                                         {/* }  */}
                                     </div>
                                 )}

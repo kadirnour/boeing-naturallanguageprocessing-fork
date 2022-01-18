@@ -207,6 +207,11 @@ class Categories extends React.Component {
         this.changeMode(-1)
     }
 
+    //sends the categories to the flask route so we can save on csv
+    saveCategories = () => {
+        this.props.saveCategories(this.state.categories)
+    }
+
     render() {
         return (
             <div className="page">
@@ -217,9 +222,9 @@ class Categories extends React.Component {
                 <h2 className="pageTitle"> Step 3: Categories </h2>
                 <div className="pageBox">
                     <div className="categoriesUploadSection">
-                        <div className="modeBtn">
+                        {/* <div className="modeBtn">
                             <button className="btn" onClick={() => this.props.getWeight()}> Get Weights: </button>
-                        </div>
+                        </div> */}
 
                         <div className="categoriesLeft">
                             <h1 className="centered"> TERMS </h1>
@@ -282,6 +287,14 @@ class Categories extends React.Component {
                                 </button> :
                                 null
                             }
+                            &nbsp;
+                            {this.state.cat === -1  ?
+                                <button className="btn" onClick={() => this.saveCategories()} className="modeBtn">
+                                    Save Categories
+                                </button> :
+                                null
+                            }
+
                         </div>
 
                         <div className="categoriesRight">

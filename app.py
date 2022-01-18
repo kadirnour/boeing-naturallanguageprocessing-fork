@@ -1,9 +1,9 @@
 from Parser import main as parser
-from Taxonomy import extraction
-from Taxonomy import categories
+from Taxonomy import extraction, taxonomy
 from tests import unit_tests
 from flask import Flask
 from flask import request
+from Taxonomy import categories
 
 # from tkinter import Tk
 # from tkinter import filedialog
@@ -30,23 +30,103 @@ Returns:
 
 app = Flask(__name__)
 
-# Route to run parser and returns a list of all nouns found
+
+
+# TODO: Need functions to check if file locations are correct.
+@app.route('/files', methods = ['POST'])
+def files():
+    location = request.get_json(force=True)
+    files = parser.getFiles(list(location.values())[0], list(location.values())[1])
+    return files
+
+
+#################################################################################################
+# Function: Parse
+# Direction: Bac to Front
+# Returns: all the nouns and send to front end
+#################################################################################################
 @app.route('/parse', methods = ['POST'])
 def parse():
+    #json = {'time' : "HERE"}
     location = request.get_json(force=True)
-    total_nouns = parser.parse(list(location.values())[0], list(location.values())[1])
-    return total_nouns
 
-# Route to run weights and returns list of all weights found
+
+
+    #print(location)
+    #print(list(location.values())[2])
+    total_nouns = parser.parse(list(location.values())[0], list(location.values())[1], list(location.values())[2])
+
+
+
+    print(location)
+    print(list(location.values())[0])
+    #total_nouns = parser.parse(list(location.values())[0], list(location.values())[1])
+
+    return total_nouns
+    #selectFolder()
+
+#################################################################################################
+# Function: Weights
+# Direction: Bac to Front
+# Returns: all the weights, freq and noun data as dict and sends to front end
+#################################################################################################
 @app.route('/weights', methods = ['POST'])
 def weights():
     location = request.get_json(force=True)
-    return extraction.find_frequencies_and_weights(list(location.values())[0])
 
-# NEED TO IMPLEMENT
-# Round to create a new category for taxonomy
+
+
+    return extraction.find_frequencies_and_weights(list(location.values())[0], list(location.values())[1])
+
+
+
+    print(location)
+    #return extraction.find_frequencies_and_weights(list(location.values())[0])
+
+
+
+# @app.route('/folder')
+# def folder():
+#     #Tk().withdraw() # we don't want a full GUI, so keep the root window from appearing
+#     #dir = filedialog.askdirectory()
+#     return {'directory': dir}
+
+#################################################################################################
+# Function: category
+# Direction: Front to Back to front
+# Returns: Helps to create the categories themselves
+#################################################################################################
 @app.route('/category', methods = ['POST'])
 def category():
     category = request.get_json(force=True)
-    print(category["Category"])
+    print(category)
+    #return categories.receive_categories(category)
     return {category["Category"]: {}}
+
+#################################################################################################
+# Function: saveCategories
+# Direction: Front to Back
+# Returns: Retrieves dictionary of all the terms and cats and sends to method 
+#################################################################################################
+@app.route('/saveCategories', methods = ['POST'])
+def saveCategories():
+    inputInfo = request.get_json(force=True)
+    #print(inputInfo['input'])
+    #print(inputInfo['data'])
+
+    #retrieves file location
+    folder = inputInfo['input']
+
+    #retrieves category dictionary from the front end
+    categoryDict = inputInfo['data']
+
+    #Send to the csv writer
+    categories.receive_categories(folder, categoryDict)
+
+    return inputInfo
+""" 
+@app.route('/sendTaxonomy', methods = ['POST'])
+def sendTaxonomy():
+    location = request.get_json(force=True)
+    return taxonomy.taxonomySender(location)
+    #return categories.receive_categories(inputInfo) """

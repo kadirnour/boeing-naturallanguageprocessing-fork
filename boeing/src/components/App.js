@@ -16,18 +16,44 @@ class App extends React.Component {
                   //              shapes: {"square": {frequency: 1, weight: 1}, "circle": {frequency: 2, weight: 2}}}
                   categories: {},
                   input: "",
-                  output: ""
+                  output: "",
+                  files: {}
                   };
   }
 
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //                       Route Functions
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  
+  // Route to run parser from input location and save to output location
+  Files = async() => {
+
+    if (this.state.input == "") {
+      console.log("NO INPUT")
+      return false;
+    }
+    if (this.state.output == "") {
+      console.log("NO OUTPUT")
+      return false;
+    }
+
+    let directories = {input: this.state.input,
+      output: this.state.output}
+    await fetch('/files', {
+      method: "POST",
+      headers:{
+          "content_type": "application/json",
+      },
+      body: JSON.stringify(directories)})
+        .then(res => res.json())
+          .then(data => {this.setState({files: data})})
+  }
 
   // Route to run parser from input location and save to output location
   Parser = async() => {
     let directories = {input: this.state.input,
-            output: this.state.output}
+      output: this.state.output,
+      files: this.state.files}
     await fetch('/parse', {
       method: "POST",
       headers:{
@@ -40,7 +66,8 @@ class App extends React.Component {
 
   // Route to get weights from parser's output location
   getWeight = async() => {
-    let input = {input: this.state.output}
+    let input = {input: this.state.output,
+      files: this.state.files}
 
     await fetch('/weights', {
             method: "POST",
@@ -67,6 +94,22 @@ class App extends React.Component {
     this.setState({categories: newCat})
               // .then(res => res.json())
               //     .then(data => {this.setState({categories: data})})
+  }
+
+  //TODO!!!: save categories and pass to front end!!!
+  sendCategories = async(cat) => {
+    let inputInfo = {input: this.state.output, data:this.state.categories}
+    await fetch('/saveCategories', {
+      method: "POST",
+      headers:{
+          "content_type": "application/json",
+      },
+      body: JSON.stringify(inputInfo)})
+          .then(res => res.json())
+
+    //const newCat = {...this.state.categories}
+    //newCat[Object.keys(res)[0]] = Object.values(res)[0]
+    //this.setState({categories: newCat})
   }
 
   // TODO: Create route to add term to weights and remove from category
@@ -111,17 +154,24 @@ class App extends React.Component {
 
   // TODO: Create route to delete terms from parser output before running weights
   deleteTerms = (terms) => {
-    const newDict = {...this.state.dict}
+    const newWeights = {...this.state.weights}
     const toDelete = []
 
     for (let r = 0; r < terms.length; r++) {
-      toDelete.push([Object.keys(this.state.dict)[terms[r]]])
+      toDelete.push([Object.keys(this.state.weights)[terms[r]]])
     }
 
     for (let r = 0; r < toDelete.length; r++) {
-      delete newDict[toDelete[r]]
+      delete newWeights[toDelete[r]]
     }
-    this.setState({dict: newDict})
+    this.setState({weights: newWeights})
+  }
+
+  //TODO: Make deleting have a real effect
+  deleteFile = (file) => {
+    const newFiles = {...this.state.files}
+    delete newFiles[Object.keys(this.state.files)[file]]
+    this.setState({files: newFiles})
   }
 
   // TODO: Create route to delete a category and add its terms back to weight
@@ -143,6 +193,10 @@ class App extends React.Component {
 
     this.setState({categories: newCat,
                    weights: newWeights})
+  }
+
+  saveCategories = (cats) => {
+    this.sendCategories(cats)
   }
 
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -189,16 +243,23 @@ class App extends React.Component {
           <Documents dict={this.state.dict}
                       nextPage={this.nextPage}
                       setInput={this.setInput}
-                      oldInput={this.state.input}/> : 
+                      setOutput={this.setOutput}
+                      oldInput={this.state.input}
+                      oldOutput={this.state.output}
+                      Files={this.Files}
+                      files={this.state.files}
+                      deleteFile={this.deleteFile}/> : 
                       
                       this.state.mode === 66 ?
                         <Terms Parser={this.Parser}
                           dict={this.state.dict}
                           nextPage={this.nextPage}
                           prevPage={this.prevPage}
-                          setOutput={this.setOutput}
+                          getWeight={this.getWeight}
+                          weights={this.state.weights}
+                          //setOutput={this.setOutput}
                           deleteTerms={this.deleteTerms}
-                          oldOutput={this.state.output}
+                          //oldOutput={this.state.output}
                           /> :
 
                           this.state.mode === 99 ?
@@ -211,6 +272,8 @@ class App extends React.Component {
                               categories={this.state.categories}
                               addToWeights={this.addToWeights}
                               addToCategory={this.addToCategory}
+                              saveCategories={this.saveCategories}
+                              
                               deleteCategory={this.deleteCategory}/> :
                             <Taxonomy prevPage={this.prevPage}/>
         }  
