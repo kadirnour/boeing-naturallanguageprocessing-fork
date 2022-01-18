@@ -17,14 +17,14 @@ def find_frequencies_and_weights(input):
     # STEP 2: Calculate frequencies and weights
     for csv_name in folder:
         file_path = input + '\\' + csv_name 
-        
+        data_write = []
+
         # csv from folder
-        with open(file_path, 'r') as r, \
-            open(file_path, 'a') as w:
+        with open(file_path, 'r') as r:
 
             # objects for read and write
             rowreader = csv.reader(r, delimiter=',')
-            writer = csv.writer(w)
+            #writer = csv.writer(w)
 
             # skip first 3 lines
             next(rowreader) 
@@ -45,17 +45,34 @@ def find_frequencies_and_weights(input):
                     minidict["weight"] = new_weight # update term weight
                     row[2] = new_frequency
                     row.append(new_weight)
-                    print("row"+str(row))
+                    #print("row: "+str(row))
+                    data_write.append(row)
                     #writer.writerow(row)
                 else: # term is not already in frequency_dict
                     minidict["frequency"] = frequency
                     minidict["weight"] = weight
                     row.append(weight)
-                    print("row"+str(row))
+                    #print("row: "+str(row))
+                    data_write.append(row)
                     #writer.writerow(row)
                 #print(minidict)
                 frequency_dict[row[0]] = minidict # update frequency_dict
                 
-                #print(frequency_dict)
     #print(frequency_dict)
-    return frequency_dict
+        print(data_write)
+        data_writer(data_write,file_path)
+        return frequency_dict
+
+def data_writer(data_write, file_path):
+    with open(file_path, 'r') as read_obj, \
+        open(file_path, 'a', newline='') as write_obj:
+        csv_reader = csv.reader(read_obj)
+        # Create a csv.writer object from the output file object
+        csv_writer = csv.writer(write_obj)
+        #Skip 3 lines
+        next(csv_reader)
+        next(csv_reader)
+        next(csv_reader)
+        # Read each row of the input csv file as list
+        for row in data_write:
+            csv_writer.writerow(row)
