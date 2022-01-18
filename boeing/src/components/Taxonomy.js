@@ -3,10 +3,7 @@ import example from '../images/taxonomy_example.png';
 
 class Taxonomy extends React.Component {
 
-      //generates the the bubble chart for the taxonomy display
-      generateTaxonomy = () => {
-        this.props.generateTaxonomy()
-    }
+     
 
     render() {
         return (
