@@ -27,9 +27,10 @@ def find_frequencies_and_weights(input):
             #writer = csv.writer(w)
 
             # skip first 3 lines
-            next(rowreader) 
-            next(rowreader)
-            next(rowreader)
+            data_write.append(next(rowreader))
+            data_write.append(next(rowreader))
+            data_write.append(next(rowreader))
+            print(data_write)
 
             for row in rowreader:
                 #print(row[0])
@@ -65,14 +66,14 @@ def find_frequencies_and_weights(input):
 
 def data_writer(data_write, file_path):
     with open(file_path, 'r') as read_obj, \
-        open(file_path, 'a', newline='') as write_obj:
-        csv_reader = csv.reader(read_obj)
+        open(file_path, 'w', newline='') as write_obj:
+        #csv_reader = csv.reader(read_obj)
         # Create a csv.writer object from the output file object
         csv_writer = csv.writer(write_obj)
         #Skip 3 lines
-        next(csv_reader)
-        next(csv_reader)
-        next(csv_reader)
+        #next(csv_reader)
+        #next(csv_reader)
+        #next(csv_reader)
         # Read each row of the input csv file as list
         for row in data_write:
             csv_writer.writerow(row)
