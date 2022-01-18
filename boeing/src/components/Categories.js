@@ -222,9 +222,9 @@ class Categories extends React.Component {
                 <h2 className="pageTitle"> Step 3: Categories </h2>
                 <div className="pageBox">
                     <div className="categoriesUploadSection">
-                        <div className="modeBtn">
+                        {/* <div className="modeBtn">
                             <button className="btn" onClick={() => this.props.getWeight()}> Get Weights: </button>
-                        </div>
+                        </div> */}
 
                         <div className="categoriesLeft">
                             <h1 className="centered"> TERMS </h1>
