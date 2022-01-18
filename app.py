@@ -1,5 +1,5 @@
 from Parser import main as parser
-from Taxonomy import extraction
+from Taxonomy import extraction, taxonomy
 from tests import unit_tests
 from flask import Flask
 from flask import request
@@ -49,9 +49,19 @@ def files():
 def parse():
     #json = {'time' : "HERE"}
     location = request.get_json(force=True)
+
+
+
     #print(location)
     #print(list(location.values())[2])
     total_nouns = parser.parse(list(location.values())[0], list(location.values())[1], list(location.values())[2])
+
+
+
+    print(location)
+    print(list(location.values())[0])
+    #total_nouns = parser.parse(list(location.values())[0], list(location.values())[1])
+
     return total_nouns
     #selectFolder()
 
@@ -63,7 +73,17 @@ def parse():
 @app.route('/weights', methods = ['POST'])
 def weights():
     location = request.get_json(force=True)
+
+
+
     return extraction.find_frequencies_and_weights(list(location.values())[0], list(location.values())[1])
+
+
+
+    print(location)
+    #return extraction.find_frequencies_and_weights(list(location.values())[0])
+
+
 
 # @app.route('/folder')
 # def folder():
@@ -72,14 +92,41 @@ def weights():
 #     return {'directory': dir}
 
 #################################################################################################
-# Function: recieveCategories
-# Direction: Front to Back
-# Returns: Retrieves dictionary of all the terms and cats and sends to method 
+# Function: category
+# Direction: Front to Back to front
+# Returns: Helps to create the categories themselves
 #################################################################################################
-# NEED TO IMPLEMENT
-# Round to create a new category for taxonomy
 @app.route('/category', methods = ['POST'])
 def category():
     category = request.get_json(force=True)
-    print(category["Category"])
+    print(category)
+    #return categories.receive_categories(category)
     return {category["Category"]: {}}
+
+#################################################################################################
+# Function: saveCategories
+# Direction: Front to Back
+# Returns: Retrieves dictionary of all the terms and cats and sends to method 
+#################################################################################################
+@app.route('/saveCategories', methods = ['POST'])
+def saveCategories():
+    inputInfo = request.get_json(force=True)
+    #print(inputInfo['input'])
+    #print(inputInfo['data'])
+
+    #retrieves file location
+    folder = inputInfo['input']
+
+    #retrieves category dictionary from the front end
+    categoryDict = inputInfo['data']
+
+    #Send to the csv writer
+    categories.receive_categories(folder, categoryDict)
+
+    return inputInfo
+""" 
+@app.route('/sendTaxonomy', methods = ['POST'])
+def sendTaxonomy():
+    location = request.get_json(force=True)
+    return taxonomy.taxonomySender(location)
+    #return categories.receive_categories(inputInfo) """
