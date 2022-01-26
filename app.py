@@ -1,158 +1,132 @@
-import os
-from os import path
-import time
-import argparse
-import parsers
-import csv
-import traceback
-import uuid
-from flask import (
-    Flask,
-    redirect,
-    request,
-    jsonify,
-    make_response,
-    send_from_directory,
-    url_for,
-    render_template,
-)
-from flask.wrappers import Response
-from werkzeug.utils import secure_filename
-from werkzeug.datastructures import FileStorage
-from PyPDF2 import PdfFileReader
+from Parser import main as parser
+from Taxonomy import extraction, taxonomy
+from tests import unit_tests
+from flask import Flask
+from flask import request
+from Taxonomy import categories
 
-from documentInformation import DocumentInformation
+# from tkinter import Tk
+# from tkinter import filedialog
 
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: main
+Description: main, runs all functions
+Parameters:
+Returns:
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+# def main():
+#     # STEP 1: Run parser and extract terms from documents
+#     parser.parse()
+
+#     # STEP 2: Find frequencies and weights of terms
+#     parsed_terms = extraction.find_frequencies_and_weights()
+#     print(parsed_terms)
+
+#     unit_tests.test_accuracy()
+
+
+# if __name__ == "__main__":
+#     main()
 
 app = Flask(__name__)
 
 
-DOWNLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__)) + "/downloads/"
-app.config["DOWNLOAD_FOLDER"] = DOWNLOAD_FOLDER
-UPLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__)) + "/uploads/"
-app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
-ALLOWED_EXTENSIONS = {"pdf","docx"}
+
+# TODO: Need functions to check if file locations are correct.
+@app.route('/files', methods = ['POST'])
+def files():
+    location = request.get_json(force=True)
+    files = parser.getFiles(list(location.values())[0], list(location.values())[1])
+    return files
 
 
-def allowed_file(filename):
-    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-@app.route("/downloads/<filename>")
-def uploaded_file(filename):
-    return send_from_directory(
-        app.config["DOWNLOAD_FOLDER"], filename, as_attachment=True
-    )
-
-
-@app.route("/", methods=["GET", "POST"])
-def upload():
-    print("from upload")
-    try:
-        if request.method == "POST":
-            file = request.files["file"]
-            f=file.filename
-            if file:
-                print(f)
-                if file and allowed_file(file.filename):
-                    filename = secure_filename(file.filename)
-                    # file.save(app.config["UPLOAD_FOLDER"],filename)
-                    file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
-                    file_path = os.path.join(app.config["UPLOAD_FOLDER"]) + filename
-                    print("file_path :",file_path)
-                    response = parse_file(filename,file_path)
-                    # os.path.join(app.config["UPLOAD_FOLDER"].unlink(filename)
-                    os.unlink(app.config["UPLOAD_FOLDER"] + filename)
-                    # return jsonify(data=response)
-                    return render_template("form.html", data=[response], hasresult=True)
-                    # return jsonify(data=response)
-                return {"message": "File type  ."+  f.rsplit(".", 1)[1].lower()+" not allowed, try again!", "success": False}
-            return {"message": "File   does not exist, try again!", "success": False}
-        return render_template("form.html", hasresult=False)
-    except Exception as e:
-        traceback.print_exc()
-        return {"message": str(e), "success": False}
+#################################################################################################
+# Function: Parse
+# Direction: Bac to Front
+# Returns: all the nouns and send to front end
+#################################################################################################
+@app.route('/parse', methods = ['POST'])
+def parse():
+    #json = {'time' : "HERE"}
+    location = request.get_json(force=True)
 
 
 
-def parse_file(file,file_path):
-    try:
-        if not file:
-            print("File   does not exist. Exiting...")
-            # exit()
-            return {"message": "File   does not exist. Exiting...", "success": False}
-
-        print("Processing file: " + file)
-        startTime = time.time()
-
-         # get the file extension
-        extension = file.rsplit(".", 1)[1].lower()
-        print("extension : ", extension)
-        docInfo = None
-        if extension == 'pdf':
-        # open file
-            pdf = parsers.open_pdf(file_path)
-            text = parsers.extract_pdf_text(pdf)
-                        # get document info
-            with open(file_path, 'rb') as f:
-                reader = PdfFileReader(f)
-                reader.getNumPages() # work around for decrpyting file
-                pdfInfo = reader.getDocumentInfo()
-
-            # retrieve attributes from pdf
-            docInfo = DocumentInformation(pdfInfo.title, pdfInfo.author, file_path)
-        elif extension == 'docx':
-            docx = parsers.open_doc(file_path)
-            text = parsers.extract_docx_text(docx)
-            # can't really extract information dynamically
-            docInfo = DocumentInformation( file.rsplit(".", 1)[0].lower(),"_",file_path)
-        else:
-            print("unsuported file type", extension, "skipping")
-            # continue
-            return {"message": "unsuported file type" + extension +"skipping", "success": False}
-
-        # Perform parsing and identification
-        total_sentences = parsers.get_sentences(text)  # get list of span objects - one for each sentence in pdf file
-        total_nouns = parsers.get_nouns(total_sentences)   # get list of token (noun) objects
-        parsers.get_noun_phrases(total_sentences, total_nouns)   # find noun phrases
-
-        # end timer
-        elapsedTime = time.time() - startTime
-        totalTimeStr = "Total time: " + str(round(elapsedTime, 3)) + " sec" # used in .csv file
-
-        # calculate unique nouns, total nouns
-        unqNouns = len(total_nouns)
-        sumNouns = 0       
-        for noun in total_nouns:
-            sumNouns += noun.num_occur
-         # calculate cost per noun in milliseconds
-        costPerNoun = (elapsedTime * 1000) / sumNouns
-        costPerNounStr = "Cost per noun: " + str(round(costPerNoun, 3)) + " ms" # used in .csv file
-    
-        # Open csv files to write to
-        if docInfo.document_name != None:
-            csv_name = docInfo.document_name + '_nouns.csv'
-        else:
-            csv_name = (file_path.split('/'))[-1][:-4] + '_nouns.csv' # get name of file from file_path (removes ".pdf" too)
-        path = "downloads/"
-
-        with open(path+csv_name, 'w', newline='') as csvfile:
-            nounwriter = csv.writer(csvfile)
-            nounwriter.writerow([docInfo.document_name, docInfo.authors]) # can add more attributes too
-            nounwriter.writerow(["Unique nouns: " + str(unqNouns), " Total nouns: " + str(sumNouns)])
-            nounwriter.writerow([totalTimeStr, costPerNounStr])
-            for noun in total_nouns:
-                nounwriter.writerow([noun.text, noun.context_sentences, noun.noun_phrases, noun.num_occur])
-            print('Data has been successfully saved to ' + csv_name)
-
-        print(request.host_url)
-        response = request.host_url + path + csv_name
-        return {"downloadlink": response, "success": True}
-    except Exception as e:
-        traceback.print_exc()
-        return {"message": str(e), "success": False}
+    #print(location)
+    #print(list(location.values())[2])
+    total_nouns = parser.parse(list(location.values())[0], list(location.values())[1], list(location.values())[2])
 
 
-if __name__ == "__main__":
-    # manager.run()
-    app.run(host="0.0.0.0", debug=False)
+
+    print(location)
+    print(list(location.values())[0])
+    #total_nouns = parser.parse(list(location.values())[0], list(location.values())[1])
+
+    return total_nouns
+    #selectFolder()
+
+#################################################################################################
+# Function: Weights
+# Direction: Bac to Front
+# Returns: all the weights, freq and noun data as dict and sends to front end
+#################################################################################################
+@app.route('/weights', methods = ['POST'])
+def weights():
+    location = request.get_json(force=True)
+
+
+
+    return extraction.find_frequencies_and_weights(list(location.values())[0], list(location.values())[1])
+
+
+
+    print(location)
+    #return extraction.find_frequencies_and_weights(list(location.values())[0])
+
+
+
+# @app.route('/folder')
+# def folder():
+#     #Tk().withdraw() # we don't want a full GUI, so keep the root window from appearing
+#     #dir = filedialog.askdirectory()
+#     return {'directory': dir}
+
+#################################################################################################
+# Function: category
+# Direction: Front to Back to front
+# Returns: Helps to create the categories themselves
+#################################################################################################
+@app.route('/category', methods = ['POST'])
+def category():
+    category = request.get_json(force=True)
+    print(category)
+    #return categories.receive_categories(category)
+    return {category["Category"]: {}}
+
+#################################################################################################
+# Function: saveCategories
+# Direction: Front to Back
+# Returns: Retrieves dictionary of all the terms and cats and sends to method 
+#################################################################################################
+@app.route('/saveCategories', methods = ['POST'])
+def saveCategories():
+    inputInfo = request.get_json(force=True)
+    #print(inputInfo['input'])
+    #print(inputInfo['data'])
+
+    #retrieves file location
+    folder = inputInfo['input']
+
+    #retrieves category dictionary from the front end
+    categoryDict = inputInfo['data']
+
+    #Send to the csv writer
+    categories.receive_categories(folder, categoryDict)
+
+    return inputInfo
+""" 
+@app.route('/sendTaxonomy', methods = ['POST'])
+def sendTaxonomy():
+    location = request.get_json(force=True)
+    return taxonomy.taxonomySender(location)
+    #return categories.receive_categories(inputInfo) """

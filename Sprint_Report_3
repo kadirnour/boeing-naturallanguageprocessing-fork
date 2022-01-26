@@ -1,0 +1,47 @@
+# Sprint 3 Report (11/10/21)
+
+## What's New (User Facing)
+ * Bug Fix 1: Removed noun chunker
+ * Bug Fix 2: Added exceptions for parser 
+ * Bug Fix 3: Added table handling to parser
+ * Feature 4: Exception handler
+ * Feature 5: Better sentence cleaning
+ * Feature 6: Added parser timer
+ * Feature 7: Added parser tests
+ * Feature 8: Added ability to parse .txt and .doc files
+ * Feature 9: Added frequency and weight
+
+
+## Work Summary (Developer Facing)
+Our team continued to work on the parser this sprint, with insturctions and advice given to us by our mentors at Boeing. We were able to implement what they asked of us, and we are getting very close to moving forward to working on the taxonomy creation. As for long term goals, we have decided that we will be creating a front end.
+
+## Unfinished Work
+There are still exceptions that need to be handled in the parser. We anticipate that more will continue to be found as we test more documents, and this will be an ongoing task to fix them. We also need to start researching taxonomy creation APIs to deteremine which would be the best fit for our project.
+
+## Completed Issues/User Stories
+Here are links to the issues that we completed in this sprint:
+
+ * https://github.com/WSUCptSCapstone-Fall2021Spring2022/boeing-naturallanguageprocessing/issues/11
+ 
+ ## Incomplete Issues/User Stories
+ Here are links to issues we worked on but did not complete in this sprint:
+ 
+ * https://github.com/WSUCptSCapstone-Fall2021Spring2022/boeing-naturallanguageprocessing/issues/16
+   - We would still like to have exception handling for foreign languages
+
+## Code Files for Review
+Please review the following code files, which were actively developed during this sprint, for quality:
+ * [Parser](https://github.com/WSUCptSCapstone-Fall2021Spring2022/boeing-naturallanguageprocessing/tree/main/Parser)
+ 
+## Retrospective Summary
+Here's what went well:
+  * We were able to find and fix a lot of exceptions in the parser
+  * We were able to create a better starting point for taxonomy creation
+ 
+Here's what we'd like to improve:
+   * Parser exceptions
+   * Effiecency for larger documents
+  
+Here are changes we plan to implement in the next sprint:
+   * More parser exceptions
+   * Taxonomy creation
