@@ -275,7 +275,9 @@ class App extends React.Component {
                               saveCategories={this.saveCategories}
                               
                               deleteCategory={this.deleteCategory}/> :
-                            <Taxonomy prevPage={this.prevPage}/>
+                            <Taxonomy
+                              prevPage={this.prevPage}
+                              categories={this.state.categories}/>
         }  
       </>
     )
