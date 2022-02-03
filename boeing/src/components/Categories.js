@@ -252,49 +252,48 @@ class Categories extends React.Component {
                             <h6 className="centered"> Edit Categories \/ </h6>
                             &nbsp;
                             {this.state.cat === -1 ? 
-                                <button className="btn" onClick={() => this.isShowPopup(true)} className="modeBtn">
+                                <button className="btn" onClick={() => this.isShowPopup(true)}>
                                     Create New Category
                                 </button> : 
-                                <button className="btn" onClick={() => this.changeMode(-1)} className="modeBtn">
+                                <button className="btn" onClick={() => this.changeMode(-1)}>
                                     Exit Category
                                 </button>
                             }
                             &nbsp;
                             {this.state.cat === -1 ? 
                                 null : 
-                                <button className="btn" onClick={() => this.deleteCat()} className="modeBtn">
+                                <button className="btn" onClick={() => this.deleteCat()}>
                                     Delete Category
                                 </button>
                             }
                             &nbsp;
                             {this.state.selectedTerms.length == 0 ?
                                 null :
-                                <button onClick={() => this.addToWeights()} className="modeBtn">
+                                <button onClick={() => this.addToWeights()} className="btn">
                                     &lt;&lt;&lt;
                                 </button>
                             }
                             &nbsp;
                             {this.state.selectedWeightTerms.length == 0 || this.state.cat == -1 ? 
                                 null : 
-                                <button className="btn" onClick={() => this.addToCategory()} className="modeBtn">
+                                <button className="btn" onClick={() => this.addToCategory()}>
                                     &gt;&gt;&gt;
                                 </button>
                             }
                             &nbsp;
                             {this.state.selectedWeightTerms.length != 0 || this.state.selectedTerms.length != 0 ?
-                                <button className="btn" onClick={() => this.clearSelected()} className="modeBtn">
+                                <button className="btn" onClick={() => this.clearSelected()}>
                                     Clear Selected
                                 </button> :
                                 null
                             }
                             &nbsp;
                             {this.state.cat === -1  ?
-                                <button className="btn" onClick={() => this.saveCategories()} className="modeBtn">
+                                <button className="btn" onClick={() => this.saveCategories()}>
                                     Save Categories
                                 </button> :
                                 null
                             }
-
                         </div>
 
                         <div className="categoriesRight">
