@@ -269,7 +269,7 @@ class Categories extends React.Component {
                             &nbsp;
                             {this.state.selectedTerms.length == 0 ?
                                 null :
-                                <button onClick={() => this.addToWeights()} className="modeBtn">
+                                <button onClick={() => this.addToWeights()} className="btn">
                                     &lt;&lt;&lt;
                                 </button>
                             }

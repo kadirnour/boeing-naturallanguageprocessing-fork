@@ -21,9 +21,10 @@ class Taxonomy extends React.Component {
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     // Displays modal popup
-    isShowPopup = (status, type) => {  
+    isShowPopup = (status, type, r) => {  
         this.setState({ showModalPopup: status,
-                        type: type});  
+                        type: type,
+                        row: r});  
     };  
 
     constructor() {  
@@ -109,16 +110,16 @@ class Taxonomy extends React.Component {
     }
 
     createRelationshipType = (color, relationship) => {
-       let newRelationships = [...this.state.relationships]
-       newRelationships.push({[relationship]: color})
-       this.setState({relationships: newRelationships})
+        let newRelationships = [...this.state.relationships]
+        newRelationships.push({[relationship]: color})
+        this.setState({relationships: newRelationships})
     }
 
     renderRelationshipTypes = () => {
         const table = []
         for (let r = 0; r < Object.keys(this.state.relationships).length; r++) {
             table.push(
-                <tr key={r} className="centered">
+                <tr key={r} className="centered" onClick={() => this.isShowPopup(true, "edit", r)}>
                     <td>
                         {Object.keys(this.state.relationships[r])}
                     </td>
@@ -131,9 +132,30 @@ class Taxonomy extends React.Component {
         return table;
     }
 
+    editRelationship = (color, relationship) => {
 
+        this.updateRelationships(color)
 
+        let newRelationships = [...this.state.relationships]
+        newRelationships[this.state.row] = {[relationship]: color}
+        this.setState({relationships: newRelationships})
+    }
 
+    updateRelationships = (color) => {
+        let edgesCopy = [...this.state.graph.edges]
+        let newGraph = {...this.state.graph}
+
+        for(let i = 0; i < edgesCopy.length; i++) {
+            if(edgesCopy[i].color == Object.values(this.state.relationships[this.state.row])) {
+                edgesCopy[i].color = color
+            }
+        }
+
+        newGraph.edges = edgesCopy
+
+        this.setState({graph: newGraph,
+                       newID: this.state.newID + 1})
+    }
 
     render() {
         return (
@@ -141,8 +163,10 @@ class Taxonomy extends React.Component {
                 <ModalPopup showModalPopup={this.state.showModalPopup}  
                             type={this.state.type}
                             onPopupClose={this.isShowPopup}
-                            createRelationshipType = {this.createRelationshipType}
-                            createRelationship = {this.createRelationship}
+                            relationships={this.state.relationships}
+                            createRelationshipType={this.createRelationshipType}
+                            createRelationship={this.createRelationship}
+                            editRelationship={this.editRelationship}
                 />
                 <div className="pageBox">
                     <div className="categoriesUploadSection">
@@ -154,12 +178,14 @@ class Taxonomy extends React.Component {
                         <div className="categoriesCenter">
                             <button className="btn" onClick={() => this.createNode()}>Create New Node</button>
 
+                            <button className="btn" onClick={() => this.isShowPopup(true, "relationship", -1)}>Create New Relationship Type</button>
+
                             {this.state.nodes.length == 2 ?
-                                <button className="btn" onClick={() => this.isShowPopup(true, "color")}>Create New Relationship</button>
+                                this.state.relationships.length == 0 ?
+                                    null :
+                                    <button className="btn" onClick={() => this.isShowPopup(true, "color", -1)}>Create New Relationship</button>
                                 : null
                             }
-                            
-                            <button className="btn" onClick={() => this.isShowPopup(true, "relationship")}>Create New Relationship Type</button>
                         </div>
 
                         <div className="categoriesRight">

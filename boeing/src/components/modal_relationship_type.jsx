@@ -2,30 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { Modal } from 'react-bootstrap';  
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-
-const options = [
-    {
-      label: "Red",
-      value: "Red",
-    },
-    {
-      label: "Blue",
-      value: "Blue",
-    },
-    {
-      label: "Green",
-      value: "Green",
-    },
-    {
-      label: "Purple",
-      value: "Purple",
-    },
-    {
-      label: "Yellow",
-      value: "Yellow",
-    },
-  ];
-
 // Popup modal to display badge information
 class ModalPopup extends Component {  
     constructor(props) {  
@@ -33,10 +9,10 @@ class ModalPopup extends Component {
         this.state = {  
             showModal: false,
             relationship: "",
-            color: "Red"
+            color: "#000000"
         };  
-    }  
-  
+    }
+      
     isShowModal = (status) => {  
         this.handleClose();  
         this.setState({ showModal: status});  
@@ -51,16 +27,35 @@ class ModalPopup extends Component {
     }
     
     handleChangeColor = (event) => {
-        this.setState({color: event.target.value, });
+        this.setState({color: event.target.value});
     }
 
     // Creates a new category with the given input name
     handleSubmit = () => {
+        this.handleReset()
         this.props.type == "relationship" ?
             this.props.createRelationshipType(this.state.color, this.state.relationship)
             :
-            this.props.createRelationship(this.state.color)
+                this.props.type == "edit" ?
+                    this.props.editRelationship(this.state.color, this.state.relationship)
+                :   
+                    this.props.createRelationship(this.state.color)
         this.handleClose();
+    }
+
+    handleReset = () => { // Resets options in popup modal
+        
+        this.setState({relationship: "",
+                       color: "#000000"})
+    }
+
+    renderColorsOptions = (option) => {
+        if (this.props.relationships.some(e => Object.values(e) == option.value)) {
+            return null
+        }
+        else {
+            return <option value={option.value}>{option.label}</option>
+        }
     }
   
     render() {  
@@ -79,12 +74,7 @@ class ModalPopup extends Component {
                         </Modal.Header>  
                         <Modal.Body>  
                             <input type="string" placeholder="New relationship name..." onChange={this.handleChange}></input>
-                            {/* <input type="string" placeholder="New relationship color..." onChange={this.handleChange}></input> */}
-                            <select value={this.state.color} onChange={this.handleChangeColor}>
-                                {options.map((option) => (
-                                    <option value={option.value}>{option.label}</option>
-                                ))}
-                            </select>
+                            <input type="color" value={this.color} onChange={this.handleChangeColor}></input>
                             <button onClick={() => this.handleSubmit()}>
                                 Create
                             </button>
@@ -92,28 +82,49 @@ class ModalPopup extends Component {
                     </Modal>  
                 </Fragment>  
                 : 
-                <Fragment>  
-                    <Modal show={this.props.showModalPopup} onHide={this.handleClose}
-                        size="lg"  
-                        aria-labelledby="contained-modal-title-vcenter"  
-                        centered>  
-                        <Modal.Header closeButton>  
-                            <Modal.Title id="sign-in-title">  
-                                Choose relationship color
-                            </Modal.Title>  
-                        </Modal.Header>  
-                        <Modal.Body>  
-                            <select value={this.state.color} onChange={this.handleChangeColor}>
-                                {options.map((option) => (
-                                    <option value={option.value}>{option.label}</option>
-                                ))}
-                            </select>
-                            <button onClick={() => this.handleSubmit()}>
-                                Select
-                            </button>
-                        </Modal.Body>
-                    </Modal>  
-                </Fragment>  
+                this.props.type == "edit" ?
+                    <Fragment>  
+                        <Modal show={this.props.showModalPopup} onHide={this.handleClose}
+                            size="lg"  
+                            aria-labelledby="contained-modal-title-vcenter"  
+                            centered>  
+                            <Modal.Header closeButton>  
+                                <Modal.Title id="sign-in-title">  
+                                    Edit relationship
+                                </Modal.Title>  
+                            </Modal.Header>  
+                            <Modal.Body>  
+                                <input type="string" placeholder="New relationship name..." onChange={this.handleChange}></input>
+                                <input type="color" value={this.color} onChange={this.handleChangeColor}></input>
+                                <button onClick={() => this.handleSubmit()}>
+                                    Enter
+                                </button>
+                            </Modal.Body>
+                        </Modal>  
+                    </Fragment>  
+                    :
+                    <Fragment>  
+                        <Modal show={this.props.showModalPopup} onHide={this.handleClose}
+                            size="lg"  
+                            aria-labelledby="contained-modal-title-vcenter"  
+                            centered>  
+                            <Modal.Header closeButton>  
+                                <Modal.Title id="sign-in-title">  
+                                    Choose relationship color
+                                </Modal.Title>  
+                            </Modal.Header>  
+                            <Modal.Body>  
+                                <select value={this.state.color} onChange={this.handleChangeColor}>
+                                    {this.props.relationships.map((option) => (
+                                        <option value={Object.values(option)}>{Object.values(option)}</option> // Display current options from created relationships
+                                    ))}
+                                </select>
+                                <button onClick={() => this.handleSubmit()}>
+                                    Select
+                                </button>
+                            </Modal.Body>
+                        </Modal>  
+                    </Fragment>  
     
         );  
     }  
