@@ -30,6 +30,21 @@ class ModalPopup extends Component {
         this.setState({color: event.target.value});
     }
 
+    handleChangeRelationship = (event) => {
+        // console.log(Object.keys(this.props.relationships[1]) == event.target.value)
+        // console.log(event.target.value)
+        let color;
+        for(let i = 0; i < this.props.relationships.length; i++) {
+            if(Object.keys(this.props.relationships[i]) == event.target.value) {
+                color = Object.values(this.props.relationships[i])
+            }
+        }
+
+        this.setState({relationship: event.target.value,
+                       color: color})
+        
+    }
+
     // Creates a new category with the given input name
     handleSubmit = () => {
         this.handleReset()
@@ -39,7 +54,7 @@ class ModalPopup extends Component {
                 this.props.type == "edit" ?
                     this.props.editRelationship(this.state.color, this.state.relationship)
                 :   
-                    this.props.createRelationship(this.state.color)
+                    this.props.createRelationship(this.state.color, this.state.relationship)
         this.handleClose();
     }
 
@@ -74,7 +89,7 @@ class ModalPopup extends Component {
                         </Modal.Header>  
                         <Modal.Body>  
                             <input type="string" placeholder="New relationship name..." onChange={this.handleChange}></input>
-                            <input type="color" value={this.color} onChange={this.handleChangeColor}></input>
+                            <input type="color" value={this.state.color} onChange={this.handleChangeColor}></input>
                             <button onClick={() => this.handleSubmit()}>
                                 Create
                             </button>
@@ -95,7 +110,7 @@ class ModalPopup extends Component {
                             </Modal.Header>  
                             <Modal.Body>  
                                 <input type="string" placeholder="New relationship name..." onChange={this.handleChange}></input>
-                                <input type="color" value={this.color} onChange={this.handleChangeColor}></input>
+                                <input type="color" value={this.state.color} onChange={this.handleChangeColor}></input>
                                 <button onClick={() => this.handleSubmit()}>
                                     Enter
                                 </button>
@@ -114,9 +129,9 @@ class ModalPopup extends Component {
                                 </Modal.Title>  
                             </Modal.Header>  
                             <Modal.Body>  
-                                <select value={this.state.color} onChange={this.handleChangeColor}>
+                                <select value={this.state.relationship} onChange={this.handleChangeRelationship}>
                                     {this.props.relationships.map((option) => (
-                                        <option value={Object.values(option)}>{Object.values(option)}</option> // Display current options from created relationships
+                                        <option value={Object.keys(option)}>{Object.keys(option)}</option> // Display current options from created relationships
                                     ))}
                                 </select>
                                 <button onClick={() => this.handleSubmit()}>

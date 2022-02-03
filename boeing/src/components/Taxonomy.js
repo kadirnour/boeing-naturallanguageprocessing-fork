@@ -94,11 +94,13 @@ class Taxonomy extends React.Component {
         })         
     }
 
-    createRelationship = (color) => {
+    createRelationship = (color, relationship) => {
         let newEdges = [...this.state.graph.edges]
         let newGraph = {...this.state.graph}
 
-        newEdges.push({from: this.state.nodes[0], to: this.state.nodes[1], color: color, width: 3})
+        console.log(color)
+
+        newEdges.push({from: this.state.nodes[0], to: this.state.nodes[1], color: color, width: 3, relationship: relationship})
 
         newGraph.edges = newEdges
 
