@@ -1,26 +1,18 @@
 test_paragraph_nouns.csv
 Unique nouns: 15,Total nouns: 16
-Total time: 0.73 sec,Cost per noun: 45.603 ms
-the most technologically advanced commercial aircraft,"['While the 777 is one of the most technologically advanced commercial aircraft in the world, pilots should always remember that the 777 is still a very large aircraft.']",1,1.0
-the world,"['While the 777 is one of the most technologically advanced commercial aircraft in the world, pilots should always remember that the 777 is still a very large aircraft.']",1,1.0
-pilot,"['While the 777 is one of the most technologically advanced commercial aircraft in the world, pilots should always remember that the 777 is still a very large aircraft.', 'For instance, pilots should not try a very short approach with very tight turns as if they were flying a 737 or other smaller aircraft.']",2,2.0
-a very large aircraft,"['While the 777 is one of the most technologically advanced commercial aircraft in the world, pilots should always remember that the 777 is still a very large aircraft.']",1,1.0
-large aircraft rule,"['Therefore, large aircraft rules apply to the 777.']",1,1.0
-instance,"['For instance, pilots should not try a very short approach with very tight turns as if they were flying a 737 or other smaller aircraft.']",1,1.0
-a very short approach,"['For instance, pilots should not try a very short approach with very tight turns as if they were flying a 737 or other smaller aircraft.']",1,1.0
-very tight turn,"['For instance, pilots should not try a very short approach with very tight turns as if they were flying a 737 or other smaller aircraft.']",1,1.0
-they,"['For instance, pilots should not try a very short approach with very tight turns as if they were flying a 737 or other smaller aircraft.']",1,1.0
-a 737 or other small aircraft,"['For instance, pilots should not try a very short approach with very tight turns as if they were flying a 737 or other smaller aircraft.']",1,1.0
-the 777's power,"[""The 777's power can offset some pilot errors, but the power can also cause problems during tight maneuvers.""]",1,1.0
-some pilot error,"[""The 777's power can offset some pilot errors, but the power can also cause problems during tight maneuvers.""]",1,1.0
-the power,"[""The 777's power can offset some pilot errors, but the power can also cause problems during tight maneuvers.""]",1,1.0
-problem,"[""The 777's power can offset some pilot errors, but the power can also cause problems during tight maneuvers.""]",1,1.0
-tight maneuver,"[""The 777's power can offset some pilot errors, but the power can also cause problems during tight maneuvers.""]",1,1.0
-the most technologically advanced commercial aircraft,"['While the 777 is one of the most technologically advanced commercial aircraft in the world, pilots should always remember that the 777 is still a very large aircraft.']",1,1.0,test2
-the world,"['While the 777 is one of the most technologically advanced commercial aircraft in the world, pilots should always remember that the 777 is still a very large aircraft.']",1,1.0,test2
-pilot,"['While the 777 is one of the most technologically advanced commercial aircraft in the world, pilots should always remember that the 777 is still a very large aircraft.', 'For instance, pilots should not try a very short approach with very tight turns as if they were flying a 737 or other smaller aircraft.']",2,2.0,test1
-they,"['For instance, pilots should not try a very short approach with very tight turns as if they were flying a 737 or other smaller aircraft.']",1,1.0,test2
-the 777's power,"[""The 777's power can offset some pilot errors, but the power can also cause problems during tight maneuvers.""]",1,1.0,test1
-some pilot error,"[""The 777's power can offset some pilot errors, but the power can also cause problems during tight maneuvers.""]",1,1.0,test1
-the power,"[""The 777's power can offset some pilot errors, but the power can also cause problems during tight maneuvers.""]",1,1.0,test2
-problem,"[""The 777's power can offset some pilot errors, but the power can also cause problems during tight maneuvers.""]",1,1.0,test1
+Total time: 0.748 sec,Cost per noun: 46.754 ms
+the most technologically advanced commercial aircraft,"['While the 777 is one of the most technologically advanced commercial aircraft in the world, pilots should always remember that the 777 is still a very large aircraft.']",1
+the world,"['While the 777 is one of the most technologically advanced commercial aircraft in the world, pilots should always remember that the 777 is still a very large aircraft.']",1
+pilot,"['While the 777 is one of the most technologically advanced commercial aircraft in the world, pilots should always remember that the 777 is still a very large aircraft.', 'For instance, pilots should not try a very short approach with very tight turns as if they were flying a 737 or other smaller aircraft.']",2
+a very large aircraft,"['While the 777 is one of the most technologically advanced commercial aircraft in the world, pilots should always remember that the 777 is still a very large aircraft.']",1
+large aircraft rule,"['Therefore, large aircraft rules apply to the 777.']",1
+instance,"['For instance, pilots should not try a very short approach with very tight turns as if they were flying a 737 or other smaller aircraft.']",1
+a very short approach,"['For instance, pilots should not try a very short approach with very tight turns as if they were flying a 737 or other smaller aircraft.']",1
+very tight turn,"['For instance, pilots should not try a very short approach with very tight turns as if they were flying a 737 or other smaller aircraft.']",1
+they,"['For instance, pilots should not try a very short approach with very tight turns as if they were flying a 737 or other smaller aircraft.']",1
+a 737 or other small aircraft,"['For instance, pilots should not try a very short approach with very tight turns as if they were flying a 737 or other smaller aircraft.']",1
+the 777's power,"[""The 777's power can offset some pilot errors, but the power can also cause problems during tight maneuvers.""]",1
+some pilot error,"[""The 777's power can offset some pilot errors, but the power can also cause problems during tight maneuvers.""]",1
+the power,"[""The 777's power can offset some pilot errors, but the power can also cause problems during tight maneuvers.""]",1
+problem,"[""The 777's power can offset some pilot errors, but the power can also cause problems during tight maneuvers.""]",1
+tight maneuver,"[""The 777's power can offset some pilot errors, but the power can also cause problems during tight maneuvers.""]",1
