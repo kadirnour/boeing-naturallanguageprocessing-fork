@@ -11,6 +11,10 @@ class Terms extends React.Component {
     //     this.props.setOutput(this.state.output)
     // }
 
+    // componentDidMount = () => {
+    //     this.props.Parser()
+    // }
+
     handleChange = (event) => {
         this.setState({[event.target.name]: event.target.value})
     }

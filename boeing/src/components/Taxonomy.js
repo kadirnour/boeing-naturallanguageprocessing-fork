@@ -4,7 +4,7 @@ import ModalPopup from './modal_relationship_type';
 
 import Graph from 'vis-react';
 
-var options = {
+var options = { 
     layout: {
         hierarchical: true
     },
@@ -35,25 +35,43 @@ class Taxonomy extends React.Component {
             relationships: [],
             showModalPopup: false,
             nodes: [],
+            node1: -1,
+            node2: -1,
             type: "",
             graph: {
               nodes: [
                 // { id: 1, label: "Node 1", color: "#e04141" },
-                // { id: 2, label: "Node 2", color: "#e09c41" },
-                // { id: 3, label: "Node 3", color: "#e0df41" },
-                // { id: 4, label: "Node 4", color: "#7be041" },
-                // { id: 5, label: "Node 5", color: "#41e0c9" }
+                // { id: 2, label: "Node 2", color: "#e09c41" }
               ],
               edges: [
                 // { from: 1, to: 2 },
-                // { from: 1, to: 3 },
-                // { from: 2, to: 4 },
-                // { from: 2, to: 5 }
+                // { from: 1, to: 3 }
               ]
             },
             events: {
-              click: ({ nodes, edges }) => {
-                  this.setState({nodes: nodes})
+              click: ({ nodes, edges }) => { // Logic for directional arrows
+                  if(nodes.length == 2) {
+
+                    if(this.state.node1 == -1) { // !! THERE IS A BUG WHEN DRAGING A NODE, WILL SELECT BUT NOT INDICATE THIS IN STATE (Defaults to making one of the nodes node1) !!
+                        this.setState({node1: nodes[0]})
+                    }
+                    
+                    let node2 = -1
+                    for(let i = 0; i < nodes.length; i++) { // Gets the second node
+                        if(nodes[i] != this.state.node1) {
+                            node2 = nodes[i]
+                        }
+                    }
+
+                    this.setState({nodes: nodes,
+                                   node2: node2})
+
+                  } else if (nodes.length == 1) {
+                    this.setState({nodes: nodes,
+                                   node1: nodes[0]})
+                  } else {
+                    this.setState({nodes: nodes})
+                  }
               }
             }
         }  
@@ -98,9 +116,16 @@ class Taxonomy extends React.Component {
         let newEdges = [...this.state.graph.edges]
         let newGraph = {...this.state.graph}
 
-        console.log(color)
 
-        newEdges.push({from: this.state.nodes[0], to: this.state.nodes[1], color: color, width: 3, relationship: relationship})
+        for(let i = 0; i < this.state.graph.edges.length; i++) { // Removes edges if they already have an edge between them
+            if(this.state.graph.edges[i].from == this.state.nodes[0] && this.state.graph.edges[i].to == this.state.nodes[1]
+            || this.state.graph.edges[i].from == this.state.nodes[1] && this.state.graph.edges[i].to == this.state.nodes[0]) {
+                newEdges.splice(i, 1)
+            }
+        }
+
+
+        newEdges.push({from: this.state.node1, to: this.state.node2, color: color, width: 3, relationship: relationship})
 
         newGraph.edges = newEdges
 

@@ -8,9 +8,17 @@ class ModalPopup extends Component {
         super(props);  
         this.state = {  
             showModal: false,
-            relationship: "",
+            relationship: "Click Here To Edit Name",
             color: "#000000"
         };  
+    }
+
+    componentDidMount = () => { // If there is a relationship made already, make the first option the default choice
+        if(this.props.relationships.length != 0) {
+            this.setState({relationship: (Object.keys(this.props.relationships[0]).toString()),
+                           color: (Object.values(this.props.relationships[0]).toString())
+                         })
+        }
     }
       
     isShowModal = (status) => {  
@@ -19,6 +27,7 @@ class ModalPopup extends Component {
     }  
   
     handleClose = () => {  
+        this.componentDidMount() // Resets options in popup modal
         this.props.onPopupClose(false);  
     }  
 
@@ -31,37 +40,27 @@ class ModalPopup extends Component {
     }
 
     handleChangeRelationship = (event) => {
-        // console.log(Object.keys(this.props.relationships[1]) == event.target.value)
-        // console.log(event.target.value)
         let color;
         for(let i = 0; i < this.props.relationships.length; i++) {
             if(Object.keys(this.props.relationships[i]) == event.target.value) {
-                color = Object.values(this.props.relationships[i])
+                color = (Object.values(this.props.relationships[i])).toString()
             }
         }
 
         this.setState({relationship: event.target.value,
                        color: color})
-        
     }
 
     // Creates a new category with the given input name
     handleSubmit = () => {
-        this.handleReset()
-        this.props.type == "relationship" ?
+        this.props.type == "relationship" ? // Creating a new relationship type
             this.props.createRelationshipType(this.state.color, this.state.relationship)
             :
-                this.props.type == "edit" ?
-                    this.props.editRelationship(this.state.color, this.state.relationship)
-                :   
+                this.props.type == "edit" ? // Editing an existing relationship
+                    this.props.editRelationship(this.state.color, this.state.relationship) // !! Right now this uses name of relationship, might want to create a id and use that instead !!
+                : // Creating a new relationship between two nodes
                     this.props.createRelationship(this.state.color, this.state.relationship)
         this.handleClose();
-    }
-
-    handleReset = () => { // Resets options in popup modal
-        
-        this.setState({relationship: "",
-                       color: "#000000"})
     }
 
     renderColorsOptions = (option) => {
@@ -76,7 +75,7 @@ class ModalPopup extends Component {
     render() {  
         return (  
 
-            this.props.type == "relationship" ?
+            this.props.type == "relationship" ? // Creating a new relationship type and setting a color
                 <Fragment>  
                     <Modal show={this.props.showModalPopup} onHide={this.handleClose}
                         size="lg"  
@@ -97,8 +96,8 @@ class ModalPopup extends Component {
                     </Modal>  
                 </Fragment>  
                 : 
-                this.props.type == "edit" ?
-                    <Fragment>  
+                this.props.type == "edit" ? // Editing a current relationship and changing the name and color
+                    <Fragment>   
                         <Modal show={this.props.showModalPopup} onHide={this.handleClose}
                             size="lg"  
                             aria-labelledby="contained-modal-title-vcenter"  
@@ -117,15 +116,15 @@ class ModalPopup extends Component {
                             </Modal.Body>
                         </Modal>  
                     </Fragment>  
-                    :
-                    <Fragment>  
-                        <Modal show={this.props.showModalPopup} onHide={this.handleClose}
+                    : // Creating a new relationship between two nodes
+                    <Fragment> 
+                        <Modal show={this.props.showModalPopup} onHide={this.handleClose} 
                             size="lg"  
                             aria-labelledby="contained-modal-title-vcenter"  
                             centered>  
                             <Modal.Header closeButton>  
                                 <Modal.Title id="sign-in-title">  
-                                    Choose relationship color
+                                    Choose relationship
                                 </Modal.Title>  
                             </Modal.Header>  
                             <Modal.Body>  
