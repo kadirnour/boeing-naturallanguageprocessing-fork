@@ -8,18 +8,18 @@ class ModalPopup extends Component {
         super(props);  
         this.state = {  
             showModal: false,
-            relationship: "Click Here To Edit Name",
+            relationship: "",
             color: "#000000"
         };  
     }
 
-    componentDidMount = () => { // If there is a relationship made already, make the first option the default choice
-        if(this.props.relationships.length != 0) {
-            this.setState({relationship: (Object.keys(this.props.relationships[0]).toString()),
-                           color: (Object.values(this.props.relationships[0]).toString())
-                         })
-        }
-    }
+    // componentDidMount = () => { // If there is a relationship made already, make the first option the default choice
+    //     if(this.props.relationships.length != 0) {
+    //         this.setState({relationship: (Object.keys(this.props.relationships[0]).toString()),
+    //                        color: (Object.values(this.props.relationships[0]).toString())
+    //                      })
+    //     }
+    // }
       
     isShowModal = (status) => {  
         this.handleClose();  
@@ -27,7 +27,7 @@ class ModalPopup extends Component {
     }  
   
     handleClose = () => {  
-        this.componentDidMount() // Resets options in popup modal
+        //this.componentDidMount() // Resets options in popup modal
         this.props.onPopupClose(false);  
     }  
 
@@ -49,6 +49,21 @@ class ModalPopup extends Component {
 
         this.setState({relationship: event.target.value,
                        color: color})
+    }
+
+    handleDelete = () => {
+        this.props.deleteRelationship()
+        this.handleClose()
+    }
+
+    handleEditLoad = () => {
+        this.setState({relationship: Object.keys(this.props.relationships[this.props.row]),
+                       color: Object.values(this.props.relationships[this.props.row])})
+    }
+
+    handleCreateLoad = () => {
+        this.setState({relationship: "",
+                       color: "#000000"})
     }
 
     // Creates a new category with the given input name
@@ -77,7 +92,7 @@ class ModalPopup extends Component {
 
             this.props.type == "relationship" ? // Creating a new relationship type and setting a color
                 <Fragment>  
-                    <Modal show={this.props.showModalPopup} onHide={this.handleClose}
+                    <Modal show={this.props.showModalPopup} onHide={this.handleClose} onShow={this.handleCreateLoad}
                         size="lg"  
                         aria-labelledby="contained-modal-title-vcenter"  
                         centered>  
@@ -87,8 +102,9 @@ class ModalPopup extends Component {
                             </Modal.Title>  
                         </Modal.Header>  
                         <Modal.Body>  
-                            <input type="string" placeholder="New relationship name..." onChange={this.handleChange}></input>
+                            <input type="string" value={this.state.relationship} placeholder="New relationship name..." onChange={this.handleChange}></input>
                             <input type="color" value={this.state.color} onChange={this.handleChangeColor}></input>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <button onClick={() => this.handleSubmit()}>
                                 Create
                             </button>
@@ -98,7 +114,7 @@ class ModalPopup extends Component {
                 : 
                 this.props.type == "edit" ? // Editing a current relationship and changing the name and color
                     <Fragment>   
-                        <Modal show={this.props.showModalPopup} onHide={this.handleClose}
+                        <Modal show={this.props.showModalPopup} onHide={this.handleClose} onShow={this.handleEditLoad}
                             size="lg"  
                             aria-labelledby="contained-modal-title-vcenter"  
                             centered>  
@@ -106,12 +122,17 @@ class ModalPopup extends Component {
                                 <Modal.Title id="sign-in-title">  
                                     Edit relationship
                                 </Modal.Title>  
-                            </Modal.Header>  
+                            </Modal.Header>
                             <Modal.Body>  
-                                <input type="string" placeholder="New relationship name..." onChange={this.handleChange}></input>
+                                <input type="string" value={this.state.relationship} placeholder="New relationship name..." onChange={this.handleChange}></input>
                                 <input type="color" value={this.state.color} onChange={this.handleChangeColor}></input>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <button onClick={() => this.handleSubmit()}>
                                     Enter
+                                </button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button onClick={() => this.handleDelete()}>
+                                    Delete
                                 </button>
                             </Modal.Body>
                         </Modal>  
@@ -133,6 +154,7 @@ class ModalPopup extends Component {
                                         <option value={Object.keys(option)}>{Object.keys(option)}</option> // Display current options from created relationships
                                     ))}
                                 </select>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <button onClick={() => this.handleSubmit()}>
                                     Select
                                 </button>
