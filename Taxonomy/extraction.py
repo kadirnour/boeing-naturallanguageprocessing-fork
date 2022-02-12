@@ -14,6 +14,7 @@ def find_frequencies_and_weights(input, files):
     folder = os.listdir(input) # folder at input location
     #number_files = len(folder) # number of files for weight calculation
     number_files = len(files)
+    print(files)
 
     # STEP 2: Calculate frequencies and weights
     for csv_name in folder:
