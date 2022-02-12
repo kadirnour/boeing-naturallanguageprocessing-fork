@@ -11,6 +11,10 @@ class Terms extends React.Component {
     //     this.props.setOutput(this.state.output)
     // }
 
+    // componentDidMount = () => {
+    //     this.props.Parser()
+    // }
+
     handleChange = (event) => {
         this.setState({[event.target.name]: event.target.value})
     }
@@ -92,7 +96,7 @@ class Terms extends React.Component {
 
     deleteTerms = () => {
         this.props.deleteTerms(this.state.selectedTerms)
-        //this.clearSelected()
+        this.clearSelected()
     }
 
     render() {
@@ -105,8 +109,8 @@ class Terms extends React.Component {
                         &nbsp;
                         <div className="modeBtn">
                             &nbsp;
-                            <button className="btn" onClick={() => this.props.Parser()}> Run Parser: </button>
-                            <button className="btn" onClick={() => this.props.getWeight()}> Get Weights: </button>
+                            {/* <button className="btn" onClick={() => this.props.Parser()}> Run Parser: </button> */}
+                            <button className="btn" onClick={() => this.props.Parser()}> Get Weights: </button>
                         </div>
                         <h6 className="centered"> Select terms to remove </h6>
                         <table className="table table-hover tableBody t1">
@@ -130,11 +134,11 @@ class Terms extends React.Component {
                             <button className="right bottom3 btn" onClick={() =>  this.props.nextPage()}> Forward </button>
                             {this.state.selectedTerms.length != 0 ?
                                 <button className="right bottom3 btn" onClick={() => this.clearSelected()}> Clear Selected </button> :
-                                null
+                                <button disabled={true} className="right bottom3 btn" onClick={() => this.clearSelected()}> Clear Selected </button>
                             }
                             {this.state.selectedTerms.length != 0 ?
                                 <button className="right bottom3 btn" onClick={() => this.deleteTerms()}> Delete Terms </button> :
-                                null
+                                <button disabled={true} className="right bottom3 btn" onClick={() => this.deleteTerms()}> Delete Terms </button>
                             }
                         </div>
                     </div>

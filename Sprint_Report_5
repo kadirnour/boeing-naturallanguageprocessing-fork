@@ -1,0 +1,49 @@
+# Sprint 5 Report (02/02/22)
+
+## What's New (User Facing)
+ * Feature 1: Interactive front-end taxonomy visualization for noun/noun-phrase categories using vis.js
+ * Feature 2: Back-end parsing optimization that decrease the average parsing speed
+ * Feature 3: Implemented save to csv functionality for taxonomy categories and sub-terms
+ 
+
+## Work Summary (Developer Facing)
+Our team started to work on the front-end the client wanted. Focusing on creating a preliminary taxonomy visualization that was interactive using known rendering libraries.
+We also implmeneted back-end functionalities to save data from the front-end along with optimizing parsing speeds in anticipation for larger documents.
+
+
+## Unfinished Work
+Save to csv route functionality works however resubmitting after a deletion causes issues and needs further investigation. 
+
+## Completed Issues/User Stories
+Here are links to the issues that we completed in this sprint:
+
+ * https://github.com/WSUCptSCapstone-Fall2021Spring2022/boeing-naturallanguageprocessing/issues/28
+ 
+ ## Incomplete Issues/User Stories 
+ Here are links to issues we worked on but did not complete in this sprint:
+ 
+ * https://github.com/WSUCptSCapstone-Fall2021Spring2022/boeing-naturallanguageprocessing/issues/16
+   - We would still like to have exception handling for foreign languages
+
+## Code Files for Review
+Please review the following code files, which were actively developed during this sprint, for quality:
+ * [Web app](https://github.com/WSUCptSCapstone-Fall2021Spring2022/boeing-naturallanguageprocessing/tree/main/boeing)
+ * [Web app](https://github.com/WSUCptSCapstone-Fall2021Spring2022/boeing-naturallanguageprocessing/tree/main/Parser)
+ * [Web app](https://github.com/WSUCptSCapstone-Fall2021Spring2022/boeing-naturallanguageprocessing/tree/main/Taxonomy)
+ 
+## Retrospective Summary
+Here's what went well:
+  * We were able to further improve our front-end with quality changes and implemented a working interactive taxonomy visualization
+  * We were able to track the state of the new visualization and record it to a csv
+  * Improve parser performance by 30% using multiprocessing
+ 
+Here's what we'd like to improve:
+   * Test parsing larger documents and corpora
+   * State management for taxonomy visualization
+  
+Here are changes we plan to implement in the next sprint:
+   * More parser exceptions (continual)
+   * Improvements to taxonomy visualization like sub category interactions and viewing terms within nodes
+   * Load taxonomy data from csv
+   * Create a Docker container to standardize our build environment
+   * Test cases for user interface

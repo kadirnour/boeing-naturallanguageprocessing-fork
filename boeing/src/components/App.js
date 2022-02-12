@@ -62,6 +62,7 @@ class App extends React.Component {
       body: JSON.stringify(directories)})
         .then(res => res.json())
           .then(data => {this.setState({dict: data})})
+            .then(this.getWeight()) // Runs parser then gets the weights after.
   }
 
   // Route to get weights from parser's output location
@@ -275,7 +276,9 @@ class App extends React.Component {
                               saveCategories={this.saveCategories}
                               
                               deleteCategory={this.deleteCategory}/> :
-                            <Taxonomy prevPage={this.prevPage}/>
+                            <Taxonomy
+                              prevPage={this.prevPage}
+                              categories={this.state.categories}/>
         }  
       </>
     )
