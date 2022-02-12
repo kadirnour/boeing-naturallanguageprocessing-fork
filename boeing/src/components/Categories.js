@@ -261,21 +261,27 @@ class Categories extends React.Component {
                             }
                             &nbsp;
                             {this.state.cat === -1 ? 
-                                null : 
+                                <button disabled={true} className="btn" onClick={() => this.deleteCat()}>
+                                    Delete Category
+                                </button> : 
                                 <button className="btn" onClick={() => this.deleteCat()}>
                                     Delete Category
                                 </button>
                             }
                             &nbsp;
                             {this.state.selectedTerms.length == 0 ?
-                                null :
+                                <button disabled={true} onClick={() => this.addToWeights()} className="btn">
+                                    &lt;&lt;&lt;
+                                </button> :
                                 <button onClick={() => this.addToWeights()} className="btn">
                                     &lt;&lt;&lt;
                                 </button>
                             }
                             &nbsp;
                             {this.state.selectedWeightTerms.length == 0 || this.state.cat == -1 ? 
-                                null : 
+                                <button disabled={true} className="btn" onClick={() => this.addToCategory()}>
+                                    &gt;&gt;&gt;
+                                </button> : 
                                 <button className="btn" onClick={() => this.addToCategory()}>
                                     &gt;&gt;&gt;
                                 </button>
@@ -285,14 +291,18 @@ class Categories extends React.Component {
                                 <button className="btn" onClick={() => this.clearSelected()}>
                                     Clear Selected
                                 </button> :
-                                null
+                                <button disabled={true} className="btn" onClick={() => this.clearSelected()}>
+                                    Clear Selected
+                                </button>
                             }
                             &nbsp;
                             {this.state.cat === -1  ?
                                 <button className="btn" onClick={() => this.saveCategories()}>
                                     Save Categories
                                 </button> :
-                                null
+                                <button disabled={true} className="btn" onClick={() => this.saveCategories()}>
+                                    Save Categories
+                                </button>
                             }
                         </div>
 

@@ -1,6 +1,6 @@
 document_nouns.csv
 Unique nouns: 1014,Total nouns: 1427
-Total time: 6.039 sec,Cost per noun: 4.232 ms
+Total time: 9.972 sec,Cost per noun: 6.988 ms
 delta virtual airline,"['DELTA VIRTUAL AIRLINES BOEING 777-200ER AIRCRAFT OPERATING MANUAL THIRD EDITION NOVEMBER 2005 TABLE OF CONTENTS Table of Contents......................................................................................................2', 'For Delta Virtual Airlines, these procedures are for the benefit of the pilots using this manual.', 'Delta Virtual Airlines is not in anyway affiliated with Delta Air Lines or any of its subsidiaries.', 'The authors grant unlimited rights to Delta Virtual Airlines for modifications and electronic distribution.', 'This manual is designed for use by Delta Virtual Airlines as reference material for flight simulator pilots operating the Boeing 777-200ER aircraft.']",5
 777-200er aircraft operating manual third edition november 2005 table,['DELTA VIRTUAL AIRLINES BOEING 777-200ER AIRCRAFT OPERATING MANUAL THIRD EDITION NOVEMBER 2005 TABLE OF CONTENTS Table of Contents......................................................................................................2'],1
 content table,['DELTA VIRTUAL AIRLINES BOEING 777-200ER AIRCRAFT OPERATING MANUAL THIRD EDITION NOVEMBER 2005 TABLE OF CONTENTS Table of Contents......................................................................................................2'],1

@@ -1,6 +1,6 @@
 syllabus437_nouns.csv
 Unique nouns: 396,Total nouns: 485
-Total time: 2.52 sec,Cost per noun: 5.195 ms
+Total time: 3.441 sec,Cost per noun: 7.095 ms
 introduction,"[' Introduction to Machine Learning CptS 437 Spring 2022 Monday / Wednesday / Friday, 10:10-11:00, Sloan 175 Course Overview Machine learning is the study of computer algorithms and models that learn automatically from data.']",1
 machine learning,"[' Introduction to Machine Learning CptS 437 Spring 2022 Monday / Wednesday / Friday, 10:10-11:00, Sloan 175 Course Overview Machine learning is the study of computer algorithms and models that learn automatically from data.', 'This introductory course covers key topics in machine learning, including linear models for regression and classification, decision trees, support vector machines and kernel methods, neural networks and deep learning, ensemble methods, unsupervised learning and dimension reduction.', 'Hal Daum\\xc3\\xa9, A Course in Machine Learning, 2017.']",3
 sloan 175 course overview machine learning,"[' Introduction to Machine Learning CptS 437 Spring 2022 Monday / Wednesday / Friday, 10:10-11:00, Sloan 175 Course Overview Machine learning is the study of computer algorithms and models that learn automatically from data.']",1
