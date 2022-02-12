@@ -127,7 +127,7 @@ class Terms extends React.Component {
                         </table>
                         <div className="modeBtn">
                             <button className="bottom3 btn" onClick={() => this.props.prevPage()}> Back </button>
-                            <button className="right bottom3 btn" onClick={() =>  this.props.nextPage()}> Forward </button>
+                            <button className="right bottom3 btn" onClick={() =>  {this.props.nextPage(); this.props.save();}}> Forward </button>
                             {this.state.selectedTerms.length != 0 ?
                                 <button className="right bottom3 btn" onClick={() => this.clearSelected()}> Clear Selected </button> :
                                 null

@@ -68,10 +68,10 @@ def parse(input, output, files):
 
     # STEP 2: Get nouns and noun phrases from files in input folder
     for file in folder.iterdir():
-        # if file.stem in files: # Skips files deleted from front end
-        nouns = singleParse(file)
-        for noun in nouns:
-            total_nouns.__setitem__(noun.text, noun.num_occur)
+        if file.stem in files: # Skips files deleted from front end
+            nouns = singleParse(file)
+            for noun in nouns:
+                total_nouns.__setitem__(noun.text, noun.num_occur)
 
     return(total_nouns)
 
@@ -84,6 +84,8 @@ def parseAll(input, output, files):
     print('starting process pool')
     folder = Path(input)
     total_nouns = {}
+
+    # TODO: filter folder based on files param before parsing in pool
 
 
     with multiprocessing.Pool(5, initializer, [output]) as p: # limit number of processes to 5
