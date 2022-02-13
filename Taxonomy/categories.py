@@ -75,7 +75,7 @@ Method: taxonomy_writer
 Input: {Category:Weight}:{Terms}
 Output: A CSV file with: 
 Description: 
-'''
+
 def taxonomy_writer(foldr, taxDict):
     folder = os.listdir(foldr) # folder at input location
     print(folder)
@@ -98,46 +98,60 @@ def taxonomy_writer(foldr, taxDict):
                 print(row)
                 for category,terms in taxDict.items():
                     for term,weight in terms.items():
+                        # we must also account for removing a cat then
+                        #pressing save
                         if row[0]==term:
                             # Append the default text in the row / list
                             #row.append(weight)
                             row.append(category)
                         # Write the updated row / list to the output file
                             csv_writer.writerow(row)
-        
-        '''
-        with open(file, 'r+',  encoding='utf-8') as out:
-          
-         # writer = csv.writer(out)
-          rowreader = csv.reader(out, delimiter=',')
-          next(rowreader) # skip first 3 lines
-          next(rowreader)
-          next(rowreader)
-          for row in rowreader:
-             termToMatch = row[0]
-             for category,terms in taxDict.items():
-                for term,weight in terms.items():
-                    if term == termToMatch:
-                                            
-                        print(row[4])
-                        #row.append(weight)
-        '''
+'''
 
-        '''
-        with open(file, 'w',newline="") as f: # output csv file
-            writer = csv.writer(f)
-            with open(file,'r') as csvfile: # input csv file
-                reader = csv.reader(csvfile, delimiter=',')
-                next(reader)
-                next(reader)
-                next(reader)
-                for row in reader:  
-                    row[3] = f1.readline() # edit the 8th column 
-                    writer.writerow(row)
-        f1.close()  
-        
-        
-        
+def taxonomy_writer(foldr, taxDict):
+    folder = os.listdir(foldr) # folder at input location
+    print(folder)
+    for csv_name in folder:
+        print(csv_name)
+        file = foldr + '\\' + csv_name # csv from folder
+        """ Append a column in existing csv using csv.reader / csv.writer classes"""
+        # Open the input_file in read mode and output_file in write mode
+        data_write = []
+        with open(file, 'r') as read_obj:
+            # Create a csv.reader object from the input file object
+            
+            csv_reader = reader(read_obj, delimiter=',')
+            #Skip 3 lines
+            data_write.append(next(csv_reader))
+            data_write.append(next(csv_reader))
+            data_write.append(next(csv_reader))
+            print(data_write)
+            # Read each row of the input csv file as list
+            for row in csv_reader:
+                print(row)
+                for category,terms in taxDict.items():
+                    for term,weight in terms.items():
+                        # we must also account for removing a cat then
+                        #pressing save
+                       
+                        if row[0]==term:
+                            # Append the default text in the row / list
+                            #row.append(weight)
+                            row.append(category)
+                data_write.append(row)
 
-    #return 0
-    '''
+                        # Write the updated row / list to the output file
+                            #csv_writer.writerow(row)
+        print(data_write)
+        data_writer(data_write,file)
+
+def data_writer(data_write, file_path):
+    with open(file_path, 'r') as read_obj, \
+        open(file_path, 'w', newline='') as write_obj:
+        
+        # Create a csv.writer object from the output file object
+        csv_writer = csv.writer(write_obj)
+        
+        # Read each row of the input csv file as list
+        for row in data_write:
+            csv_writer.writerow(row)

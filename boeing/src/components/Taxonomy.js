@@ -4,7 +4,10 @@ import ModalPopup from './modal_relationship_type';
 
 import Graph from 'vis-react';
 
-var options = {
+
+ //!!!!!!!!!!!!!!!!!! CREATE UNDO AND REDO ARRAY !!!!!!!!!!!!!!!!!!!!!!!!!
+
+var options = { 
     layout: {
         hierarchical: true
     },
@@ -35,25 +38,45 @@ class Taxonomy extends React.Component {
             relationships: [],
             showModalPopup: false,
             nodes: [],
+            node1: -1,
+            node2: -1,
             type: "",
             graph: {
               nodes: [
                 // { id: 1, label: "Node 1", color: "#e04141" },
-                // { id: 2, label: "Node 2", color: "#e09c41" },
-                // { id: 3, label: "Node 3", color: "#e0df41" },
-                // { id: 4, label: "Node 4", color: "#7be041" },
-                // { id: 5, label: "Node 5", color: "#41e0c9" }
+                // { id: 2, label: "Node 2", color: "#e09c41" }
               ],
               edges: [
                 // { from: 1, to: 2 },
-                // { from: 1, to: 3 },
-                // { from: 2, to: 4 },
-                // { from: 2, to: 5 }
+                // { from: 1, to: 3 }
               ]
             },
             events: {
-              click: ({ nodes, edges }) => {
-                  this.setState({nodes: nodes})
+              click: ({ nodes, edges }) => { // Logic for relationship arrows
+                  if(nodes.length == 2) {
+
+                    if(this.state.node1 == -1) { // !! THERE IS A BUG WHEN DRAGING A NODE, WILL SELECT BUT NOT INDICATE THIS IN STATE (Defaults to making one of the nodes node1) !!
+                        this.setState({node1: nodes[0]})
+                    }
+                    
+                    let node2 = -1
+                    for(let i = 0; i < nodes.length; i++) { // Gets the second node
+                        if(nodes[i] != this.state.node1) {
+                            node2 = nodes[i]
+                        }
+                    }
+
+                    this.setState({nodes: nodes,
+                                   node2: node2})
+
+                    this.checkLineExists()
+
+                  } else if (nodes.length == 1) {
+                    this.setState({nodes: nodes,
+                                   node1: nodes[0]})
+                  } else {
+                    this.setState({nodes: nodes})
+                  }
               }
             }
         }  
@@ -78,6 +101,24 @@ class Taxonomy extends React.Component {
         })         
     }
 
+    checkLineExists = () =>   {
+        let exists = "FALSE"
+        if(this.state.graph.edges.length != 0) {
+            for(let i = 0; i < this.state.graph.edges.length; i++) { 
+                if((this.state.graph.edges[i].from == this.state.node1 || this.state.graph.edges[i].from == this.state.node2)
+                    && (this.state.graph.edges[i].to == this.state.node1 || this.state.graph.edges[i].to == this.state.node2)) {
+                        exists = "TRUE"
+                    }
+            }
+        }
+        
+        if (exists == "TRUE") {
+            this.setState({exists: true})
+        } else {
+            this.setState({exists: false})
+        }
+    }
+
     createNode = () => {
         let counter = this.state.counter + 1
         let newNodes = [...this.state.graph.nodes]
@@ -98,9 +139,16 @@ class Taxonomy extends React.Component {
         let newEdges = [...this.state.graph.edges]
         let newGraph = {...this.state.graph}
 
-        console.log(color)
 
-        newEdges.push({from: this.state.nodes[0], to: this.state.nodes[1], color: color, width: 3, relationship: relationship})
+        for(let i = 0; i < this.state.graph.edges.length; i++) { // Removes edges if they already have an edge between them
+            if(this.state.graph.edges[i].from == this.state.nodes[0] && this.state.graph.edges[i].to == this.state.nodes[1]
+            || this.state.graph.edges[i].from == this.state.nodes[1] && this.state.graph.edges[i].to == this.state.nodes[0]) {
+                newEdges.splice(i, 1)
+            }
+        }
+
+
+        newEdges.push({from: this.state.node1, to: this.state.node2, color: color, width: 3, relationship: relationship})
 
         newGraph.edges = newEdges
 
@@ -111,10 +159,31 @@ class Taxonomy extends React.Component {
         })            
     }
 
+    checkRelationshipExists = (relationship) => {
+
+        if(relationship.toString() == "") {
+            return true
+        }
+
+        if(this.state.relationships.length != 0) {
+            for(let i = 0; i < this.state.relationships.length; i++) {
+                if(Object.keys(this.state.relationships[i]) == relationship.toString()) {
+                    return true
+                }
+            }
+        }
+
+        return false
+    }
+
     createRelationshipType = (color, relationship) => {
-        let newRelationships = [...this.state.relationships]
-        newRelationships.push({[relationship]: color})
-        this.setState({relationships: newRelationships})
+
+        if(!this.checkRelationshipExists(relationship)) {
+            let newRelationships = [...this.state.relationships]
+            newRelationships.push({[relationship]: color})
+            this.setState({relationships: newRelationships})
+        }
+        
     }
 
     renderRelationshipTypes = () => {
@@ -159,6 +228,43 @@ class Taxonomy extends React.Component {
                        newID: this.state.newID + 1})
     }
 
+    deleteRelationship = () => {
+        let edgesCopy = [...this.state.graph.edges]
+        let newGraph = {...this.state.graph}
+
+        let relationshipName = Object.keys(this.state.relationships[this.state.row])
+
+        edgesCopy = edgesCopy.filter(a => a.relationship !== relationshipName.toString())
+        newGraph.edges = edgesCopy
+
+
+        let newRelationships = [...this.state.relationships]
+        newRelationships.splice(this.state.row, 1)
+
+
+        this.setState({relationships: newRelationships,
+                       graph: newGraph,
+                       newID: this.state.newID + 1})
+    }
+
+    deleteEdge = () => {
+        let edgesCopy = [...this.state.graph.edges]
+        let newGraph = {...this.state.graph}
+
+        for(let i = 0; i < this.state.graph.edges.length; i++) {
+            if((this.state.graph.edges[i].from == this.state.node1 || this.state.graph.edges[i].from == this.state.node2)
+                && (this.state.graph.edges[i].to == this.state.node1 || this.state.graph.edges[i].to == this.state.node2)) {
+                    edgesCopy.splice(i, 1)
+                }
+        }
+        
+        newGraph.edges = edgesCopy
+
+        this.setState({graph: newGraph,
+                       nodes: [],
+                       newID: this.state.newID + 1})
+    }
+
     render() {
         return (
             <div className = "page">
@@ -169,11 +275,14 @@ class Taxonomy extends React.Component {
                             createRelationshipType={this.createRelationshipType}
                             createRelationship={this.createRelationship}
                             editRelationship={this.editRelationship}
+                            deleteRelationship={this.deleteRelationship}
+                            row={this.state.row}
                 />
                 <div className="pageBox">
                     <div className="categoriesUploadSection">
                         
-                        <div className="categoriesLeft">
+                        <div className="categoriesLeft centered">
+                            Hold ctrl or long-click to select second node
                             <Graph key={this.state.newID} graph={this.state.graph} options={options} events={this.state.events} style={{ height: "435px" }} />
                         </div>
 
@@ -184,13 +293,21 @@ class Taxonomy extends React.Component {
 
                             {this.state.nodes.length == 2 ?
                                 this.state.relationships.length == 0 ?
-                                    null :
+                                    <button disabled={true} className="btn" onClick={() => this.isShowPopup(true, "color", -1)}>Create New Relationship</button> :
                                     <button className="btn" onClick={() => this.isShowPopup(true, "color", -1)}>Create New Relationship</button>
-                                : null
+                                : <button disabled={true} className="btn" onClick={() => this.isShowPopup(true, "color", -1)}>Create New Relationship</button>
+                            }
+
+                            {this.state.nodes.length == 2 ?
+                                this.state.exists == false ?
+                                    <button disabled={true} className="btn" onClick={() => this.deleteEdge()}>Delete Relationship?</button> :
+                                    <button className="btn" onClick={() => this.deleteEdge()}>Delete Relationship?</button>
+                                : <button disabled={true} className="btn" onClick={() => this.deleteEdge()}>Delete Relationship?</button>
                             }
                         </div>
 
-                        <div className="categoriesRight">
+                        <div className="categoriesRight centered">
+                            Click to edit
                             <table className="table table-hover tableBody tl">
                                 <thead className="table-light">
                                     <tr>
