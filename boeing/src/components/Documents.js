@@ -4,7 +4,7 @@ class Documents extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {corpusName: "corpus"}
     }
 
     handleChange = (event) => {
@@ -89,6 +89,10 @@ class Documents extends React.Component {
                         <div>
                             &nbsp;&nbsp;
                             <button className="btn-files" onClick={() => this.props.Files()}> Refresh: </button>
+                        </div>
+
+                        <div id="corpusName">
+                            <input onChange={this.handleChange} name="corpusName" placeholder="Enter Corpus Name"/>
                         </div>
                         
                         <table className="table table-hover tableBody t1">

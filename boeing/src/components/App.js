@@ -80,6 +80,21 @@ class App extends React.Component {
                       .then(data => {this.setState({weights: data})})
   }
 
+  // Route to save noun-phrase, context, freq and weight of full corpus
+  saveCorpus = async() => {
+    let input = {output: this.state.output, 
+      files: this.state.files}
+    
+      await fetch('/saveCorpus', {
+        method: "POST",
+        headers:{
+            "content_type": "application/json",
+        },
+        body: JSON.stringify(input)})
+                .then(res => res.json())
+                  .then(data => {console.log("SAVE CORPUS COMPLETE")})
+  }
+
   // Route to create a new category
   createCategory = async(name) => {
     const res = await fetch('/category', {
@@ -261,6 +276,7 @@ class App extends React.Component {
                           //setOutput={this.setOutput}
                           deleteTerms={this.deleteTerms}
                           //oldOutput={this.state.output}
+                          save={this.saveCorpus}
                           /> :
 
                           this.state.mode === 99 ?

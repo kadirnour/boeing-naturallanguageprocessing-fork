@@ -1,9 +1,11 @@
+import csv
 from Parser import main as parser
 from Taxonomy import extraction, taxonomy
 from tests import unit_tests
 from flask import Flask
 from flask import request
 from Taxonomy import categories
+from pathlib import Path
 
 # from tkinter import Tk
 # from tkinter import filedialog
@@ -68,7 +70,7 @@ def parse():
 #################################################################################################
 # Function: Weights
 # Direction: Bac to Front
-# Returns: all the weights, freq and noun data as dict and sends to front end
+# Returns: all the weights, freq and snoun data as dict and sends to front end
 #################################################################################################
 @app.route('/weights', methods = ['POST'])
 def weights():
@@ -83,7 +85,22 @@ def weights():
     print(location)
     #return extraction.find_frequencies_and_weights(list(location.values())[0])
 
+@app.route('/saveCorpus', methods = ['POST'])
+def saveCorpus():
+    location = request.get_json(force=True)
+    data = extraction.find_frequencies_and_weights(location['output'], location['files'])
 
+    print(location)
+    # TODO: save freq_dict to csv
+    with open(Path(location["output"]) / "master.csv", 'w', newline='') as master:
+        master.truncate(0)
+        writer = csv.writer(master)
+        for term in data:
+            context = data[term]['context']
+            freq = data[term]['frequency']
+            weight = data[term]['weight']
+            writer.writerow([term, context, freq, weight])
+    return "hehe"
 
 # @app.route('/folder')
 # def folder():
