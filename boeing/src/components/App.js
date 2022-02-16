@@ -63,6 +63,7 @@ class App extends React.Component {
         .then(res => res.json())
           .then(data => {this.setState({dict: data})})
             .then(this.getWeight()) // Runs parser then gets the weights after.
+              .then(this.saveCorpus)
   }
 
   // Route to get weights from parser's output location

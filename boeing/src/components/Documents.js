@@ -59,9 +59,11 @@ class Documents extends React.Component {
                             &nbsp;&nbsp;
                             <input onChange={this.handleChange} name="input" placeholder="Enter Input Directory"/>
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <button className="btn" onClick={() => this.submitInput()}> Enter: </button>
+                            <button className="btn" onClick={() => this.submitInput()}> Enter Input: </button>
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             <button className="btn" onClick={() => this.recommend()}> Recommendation: </button>
+                            &nbsp;
+                            <h7>*data folder in parser</h7>
                         </div>
                         <div className="folderLocation">
                             &nbsp;
@@ -74,9 +76,11 @@ class Documents extends React.Component {
                             &nbsp;&nbsp;
                             <input onChange={this.handleChange} name="output" placeholder="Enter Output Directory"/>
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <button className="btn" onClick={() => this.submitOutput()}> Enter: </button>
+                            <button className="btn" onClick={() => this.submitOutput()}> Enter Output: </button>
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             <button className="btn" onClick={() => this.recommendOut()}> Recommendation: </button>
+                            &nbsp;
+                            <h7>*output folder in parser</h7>
                         </div>
                         <div className="folderLocation">
                             &nbsp;
@@ -84,17 +88,15 @@ class Documents extends React.Component {
                             &nbsp;
                             {this.props.oldOutput}
                         </div>
-                        
                         &nbsp;
                         <div>
                             &nbsp;&nbsp;
-                            <button className="btn-files" onClick={() => this.props.Files()}> Refresh: </button>
+                            <button className="btn-files" onClick={() => this.props.Files()}> Refresh Files: </button>
                         </div>
-
+                        &nbsp;
                         <div id="corpusName">
                             <input onChange={this.handleChange} name="corpusName" placeholder="Enter Corpus Name"/>
                         </div>
-                        
                         <table className="table table-hover tableBody t1">
                         &nbsp;
                             <thead className="table-light">
