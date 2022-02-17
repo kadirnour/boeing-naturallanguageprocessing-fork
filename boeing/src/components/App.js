@@ -5,7 +5,7 @@ import Terms from './Terms.js'
 import Categories from './Categories.js'
 import Taxonomy from './Taxonomy.js'
 
-class App extends React.Component {
+class App extends React.Component { 
 
   constructor(props) {
     super(props);
@@ -17,10 +17,10 @@ class App extends React.Component {
                   categories: {},
                   input: "",
                   output: "",
-                  files: {}
+                  files: {},
+                  corpusName: 'corpus'
                   };
   }
-
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //                       Route Functions
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -63,6 +63,7 @@ class App extends React.Component {
         .then(res => res.json())
           .then(data => {this.setState({dict: data})})
             .then(this.getWeight()) // Runs parser then gets the weights after.
+              .then(this.saveCorpus()) // saves set of all noun/noun-phrases in corpus to a single csv 
   }
 
   // Route to get weights from parser's output location
@@ -83,7 +84,8 @@ class App extends React.Component {
   // Route to save noun-phrase, context, freq and weight of full corpus
   saveCorpus = async() => {
     let input = {output: this.state.output, 
-      files: this.state.files}
+      files: this.state.files, corpusName: this.state.corpusName} //TODO: pass name of corpus to backend
+
     
       await fetch('/saveCorpus', {
         method: "POST",
@@ -251,6 +253,11 @@ class App extends React.Component {
     this.setState({output: output})
   }
 
+  //Sets the corpus name for csv
+  saveCorpusName = (name) => {
+    this.setState({corpusName: name})
+  }
+
   render() {
     return (
       <>
@@ -264,7 +271,8 @@ class App extends React.Component {
                       oldOutput={this.state.output}
                       Files={this.Files}
                       files={this.state.files}
-                      deleteFile={this.deleteFile}/> : 
+                      deleteFile={this.deleteFile}
+                      saveCorpusName={this.saveCorpusName}/> : 
                       
                       this.state.mode === 66 ?
                         <Terms Parser={this.Parser}

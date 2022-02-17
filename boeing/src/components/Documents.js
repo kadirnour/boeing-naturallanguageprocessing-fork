@@ -4,7 +4,7 @@ class Documents extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {corpusName: "corpus"}
+        this.state = {corpusName: 'corpus'}
     }
 
     handleChange = (event) => {
@@ -113,7 +113,7 @@ class Documents extends React.Component {
                         </table>
 
                         <div className="modeBtn">
-                            <button className="right btn-forward-doc btn" onClick={() => this.props.nextPage()}> Forward </button>
+                            <button className="right btn-forward-doc btn" onClick={() => {this.props.nextPage(); this.props.saveCorpusName(this.state.corpusName);}}> Forward </button>
                         </div>
                     </div>
                 </div>
