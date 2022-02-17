@@ -64,7 +64,7 @@ def parse(input, output, files):
     total_nouns = {}
     global out_dir
     out_dir = output
-    #print(files)
+    #print(files, "IASDMAFSNAIFIASFBN")
 
     # STEP 2: Get nouns and noun phrases from files in input folder
     for file in folder.iterdir():
@@ -95,6 +95,8 @@ def parseAll(input, output, files):
                 total_nouns.__setitem__(noun.text, noun.num_occur)
 
     return total_nouns
+
+# FOR TESTING ONLY
 if __name__ == "__main__":
     start = time.time()
     # parse("./Parser/data", "./Parser/output", [])
