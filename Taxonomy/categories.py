@@ -130,7 +130,7 @@ def taxonomy_writer(foldr, taxDict):
             for row in csv_reader:
                 print(row)
                 #clear column of row
-                if len(row) >= 5: #should clear it - doesnt
+                if len(row) >= 5: #should clear it - does
                     row[4] = " "
                     print("Is category cleared?: " + str(row))
                 for category,terms in taxDict.items():
