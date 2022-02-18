@@ -9,7 +9,8 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {dict: {},
+    this.state = {
+      //dict: {},
                   weights: {},
                   mode: 33,
                   // categories: {colors: {"red": {frequency: 1, weight: 1}, "blue": {frequency: 2, weight: 2}},
@@ -61,7 +62,7 @@ class App extends React.Component {
       },
       body: JSON.stringify(directories)})
         .then(res => res.json())
-          .then(data => {this.setState({dict: data})})
+          //.then(data => {this.setState({dict: data})})
             .then(this.getWeight()) // Runs parser then gets the weights after.
 
               //.then(this.saveCorpus)
@@ -267,7 +268,8 @@ class App extends React.Component {
       <>
         <NavBar mode={this.state.mode}/>
         {this.state.mode === 33 ? 
-          <Documents dict={this.state.dict}
+          <Documents 
+          //dict={this.state.dict}
                       nextPage={this.nextPage}
                       setInput={this.setInput}
                       setOutput={this.setOutput}
@@ -280,7 +282,7 @@ class App extends React.Component {
                       
                       this.state.mode === 66 ?
                         <Terms Parser={this.Parser}
-                          dict={this.state.dict}
+                         // dict={this.state.dict}
                           nextPage={this.nextPage}
                           prevPage={this.prevPage}
                           getWeight={this.getWeight}
