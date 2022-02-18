@@ -129,15 +129,24 @@ def taxonomy_writer(foldr, taxDict):
             # Read each row of the input csv file as list
             for row in csv_reader:
                 print(row)
+                #clear column of row
+                if len(row) >= 5: #should clear it - does
+                    row[4] = " "
+                    print("Is category cleared?: " + str(row))
                 for category,terms in taxDict.items():
                     for term,weight in terms.items():
                         # we must also account for removing a cat then
                         #pressing save
                        
                         if row[0]==term:
-                            # Append the default text in the row / list
-                            #row.append(weight)
-                            row.append(category)
+                            # Below show cover 2 of 3 cases
+                            #ADD case: no category present and match, append
+                            if len(row) < 5:
+                                row.append(category)
+                            elif len(row) == 5: #update case
+                                row[4] = category
+                            else:
+                                pass
                 data_write.append(row)
 
                         # Write the updated row / list to the output file

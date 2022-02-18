@@ -51,8 +51,10 @@ def find_frequencies_and_weights(input, files):
                         row[2] = new_frequency
 
                         minidict["context"].append(ast.literal_eval(row[1])) # keep track of context
-
-                        row.append(new_weight)
+                        if len(row) < 4:
+                            row.append(new_weight)
+                        else:
+                            row[3] = new_weight
                         #print("row: "+str(row))
                         data_write.append(row)
                         #writer.writerow(row)
@@ -60,7 +62,10 @@ def find_frequencies_and_weights(input, files):
                         minidict["frequency"] = frequency
                         minidict["weight"] = weight
                         minidict["context"] = ast.literal_eval(row[1]) # keep track of context
-                        row.append(weight)
+                        if len(row) < 4:
+                            row.append(weight)
+                        else:
+                            row[3] = weight
                         #print("row: "+str(row))
                         data_write.append(row)
                         #writer.writerow(row)
