@@ -91,8 +91,10 @@ def saveCorpus():
     data = extraction.find_frequencies_and_weights(location['output'], location['files'])
 
     print(location)
+    corpusName = location['corpusName'] + '.csv'
     # TODO: save freq_dict to csv
-    with open(Path(location["output"]) / "master.csv", 'w', newline='') as master:
+    with open(Path(location['output']) / corpusName, 'w', newline='') as master:
+
         master.truncate(0)
         writer = csv.writer(master)
         for term in data:
