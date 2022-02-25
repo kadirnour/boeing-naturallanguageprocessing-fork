@@ -5,6 +5,7 @@ from tests import unit_tests
 from flask import Flask
 from flask import request
 from Taxonomy import categories
+from Taxonomy import saveWeights
 from pathlib import Path
 
 # from tkinter import Tk
@@ -104,6 +105,23 @@ def saveCorpus():
             writer.writerow([term, context, freq, weight])
     return "hehe"
 
+@app.route('/saveWeight', methods = ['POST'])
+def saveWeight():
+    inputInfo = request.get_json(force=True)
+    #print(inputInfo)
+    #print(inputInfo['data'])
+
+    #retrieves file location
+    folder = inputInfo['input']
+
+    #retrieves category dictionary from the front end
+    weights = inputInfo['data']
+
+    corpusName = inputInfo['corpusName']
+
+    
+
+    return inputInfo
 # @app.route('/folder')
 # def folder():
 #     #Tk().withdraw() # we don't want a full GUI, so keep the root window from appearing

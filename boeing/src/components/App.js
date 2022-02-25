@@ -102,6 +102,16 @@ class App extends React.Component {
                   .then(data => {console.log("SAVE CORPUS COMPLETE")})
   }
 
+  saveWeight = async() => {
+    let inputInfo = {input: this.state.output, corpusName:this.state.corpusName, data:this.state.weights}
+    await fetch('/saveWeight', {
+      method: "POST",
+      headers:{
+          "content_type": "application/json",
+      },
+      body: JSON.stringify(inputInfo)})
+          .then(res => res.json())
+  }
   // Route to create a new category
   createCategory = async(name) => {
     const res = await fetch('/category', {
@@ -221,7 +231,7 @@ class App extends React.Component {
   saveCategories = (cats) => {
     this.sendCategories(cats)
   }
-
+  
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //                       Webpage Functions
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -286,6 +296,7 @@ class App extends React.Component {
                           nextPage={this.nextPage}
                           prevPage={this.prevPage}
                           getWeight={this.getWeight}
+                          saveWeight={this.saveWeight}
                           weights={this.state.weights}
                           //setOutput={this.setOutput}
                           deleteTerms={this.deleteTerms}
