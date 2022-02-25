@@ -119,7 +119,7 @@ def saveWeight():
 
     corpusName = inputInfo['corpusName']
 
-    
+    saveWeights.saveWeight(folder, corpusName, weights)
 
     return inputInfo
 # @app.route('/folder')
