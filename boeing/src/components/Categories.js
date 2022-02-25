@@ -10,7 +10,8 @@ class Categories extends React.Component {
           mode: "categories",
           cat: -1,
           selectedTerms: [],
-          selectedWeightTerms: []
+          selectedWeightTerms: [],
+          page: 0
         }  
     } 
 
@@ -30,15 +31,45 @@ class Categories extends React.Component {
     // Renders the weight table
     renderWeightTable = () => {
         const table = []
-        for (let r = 0; r < Object.keys(this.props.weights).length; r++) {
-          table.push(
-            <tr className={"centered weight" + (this.checkSelectedWeight(r) === true ? " weight-selected" : "")} key={r} 
-                onClick={() => (this.checkSelectedWeight(r) ? this.removedSelectedWeightTerm(r) : this.selectWeightTerm(r))}>
-              <td>{Object.keys(this.props.weights)[r]}</td>
-              <td>{Object.values(this.props.weights)[r].frequency}</td>
-              <td>{Object.values(this.props.weights)[r].weight}</td>
-            </tr>
-          )
+        // for (let r = 0; r < Object.keys(this.props.weights).length; r++) {
+        //   table.push(
+        //     <tr className={"centered weight" + (this.checkSelectedWeight(r) === true ? " weight-selected" : "")} key={r} 
+        //         onClick={() => (this.checkSelectedWeight(r) ? this.removedSelectedWeightTerm(r) : this.selectWeightTerm(r))}>
+        //       <td>{Object.keys(this.props.weights)[r]}</td>
+        //       <td>{Object.values(this.props.weights)[r].frequency}</td>
+        //       <td>{Object.values(this.props.weights)[r].weight}</td>
+        //     </tr>
+        //   )
+        // }
+
+        if ((this.state.page * 10) + 10 > Object.keys(this.props.weights).length) {
+
+            for (let r = this.state.page * 10; r < Object.keys(this.props.weights).length; r++) {
+        
+                table.push(
+                    <tr key = {r} className={"centered weight" + (this.checkSelectedWeight(r) === true ? " weight-selected" : "")}
+                        onClick={() => (this.checkSelectedWeight(r) ? this.removedSelectedWeightTerm(r) : this.selectWeightTerm(r))}>
+                        <td>{Object.keys(this.props.weights)[r]}</td>
+                        <td>{Object.values(this.props.weights)[r].frequency}</td>
+                        <td>{Object.values(this.props.weights)[r].weight}</td>
+                    </tr>
+                )
+            }
+
+        } else {
+
+            for (let r = this.state.page * 10; r < (this.state.page * 10) + 10; r++) {
+            
+                table.push(
+                    <tr key = {r} className={"centered weight" + (this.checkSelectedWeight(r) === true ? " weight-selected" : "")}
+                        onClick={() => (this.checkSelectedWeight(r) ? this.removedSelectedWeightTerm(r) : this.selectWeightTerm(r))}>
+                        <td>{Object.keys(this.props.weights)[r]}</td>
+                        <td>{Object.values(this.props.weights)[r].frequency}</td>
+                        <td>{Object.values(this.props.weights)[r].weight}</td>
+                    </tr>
+                )
+            }
+
         }
         return table;
     }
@@ -97,6 +128,7 @@ class Categories extends React.Component {
                 </tr>
             )
         }
+
         return table;
     }
 
@@ -212,9 +244,27 @@ class Categories extends React.Component {
         this.props.saveCategories(this.state.categories)
     }
 
+
+    page = (direction) => {
+        if (direction == 'next') {
+            this.setState({page: this.state.page + 1})
+        } else {
+            this.setState({page: this.state.page - 1})
+        }
+    }
+
+
+
     render() {
         return (
             <div className="page">
+
+
+                {this.state.page}
+                <button className="btn" onClick={() => this.page('next')}> Next: </button>
+                <button className="btn" onClick={() => this.page('pervious')}> Previous: </button>
+
+
                 <ModalPopup showModalPopup={this.state.showModalPopup}  
                             onPopupClose={this.isShowPopup}
                             createCategory={this.props.createCategory}
