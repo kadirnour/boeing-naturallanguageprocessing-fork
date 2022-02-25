@@ -29,14 +29,14 @@ A master method that:
     {Category:Weight}:[Terms]
 Then passes result to tax_writer
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-def receive_categories(folder, categoryDict):
+def receive_categories(folder, categoryDict, corpusName):
     print(folder)
     print(categoryDict)
     # input: {categories:{terms:{freq:#, weight:#}}}}
     # Output: 
     taxDict = process_taxonomy(categoryDict)
     print(taxDict)
-    taxonomy_writer(folder, taxDict)
+    taxonomy_writer(folder, taxDict, corpusName)
 
 
 '''
@@ -108,51 +108,55 @@ def taxonomy_writer(foldr, taxDict):
                             csv_writer.writerow(row)
 '''
 
-def taxonomy_writer(foldr, taxDict):
-    folder = os.listdir(foldr) # folder at input location
-    print(folder)
-    for csv_name in folder:
-        print(csv_name)
-        file = foldr + '\\' + csv_name # csv from folder
-        """ Append a column in existing csv using csv.reader / csv.writer classes"""
-        # Open the input_file in read mode and output_file in write mode
-        data_write = []
-        with open(file, 'r') as read_obj:
-            # Create a csv.reader object from the input file object
+def taxonomy_writer(foldr, taxDict, corpusName):
+            folder = os.listdir(foldr) # folder at input location
+            print(folder)
+    #for csv_name in folder:
+        #print("CSV NAME!!! " + str(folder))
+        #print(files)
+        #if csv_name[0:-10] in folder: # Skips files deleted from front end
+            print("CSV NAME!!! " + str(corpusName))
+            #if csv_name 
+            #print("CSV NAME FOR CATEGORY!!! " + str(csv_name[0:-10]))
+            file = foldr + '\\' + corpusName + '.csv' # csv from folder
+            """ Append a column in existing csv using csv.reader / csv.writer classes"""
+            # Open the input_file in read mode and output_file in write mode
+            data_write = []
+            with open(file, 'r') as read_obj:
+                # Create a csv.reader object from the input file object
             
-            csv_reader = reader(read_obj, delimiter=',')
-            #Skip 3 lines
-            data_write.append(next(csv_reader))
-            data_write.append(next(csv_reader))
-            data_write.append(next(csv_reader))
-            print(data_write)
-            # Read each row of the input csv file as list
-            for row in csv_reader:
-                print(row)
-                #clear column of row
-                if len(row) >= 5: #should clear it - does
-                    row[4] = " "
-                    print("Is category cleared?: " + str(row))
-                for category,terms in taxDict.items():
-                    for term,weight in terms.items():
-                        # we must also account for removing a cat then
-                        #pressing save
+                csv_reader = reader(read_obj, delimiter=',')
+                #Skip 3 lines
+                data_write.append(next(csv_reader))
+                data_write.append(next(csv_reader))
+                data_write.append(next(csv_reader))
+                print(data_write)
+                # Read each row of the input csv file as list
+                for row in csv_reader:
+                    print(row)
+                    #clear column of row
+                    if len(row) >= 5: #should clear it - does
+                        row[4] = " "
+                        print("Is category cleared?: " + str(row))
+                    for category,terms in taxDict.items():
+                        for term,weight in terms.items():
+                            # we must also account for removing a cat then
+                            #pressing save
                        
-                        if row[0]==term:
-                            # Below show cover 2 of 3 cases
-                            #ADD case: no category present and match, append
-                            if len(row) < 5:
-                                row.append(category)
-                            elif len(row) == 5: #update case
-                                row[4] = category
-                            else:
-                                pass
-                data_write.append(row)
+                            if row[0]==term:
+                                # Below show cover 2 of 3 cases
+                                #ADD case: no category present and match, append
+                                if len(row) < 5:
+                                    row.append(category)
+                                elif len(row) == 5: #update case
+                                    row[4] = category
+                                else:
+                                    pass
+                    data_write.append(row)
 
                         # Write the updated row / list to the output file
                             #csv_writer.writerow(row)
-        print(data_write)
-        data_writer(data_write,file)
+            data_writer(data_write, file)
 
 def data_writer(data_write, file_path):
     with open(file_path, 'r') as read_obj, \

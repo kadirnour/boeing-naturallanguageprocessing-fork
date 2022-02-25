@@ -121,7 +121,7 @@ class App extends React.Component {
 
   //TODO!!!: save categories and pass to front end!!!
   sendCategories = async(cat) => {
-    let inputInfo = {input: this.state.output, data:this.state.categories}
+    let inputInfo = {input: this.state.output, corpusName:this.state.corpusName, data:this.state.categories}
     await fetch('/saveCategories', {
       method: "POST",
       headers:{

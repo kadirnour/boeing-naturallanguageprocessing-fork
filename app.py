@@ -139,8 +139,10 @@ def saveCategories():
     #retrieves category dictionary from the front end
     categoryDict = inputInfo['data']
 
+    corpusName = inputInfo['corpusName']
+
     #Send to the csv writer
-    categories.receive_categories(folder, categoryDict)
+    categories.receive_categories(folder, categoryDict, corpusName)
 
     return inputInfo
 """ 
