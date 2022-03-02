@@ -133,18 +133,11 @@ class Terms extends React.Component {
         return (
 
             <div className="page">
-
-
-                {this.state.page}
-                <button className="btn" onClick={() => this.page('next')}> Next: </button>
-                <button className="btn" onClick={() => this.page('pervious')}> Previous: </button>
-
-
                 <h2 className="pageTitle"> Step 2: Term Extraction </h2>
                 <div className="pageBox">
                     <div className="termUploadSection">
-                        &nbsp;
-                        &nbsp;
+                        {/* &nbsp;
+                        &nbsp; */}
                         <div className="modeBtn">
                             &nbsp;
                             {/* <button className="btn" onClick={() => this.props.Parser()}> Run Parser: </button> */}
@@ -167,8 +160,24 @@ class Terms extends React.Component {
                                     : this.renderTable()} 
                             </tbody>
                         </table>
-                        <div className="modeBtn">
+
+                        <div className="btnLeft">
                             <button className="bottom3 btn" onClick={() => this.props.prevPage()}> Back </button>
+                        </div>
+
+                        <div className="btnCenter centered">
+                            {this.state.page == 0 ?
+                                <button className="btn" disabled={true} onClick={() => this.page('pervious')}> Previous: </button> :
+                                <button className="btn" onClick={() => this.page('pervious')}> Previous: </button>
+                            }
+                            {this.state.page}
+                            {(this.state.page * 10) + 10 < Object.keys(this.props.weights).length ?
+                                <button className="btn" onClick={() => this.page('next')}> Next: </button>:
+                                <button className="btn" disabled={true} onClick={() => this.page('next')}> Next: </button>
+                            }
+                        </div>
+
+                        <div className="btnRight">
                             <button className="right bottom3 btn" onClick={() =>  {this.props.nextPage()}}> Forward </button>
                             {this.state.selectedTerms.length != 0 ?
                                 <button className="right bottom3 btn" onClick={() => this.clearSelected()}> Clear Selected </button> :
@@ -179,6 +188,7 @@ class Terms extends React.Component {
                                 <button disabled={true} className="right bottom3 btn" onClick={() => this.deleteTerms()}> Delete Terms </button>
                             }
                         </div>
+
                     </div>
                 </div>
             </div>

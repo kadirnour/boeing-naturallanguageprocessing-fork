@@ -31,21 +31,43 @@ class Documents extends React.Component {
     // Renders term table
     renderTable = () => {
         const table = []
-        for (let r = 0; r < Object.keys(this.props.files).length; r++) {
+        for (let r = 0; r < Object.keys(this.props.filesList).length; r++) {
           table.push(
-            <tr key = {r} className="weight">
+            <tr key = {r} className={"weight" + (this.disabledBtn(r) === true ? " weight-selected" : "")}>
                 <td className="centered">
-                  {Object.keys(this.props.files)[r] + Object.values(this.props.files)[r]}
+                  {Object.keys(this.props.filesList)[r] + Object.values(this.props.filesList)[r]}
                 </td>
                 <td className="centered">
-                    <button className="btn-delete" onClick={() => this.props.deleteFile(r)}>
-                        Delete
-                    </button>
+                    {this.disabledBtn(r) ?
+                        <button className="btn" disabled={true} onClick={() => this.props.addFile(r)}>
+                            Add
+                        </button>
+                        :
+                        <button className="btn" onClick={() => this.props.addFile(r)}>
+                            Add
+                        </button>
+                    }
+                    {this.disabledBtn(r) ?
+                        <button className="btn-delete" onClick={() => this.props.deleteFile(r)}>
+                            Delete
+                        </button>
+                        :
+                        <button className="btn-delete" disabled={true} onClick={() => this.props.deleteFile(r)}>
+                            Delete
+                        </button>
+                    }
                 </td>
             </tr>
           )
         }
         return table;
+    }
+
+    disabledBtn = (r) => {
+        if (Object.keys(this.props.filesList)[r] in this.props.files){
+            return true
+        } 
+        return false
     }
     
     render() {
@@ -97,7 +119,7 @@ class Documents extends React.Component {
                         <div id="corpusName">
                             <input onChange={this.handleChange} name="corpusName" placeholder="Enter Corpus Name"/>
                         </div>
-                        <table className="table table-hover tableBody t1">
+                        <table className="table tableBody t1">
                         &nbsp;
                             <thead className="table-light">
                                 <tr>
@@ -106,7 +128,7 @@ class Documents extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {Object.keys(this.props.files).length === 0 ?
+                                {Object.keys(this.props.filesList).length === 0 ?
                                     <tr>
                                         <td></td>
                                     </tr>

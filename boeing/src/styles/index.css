@@ -186,6 +186,31 @@
     background-color: red !important;
 }
 
+.btnLeft {
+    /* border: 2px solid black; */
+    float: left; 
+    width: 25%;
+    /* background-color: white; */
+    /* background-color: red; */
+
+}
+
+.btnCenter {
+    /* border: 2px solid black; */
+    float: left; 
+    width: 50%;
+    /* background-color: green; */
+    /* background-color: lightblue; */
+}
+
+.btnRight {
+    /* border: 2px solid black; */
+    float: right; 
+    width: 25%;
+    /* background-color: white; */
+    /* background-color: yellow; */
+
+}
 
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             TABLE CONTENT 
@@ -340,11 +365,11 @@
 }
 
 .tl {
-    max-height: 351px;
+    max-height: 300px;
 }
 
 .tr {
-    height: 351px;
+    height: 300px;
 }
 
 .t1 {
