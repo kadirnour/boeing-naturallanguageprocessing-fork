@@ -102,6 +102,16 @@ class App extends React.Component {
                   .then(data => {console.log("SAVE CORPUS COMPLETE")})
   }
 
+  saveWeight = async() => {
+    let inputInfo = {input: this.state.output, corpusName:this.state.corpusName, data:this.state.weights}
+    await fetch('/saveWeight', {
+      method: "POST",
+      headers:{
+          "content_type": "application/json",
+      },
+      body: JSON.stringify(inputInfo)})
+          .then(res => res.json())
+  }
   // Route to create a new category
   createCategory = async(name) => {
     const res = await fetch('/category', {
@@ -121,8 +131,24 @@ class App extends React.Component {
 
   //TODO!!!: save categories and pass to front end!!!
   sendCategories = async(cat) => {
-    let inputInfo = {input: this.state.output, data:this.state.categories}
+    let inputInfo = {input: this.state.output, corpusName:this.state.corpusName, data:this.state.categories}
     await fetch('/saveCategories', {
+      method: "POST",
+      headers:{
+          "content_type": "application/json",
+      },
+      body: JSON.stringify(inputInfo)})
+          .then(res => res.json())
+
+    //const newCat = {...this.state.categories}
+    //newCat[Object.keys(res)[0]] = Object.values(res)[0]
+    //this.setState({categories: newCat})
+  }
+
+  //TODO!!!: save categories and pass to front end!!!
+  saveRelationships = async(edges, nodes, relationshipTypes) => {
+    let inputInfo = {input: this.state.output, data1:edges, data2:nodes, data3:relationshipTypes}
+    await fetch('/saveRelationships', {
       method: "POST",
       headers:{
           "content_type": "application/json",
@@ -221,7 +247,7 @@ class App extends React.Component {
   saveCategories = (cats) => {
     this.sendCategories(cats)
   }
-
+  
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //                       Webpage Functions
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -286,6 +312,7 @@ class App extends React.Component {
                           nextPage={this.nextPage}
                           prevPage={this.prevPage}
                           getWeight={this.getWeight}
+                          saveWeight={this.saveWeight}
                           weights={this.state.weights}
                           //setOutput={this.setOutput}
                           deleteTerms={this.deleteTerms}
@@ -307,6 +334,7 @@ class App extends React.Component {
                               
                               deleteCategory={this.deleteCategory}/> :
                             <Taxonomy
+                              saveRelationships={this.saveRelationships}
                               prevPage={this.prevPage}
                               categories={this.state.categories}/>
         }  
