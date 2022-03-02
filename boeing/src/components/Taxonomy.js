@@ -280,6 +280,11 @@ class Taxonomy extends React.Component {
                        graphID: this.state.graphID + 1})
     }
 
+    // saves all relationship data
+    saveRelationships = () => {
+        this.props.saveRelationships(this.state.graph.edges, this.state.graph.nodes, this.state.relationshipTypes)
+    }
+
     render() {
         return (
             <div className = "page">
@@ -314,6 +319,7 @@ class Taxonomy extends React.Component {
                                     <button className="btn" onClick={() => this.deleteEdge()}>Delete Relationship?</button>
                                 : <button disabled={true} className="btn" onClick={() => this.deleteEdge()}>Delete Relationship?</button>
                             }
+                             <button className="btn" onClick={() => this.saveRelationships()}>Save Relationship</button>
                         </div>
                         <div className="categoriesRight centered">
                             Click to edit
