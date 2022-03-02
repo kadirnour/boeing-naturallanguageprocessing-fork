@@ -4,9 +4,10 @@ class Terms extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {selectedTerms: []}
+        this.state = {selectedTerms: [],
+                      page: 0}
     }
-
+   
     // submitOutput = () => {
     //     this.props.setOutput(this.state.output)
     // }
@@ -71,16 +72,37 @@ class Terms extends React.Component {
     // Renders the weight table
     renderTable = () => {
         const table = []
-        for (let r = 0; r < Object.keys(this.props.weights).length; r++) {
-          table.push(
-            <tr key = {r} className={"centered weight" + (this.checkSelectedTerm(r) === true ? " weight-selected" : "")}
-                onClick={() => (this.checkSelectedTerm(r) ? this.removedSelectedTerm(r) : this.selectTerm(r))}>
-                <td>{Object.keys(this.props.weights)[r]}</td>
-                <td>{Object.values(this.props.weights)[r].frequency}</td>
-                <td>{Object.values(this.props.weights)[r].weight}</td>
-            </tr>
-          )
+        //for (let r = 0; r < Object.keys(this.props.weights).length; r++) {
+        if ((this.state.page * 10) + 10 > Object.keys(this.props.weights).length) {
+
+            for (let r = this.state.page * 10; r < Object.keys(this.props.weights).length; r++) {
+        
+                table.push(
+                    <tr key = {r} className={"centered weight" + (this.checkSelectedTerm(r) === true ? " weight-selected" : "")}
+                        onClick={() => (this.checkSelectedTerm(r) ? this.removedSelectedTerm(r) : this.selectTerm(r))}>
+                        <td>{Object.keys(this.props.weights)[r]}</td>
+                        <td>{Object.values(this.props.weights)[r].frequency}</td>
+                        <td>{Object.values(this.props.weights)[r].weight}</td>
+                    </tr>
+                )
+            }
+
+        } else {
+
+            for (let r = this.state.page * 10; r < (this.state.page * 10) + 10; r++) {
+            
+                table.push(
+                    <tr key = {r} className={"centered weight" + (this.checkSelectedTerm(r) === true ? " weight-selected" : "")}
+                        onClick={() => (this.checkSelectedTerm(r) ? this.removedSelectedTerm(r) : this.selectTerm(r))}>
+                        <td>{Object.keys(this.props.weights)[r]}</td>
+                        <td>{Object.values(this.props.weights)[r].frequency}</td>
+                        <td>{Object.values(this.props.weights)[r].weight}</td>
+                    </tr>
+                )
+            }
+
         }
+
         return table;
     }
 
@@ -99,14 +121,23 @@ class Terms extends React.Component {
         this.clearSelected()
     }
 
+    page = (direction) => {
+        if (direction == 'next') {
+            this.setState({page: this.state.page + 1})
+        } else {
+            this.setState({page: this.state.page - 1})
+        }
+    }
+
     render() {
         return (
+
             <div className="page">
                 <h2 className="pageTitle"> Step 2: Term Extraction </h2>
                 <div className="pageBox">
                     <div className="termUploadSection">
-                        &nbsp;
-                        &nbsp;
+                        {/* &nbsp;
+                        &nbsp; */}
                         <div className="modeBtn">
                             &nbsp;
                             {/* <button className="btn" onClick={() => this.props.Parser()}> Run Parser: </button> */}
@@ -134,8 +165,24 @@ class Terms extends React.Component {
                                     : this.renderTable()} 
                             </tbody>
                         </table>
-                        <div className="modeBtn">
+
+                        <div className="btnLeft">
                             <button className="bottom3 btn" onClick={() => this.props.prevPage()}> Back </button>
+                        </div>
+
+                        <div className="btnCenter centered">
+                            {this.state.page == 0 ?
+                                <button className="btn" disabled={true} onClick={() => this.page('pervious')}> Previous: </button> :
+                                <button className="btn" onClick={() => this.page('pervious')}> Previous: </button>
+                            }
+                            {this.state.page}
+                            {(this.state.page * 10) + 10 < Object.keys(this.props.weights).length ?
+                                <button className="btn" onClick={() => this.page('next')}> Next: </button>:
+                                <button className="btn" disabled={true} onClick={() => this.page('next')}> Next: </button>
+                            }
+                        </div>
+
+                        <div className="btnRight">
                             <button className="right bottom3 btn" onClick={() =>  {this.props.nextPage()}}> Forward </button>
                             {this.state.selectedTerms.length != 0 ?
                                 <button className="right bottom3 btn" onClick={() => this.clearSelected()}> Clear Selected </button> :
@@ -146,6 +193,7 @@ class Terms extends React.Component {
                                 <button disabled={true} className="right bottom3 btn" onClick={() => this.deleteTerms()}> Delete Terms </button>
                             }
                         </div>
+
                     </div>
                 </div>
             </div>

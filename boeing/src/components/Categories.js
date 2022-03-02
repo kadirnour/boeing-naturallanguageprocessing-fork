@@ -10,7 +10,9 @@ class Categories extends React.Component {
           mode: "categories",
           cat: -1,
           selectedTerms: [],
-          selectedWeightTerms: []
+          selectedWeightTerms: [],
+          pageTerms: 0,
+          pageCat: 0
         }  
     } 
 
@@ -30,15 +32,45 @@ class Categories extends React.Component {
     // Renders the weight table
     renderWeightTable = () => {
         const table = []
-        for (let r = 0; r < Object.keys(this.props.weights).length; r++) {
-          table.push(
-            <tr className={"centered weight" + (this.checkSelectedWeight(r) === true ? " weight-selected" : "")} key={r} 
-                onClick={() => (this.checkSelectedWeight(r) ? this.removedSelectedWeightTerm(r) : this.selectWeightTerm(r))}>
-              <td>{Object.keys(this.props.weights)[r]}</td>
-              <td>{Object.values(this.props.weights)[r].frequency}</td>
-              <td>{Object.values(this.props.weights)[r].weight}</td>
-            </tr>
-          )
+        // for (let r = 0; r < Object.keys(this.props.weights).length; r++) {
+        //   table.push(
+        //     <tr className={"centered weight" + (this.checkSelectedWeight(r) === true ? " weight-selected" : "")} key={r} 
+        //         onClick={() => (this.checkSelectedWeight(r) ? this.removedSelectedWeightTerm(r) : this.selectWeightTerm(r))}>
+        //       <td>{Object.keys(this.props.weights)[r]}</td>
+        //       <td>{Object.values(this.props.weights)[r].frequency}</td>
+        //       <td>{Object.values(this.props.weights)[r].weight}</td>
+        //     </tr>
+        //   )
+        // }
+
+        if ((this.state.pageTerms * 10) + 10 > Object.keys(this.props.weights).length) {
+
+            for (let r = this.state.pageTerms * 10; r < Object.keys(this.props.weights).length; r++) {
+        
+                table.push(
+                    <tr key = {r} className={"centered weight" + (this.checkSelectedWeight(r) === true ? " weight-selected" : "")}
+                        onClick={() => (this.checkSelectedWeight(r) ? this.removedSelectedWeightTerm(r) : this.selectWeightTerm(r))}>
+                        <td>{Object.keys(this.props.weights)[r]}</td>
+                        <td>{Object.values(this.props.weights)[r].frequency}</td>
+                        <td>{Object.values(this.props.weights)[r].weight}</td>
+                    </tr>
+                )
+            }
+
+        } else {
+
+            for (let r = this.state.pageTerms * 10; r < (this.state.pageTerms * 10) + 10; r++) {
+            
+                table.push(
+                    <tr key = {r} className={"centered weight" + (this.checkSelectedWeight(r) === true ? " weight-selected" : "")}
+                        onClick={() => (this.checkSelectedWeight(r) ? this.removedSelectedWeightTerm(r) : this.selectWeightTerm(r))}>
+                        <td>{Object.keys(this.props.weights)[r]}</td>
+                        <td>{Object.values(this.props.weights)[r].frequency}</td>
+                        <td>{Object.values(this.props.weights)[r].weight}</td>
+                    </tr>
+                )
+            }
+
         }
         return table;
     }
@@ -83,20 +115,39 @@ class Categories extends React.Component {
     // Renders all categories in a table
     renderCatTable = () => {
         const table = []
-        for (let r = 0; r < Object.keys(this.props.categories).length; r++) {
-            table.push(
-                <tr onClick={() => this.changeMode(r)} className="centered weight" key={r}>
-                    <td>
-                        {Object.keys(this.props.categories)[r]}
-                    </td>
-                    <td>
-                        <div className="termBox">
-                            {this.renderCatTerms(r)}
-                        </div>
-                    </td>
-                </tr>
-            )
+        if ((this.state.pageCat * 10) + 10 > Object.keys(this.props.categories).length) {
+            for (let r = this.state.pageCat * 10; r < Object.keys(this.props.categories).length; r++) {
+        //for (let r = 0; r < Object.keys(this.props.categories).length; r++) {
+                table.push(
+                    <tr onClick={() => this.changeMode(r)} className="centered weight" key={r}>
+                        <td>
+                            {Object.keys(this.props.categories)[r]}
+                        </td>
+                        <td>
+                            <div className="termBox">
+                                {this.renderCatTerms(r)}
+                            </div>
+                        </td>
+                    </tr>
+                )
+            }
+        } else {
+            for (let r = this.state.pageCat * 10; r < (this.state.pageCat * 10) + 10; r++) {
+                table.push(
+                    <tr onClick={() => this.changeMode(r)} className="centered weight" key={r}>
+                        <td>
+                            {Object.keys(this.props.categories)[r]}
+                        </td>
+                        <td>
+                            <div className="termBox">
+                                {this.renderCatTerms(r)}
+                            </div>
+                        </td>
+                    </tr>
+                )
+            }
         }
+
         return table;
     }
 
@@ -212,6 +263,25 @@ class Categories extends React.Component {
         this.props.saveCategories(this.state.categories)
     }
 
+
+    pageTerms = (direction) => {
+        if (direction == 'next') {
+            this.setState({pageTerms: this.state.pageTerms + 1})
+        } else {
+            this.setState({pageTerms: this.state.pageTerms - 1})
+        }
+    }
+
+    pageCat = (direction) => {
+        if (direction == 'next') {
+            this.setState({pageCat: this.state.pageCat + 1})
+        } else {
+            this.setState({pageCat: this.state.pageCat - 1})
+        }
+    }
+
+
+
     render() {
         return (
             <div className="page">
@@ -243,6 +313,23 @@ class Categories extends React.Component {
                                     } 
                                 </tbody>
                             </table>
+
+
+                            <div className="centered">
+                                {this.state.pageTerms == 0 ?
+                                    <button className="btn" disabled={true} onClick={() => this.pageTerms('pervious')}> Previous: </button> :
+                                    <button className="btn" onClick={() => this.pageTerms('pervious')}> Previous: </button>
+                                }
+                                
+                                {this.state.pageTerms}
+
+                                {(this.state.pageTerms * 10) + 10 <  Object.keys(this.props.weights).length ?
+                                    <button className="btn" onClick={() => this.pageTerms('next')}> Next: </button> :
+                                    <button className="btn" disabled={true} onClick={() => this.pageTerms('next')}> Next: </button>
+                                }
+                            </div>
+
+                            
                         </div>
 
                         <div className="categoriesCenter">
@@ -332,7 +419,22 @@ class Categories extends React.Component {
                                             } 
                                         </tbody>
                                     </table> 
-                                </div> :
+                                    <div className="centered">
+                                   
+                                        {this.state.pageCat == 0 ?
+                                            <button className="btn" disabled={true} onClick={() => this.pageCat('pervious')}> Previous: </button> :
+                                            <button className="btn" onClick={() => this.pageCat('pervious')}> Previous: </button>
+                                        }
+                                        
+                                        {this.state.pageCat}
+
+                                        {(this.state.pageCat * 10) + 10 <  Object.keys(this.props.categories).length ?
+                                            <button className="btn" onClick={() => this.pageCat('next')}> Next: </button> :
+                                            <button className="btn" disabled={true} onClick={() => this.pageCat('next')}> Next: </button>
+                                        }
+                                    </div>
+                                </div>
+                                :
                                 <div>
                                     <h1 className="centered"> {Object.keys(this.props.categories)[this.state.cat]} </h1>
                                     <h6 className="centered"> Select terms to remove from category </h6>

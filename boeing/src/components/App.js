@@ -19,6 +19,7 @@ class App extends React.Component {
                   input: "",
                   output: "",
                   files: {},
+                  filesList: {},
                   corpusName: 'corpus'
                   };
   }
@@ -47,7 +48,7 @@ class App extends React.Component {
       },
       body: JSON.stringify(directories)})
         .then(res => res.json())
-          .then(data => {this.setState({files: data})})
+          .then(data => {this.setState({filesList: data})})
   }
 
   // Route to run parser from input location and save to output location
@@ -216,12 +217,24 @@ class App extends React.Component {
     this.setState({weights: newWeights})
   }
 
-  //TODO: Make deleting have a real effect
-  deleteFile = (file) => {
+
+
+
+
+  deleteFile = (r) => {
     const newFiles = {...this.state.files}
-    delete newFiles[Object.keys(this.state.files)[file]]
+    delete newFiles[Object.keys(this.state.filesList)[r]]
     this.setState({files: newFiles})
   }
+
+  addFile = (r) => {
+    const newFiles = {...this.state.files}
+    newFiles[Object.keys(this.state.filesList)[r]] = Object.values(this.state.filesList)[r]
+    this.setState({files: newFiles})
+  }
+
+
+
 
   // TODO: Create route to delete a category and add its terms back to weight
   deleteCategory = (cat) => {
@@ -303,7 +316,9 @@ class App extends React.Component {
                       oldOutput={this.state.output}
                       Files={this.Files}
                       files={this.state.files}
+                      filesList={this.state.filesList}
                       deleteFile={this.deleteFile}
+                      addFile={this.addFile}
                       saveCorpusName={this.saveCorpusName}/> : 
                       
                       this.state.mode === 66 ?
