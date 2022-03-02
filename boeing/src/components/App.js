@@ -145,6 +145,22 @@ class App extends React.Component {
     //this.setState({categories: newCat})
   }
 
+  //TODO!!!: save categories and pass to front end!!!
+  saveRelationships = async(edges, nodes, relationshipTypes) => {
+    let inputInfo = {input: this.state.output, data1:edges, data2:nodes, data3:relationshipTypes}
+    await fetch('/saveRelationships', {
+      method: "POST",
+      headers:{
+          "content_type": "application/json",
+      },
+      body: JSON.stringify(inputInfo)})
+          .then(res => res.json())
+
+    //const newCat = {...this.state.categories}
+    //newCat[Object.keys(res)[0]] = Object.values(res)[0]
+    //this.setState({categories: newCat})
+  }
+
   // TODO: Create route to add term to weights and remove from category
   addToWeights = (termsIndex) => {
     const toDelete = []
@@ -318,6 +334,7 @@ class App extends React.Component {
                               
                               deleteCategory={this.deleteCategory}/> :
                             <Taxonomy
+                              saveRelationships={this.saveRelationships}
                               prevPage={this.prevPage}
                               categories={this.state.categories}/>
         }  

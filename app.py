@@ -163,6 +163,30 @@ def saveCategories():
     categories.receive_categories(folder, categoryDict, corpusName)
 
     return inputInfo
+
+@app.route('/saveRelationships', methods = ['POST'])
+def saveRelationships():
+    inputInfo = request.get_json(force=True)
+    #print(inputInfo)
+    #print(inputInfo['data'])
+
+    #retrieves file location
+    folder = inputInfo['input']
+    print(folder)
+
+    #retrieves category dictionary from the front end
+    edges = inputInfo['data1']
+    print(edges)
+
+    nodes = inputInfo['data2']
+    print(nodes)
+
+    relationshipTypes = inputInfo['data3']
+    print(relationshipTypes)
+
+    #saveWeights.saveWeight(folder, corpusName, weights)
+
+    return inputInfo
 """ 
 @app.route('/sendTaxonomy', methods = ['POST'])
 def sendTaxonomy():

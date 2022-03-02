@@ -4,7 +4,7 @@
 from csv import reader
 import csv
 
-
+# master method that takes
 def saveWeight(folder,corpusName,weight):
     #print(folder)
     #print(corpusName)
@@ -31,15 +31,3 @@ def weightWrite(weightWriter,file):
         csv_writer = csv.writer(write_obj)
         for row in weightWriter:
             csv_writer.writerow(row)
-
-'''
-def data_writer(data_write, file_path):
-    with open(file_path, 'r') as read_obj, \
-        open(file_path, 'w', newline='') as write_obj:
-        
-        # Create a csv.writer object from the output file object
-        csv_writer = csv.writer(write_obj)
-        
-        # Read each row of the input csv file as list
-        for row in data_write:
-            csv_writer.writerow(row)'''
