@@ -1,6 +1,6 @@
 import csv
 from Parser import main as parser
-from Taxonomy import extraction, taxonomy
+from Taxonomy import extraction, relationships
 from tests import unit_tests
 from flask import Flask
 from flask import request
@@ -83,7 +83,7 @@ def weights():
 
 
 
-    print(location)
+    #print(location)
     #return extraction.find_frequencies_and_weights(list(location.values())[0])
 
 @app.route('/saveCorpus', methods = ['POST'])
@@ -184,7 +184,7 @@ def saveRelationships():
     relationshipTypes = inputInfo['data3']
     print(relationshipTypes)
 
-    #saveWeights.saveWeight(folder, corpusName, weights)
+    relationships.saveRelationships(folder, edges, nodes, relationshipTypes)
 
     return inputInfo
 """ 

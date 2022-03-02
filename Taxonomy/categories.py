@@ -108,9 +108,7 @@ def taxonomy_writer(foldr, taxDict):
                             csv_writer.writerow(row)
 '''
 
-def taxonomy_writer(foldr, taxDict, corpusName):
-            folder = os.listdir(foldr) # folder at input location
-            print(folder)
+def taxonomy_writer(folder, taxDict, corpusName):
     #for csv_name in folder:
         #print("CSV NAME!!! " + str(folder))
         #print(files)
@@ -118,7 +116,7 @@ def taxonomy_writer(foldr, taxDict, corpusName):
             print("CSV NAME!!! " + str(corpusName))
             #if csv_name 
             #print("CSV NAME FOR CATEGORY!!! " + str(csv_name[0:-10]))
-            file = foldr + '\\' + corpusName + '.csv' # csv from folder
+            file = folder + '\\' + corpusName + '.csv' # csv from folder
             """ Append a column in existing csv using csv.reader / csv.writer classes"""
             # Open the input_file in read mode and output_file in write mode
             data_write = []
@@ -159,8 +157,7 @@ def taxonomy_writer(foldr, taxDict, corpusName):
             data_writer(data_write, file)
 
 def data_writer(data_write, file_path):
-    with open(file_path, 'r') as read_obj, \
-        open(file_path, 'w', newline='') as write_obj:
+    with open(file_path, 'w', newline='') as write_obj:
         
         # Create a csv.writer object from the output file object
         csv_writer = csv.writer(write_obj)

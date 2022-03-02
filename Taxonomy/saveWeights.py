@@ -14,6 +14,7 @@ def saveWeight(folder,corpusName,weight):
     weightWriter = processDict(weight)
     weightWrite(weightWriter,file)
 
+
 def processDict(weight):
     weightReader = []
     for term,data in weight.items():
