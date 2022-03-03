@@ -97,6 +97,20 @@ class App extends React.Component {
                   .then(data => {console.log("SAVE CORPUS COMPLETE")})
   }
 
+  loadCorpus = async() => {
+    // TODO: pass output location and name of csv then load to apps state.weights obj
+    let input = {output: this.state.output, corpusName: this.state.corpusName}
+
+    await fetch('loadCorpus', {
+      method: "POST",
+      headers:{
+          "content_type": "application/json",
+      },
+    body: JSON.stringify(input)})
+            .then(res => res.json())
+              .then(data => {this.setState({weights: data})})
+  }
+
   // Route to create a new category
   createCategory = async(name) => {
     const res = await fetch('/category', {
@@ -276,6 +290,7 @@ class App extends React.Component {
                       
                       this.state.mode === 66 ?
                         <Terms Parser={this.Parser}
+                          loadCorpus = {this.loadCorpus}
                           dict={this.state.dict}
                           nextPage={this.nextPage}
                           prevPage={this.prevPage}

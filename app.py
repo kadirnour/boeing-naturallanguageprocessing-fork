@@ -6,6 +6,7 @@ from flask import Flask
 from flask import request
 from Taxonomy import categories
 from pathlib import Path
+from ast import literal_eval
 
 # from tkinter import Tk
 # from tkinter import filedialog
@@ -103,6 +104,24 @@ def saveCorpus():
             weight = data[term]['weight']
             writer.writerow([term, context, freq, weight])
     return "hehe"
+
+@app.route('/loadCorpus', methods = ['POST'])
+def loadCorpus():
+    location = request.get_json(force=True)
+    corpusName = location['corpusName'] + '.csv'
+    data = {}
+
+    with open(Path(location['output']) / corpusName, 'r') as corpus:
+        rowreader = csv.reader(corpus, delimiter=',')
+        for row in rowreader:
+            # row = [term, (doc, context), freq, weight, category?]
+            if len(row) == 5:
+                data.update({row[0]: {"context": literal_eval(row[1]), "frequency": row[2], "weight": row[3], "category": row[4]}})
+            else:
+                data.update({row[0]: {"context": literal_eval(row[1]), "frequency": row[2], "weight": row[3]}})
+    return data
+            
+
 
 # @app.route('/folder')
 # def folder():

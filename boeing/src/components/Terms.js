@@ -111,6 +111,7 @@ class Terms extends React.Component {
                             &nbsp;
                             {/* <button className="btn" onClick={() => this.props.Parser()}> Run Parser: </button> */}
                             <button className="btn" onClick={() => this.props.Parser()}> Get Weights: </button>
+                            <button className="btn" onClick={() => this.props.loadCorpus()}> Load Weights: </button>
                         </div>
                         <h6 className="centered"> Select terms to remove </h6>
                         <table className="table table-hover tableBody t1">
