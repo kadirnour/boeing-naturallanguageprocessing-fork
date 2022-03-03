@@ -142,6 +142,7 @@ class Terms extends React.Component {
                             &nbsp;
                             {/* <button className="btn" onClick={() => this.props.Parser()}> Run Parser: </button> */}
                             <button className="btn" onClick={() => this.props.Parser()}> Get Weights: </button>
+                            <button className="btn" onClick={() => this.props.loadCorpus()}> Load Weights: </button>
                         </div>
                         <div className="modeBtn">
                             &nbsp;

@@ -7,6 +7,7 @@ from flask import request
 from Taxonomy import categories
 from Taxonomy import saveWeights
 from pathlib import Path
+from ast import literal_eval
 
 # from tkinter import Tk
 # from tkinter import filedialog
@@ -105,6 +106,23 @@ def saveCorpus():
             writer.writerow([term, context, freq, weight])
     return "hehe"
 
+@app.route('/loadCorpus', methods = ['POST'])
+def loadCorpus():
+    location = request.get_json(force=True)
+    corpusName = location['corpusName'] + '.csv'
+    data = {}
+
+    with open(Path(location['output']) / corpusName, 'r') as corpus:
+        rowreader = csv.reader(corpus, delimiter=',')
+        for row in rowreader:
+            # row = [term, (doc, context), freq, weight, category?]
+            if len(row) == 5:
+                data.update({row[0]: {"context": literal_eval(row[1]), "frequency": row[2], "weight": row[3], "category": row[4]}})
+            else:
+                data.update({row[0]: {"context": literal_eval(row[1]), "frequency": row[2], "weight": row[3]}})
+    return data
+            
+
 @app.route('/saveWeight', methods = ['POST'])
 def saveWeight():
     inputInfo = request.get_json(force=True)
@@ -122,6 +140,7 @@ def saveWeight():
     saveWeights.saveWeight(folder, corpusName, weights)
 
     return inputInfo
+
 # @app.route('/folder')
 # def folder():
 #     #Tk().withdraw() # we don't want a full GUI, so keep the root window from appearing
