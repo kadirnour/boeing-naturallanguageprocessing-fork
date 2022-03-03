@@ -1,10 +1,11 @@
 import csv
 from Parser import main as parser
-from Taxonomy import extraction, taxonomy
+from Taxonomy import extraction, relationships
 from tests import unit_tests
 from flask import Flask
 from flask import request
 from Taxonomy import categories
+from Taxonomy import saveWeights
 from pathlib import Path
 from ast import literal_eval
 
@@ -83,7 +84,7 @@ def weights():
 
 
 
-    print(location)
+    #print(location)
     #return extraction.find_frequencies_and_weights(list(location.values())[0])
 
 @app.route('/saveCorpus', methods = ['POST'])
@@ -122,6 +123,23 @@ def loadCorpus():
     return data
             
 
+@app.route('/saveWeight', methods = ['POST'])
+def saveWeight():
+    inputInfo = request.get_json(force=True)
+    #print(inputInfo)
+    #print(inputInfo['data'])
+
+    #retrieves file location
+    folder = inputInfo['input']
+
+    #retrieves category dictionary from the front end
+    weights = inputInfo['data']
+
+    corpusName = inputInfo['corpusName']
+
+    saveWeights.saveWeight(folder, corpusName, weights)
+
+    return inputInfo
 
 # @app.route('/folder')
 # def folder():
@@ -158,8 +176,34 @@ def saveCategories():
     #retrieves category dictionary from the front end
     categoryDict = inputInfo['data']
 
+    corpusName = inputInfo['corpusName']
+
     #Send to the csv writer
-    categories.receive_categories(folder, categoryDict)
+    categories.receive_categories(folder, categoryDict, corpusName)
+
+    return inputInfo
+
+@app.route('/saveRelationships', methods = ['POST'])
+def saveRelationships():
+    inputInfo = request.get_json(force=True)
+    #print(inputInfo)
+    #print(inputInfo['data'])
+
+    #retrieves file location
+    folder = inputInfo['input']
+    print(folder)
+
+    #retrieves category dictionary from the front end
+    edges = inputInfo['data1']
+    print(edges)
+
+    nodes = inputInfo['data2']
+    print(nodes)
+
+    relationshipTypes = inputInfo['data3']
+    print(relationshipTypes)
+
+    relationships.saveRelationships(folder, edges, nodes, relationshipTypes)
 
     return inputInfo
 """ 

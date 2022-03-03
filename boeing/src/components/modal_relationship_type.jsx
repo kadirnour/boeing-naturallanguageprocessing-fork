@@ -1,25 +1,19 @@
 import React, { Component, Fragment } from 'react';  
 import { Modal } from 'react-bootstrap';  
-//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-// Popup modal to display badge information
 class ModalPopup extends Component {  
     constructor(props) {  
         super(props);  
         this.state = {  
             showModal: false,
-            relationship: "",
-            color: "#000000"
+            relationship: "", // Name of relationship
+            color: "#000000" // Color of relationship
         };  
     }
 
-    // componentDidMount = () => { // If there is a relationship made already, make the first option the default choice
-    //     if(this.props.relationships.length != 0) {
-    //         this.setState({relationship: (Object.keys(this.props.relationships[0]).toString()),
-    //                        color: (Object.values(this.props.relationships[0]).toString())
-    //                      })
-    //     }
-    // }
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //                       Modal Popup Functions
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       
     isShowModal = (status) => {  
         this.handleClose();  
@@ -27,70 +21,70 @@ class ModalPopup extends Component {
     }  
   
     handleClose = () => {  
-        //this.componentDidMount() // Resets options in popup modal
         this.props.onPopupClose(false);  
     }  
 
+    // Updates state when user changes name
     handleChange = (event) => {
         this.setState({relationship: event.target.value});
     }
     
+    // Updates state when user changes color
     handleChangeColor = (event) => {
         this.setState({color: event.target.value});
     }
 
-    handleChangeRelationship = (event) => {
-        let color;
-        for(let i = 0; i < this.props.relationships.length; i++) {
-            if(Object.keys(this.props.relationships[i]) == event.target.value) {
-                color = (Object.values(this.props.relationships[i])).toString()
-            }
-        }
-
-        this.setState({relationship: event.target.value,
-                       color: color})
-    }
-
-    handleDelete = () => {
-        this.props.deleteRelationship()
-        this.handleClose()
-    }
-
+    // Displays the currently selected relationship type when editing
     handleEditLoad = () => {
-        this.setState({relationship: Object.keys(this.props.relationships[this.props.row]),
-                       color: Object.values(this.props.relationships[this.props.row])})
+        this.setState({relationship: Object.keys(this.props.relationshipTypes[this.props.row]),
+                        color: Object.values(this.props.relationshipTypes[this.props.row])
+                    })
     }
 
+    // Displays the default values when creating a new relationship type
     handleCreateLoad = () => {
         this.setState({relationship: "",
                        color: "#000000"})
     }
 
-    // Creates a new category with the given input name
     handleSubmit = () => {
-        this.props.type == "relationship" ? // Creating a new relationship type
+        this.props.type == "newRelationshipType" ? // Creating a new relationship type
             this.props.createRelationshipType(this.state.color, this.state.relationship)
             :
-                this.props.type == "edit" ? // Editing an existing relationship
-                    this.props.editRelationship(this.state.color, this.state.relationship) // !! Right now this uses name of relationship, might want to create a id and use that instead !!
-                : // Creating a new relationship between two nodes
+                this.props.type == "editRelationshipType" ? // Editing an existing relationship type
+                    this.props.editRelationshipType(this.state.color, this.state.relationship)
+                : // Creating a new relationship line between 2 nodes
                     this.props.createRelationship(this.state.color, this.state.relationship)
         this.handleClose();
     }
 
-    renderColorsOptions = (option) => {
-        if (this.props.relationships.some(e => Object.values(e) == option.value)) {
-            return null
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //                       Relationship Functions
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    // Updates state when user selects a relationship between 2 nodes
+    handleChooseRelationship = (event) => {
+        let color;
+        for(let i = 0; i < this.props.relationshipTypes.length; i++) {
+            if(Object.keys(this.props.relationshipTypes[i]) == event.target.value) {
+                color = (Object.values(this.props.relationshipTypes[i])).toString()
+            }
         }
-        else {
-            return <option value={option.value}>{option.label}</option>
-        }
+
+        this.setState({relationship: event.target.value,
+                        color: color
+                    })
     }
-  
+
+    // Deletes a relationship type
+    handleDelete = () => {
+        this.props.deleteRelationshipType()
+        this.handleClose()
+    }
+
     render() {  
         return (  
-
-            this.props.type == "relationship" ? // Creating a new relationship type and setting a color
+            this.props.type == "newRelationshipType" ? // Creating a new relationship type
                 <Fragment>  
                     <Modal show={this.props.showModalPopup} onHide={this.handleClose} onShow={this.handleCreateLoad}
                         size="lg"  
@@ -112,7 +106,7 @@ class ModalPopup extends Component {
                     </Modal>  
                 </Fragment>  
                 : 
-                this.props.type == "edit" ? // Editing a current relationship and changing the name and color
+                this.props.type == "editRelationshipType" ? // Editing a relationship type
                     <Fragment>   
                         <Modal show={this.props.showModalPopup} onHide={this.handleClose} onShow={this.handleEditLoad}
                             size="lg"  
@@ -137,7 +131,7 @@ class ModalPopup extends Component {
                             </Modal.Body>
                         </Modal>  
                     </Fragment>  
-                    : // Creating a new relationship between two nodes
+                    : // Creating a new relationship line between 2 nodes
                     <Fragment> 
                         <Modal show={this.props.showModalPopup} onHide={this.handleClose} 
                             size="lg"  
@@ -149,9 +143,9 @@ class ModalPopup extends Component {
                                 </Modal.Title>  
                             </Modal.Header>  
                             <Modal.Body>  
-                                <select value={this.state.relationship} onChange={this.handleChangeRelationship}>
-                                    {this.props.relationships.map((option) => (
-                                        <option value={Object.keys(option)}>{Object.keys(option)}</option> // Display current options from created relationships
+                                <select value={this.state.relationship} onChange={this.handleChooseRelationship}>
+                                    {this.props.relationshipTypes.map((option) => (
+                                        <option value={Object.keys(option)}>{Object.keys(option)}</option> // Display current options from created relationshipTypes
                                     ))}
                                 </select>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -161,7 +155,6 @@ class ModalPopup extends Component {
                             </Modal.Body>
                         </Modal>  
                     </Fragment>  
-    
         );  
     }  
 }  

@@ -9,7 +9,8 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {dict: {},
+    this.state = {
+      //dict: {},
                   weights: {},
                   mode: 33,
                   // categories: {colors: {"red": {frequency: 1, weight: 1}, "blue": {frequency: 2, weight: 2}},
@@ -18,6 +19,7 @@ class App extends React.Component {
                   input: "",
                   output: "",
                   files: {},
+                  filesList: {},
                   corpusName: 'corpus'
                   };
   }
@@ -46,7 +48,7 @@ class App extends React.Component {
       },
       body: JSON.stringify(directories)})
         .then(res => res.json())
-          .then(data => {this.setState({files: data})})
+          .then(data => {this.setState({filesList: data})})
   }
 
   // Route to run parser from input location and save to output location
@@ -61,9 +63,13 @@ class App extends React.Component {
       },
       body: JSON.stringify(directories)})
         .then(res => res.json())
-          .then(data => {this.setState({dict: data})})
+          //.then(data => {this.setState({dict: data})})
             .then(this.getWeight()) // Runs parser then gets the weights after.
+
+              //.then(this.saveCorpus)
+
               .then(this.saveCorpus()) // saves set of all noun/noun-phrases in corpus to a single csv 
+
   }
 
   // Route to get weights from parser's output location
@@ -96,7 +102,7 @@ class App extends React.Component {
                 .then(res => res.json())
                   .then(data => {console.log("SAVE CORPUS COMPLETE")})
   }
-
+  
   loadCorpus = async() => {
     // TODO: pass output location and name of csv then load to apps state.weights obj
     let input = {output: this.state.output, corpusName: this.state.corpusName}
@@ -111,6 +117,16 @@ class App extends React.Component {
               .then(data => {this.setState({weights: data})})
   }
 
+  saveWeight = async() => {
+    let inputInfo = {input: this.state.output, corpusName:this.state.corpusName, data:this.state.weights}
+    await fetch('/saveWeight', {
+      method: "POST",
+      headers:{
+          "content_type": "application/json",
+      },
+      body: JSON.stringify(inputInfo)})
+          .then(res => res.json())
+  }
   // Route to create a new category
   createCategory = async(name) => {
     const res = await fetch('/category', {
@@ -130,8 +146,24 @@ class App extends React.Component {
 
   //TODO!!!: save categories and pass to front end!!!
   sendCategories = async(cat) => {
-    let inputInfo = {input: this.state.output, data:this.state.categories}
+    let inputInfo = {input: this.state.output, corpusName:this.state.corpusName, data:this.state.categories}
     await fetch('/saveCategories', {
+      method: "POST",
+      headers:{
+          "content_type": "application/json",
+      },
+      body: JSON.stringify(inputInfo)})
+          .then(res => res.json())
+
+    //const newCat = {...this.state.categories}
+    //newCat[Object.keys(res)[0]] = Object.values(res)[0]
+    //this.setState({categories: newCat})
+  }
+
+  //TODO!!!: save categories and pass to front end!!!
+  saveRelationships = async(edges, nodes, relationshipTypes) => {
+    let inputInfo = {input: this.state.output, data1:edges, data2:nodes, data3:relationshipTypes}
+    await fetch('/saveRelationships', {
       method: "POST",
       headers:{
           "content_type": "application/json",
@@ -199,12 +231,24 @@ class App extends React.Component {
     this.setState({weights: newWeights})
   }
 
-  //TODO: Make deleting have a real effect
-  deleteFile = (file) => {
+
+
+
+
+  deleteFile = (r) => {
     const newFiles = {...this.state.files}
-    delete newFiles[Object.keys(this.state.files)[file]]
+    delete newFiles[Object.keys(this.state.filesList)[r]]
     this.setState({files: newFiles})
   }
+
+  addFile = (r) => {
+    const newFiles = {...this.state.files}
+    newFiles[Object.keys(this.state.filesList)[r]] = Object.values(this.state.filesList)[r]
+    this.setState({files: newFiles})
+  }
+
+
+
 
   // TODO: Create route to delete a category and add its terms back to weight
   deleteCategory = (cat) => {
@@ -230,7 +274,7 @@ class App extends React.Component {
   saveCategories = (cats) => {
     this.sendCategories(cats)
   }
-
+  
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //                       Webpage Functions
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -277,7 +321,8 @@ class App extends React.Component {
       <>
         <NavBar mode={this.state.mode}/>
         {this.state.mode === 33 ? 
-          <Documents dict={this.state.dict}
+          <Documents 
+          //dict={this.state.dict}
                       nextPage={this.nextPage}
                       setInput={this.setInput}
                       setOutput={this.setOutput}
@@ -285,16 +330,19 @@ class App extends React.Component {
                       oldOutput={this.state.output}
                       Files={this.Files}
                       files={this.state.files}
+                      filesList={this.state.filesList}
                       deleteFile={this.deleteFile}
+                      addFile={this.addFile}
                       saveCorpusName={this.saveCorpusName}/> : 
                       
                       this.state.mode === 66 ?
                         <Terms Parser={this.Parser}
                           loadCorpus = {this.loadCorpus}
-                          dict={this.state.dict}
+                          //dict={this.state.dict}
                           nextPage={this.nextPage}
                           prevPage={this.prevPage}
                           getWeight={this.getWeight}
+                          saveWeight={this.saveWeight}
                           weights={this.state.weights}
                           //setOutput={this.setOutput}
                           deleteTerms={this.deleteTerms}
@@ -316,6 +364,7 @@ class App extends React.Component {
                               
                               deleteCategory={this.deleteCategory}/> :
                             <Taxonomy
+                              saveRelationships={this.saveRelationships}
                               prevPage={this.prevPage}
                               categories={this.state.categories}/>
         }  
