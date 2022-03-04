@@ -174,6 +174,8 @@ def saveRelationships():
     folder = inputInfo['input']
     print(folder)
 
+    corpus = inputInfo['corpus']
+
     #retrieves category dictionary from the front end
     edges = inputInfo['data1']
     print(edges)
@@ -184,7 +186,7 @@ def saveRelationships():
     relationshipTypes = inputInfo['data3']
     print(relationshipTypes)
 
-    relationships.saveRelationships(folder, edges, nodes, relationshipTypes)
+    relationships.saveRelationships(folder, corpus, edges, nodes, relationshipTypes)
 
     return inputInfo
 """ 
