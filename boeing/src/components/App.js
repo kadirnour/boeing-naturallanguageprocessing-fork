@@ -162,7 +162,7 @@ class App extends React.Component {
 
   //TODO!!!: save categories and pass to front end!!!
   saveRelationships = async(edges, nodes, relationshipTypes) => {
-    let inputInfo = {input: this.state.output, data1:edges, data2:nodes, data3:relationshipTypes}
+    let inputInfo = {input: this.state.output, corpus:this.state.corpusName, data1:edges, data2:nodes, data3:relationshipTypes}
     await fetch('/saveRelationships', {
       method: "POST",
       headers:{

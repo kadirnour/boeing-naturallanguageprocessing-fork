@@ -1,8 +1,8 @@
 import csv
 import os
 
-def saveRelationships(folder, edges, nodes, relationshipTypes):
-    file = folder + '\\' + 'relationships.csv' # csv from folder
+def saveRelationships(folder, corpus, edges, nodes, relationshipTypes):
+    file = folder + '\\' + corpus + '_relationships.csv' # csv from folder
     
     data_write = []
     data_write.append(edges)

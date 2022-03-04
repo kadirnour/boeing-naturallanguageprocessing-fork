@@ -1,11 +1,27 @@
 import React from 'react';
+import ModalPopup from './modal_terms';
 
 class Terms extends React.Component {
+
+     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //                       Modal Popup Functions
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    isShowPopup = (status, r) => {  
+
+        // if (this.checkSelectedTerm(r)) {
+        //     this.selectTerm(r)
+        // }
+
+        this.setState({showModalPopup: status,
+                       modalTerm: r});
+    };  
+
 
     constructor(props) {
         super(props);
         this.state = {selectedTerms: [],
-                      page: 0}
+                    page: 0,
+                    showModalPopup: false}
     }
    
     // submitOutput = () => {
@@ -23,14 +39,14 @@ class Terms extends React.Component {
     // User has selected a term from the weights table
     selectTerm = (r) => {
         let selectedTerms = this.state.selectedTerms
-        let newSelectedTerm = r.toString()
+        let newSelectedTerm = r//.toString()
         selectedTerms.push(newSelectedTerm)
         this.setState({selectedTerms: selectedTerms })
     }
 
     // Checks which terms in the weights table user has selected currently
     checkSelectedTerm = (r) => {
-        let check = r.toString()
+        let check = r//.toString()
         if (this.state.selectedTerms.includes(check)) {
             return true
         }
@@ -39,9 +55,8 @@ class Terms extends React.Component {
 
     // User has deselected a term from the weights table
     removedSelectedTerm = (r) => {
-        console.log(r)
         let selectedTerms = this.state.selectedTerms
-        let newSelectedTerm = r.toString()
+        let newSelectedTerm = r//.toString()
         for (let x = 0; x < this.state.selectedTerms.length; x++) {
             if (this.state.selectedTerms[x] === newSelectedTerm) {
                 if (x == 0) {
@@ -73,30 +88,30 @@ class Terms extends React.Component {
     renderTable = () => {
         const table = []
         //for (let r = 0; r < Object.keys(this.props.weights).length; r++) {
-        if ((this.state.page * 10) + 10 > Object.keys(this.props.weights).length) {
+        if ((this.state.page * 100) + 100 > Object.keys(this.props.weights).length) {
 
-            for (let r = this.state.page * 10; r < Object.keys(this.props.weights).length; r++) {
+            for (let r = this.state.page * 100; r < Object.keys(this.props.weights).length; r++) {
         
                 table.push(
-                    <tr key = {r} className={"centered weight" + (this.checkSelectedTerm(r) === true ? " weight-selected" : "")}
-                        onClick={() => (this.checkSelectedTerm(r) ? this.removedSelectedTerm(r) : this.selectTerm(r))}>
-                        <td>{Object.keys(this.props.weights)[r]}</td>
-                        <td>{Object.values(this.props.weights)[r].frequency}</td>
-                        <td>{Object.values(this.props.weights)[r].weight}</td>
+                    <tr key = {r} className={"centered weight" + (this.checkSelectedTerm(r) === true ? " weight-selected" : "")}>
+                        <td onClick={() => (this.checkSelectedTerm(r) ? this.removedSelectedTerm(r) : this.selectTerm(r))}>{Object.keys(this.props.weights)[r]}</td>
+                        <td onClick={() => (this.checkSelectedTerm(r) ? this.removedSelectedTerm(r) : this.selectTerm(r))}>{Object.values(this.props.weights)[r].frequency}</td>
+                        <td onClick={() => (this.checkSelectedTerm(r) ? this.removedSelectedTerm(r) : this.selectTerm(r))}>{Object.values(this.props.weights)[r].weight}</td>
+                        <td><button className="btn" onClick={() => this.isShowPopup(true, r)}> Sentences </button></td>
                     </tr>
                 )
             }
 
         } else {
 
-            for (let r = this.state.page * 10; r < (this.state.page * 10) + 10; r++) {
+            for (let r = this.state.page * 100; r < (this.state.page * 100) + 100; r++) {
             
                 table.push(
-                    <tr key = {r} className={"centered weight" + (this.checkSelectedTerm(r) === true ? " weight-selected" : "")}
-                        onClick={() => (this.checkSelectedTerm(r) ? this.removedSelectedTerm(r) : this.selectTerm(r))}>
-                        <td>{Object.keys(this.props.weights)[r]}</td>
-                        <td>{Object.values(this.props.weights)[r].frequency}</td>
-                        <td>{Object.values(this.props.weights)[r].weight}</td>
+                    <tr key = {r} className={"centered weight" + (this.checkSelectedTerm(r) === true ? " weight-selected" : "")}>
+                        <td onClick={() => (this.checkSelectedTerm(r) ? this.removedSelectedTerm(r) : this.selectTerm(r))}>{Object.keys(this.props.weights)[r]}</td>
+                        <td onClick={() => (this.checkSelectedTerm(r) ? this.removedSelectedTerm(r) : this.selectTerm(r))}>{Object.values(this.props.weights)[r].frequency}</td>
+                        <td onClick={() => (this.checkSelectedTerm(r) ? this.removedSelectedTerm(r) : this.selectTerm(r))}>{Object.values(this.props.weights)[r].weight}</td>
+                        <td><button className="btn" onClick={() => this.isShowPopup(true, r)}> Sentences </button></td>
                     </tr>
                 )
             }
@@ -131,8 +146,12 @@ class Terms extends React.Component {
 
     render() {
         return (
-
             <div className="page">
+                 <ModalPopup showModalPopup={this.state.showModalPopup}  
+                            onPopupClose={this.isShowPopup}
+                            term={Object.keys(this.props.weights)[this.state.modalTerm]}
+                            sentences={Object.values(this.props.weights)[this.state.modalTerm]}
+                />
                 <h2 className="pageTitle"> Step 2: Term Extraction </h2>
                 <div className="pageBox">
                     <div className="termUploadSection">
@@ -156,6 +175,7 @@ class Terms extends React.Component {
                                     <th className="cell-align-middle centered tableHeader">NOUN</th>
                                     <th className="cell-align-middle centered tableHeader">FREQUENCY</th>
                                     <th className="cell-align-middle centered tableHeader">WEIGHT</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -177,7 +197,7 @@ class Terms extends React.Component {
                                 <button className="btn" onClick={() => this.page('pervious')}> Previous: </button>
                             }
                             {this.state.page}
-                            {(this.state.page * 10) + 10 < Object.keys(this.props.weights).length ?
+                            {(this.state.page * 100) + 100 < Object.keys(this.props.weights).length ?
                                 <button className="btn" onClick={() => this.page('next')}> Next: </button>:
                                 <button className="btn" disabled={true} onClick={() => this.page('next')}> Next: </button>
                             }
