@@ -304,6 +304,8 @@ class App extends React.Component {
   loaded = (res) => {
     if (res) {
       this.setState({load: true})
+    } else {
+      this.setState({load: false})
     }
     this.nextPage()
   }
