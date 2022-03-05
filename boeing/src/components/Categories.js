@@ -117,14 +117,14 @@ class Categories extends React.Component {
         const table = []
         if ((this.state.pageCat * 100) + 100 > Object.keys(this.props.categories).length) {
             for (let r = this.state.pageCat * 100; r < Object.keys(this.props.categories).length; r++) {
-        //for (let r = 0; r < Object.keys(this.props.categories).length; r++) {
                 table.push(
                     <tr onClick={() => this.changeMode(r)} className="centered weight" key={r}>
                         <td>
                             {Object.keys(this.props.categories)[r]}
                         </td>
                         <td>
-                            <div className="termBox">
+                            <div className="maxHeight">
+                            {/* <div className="termBox"> */}
                                 {this.renderCatTerms(r)}
                             </div>
                         </td>
@@ -139,7 +139,8 @@ class Categories extends React.Component {
                             {Object.keys(this.props.categories)[r]}
                         </td>
                         <td>
-                            <div className="termBox">
+                            <div className="maxHeight">
+                            {/* <div className="termBox"> */}
                                 {this.renderCatTerms(r)}
                             </div>
                         </td>

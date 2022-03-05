@@ -263,13 +263,15 @@
     background-color: lightblue !important;
 }
 
-.termBox {
-    /* background-color: deepskyblue; */
-    height: auto;
+/* .termBox {
     margin: auto;
     width: 100%;
     display: table;
-    /* clear: both; */
+} */
+
+.maxHeight {
+    height: 100px;
+    overflow: scroll;
 }
 
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
