@@ -18,6 +18,11 @@ class App extends React.Component {
                   files: {},
                   filesList: {},
                   corpusName: 'corpus',
+                  relationshipTypes: [],
+                  graph: {
+                    nodes: [],
+                    edges: []
+                  },
                   load: false};
   }
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -65,7 +70,7 @@ class App extends React.Component {
 
               //.then(this.saveCorpus)
 
-              .then(this.saveCorpus()) // saves set of all noun/noun-phrases in corpus to a single csv 
+              //.then(this.saveCorpus()) // saves set of all noun/noun-phrases in corpus to a single csv 
 
   }
 
@@ -124,6 +129,16 @@ class App extends React.Component {
       body: JSON.stringify(inputInfo)})
           .then(res => res.json())
   }
+
+
+
+  saveTaxonomy = (graph, relationshipTypes) => {
+    this.setState({graph: graph,
+                  relationshipTypes: relationshipTypes})
+  }
+
+
+
   // Route to create a new category
   createCategory = async(name) => {
     const res = await fetch('/category', {
@@ -281,6 +296,8 @@ class App extends React.Component {
       this.setState({mode: 66})
     } else if (this.state.mode == 66) {
       this.setState({mode: 33})
+    } else if (this.state.mode == 33) {
+      this.setState({mode: 0})
     }
   }
 
@@ -315,6 +332,7 @@ class App extends React.Component {
           :
           this.state.mode === 33 ? 
             <Documents nextPage={this.nextPage}
+                    prevPage={this.prevPage}
                     setInput={this.setInput}
                     setOutput={this.setOutput}
                     oldInput={this.state.input}
@@ -353,7 +371,10 @@ class App extends React.Component {
                             :
                             <Taxonomy saveRelationships={this.saveRelationships}
                               prevPage={this.prevPage}
-                              categories={this.state.categories}/>
+                              categories={this.state.categories}
+                              saveTaxonomy={this.saveTaxonomy}
+                              relationshipTypes={this.state.relationshipTypes}
+                              graph={this.state.graph}/>
           }  
       </>
     )

@@ -25,16 +25,6 @@ var options = {
 class Taxonomy extends React.Component {
 
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //                       Modal Popup Functions
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    isShowPopup = (status, type, r) => {  
-        this.setState({showModalPopup: status,
-                       type: type,
-                       row: r
-                    });  
-    };  
-
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //                       Taxonomy Functions
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     constructor() {  
@@ -42,7 +32,7 @@ class Taxonomy extends React.Component {
         this.state = {  
             graphID: 0, // ID for graph. Whenever the graph is updated, needs a new graphID to display changes
             nodeID: 0, // ID for nodes
-            relationshipTypes: [], // List of relationship types
+            relationshipTypes: [],
             showModalPopup: false,
             nodes: [], // List of currently selected nodes
             node1: -1, // First node selected (Needed for relationship line direction)
@@ -84,21 +74,42 @@ class Taxonomy extends React.Component {
     } 
 
     componentDidMount() {
-        let nodes = []
-        let newGraph = {...this.state.graph}
-        let nodeID = this.state.nodeID
-        for (let r = 0; r < Object.keys(this.props.categories).length; r++) { // Displays categories from last page as nodes in graph
-            nodeID = nodeID + 1
-            nodes.push({id: nodeID, label: Object.keys(this.props.categories)[r], color: '#e04141'})
+
+        if(this.props.graph.nodes.length == 0) {
+            let nodes = []
+            let newGraph = {...this.state.graph}
+            let nodeID = this.state.nodeID
+
+            for (let r = 0; r < Object.keys(this.props.categories).length; r++) { // Displays categories from last page as nodes in graph
+                nodeID = nodeID + 1
+                nodes.push({id: nodeID, label: Object.keys(this.props.categories)[r], color: '#e04141'})
+            }
+
+            newGraph.nodes = nodes
+            this.setState({nodeID: nodeID,   //!!!!!! NEED TO REWORD NODEID, MIGHT NOT BE NECCESSARY
+                        graph: newGraph,
+                        graphID: this.state.graphID + 1})
+        } else {
+            this.setState({graph: this.props.graph,
+                        graphID: this.state.graphID + 1,
+                        relationshipTypes: this.props.relationshipTypes})
+        }
+  
+    }
+
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //                       Modal Popup Functions
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    isShowPopup = (status, type, r) => {  
+        if (type == "nouns"){
+            this.getNouns()
         }
 
-        newGraph.nodes = nodes
-        this.setState({
-            nodeID: nodeID,
-            graph: newGraph,
-            graphID: this.state.graphID + 1
-        })         
-    }
+        this.setState({showModalPopup: status,
+                       type: type,
+                       row: r
+                    });  
+    };  
 
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //                       Graph Functions
@@ -143,24 +154,23 @@ class Taxonomy extends React.Component {
         return table;
     }
 
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //                       Node Functions
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // //                       Node Functions
+    // //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     
-    // Creates a new node (For testing)
-    createNode = () => {
-        let nodeID = this.state.nodeID + 1
-        let newNodes = [...this.state.graph.nodes]
-        let newGraph = {...this.state.graph}
+    // // Creates a new node (For testing)
+    // createNode = () => {
+    //     let nodeID = this.state.nodeID + 1
+    //     let newNodes = [...this.state.graph.nodes]
+    //     let newGraph = {...this.state.graph}
 
-        newNodes.push({id: nodeID, label: `Node ${nodeID}`, color: '#e04141'})
-        newGraph.nodes = newNodes
+    //     newNodes.push({id: nodeID, label: `Node ${nodeID}`, color: '#e04141'})
+    //     newGraph.nodes = newNodes
 
-        this.setState({nodeID: nodeID,
-                        graph: newGraph,
-                        graphID: this.state.graphID + 1
-                    })         
-    }
+    //     this.setState({nodeID: nodeID,
+    //                     graph: newGraph,
+    //                     graphID: this.state.graphID + 1})         
+    // }
 
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //                       Relationship Line Functions
@@ -171,6 +181,9 @@ class Taxonomy extends React.Component {
         if(!this.checkRelationshipExists(relationship)) {
             let newrelationshipTypes = [...this.state.relationshipTypes]
             newrelationshipTypes.push({[relationship]: color})
+
+            this.props.saveTaxonomy(this.state.graph, newrelationshipTypes)
+            
             this.setState({relationshipTypes: newrelationshipTypes})
         }
     }
@@ -181,7 +194,6 @@ class Taxonomy extends React.Component {
         let newGraph = {...this.state.graph}
 
         for(let i = 0; i < this.state.graph.edges.length; i++) { // Removes edges if nodes already have an edge between them
-            
             if(this.state.graph.edges[i].from == this.state.nodes[0] && this.state.graph.edges[i].to == this.state.nodes[1]
             || this.state.graph.edges[i].from == this.state.nodes[1] && this.state.graph.edges[i].to == this.state.nodes[0]) {
                 newEdges.splice(i, 1)
@@ -190,10 +202,12 @@ class Taxonomy extends React.Component {
 
         newEdges.push({from: this.state.node1, to: this.state.node2, color: color, width: 3, relationship: relationship})
         newGraph.edges = newEdges
+
+        this.props.saveTaxonomy(newGraph, this.state.relationshipTypes)
+
         this.setState({graph: newGraph,
-                        graphID: this.state.graphID + 1,
-                        nodes: []
-                    })            
+                    graphID: this.state.graphID + 1,
+                    nodes: []})            
     }
 
     // The relationship name must be unique and not be an empty string
@@ -220,6 +234,8 @@ class Taxonomy extends React.Component {
 
         let newrelationshipTypes = [...this.state.relationshipTypes] // Updates the state
         newrelationshipTypes[this.state.row] = {[relationship]: color}
+
+        this.props.saveTaxonomy(this.state.graph, newrelationshipTypes)
 
         this.setState({relationshipTypes: newrelationshipTypes})
     }
@@ -255,6 +271,8 @@ class Taxonomy extends React.Component {
         let newrelationshipTypes = [...this.state.relationshipTypes]
         newrelationshipTypes.splice(this.state.row, 1)
 
+        this.props.saveTaxonomy(newGraph, newrelationshipTypes)
+
         this.setState({relationshipTypes: newrelationshipTypes,
                         graph: newGraph,
                         graphID: this.state.graphID + 1
@@ -275,6 +293,8 @@ class Taxonomy extends React.Component {
         
         newGraph.edges = edgesCopy
 
+        this.props.saveTaxonomy(newGraph, this.state.relationshipTypes)
+
         this.setState({graph: newGraph,
                        nodes: [],
                        graphID: this.state.graphID + 1})
@@ -285,9 +305,21 @@ class Taxonomy extends React.Component {
         this.props.saveRelationships(this.state.graph.edges, this.state.graph.nodes, this.state.relationshipTypes)
     }
 
+    getNouns = () => {
+        let label = ""
+        for(let i=0; i<this.state.graph.nodes.length; i++) {
+            if(this.state.graph.nodes[i].id == this.state.nodes[0]){
+                label = this.state.graph.nodes[i].label
+            }
+        }
+        this.setState({label: label,
+                    nouns: this.props.categories[label]})
+    }
+
     render() {
         return (
             <div className = "page">
+
                 <ModalPopup showModalPopup={this.state.showModalPopup}  
                             type={this.state.type}
                             onPopupClose={this.isShowPopup}
@@ -297,37 +329,81 @@ class Taxonomy extends React.Component {
                             editRelationshipType={this.editRelationshipType}
                             deleteRelationshipType={this.deleteRelationshipType}
                             row={this.state.row}
-                />
+                            nouns={this.state.nouns}
+                            label={this.state.label}/>
+
                 <div className="pageBox">
                     <div className="categoriesUploadSection">
                         <div className="categoriesLeft centered">
                             Hold ctrl or long-click to select second node
-                            <Graph key={this.state.graphID} graph={this.state.graph} options={options} events={this.state.events} style={{ height: "435px" }} />
+                            <Graph key={this.state.graphID} graph={this.state.graph} options={options} events={this.state.events} style={{height: "435px"}}/>
                         </div>
                         <div className="categoriesCenter">
-                            <button className="btn" onClick={() => this.createNode()}>Create New Node</button>
-                            <button className="btn" onClick={() => this.isShowPopup(true, "newRelationshipType", -1)}>Create New Relationship Type</button>
+
+                            {/* <button className="btn" onClick={() => this.createNode()}>
+                                Create New Node
+                            </button> */}
+
+                            <button className="btn" onClick={() => this.isShowPopup(true, "newRelationshipType", -1)}>
+                                Create New Relationship Type
+                            </button>
+                            
                             {this.state.nodes.length == 2 ?
                                 this.state.relationshipTypes.length == 0 ?
-                                    <button disabled={true} className="btn" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>Create New Relationship</button> :
-                                    <button className="btn" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>Create New Relationship</button>
-                                : <button disabled={true} className="btn" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>Create New Relationship</button>
+                                    <button disabled={true} className="btn" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>
+                                        Create New Relationship
+                                    </button> 
+                                    :
+                                    <button className="btn" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>
+                                        Create New Relationship
+                                    </button>
+                                : 
+                                <button disabled={true} className="btn" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>
+                                    Create New Relationship
+                                </button>
                             }
+
+                            {this.state.nodes.length == 1 ?
+                                <button className="btn" onClick={() => this.isShowPopup(true, "nouns", -1)}>
+                                    See Nouns
+                                </button>
+                                : 
+                                <button disabled={true} className="btn" onClick={() => this.isShowPopup(true, "nouns", -1)}>
+                                    See Nouns
+                                </button>
+                            }
+
                             {this.state.nodes.length == 2 ?
                                 this.state.exists == false ?
-                                    <button disabled={true} className="btn" onClick={() => this.deleteEdge()}>Delete Relationship?</button> :
-                                    <button className="btn" onClick={() => this.deleteEdge()}>Delete Relationship?</button>
-                                : <button disabled={true} className="btn" onClick={() => this.deleteEdge()}>Delete Relationship?</button>
+                                    <button disabled={true} className="btn" onClick={() => this.deleteEdge()}>
+                                        Delete Relationship?
+                                    </button> 
+                                    :
+                                    <button className="btn" onClick={() => this.deleteEdge()}>
+                                        Delete Relationship?
+                                    </button>
+                                : 
+                                <button disabled={true} className="btn" onClick={() => this.deleteEdge()}>
+                                    Delete Relationship?
+                                </button>
                             }
-                             <button className="btn" onClick={() => this.saveRelationships()}>Save Relationship</button>
+
+                            <button className="btn" onClick={() => this.saveRelationships()}>
+                                Save Relationship
+                            </button>
                         </div>
+
                         <div className="categoriesRight centered">
                             Click to edit
                             <table className="table table-hover tableBody tl">
                                 <thead className="table-light">
                                     <tr>
-                                        <th className="cell-align-middle centered tableHeader">Relationship</th>
-                                        <th className="cell-align-middle centered tableHeader">Color</th>
+                                        <th className="cell-align-middle centered tableHeader">
+                                            Relationship
+                                        </th>
+                                        <th className="cell-align-middle centered tableHeader">
+                                            Color
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -335,14 +411,18 @@ class Taxonomy extends React.Component {
                                         <tr>
                                             <td></td>
                                         </tr>
-                                        : this.renderRelationshipTypes()
+                                        : 
+                                        this.renderRelationshipTypes()
                                     } 
                                 </tbody>
                             </table>
                         </div>
                     </div>
+
                     <div className="modeBtn">
-                        <button className="btn bottom4" onClick={() => this.props.prevPage()}> Back </button>
+                        <button className="btn bottom4" onClick={() => this.props.prevPage()}>
+                            Back
+                        </button>
                     </div>
                 </div>
             </div>
