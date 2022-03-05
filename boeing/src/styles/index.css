@@ -360,6 +360,10 @@
     font-weight: bold;
 }
 
+.weight-selected2 {
+    font-weight: bold;
+}
+
 .weight:hover {
     background-color: lightblue !important;
 }

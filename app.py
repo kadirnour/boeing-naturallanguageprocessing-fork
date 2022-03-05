@@ -171,7 +171,7 @@ def saveCategories():
     #print(inputInfo['data'])
 
     #retrieves file location
-    folder = inputInfo['input']
+    folder = inputInfo['output']
 
     #retrieves category dictionary from the front end
     categoryDict = inputInfo['data']
