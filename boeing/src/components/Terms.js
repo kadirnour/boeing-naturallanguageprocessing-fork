@@ -3,34 +3,28 @@ import ModalPopup from './modal_terms';
 
 class Terms extends React.Component {
 
-     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //                       Modal Popup Functions
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    isShowPopup = (status, r) => {  
-
-        // if (this.checkSelectedTerm(r)) {
-        //     this.selectTerm(r)
-        // }
-
-        this.setState({showModalPopup: status,
-                       modalTerm: r});
-    };  
-
-
     constructor(props) {
         super(props);
         this.state = {selectedTerms: [],
                     page: 0,
                     showModalPopup: false}
     }
-   
-    // submitOutput = () => {
-    //     this.props.setOutput(this.state.output)
-    // }
 
-    // componentDidMount = () => {
-    //     this.props.Parser()
-    // }
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //                       Modal Popup Functions
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    isShowPopup = (status, r) => {  
+        this.setState({showModalPopup: status,
+                       modalTerm: r});
+    };  
+
+    componentDidMount = () => {
+        if(this.props.load) {
+            this.props.loadCorpus()
+        } else {
+            this.props.Parser()
+        }
+    }
 
     handleChange = (event) => {
         this.setState({[event.target.name]: event.target.value})
@@ -68,21 +62,6 @@ class Terms extends React.Component {
         }
         this.setState({selectedTerms: selectedTerms})
     }
-
-    // // Renders term table
-    // renderTable = () => {
-    //     const table = []
-    //     for (let r = 0; r < Object.keys(this.props.dict).length; r++) {
-    //       table.push(
-    //         <tr key = {r} className={"centered weight" + (this.checkSelectedTerm(r) === true ? " weight-selected" : "")}
-    //             onClick={() => (this.checkSelectedTerm(r) ? this.removedSelectedTerm(r) : this.selectTerm(r))}>
-    //           <td>{Object.keys(this.props.dict)[r]}</td>
-    //           <td>{Object.values(this.props.dict)[r]}</td>
-    //         </tr>
-    //       )
-    //     }
-    //     return table;
-    // }
 
     // Renders the weight table
     renderTable = () => {
@@ -126,11 +105,6 @@ class Terms extends React.Component {
         this.setState({selectedTerms: []})
     }
 
-    // Autocompletes output location to recommened location
-    // recommend = () => {
-    //     this.props.setOutput("C:\\Users\\blcsi\\OneDrive\\Desktop\\boeing-naturallanguageprocessing\\Parser\\output")
-    // }
-
     deleteTerms = () => {
         this.props.deleteTerms(this.state.selectedTerms)
         this.clearSelected()
@@ -155,18 +129,19 @@ class Terms extends React.Component {
                 <h2 className="pageTitle"> Step 2: Term Extraction </h2>
                 <div className="pageBox">
                     <div className="termUploadSection">
-                        {/* &nbsp;
-                        &nbsp; */}
                         <div className="modeBtn">
                             &nbsp;
-                            {/* <button className="btn" onClick={() => this.props.Parser()}> Run Parser: </button> */}
-                            <button className="btn" onClick={() => this.props.Parser()}> Get Weights: </button>
-                            <button className="btn" onClick={() => this.props.loadCorpus()}> Load Weights: </button>
-                        </div>
-                        <div className="modeBtn">
-                            &nbsp;
-                            {/* <button className="btn" onClick={() => this.props.Parser()}> Run Parser: </button> */}
-                            <button className="btn" onClick={() => this.props.saveWeight()}> Save Weights: </button>
+                            {this.props.load ?
+                                <>
+                                    <button className="btn" onClick={() => this.props.loadCorpus()}> Refresh Weights: </button>
+                                    <button className="btn" onClick={() => this.props.saveWeight()}> Save Weights: </button>
+                                </>
+                                :
+                                <>
+                                    <button className="btn" onClick={() => this.props.Parser()}> Refresh Weights: </button>
+                                    <button className="btn" onClick={() => this.props.saveWeight()}> Save Weights: </button>
+                                </>
+                            }
                         </div>
                         <h6 className="centered"> Select terms to remove </h6>
                         <table className="table table-hover tableBody t1">

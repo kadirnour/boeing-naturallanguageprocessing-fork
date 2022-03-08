@@ -4,24 +4,26 @@ import Documents from './Documents.js'
 import Terms from './Terms.js'
 import Categories from './Categories.js'
 import Taxonomy from './Taxonomy.js'
+import Load from './Load.js'
 
 class App extends React.Component { 
 
   constructor(props) {
     super(props);
-    this.state = {
-      //dict: {},
-                  weights: {},
-                  mode: 33,
-                  // categories: {colors: {"red": {frequency: 1, weight: 1}, "blue": {frequency: 2, weight: 2}},
-                  //              shapes: {"square": {frequency: 1, weight: 1}, "circle": {frequency: 2, weight: 2}}}
+    this.state = {weights: {},
+                  mode: 0,
                   categories: {},
                   input: "",
                   output: "",
                   files: {},
                   filesList: {},
-                  corpusName: 'corpus'
-                  };
+                  corpusName: 'corpus',
+                  relationshipTypes: [],
+                  graph: {
+                    nodes: [],
+                    edges: []
+                  },
+                  load: false};
   }
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //                       Route Functions
@@ -68,7 +70,7 @@ class App extends React.Component {
 
               //.then(this.saveCorpus)
 
-              .then(this.saveCorpus()) // saves set of all noun/noun-phrases in corpus to a single csv 
+              //.then(this.saveCorpus()) // saves set of all noun/noun-phrases in corpus to a single csv 
 
   }
 
@@ -127,6 +129,16 @@ class App extends React.Component {
       body: JSON.stringify(inputInfo)})
           .then(res => res.json())
   }
+
+
+
+  saveTaxonomy = (graph, relationshipTypes) => {
+    this.setState({graph: graph,
+                  relationshipTypes: relationshipTypes})
+  }
+
+
+
   // Route to create a new category
   createCategory = async(name) => {
     const res = await fetch('/category', {
@@ -144,9 +156,8 @@ class App extends React.Component {
               //     .then(data => {this.setState({categories: data})})
   }
 
-  //TODO!!!: save categories and pass to front end!!!
   sendCategories = async(cat) => {
-    let inputInfo = {input: this.state.output, corpusName:this.state.corpusName, data:this.state.categories}
+    let inputInfo = {output: this.state.output, corpusName:this.state.corpusName, data:this.state.categories}
     await fetch('/saveCategories', {
       method: "POST",
       headers:{
@@ -154,10 +165,6 @@ class App extends React.Component {
       },
       body: JSON.stringify(inputInfo)})
           .then(res => res.json())
-
-    //const newCat = {...this.state.categories}
-    //newCat[Object.keys(res)[0]] = Object.values(res)[0]
-    //this.setState({categories: newCat})
   }
 
   //TODO!!!: save categories and pass to front end!!!
@@ -170,10 +177,6 @@ class App extends React.Component {
       },
       body: JSON.stringify(inputInfo)})
           .then(res => res.json())
-
-    //const newCat = {...this.state.categories}
-    //newCat[Object.keys(res)[0]] = Object.values(res)[0]
-    //this.setState({categories: newCat})
   }
 
   // TODO: Create route to add term to weights and remove from category
@@ -231,10 +234,6 @@ class App extends React.Component {
     this.setState({weights: newWeights})
   }
 
-
-
-
-
   deleteFile = (r) => {
     const newFiles = {...this.state.files}
     delete newFiles[Object.keys(this.state.filesList)[r]]
@@ -246,9 +245,6 @@ class App extends React.Component {
     newFiles[Object.keys(this.state.filesList)[r]] = Object.values(this.state.filesList)[r]
     this.setState({files: newFiles})
   }
-
-
-
 
   // TODO: Create route to delete a category and add its terms back to weight
   deleteCategory = (cat) => {
@@ -281,7 +277,9 @@ class App extends React.Component {
 
   // Moves to the next page in program
   nextPage = () => {
-    if (this.state.mode === 33) {
+    if (this.state.mode === 0) {
+      this.setState({mode: 33})
+    } else if (this.state.mode === 33) {
       this.setState({mode: 66})
     } else if (this.state.mode == 66) {
       this.setState({mode: 99})
@@ -298,7 +296,18 @@ class App extends React.Component {
       this.setState({mode: 66})
     } else if (this.state.mode == 66) {
       this.setState({mode: 33})
+    } else if (this.state.mode == 33) {
+      this.setState({mode: 0})
     }
+  }
+
+  loaded = (res) => {
+    if (res) {
+      this.setState({load: true})
+    } else {
+      this.setState({load: false})
+    }
+    this.nextPage()
   }
 
   // Sets the input location for parser
@@ -320,54 +329,55 @@ class App extends React.Component {
     return (
       <>
         <NavBar mode={this.state.mode}/>
-        {this.state.mode === 33 ? 
-          <Documents 
-          //dict={this.state.dict}
-                      nextPage={this.nextPage}
-                      setInput={this.setInput}
-                      setOutput={this.setOutput}
-                      oldInput={this.state.input}
-                      oldOutput={this.state.output}
-                      Files={this.Files}
-                      files={this.state.files}
-                      filesList={this.state.filesList}
-                      deleteFile={this.deleteFile}
-                      addFile={this.addFile}
-                      saveCorpusName={this.saveCorpusName}/> : 
-                      
-                      this.state.mode === 66 ?
-                        <Terms Parser={this.Parser}
-                          loadCorpus = {this.loadCorpus}
-                          //dict={this.state.dict}
-                          nextPage={this.nextPage}
-                          prevPage={this.prevPage}
-                          getWeight={this.getWeight}
-                          saveWeight={this.saveWeight}
-                          weights={this.state.weights}
-                          //setOutput={this.setOutput}
-                          deleteTerms={this.deleteTerms}
-                          //oldOutput={this.state.output}
-                          save={this.saveCorpus}
-                          /> :
-
-                          this.state.mode === 99 ?
-                            <Categories
-                              getWeight={this.getWeight}
-                              weights={this.state.weights}
+        {this.state.mode == 0 ?
+          <Load loaded={this.loaded}/>
+          :
+          this.state.mode === 33 ? 
+            <Documents nextPage={this.nextPage}
+                    prevPage={this.prevPage}
+                    setInput={this.setInput}
+                    setOutput={this.setOutput}
+                    oldInput={this.state.input}
+                    oldOutput={this.state.output}
+                    Files={this.Files}
+                    files={this.state.files}
+                    filesList={this.state.filesList}
+                    deleteFile={this.deleteFile}
+                    addFile={this.addFile}
+                    saveCorpusName={this.saveCorpusName}
+                    load={this.state.load}/> 
+                    : 
+                    this.state.mode === 66 ?
+                      <Terms Parser={this.Parser}
+                              loadCorpus = {this.loadCorpus}
                               nextPage={this.nextPage}
                               prevPage={this.prevPage}
-                              createCategory={this.createCategory}
-                              categories={this.state.categories}
-                              addToWeights={this.addToWeights}
-                              addToCategory={this.addToCategory}
-                              saveCategories={this.saveCategories}
-                              
-                              deleteCategory={this.deleteCategory}/> :
-                            <Taxonomy
-                              saveRelationships={this.saveRelationships}
+                              getWeight={this.getWeight}
+                              saveWeight={this.saveWeight}
+                              weights={this.state.weights}
+                              deleteTerms={this.deleteTerms}
+                              save={this.saveCorpus}
+                              load={this.state.load}/> 
+                        :
+                        this.state.mode === 99 ?
+                          <Categories getWeight={this.getWeight}
+                            weights={this.state.weights}
+                            nextPage={this.nextPage}
+                            prevPage={this.prevPage}
+                            createCategory={this.createCategory}
+                            categories={this.state.categories}
+                            addToWeights={this.addToWeights}
+                            addToCategory={this.addToCategory}
+                            saveCategories={this.saveCategories}
+                            deleteCategory={this.deleteCategory}/> 
+                            :
+                            <Taxonomy saveRelationships={this.saveRelationships}
                               prevPage={this.prevPage}
-                              categories={this.state.categories}/>
-        }  
+                              categories={this.state.categories}
+                              saveTaxonomy={this.saveTaxonomy}
+                              relationshipTypes={this.state.relationshipTypes}
+                              graph={this.state.graph}/>
+          }  
       </>
     )
   }
