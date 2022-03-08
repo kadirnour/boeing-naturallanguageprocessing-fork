@@ -6,28 +6,31 @@ import Categories from './Categories.js'
 import Taxonomy from './Taxonomy.js'
 import Load from './Load.js'
 
+/*******************************************************************
+Function: App
+Description: main webpage, calls back-end functions through routes
+Returns: current page
+********************************************************************/
 class App extends React.Component { 
-
   constructor(props) {
     super(props);
-    this.state = {weights: {},
-                  mode: 0,
-                  categories: {},
-                  input: "",
-                  output: "",
-                  files: {},
-                  filesList: {},
-                  corpusName: 'corpus',
-                  relationshipTypes: [],
-                  graph: {
-                    nodes: [],
-                    edges: []
-                  },
-                  load: false};
+    this.state = {weightDictionary: {}, //contains {noun: (context, frequency, weight)}
+                mode: 0, //indicates which page to load and how much of the navbar progess bar should be loaded
+                categories: {}, //contains {category: {noun}}
+                input: "", //input folder location
+                output: "", //output folder location
+                filesList: {}, //list of files found in input location. {fileName: extension}
+                files: {}, //files to be parsed. {fileName: extension}
+                corpusName: 'corpus', //master corpus name for this taxonomy
+                relationshipTypes: [], //relationship types between categories. [{name: color}]
+                graph: {nodes: [], edges: []}, //relationship graph. {nodes: [{color, id, label}], edges:[{color, id, width, from, to, relationship}]}
+                load: false};
   }
-  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  //                       Route Functions
-  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //                         Route Functions
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  
   
   // Route to run parser from input location and save to output location
   Files = async() => {
@@ -41,8 +44,8 @@ class App extends React.Component {
       return false;
     }
 
-    let directories = {input: this.state.input,
-      output: this.state.output}
+    let directories = {input: this.state.input, output: this.state.output}
+
     await fetch('/files', {
       method: "POST",
       headers:{
@@ -86,7 +89,7 @@ class App extends React.Component {
             },
             body: JSON.stringify(input)})
                     .then(res => res.json())
-                      .then(data => {this.setState({weights: data})})
+                      .then(data => {this.setState({weightDictionary: data})})
   }
 
   // Route to save noun-phrase, context, freq and weight of full corpus
@@ -116,11 +119,11 @@ class App extends React.Component {
       },
     body: JSON.stringify(input)})
             .then(res => res.json())
-              .then(data => {this.setState({weights: data})})
+              .then(data => {this.setState({weightDictionary: data})})
   }
 
   saveWeight = async() => {
-    let inputInfo = {input: this.state.output, corpusName:this.state.corpusName, data:this.state.weights}
+    let inputInfo = {input: this.state.output, corpusName:this.state.corpusName, data:this.state.weightDictionary}
     await fetch('/saveWeight', {
       method: "POST",
       headers:{
@@ -183,7 +186,7 @@ class App extends React.Component {
   addToWeights = (termsIndex) => {
     const toDelete = []
     const newCat = {...this.state.categories}
-    const newWeights = {...this.state.weights}
+    const newWeights = {...this.state.weightDictionary}
 
     for (let r = 0; r < termsIndex.length; r++) {
       toDelete.push([Object.keys(this.state.categories)[termsIndex[r][0]], 
@@ -196,19 +199,19 @@ class App extends React.Component {
       delete newCat[toDelete[r][0]][toDelete[r][1]]
     }
     this.setState({categories: newCat,
-                   weights: newWeights})
+                   weightDictionary: newWeights})
   }
 
   // TODO: Create route to add term to category and remove from weights
   addToCategory = (termsIndex, cat) => {
     const toAdd = []
     const newCat = {...this.state.categories}
-    const newWeights = {...this.state.weights}
+    const newWeights = {...this.state.weightDictionary}
 
     for (let r = 0; r < termsIndex.length; r++) {
       toAdd.push([Object.keys(this.state.categories)[cat], 
-        Object.keys(this.state.weights)[termsIndex[r]], 
-        Object.values(this.state.weights)[termsIndex[r]]])
+        Object.keys(this.state.weightDictionary)[termsIndex[r]], 
+        Object.values(this.state.weightDictionary)[termsIndex[r]]])
     }
 
     for (let r = 0; r < toAdd.length; r++) {
@@ -216,22 +219,22 @@ class App extends React.Component {
       delete newWeights[toAdd[r][1]]
     }
     this.setState({categories: newCat,
-                   weights: newWeights})
+                   weightDictionary: newWeights})
   }
 
   // TODO: Create route to delete terms from parser output before running weights
   deleteTerms = (terms) => {
-    const newWeights = {...this.state.weights}
+    const newWeights = {...this.state.weightDictionary}
     const toDelete = []
 
     for (let r = 0; r < terms.length; r++) {
-      toDelete.push([Object.keys(this.state.weights)[terms[r]]])
+      toDelete.push([Object.keys(this.state.weightDictionary)[terms[r]]])
     }
 
     for (let r = 0; r < toDelete.length; r++) {
       delete newWeights[toDelete[r]]
     }
-    this.setState({weights: newWeights})
+    this.setState({weightDictionary: newWeights})
   }
 
   deleteFile = (r) => {
@@ -248,7 +251,7 @@ class App extends React.Component {
 
   // TODO: Create route to delete a category and add its terms back to weight
   deleteCategory = (cat) => {
-    const newWeights = {...this.state.weights}
+    const newWeights = {...this.state.weightDictionary}
     const newCat = {...this.state.categories}
     const toAdd = []
 
@@ -264,7 +267,7 @@ class App extends React.Component {
     delete newCat[Object.keys(this.state.categories)[cat]]
 
     this.setState({categories: newCat,
-                   weights: newWeights})
+                   weightDictionary: newWeights})
   }
 
   saveCategories = (cats) => {
@@ -354,14 +357,14 @@ class App extends React.Component {
                               prevPage={this.prevPage}
                               getWeight={this.getWeight}
                               saveWeight={this.saveWeight}
-                              weights={this.state.weights}
+                              weights={this.state.weightDictionary}
                               deleteTerms={this.deleteTerms}
                               save={this.saveCorpus}
                               load={this.state.load}/> 
                         :
                         this.state.mode === 99 ?
                           <Categories getWeight={this.getWeight}
-                            weights={this.state.weights}
+                            weights={this.state.weightDictionary}
                             nextPage={this.nextPage}
                             prevPage={this.prevPage}
                             createCategory={this.createCategory}

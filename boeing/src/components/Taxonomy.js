@@ -87,8 +87,8 @@ class Taxonomy extends React.Component {
 
             newGraph.nodes = nodes
             this.setState({nodeID: nodeID,   //!!!!!! NEED TO REWORD NODEID, MIGHT NOT BE NECCESSARY
-                        graph: newGraph,
-                        graphID: this.state.graphID + 1})
+                            graph: newGraph,
+                            graphID: this.state.graphID + 1})
         } else {
             this.setState({graph: this.props.graph,
                         graphID: this.state.graphID + 1,
@@ -244,6 +244,7 @@ class Taxonomy extends React.Component {
     updateRelationshipType = (color, relationship) => {
         let edgesCopy = [...this.state.graph.edges]
         let newGraph = {...this.state.graph}
+
         let oldRelationship = Object.keys(this.state.relationshipTypes[this.state.row]) // Name of old relationship. Used to index which relationship lines need to be updated.
 
         for(let i = 0; i < this.state.graph.edges.length; i++) {
@@ -255,8 +256,7 @@ class Taxonomy extends React.Component {
 
         newGraph.edges = edgesCopy
         this.setState({graph: newGraph,
-                       graphID: this.state.graphID + 1
-                    })
+                    graphID: this.state.graphID + 1})
     }
     
     // Deletes relationship type and removes relationship lines

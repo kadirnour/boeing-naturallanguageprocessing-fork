@@ -17,11 +17,11 @@ class ModalPopup extends Component {
       
     isShowModal = (status) => {  
         this.handleClose();  
-        this.setState({ showModal: status});  
+        this.setState({showModal: status});  
     }  
   
     handleClose = () => {  
-        this.props.onPopupClose(false);  
+        this.props.onPopupClose(false, "", this.props.row);  
     }  
 
     // Updates state when user changes name
@@ -36,8 +36,8 @@ class ModalPopup extends Component {
 
     // Displays the currently selected relationship type when editing
     handleEditLoad = () => {
-        this.setState({relationship: Object.keys(this.props.relationshipTypes[this.props.row]),
-                    color: Object.values(this.props.relationshipTypes[this.props.row])})
+        this.setState({relationship: Object.keys(this.props.relationshipTypes[this.props.row]).toString(),
+                    color: Object.values(this.props.relationshipTypes[this.props.row]).toString()})
     }
 
     // Displays the default values when creating a new relationship type
