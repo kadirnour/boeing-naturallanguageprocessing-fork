@@ -15,20 +15,20 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {weightDictionary: {}, //contains {noun: (context, frequency, weight)}
-                mode: 0, //indicates which page to load and how much of the navbar progess bar should be loaded
-                categories: {}, //contains {category: {noun}}
-                input: "", //input folder location
-                output: "", //output folder location
-                filesList: {}, //list of files found in input location. {fileName: extension}
-                files: {}, //files to be parsed. {fileName: extension}
-                corpusName: 'corpus', //master corpus name for this taxonomy
-                relationshipTypes: [], //relationship types between categories. [{name: color}]
-                graph: {nodes: [], edges: []}, //relationship graph. {nodes: [{color, id, label}], edges:[{color, id, width, from, to, relationship}]}
-                load: false}; //loading from or creating a new taxonomy
+      mode: 0, //indicates which page to load and how much of the navbar progess bar should be loaded
+      categories: {}, //contains {category: {noun}}
+      input: "", //input folder location
+      output: "", //output folder location
+      filesList: {}, //list of files found in input location. {fileName: extension}
+      files: {}, //files to be parsed. {fileName: extension}
+      corpusName: 'corpus', //master corpus name for this taxonomy
+      relationshipTypes: [], //relationship types between categories. [{name: color}]
+      graph: {nodes: [], edges: []}, //relationship graph. {nodes: [{color, id, label}], edges:[{color, id, width, from, to, relationship}]}
+      load: false}; //loading from or creating a new taxonomy
   }
 
   /*##################################################################################
-                                    Folder/ File Functions
+                                    Folder/ File Routes
   ###################################################################################*/
   
   /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -55,7 +55,7 @@ class App extends React.Component {
   }
 
   /*######################################################################################################
-                                        Parser/ Weight Functions
+                                        Parser/ Weight Routes
   ######################################################################################################*/
 
   /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -91,7 +91,7 @@ class App extends React.Component {
 
 
   /*######################################################################################################
-                                           Save/ Load Functions
+                                           Save/ Load Routes
   ######################################################################################################*/
 
   /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -151,9 +151,6 @@ class App extends React.Component {
 }
 
 
-
-
-
   /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
   Function:
   Description: 
@@ -161,8 +158,13 @@ class App extends React.Component {
   '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   saveTaxonomy = (graph, relationshipTypes) => {
     this.setState({graph: graph,
-                relationshipTypes: relationshipTypes})
+      relationshipTypes: relationshipTypes})
   }
+
+
+  /*##################################################################################
+                                    Weight Functions
+  ##################################################################################*/
 
 
   /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -186,32 +188,7 @@ class App extends React.Component {
       delete newCat[toDelete[r][0]][toDelete[r][1]]
     }
     this.setState({categories: newCat,
-                   weightDictionary: newWeights})
-  }
-
-
-  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-  Function:
-  Description: 
-  Returns: 
-  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
-  addToCategory = (termsIndex, cat) => {
-    const toAdd = []
-    const newCat = {...this.state.categories}
-    const newWeights = {...this.state.weightDictionary}
-
-    for (let r = 0; r < termsIndex.length; r++) {
-      toAdd.push([Object.keys(this.state.categories)[cat], 
-        Object.keys(this.state.weightDictionary)[termsIndex[r]], 
-        Object.values(this.state.weightDictionary)[termsIndex[r]]])
-    }
-
-    for (let r = 0; r < toAdd.length; r++) {
-      newCat[toAdd[r][0]][toAdd[r][1]] = toAdd[r][2]
-      delete newWeights[toAdd[r][1]]
-    }
-    this.setState({categories: newCat,
-                   weightDictionary: newWeights})
+      weightDictionary: newWeights})
   }
 
 
@@ -234,6 +211,10 @@ class App extends React.Component {
     this.setState({weightDictionary: newWeights})
   }
 
+
+  /*##################################################################################
+                                  File/ Folder Functions
+  ##################################################################################*/
 
   /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
   Function:
@@ -259,6 +240,47 @@ class App extends React.Component {
   }
 
 
+  /*##################################################################################
+                                    Category Functions
+  ##################################################################################*/
+
+  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  Function: createCategory
+  Description: Creates a new category
+  Returns: adds new category to category state
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
+  createCategory = (category) => {
+    const newCat = {...this.state.categories}
+    newCat[category] = {}
+    this.setState({categories: newCat})
+  }
+
+
+  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  Function:
+  Description: 
+  Returns: 
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
+  addToCategory = (termsIndex, cat) => {
+    const toAdd = []
+    const newCat = {...this.state.categories}
+    const newWeights = {...this.state.weightDictionary}
+
+    for (let r = 0; r < termsIndex.length; r++) {
+      toAdd.push([Object.keys(this.state.categories)[cat], 
+        Object.keys(this.state.weightDictionary)[termsIndex[r]], 
+        Object.values(this.state.weightDictionary)[termsIndex[r]]])
+    }
+
+    for (let r = 0; r < toAdd.length; r++) {
+      newCat[toAdd[r][0]][toAdd[r][1]] = toAdd[r][2]
+      delete newWeights[toAdd[r][1]]
+    }
+    this.setState({categories: newCat,
+      weightDictionary: newWeights})
+  }
+
+
   /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
   Function:
   Description: 
@@ -281,26 +303,8 @@ class App extends React.Component {
     delete newCat[Object.keys(this.state.categories)[cat]]
 
     this.setState({categories: newCat,
-                   weightDictionary: newWeights})
+      weightDictionary: newWeights})
   }
-
-
-  /*##################################################################################
-                                    Category Functions
-  ##################################################################################*/
-
-  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-  Function: createCategory
-  Description: Creates a new category
-  Returns: adds new category to category state
-  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
-  createCategory = (category) => {
-    const newCat = {...this.state.categories}
-    newCat[category] = {}
-    this.setState({categories: newCat})
-  }
-
-
 
   
   /*##################################################################################
@@ -402,47 +406,47 @@ class App extends React.Component {
           :
           this.state.mode === 33 ? 
             <Documents nextPage={this.nextPage}
-                    prevPage={this.prevPage}
-                    setInput={this.setInput}
-                    setOutput={this.setOutput}
-                    oldInput={this.state.input}
-                    oldOutput={this.state.output}
-                    Files={this.getFiles}
-                    files={this.state.files}
-                    filesList={this.state.filesList}
-                    deleteFile={this.deleteFile}
-                    addFile={this.addFile}
-                    saveCorpusName={this.saveCorpusName}
-                    load={this.state.load}/> 
-                    : 
-                    this.state.mode === 66 ?
-                      <Terms getTerms={this.getTerms}
-                              loadCorpus = {this.loadCorpus}
-                              nextPage={this.nextPage}
-                              prevPage={this.prevPage}
-                              saveWeight={this.saveWeight}
-                              weightDictionary={this.state.weightDictionary}
-                              deleteTerms={this.deleteTerms}
-                              save={this.saveCorpus}
-                              load={this.state.load}/> 
-                        :
-                        this.state.mode === 99 ?
-                          <Categories weightDictionary={this.state.weightDictionary}
-                            nextPage={this.nextPage}
-                            prevPage={this.prevPage}
-                            createCategory={this.createCategory}
-                            categories={this.state.categories}
-                            addToWeights={this.addToWeights}
-                            addToCategory={this.addToCategory}
-                            saveCategories={this.saveCategories}
-                            deleteCategory={this.deleteCategory}/> 
-                            :
-                            <Taxonomy saveRelationships={this.saveRelationships}
-                              prevPage={this.prevPage}
-                              categories={this.state.categories}
-                              saveTaxonomy={this.saveTaxonomy}
-                              relationshipTypes={this.state.relationshipTypes}
-                              graph={this.state.graph}/>
+              prevPage={this.prevPage}
+              setInput={this.setInput}
+              setOutput={this.setOutput}
+              oldInput={this.state.input}
+              oldOutput={this.state.output}
+              Files={this.getFiles}
+              files={this.state.files}
+              filesList={this.state.filesList}
+              deleteFile={this.deleteFile}
+              addFile={this.addFile}
+              saveCorpusName={this.saveCorpusName}
+              load={this.state.load}/> 
+              : 
+              this.state.mode === 66 ?
+                <Terms getTerms={this.getTerms}
+                  loadCorpus = {this.loadCorpus}
+                  nextPage={this.nextPage}
+                  prevPage={this.prevPage}
+                  saveWeight={this.saveWeight}
+                  weightDictionary={this.state.weightDictionary}
+                  deleteTerms={this.deleteTerms}
+                  save={this.saveCorpus}
+                  load={this.state.load}/> 
+                  :
+                  this.state.mode === 99 ?
+                    <Categories weightDictionary={this.state.weightDictionary}
+                      nextPage={this.nextPage}
+                      prevPage={this.prevPage}
+                      createCategory={this.createCategory}
+                      categories={this.state.categories}
+                      addToWeights={this.addToWeights}
+                      addToCategory={this.addToCategory}
+                      saveCategories={this.saveCategories}
+                      deleteCategory={this.deleteCategory}/> 
+                      :
+                      <Taxonomy saveRelationships={this.saveRelationships}
+                        prevPage={this.prevPage}
+                        categories={this.state.categories}
+                        saveTaxonomy={this.saveTaxonomy}
+                        relationshipTypes={this.state.relationshipTypes}
+                        graph={this.state.graph}/>
           }  
       </>
     )

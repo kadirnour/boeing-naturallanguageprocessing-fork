@@ -6,6 +6,11 @@ class Load extends React.Component {
         super(props);
     }
     
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     render() {
         return (
             <div className="page">

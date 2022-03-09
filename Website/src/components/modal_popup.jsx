@@ -1,30 +1,56 @@
 import React, { Component, Fragment } from 'react';  
 import { Modal } from 'react-bootstrap';  
-//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-// Popup modal to display badge information
+
+/*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: 
+Description:
+Returns:
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
 class ModalPopup extends Component {  
     constructor(props) {  
         super(props);  
         this.state = {  
-            showModal: false  
-        };  
+            showModal: false};  
     }  
-  
+
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     isShowModal = (status) => {  
         this.handleClose();  
-        this.setState({ showModal: status });  
+        this.setState({showModal: status});  
     }  
-  
+    
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     handleClose = () => {  
         this.props.onPopupClose(false);  
     }  
 
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     handleChange = (event) => {
         this.setState({Category: event.target.value});
     }
 
-    // Creates a new category with the given input name
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     handleSubmit = () => {
         if (Object.values(Object.keys(this.props.categories)).indexOf(this.state.Category) > -1) {
             console.log("Name already used")
@@ -33,7 +59,13 @@ class ModalPopup extends Component {
             this.handleClose();
         }
     }
-  
+
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     render() {  
         return (  
             <Fragment>  
@@ -47,7 +79,7 @@ class ModalPopup extends Component {
                          </Modal.Title>  
                     </Modal.Header>  
                     <Modal.Body>  
-                        <input type="string" placeholder="New category name..." onChange={this.handleChange}></input>
+                        <input type="string" placeholder="New category name..." onChange={this.handleChange}/>
                         <button onClick={() => this.handleSubmit()}>
                             Submit
                         </button>

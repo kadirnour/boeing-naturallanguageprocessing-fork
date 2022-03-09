@@ -1,20 +1,41 @@
 import React, { Component, Fragment } from 'react';  
 import { Modal } from 'react-bootstrap';  
 
+/*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: 
+Description:
+Returns:
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
 class ModalPopup extends Component {  
     constructor(props) {  
         super(props);  
         this.state = {showModal: false};  
     }
 
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //                       Modal Popup Functions
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    /*##################################################################################
+                                        Modal Functions
+    ###################################################################################*/
   
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     handleClose = () => {  
         this.props.onPopupClose(false);  
     }  
 
+    /*##################################################################################
+                                        Table Functions
+    ###################################################################################*/
+    
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     renderTable = () => {
         const table = []
         for (let r = 0; r < this.props.sentences['context'].length; r++) {
@@ -30,6 +51,12 @@ class ModalPopup extends Component {
         return table
     }
 
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     render() {  
         return (  
             <Fragment>  
@@ -43,18 +70,22 @@ class ModalPopup extends Component {
                         <table className="table table-hover tableBody t1">
                             <thead className="table-light">
                                 <tr>
-                                    <th className="cell-align-middle centered tableHeader">Location</th>
-                                    <th className="cell-align-middle centered tableHeader">Sentences</th>
+                                    <th className="cell-align-middle centered tableHeader">
+                                        Location
+                                    </th>
+                                    <th className="cell-align-middle centered tableHeader">
+                                        Sentences
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {this.props.sentences == null ?
-                                    null :
+                                    null 
+                                    :
                                     this.renderTable()
                                 }
                             </tbody>
                         </table>
-
                     </Modal.Body>
                 </Modal>  
             </Fragment>  

@@ -1,34 +1,21 @@
 import React from 'react';
 
 class Documents extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {corpusName: 'corpus'}
     }
 
-    handleChange = (event) => {
-        this.setState({[event.target.name]: event.target.value})
-    }
 
-    submitInput = () => {
-        this.props.setInput(this.state.input)
-    }
+    /*##################################################################################
+                                        Table Functions
+    ###################################################################################*/
     
-    submitOutput = () => {
-        this.props.setOutput(this.state.output)
-    }
-
-    // Autocompletes output location to recommened location
-    recommend = () => {
-        this.props.setInput("C:\\Users\\blcsi\\OneDrive\\Desktop\\boeing-naturallanguageprocessing\\Parser\\data")
-    }
-
-    recommendOut = () => {
-        this.props.setOutput("C:\\Users\\blcsi\\OneDrive\\Desktop\\boeing-naturallanguageprocessing\\Parser\\output")
-    }
-
-    // Renders term table
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     renderTable = () => {
         const table = []
         for (let r = 0; r < Object.keys(this.props.filesList).length; r++) {
@@ -59,23 +46,75 @@ class Documents extends React.Component {
         return table;
     }
 
+
+    /*##################################################################################
+                                        Page Functions
+    ###################################################################################*/
+    
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
+    handleChange = (event) => {
+        this.setState({[event.target.name]: event.target.value})
+    }
+
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
+    submitInput = () => {
+        this.props.setInput(this.state.input)
+    }
+
+    
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
+    submitOutput = () => {
+        this.props.setOutput(this.state.output)
+    }
+
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     disabledBtn = (r) => {
         if (Object.keys(this.props.filesList)[r] in this.props.files){
             return true
         } 
         return false
     }
-    
+
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     render() {
         return (
             <div className="page">
-                <h2 className="pageTitle"> Step 1: Document Corpus </h2>
+                <h2 className="pageTitle">
+                    Step 1: Document Corpus
+                </h2>
                 <div className="pageBox">
                     <div className="documentUploadSection">
                         {this.props.load ?
-                            <h3 className="pageTitle"> Load Taxonomy </h3>
+                            <h3 className="pageTitle">
+                                Load Taxonomy
+                            </h3>
                             :
-                            <h3 className="pageTitle"> Create a New Taxonomy </h3>
+                            <h3 className="pageTitle">
+                                Create a New Taxonomy
+                            </h3>
                         }
                         {this.props.load ? 
                             <></>
@@ -85,19 +124,17 @@ class Documents extends React.Component {
                                     &nbsp;&nbsp;
                                     <input onChange={this.handleChange} name="input" placeholder="Enter Input Directory" size="80"/>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <button className="btn" onClick={() => this.submitInput()}> Enter Input: </button>
-                                    {/* &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <button className="btn" onClick={() => this.recommend()}> Recommendation: </button>
-                                    &nbsp; */}
+                                    <button className="btn" onClick={() => this.submitInput()}>
+                                        Enter Input:
+                                    </button>
                                     <div>
-                                        <h7>&nbsp;&nbsp;example: C:\Users\user\OneDrive\Desktop\boeing-naturallanguageprocessing\Parser\data</h7>
+                                        <h7>
+                                            &nbsp;&nbsp;example: C:\Users\user\OneDrive\Desktop\boeing-naturallanguageprocessing\Parser\data
+                                        </h7>
                                     </div> 
                                 </div>
                                 <div className="folderLocation">
-                                    &nbsp;
-                                    Input Location:
-                                    &nbsp;
-                                    {this.props.oldInput}
+                                    &nbsp; Input Location: &nbsp; {this.props.oldInput}
                                 </div>
                             </>
                         }
@@ -109,22 +146,17 @@ class Documents extends React.Component {
                                     &nbsp;&nbsp;
                                     <input onChange={this.handleChange} name="output" placeholder="Enter Location of Taxonomy" size="80"/>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <button className="btn" onClick={() => this.submitOutput()}> Enter Location: </button>
-                                    {/* &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <button className="btn" onClick={() => this.recommendOut()}> Recommendation: </button>
-                                    &nbsp; */}
+                                    <button className="btn" onClick={() => this.submitOutput()}>
+                                        Enter Location:
+                                    </button>
                                     <div>
                                         <h7>
-                                            &nbsp;&nbsp;
-                                            example: C:\Users\user\OneDrive\Desktop\boeing-naturallanguageprocessing\Parser\output
+                                            &nbsp;&nbsp; example: C:\Users\user\OneDrive\Desktop\boeing-naturallanguageprocessing\Parser\output
                                         </h7>
                                     </div> 
                                 </div>
                                 <div className="folderLocation">
-                                    &nbsp;
-                                    Taxonomy Location:
-                                    &nbsp;
-                                    {this.props.oldOutput}
+                                    &nbsp; Taxonomy Location: &nbsp; {this.props.oldOutput}
                                 </div>
                                 &nbsp;
                                 <div id="corpusName">
@@ -132,8 +164,7 @@ class Documents extends React.Component {
                                     <input onChange={this.handleChange} size="15" name="corpusName" placeholder="Enter Corpus Name"/>
                                     <div>
                                         <h7>
-                                            &nbsp;&nbsp;
-                                            *Defaults name to "corpus".
+                                            &nbsp;&nbsp; *Defaults name to "corpus".
                                         </h7>
                                     </div> 
                                 </div>
@@ -148,21 +179,14 @@ class Documents extends React.Component {
                                     <button className="btn" onClick={() => this.submitOutput()}> 
                                         Enter Output: 
                                     </button>
-                                    {/* &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <button className="btn" onClick={() => this.recommendOut()}> Recommendation: </button>
-                                    &nbsp; */}
                                     <div>
                                         <h7>
-                                            &nbsp;&nbsp;
-                                            example: C:\Users\user\OneDrive\Desktop\boeing-naturallanguageprocessing\Parser\output
+                                            &nbsp;&nbsp; example: C:\Users\user\OneDrive\Desktop\boeing-naturallanguageprocessing\Parser\output
                                         </h7>
                                     </div> 
                                 </div>
                                 <div className="folderLocation">
-                                    &nbsp;
-                                    Output Location:
-                                    &nbsp;
-                                    {this.props.oldOutput}
+                                    &nbsp; Output Location: &nbsp; {this.props.oldOutput}
                                 </div>
                                 &nbsp;
                                 <div id="corpusName">
@@ -170,8 +194,7 @@ class Documents extends React.Component {
                                     <input onChange={this.handleChange} size="15" name="corpusName" placeholder="Enter Corpus Name"/>
                                     <div>
                                         <h7>
-                                            &nbsp;&nbsp;
-                                            *Defaults name to "corpus". Will rewrite over files with same name.
+                                            &nbsp;&nbsp; *Defaults name to "corpus". Will rewrite over files with same name.
                                         </h7>
                                     </div> 
                                 </div>
@@ -215,12 +238,14 @@ class Documents extends React.Component {
                         }
 
                         <div className="modeBtn">
-                            <button className="right btn-forward-doc btn" onClick={() => {this.props.nextPage(); this.props.saveCorpusName(this.state.corpusName);}}> Forward </button>
+                            <button className="right btn-forward-doc btn" onClick={() => {this.props.nextPage(); this.props.saveCorpusName(this.state.corpusName);}}>
+                                Forward
+                            </button>
                         </div>
                         <div className="btnLeft">
-                                    <button className="bottom3 btn" onClick={() => this.props.prevPage()}> 
-                                        Back 
-                                    </button>
+                            <button className="bottom3 btn" onClick={() => this.props.prevPage()}> 
+                                Back 
+                            </button>
                         </div>
                     </div>
                 </div>

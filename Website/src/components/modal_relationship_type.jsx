@@ -1,6 +1,11 @@
 import React, { Component, Fragment } from 'react';  
 import { Modal } from 'react-bootstrap';  
 
+/*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: 
+Description:
+Returns:
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
 class ModalPopup extends Component {  
     constructor(props) {  
         super(props);  
@@ -11,41 +16,79 @@ class ModalPopup extends Component {
         };  
     }
 
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //                       Modal Popup Functions
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    /*##################################################################################
+                                        Modal Functions
+    ###################################################################################*/
       
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/    
     isShowModal = (status) => {  
         this.handleClose();  
         this.setState({showModal: status});  
     }  
-  
+
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/  
     handleClose = () => {  
         this.props.onPopupClose(false, "", this.props.row);  
     }  
 
-    // Updates state when user changes name
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     handleChange = (event) => {
         this.setState({relationship: event.target.value});
     }
     
-    // Updates state when user changes color
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     handleChangeColor = (event) => {
         this.setState({color: event.target.value});
     }
 
-    // Displays the currently selected relationship type when editing
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     handleEditLoad = () => {
         this.setState({relationship: Object.keys(this.props.relationshipTypes[this.props.row]).toString(),
-                    color: Object.values(this.props.relationshipTypes[this.props.row]).toString()})
+            color: Object.values(this.props.relationshipTypes[this.props.row]).toString()})
     }
 
-    // Displays the default values when creating a new relationship type
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     handleCreateLoad = () => {
         this.setState({relationship: "",
-                       color: "#000000"})
+            color: "#000000"})
     }
 
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     handleSubmit = () => {
         this.props.type == "newRelationshipType" ? // Creating a new relationship type
             this.props.createRelationshipType(this.state.color, this.state.relationship)
@@ -58,11 +101,16 @@ class ModalPopup extends Component {
         this.handleClose();
     }
 
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //                       Relationship Functions
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    /*##################################################################################
+                                    Relationship Functions
+    ###################################################################################*/
 
-    // Updates state when user selects a relationship between 2 nodes
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     handleChooseRelationship = (event) => {
         let color;
         for(let i = 0; i < this.props.relationshipTypes.length; i++) {
@@ -72,27 +120,50 @@ class ModalPopup extends Component {
         }
 
         this.setState({relationship: event.target.value,
-                    color: color})
+            color: color})
     }
 
-    // Deletes a relationship type
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     handleDelete = () => {
         this.props.deleteRelationshipType()
         this.handleClose()
     }
 
+
+    /*##################################################################################
+                                        Table Functions
+    ###################################################################################*/
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     renderTable = () => {
         const table = []
         for (let i = 0; i < Object.keys(this.props.nouns).length; i++){
             table.push(
                 <tr key={i} className={"centered weight"}>
-                    <td>{Object.keys(this.props.nouns)[i]}</td>
+                    <td>
+                        {Object.keys(this.props.nouns)[i]}
+                    </td>
                 </tr>
             )
         }
         return table
     }
 
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     render() {  
         return (  
             this.props.type == "nouns" ?
