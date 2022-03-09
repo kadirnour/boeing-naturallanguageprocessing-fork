@@ -88,6 +88,7 @@ Function: write_to_csv
 Description: writes to .csv
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 def write_to_csv(data_write, file_path):
+    print(file_path)
     with open(file_path, 'w', newline='') as write_obj:
         csv_writer = csv.writer(write_obj)
         

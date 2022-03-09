@@ -1,6 +1,6 @@
 New Microsoft Word Document_nouns.csv
 Unique nouns: 16,Total nouns: 26
-Total time: 0.764 sec,Cost per noun: 29.372 ms
+Total time: 0.823 sec,Cost per noun: 31.644 ms
 the most technologically advanced commercial aircraft,"['While the 777 is one of the most technologically advanced commercial aircraft in the world, pilots should always remember that the 777 is still a very large aircraft.']",1
 the world,"['While the 777 is one of the most technologically advanced commercial aircraft in the world, pilots should always remember that the 777 is still a very large aircraft.']",1
 pilot,"['While the 777 is one of the most technologically advanced commercial aircraft in the world, pilots should always remember that the 777 is still a very large aircraft.', 'For instance, pilots should not try a very short approach with very tight turns as if they were flying a 737 or other smaller aircraft.']",2
