@@ -29,8 +29,7 @@ class ModalPopup extends Component {
         if (Object.values(Object.keys(this.props.categories)).indexOf(this.state.Category) > -1) {
             console.log("Name already used")
         } else {
-            let name = {Category: this.state.Category}
-            this.props.createCategory(name);
+            this.props.createCategory(this.state.Category);
             this.handleClose();
         }
     }

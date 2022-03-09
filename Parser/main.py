@@ -1,9 +1,9 @@
-from Parser import Spacy
 import time as Time
-from Parser import noun as Noun
 from pathlib import Path
+from Parser import noun as Noun
+from Parser import Spacy
+from Parser import text_factory
 from Data import main as Data
-from Data import text_factory
 #import multiprocessing
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -44,7 +44,7 @@ def parse(input, output, files):
             for noun in nouns:
                 totalNouns.__setitem__(noun.text, noun.occurances)
 
-    return(totalNouns)
+    return (totalNouns)
 
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -67,16 +67,10 @@ def single_parse(filePath):
         costPerNoun = (elapsedTime * 1000) / totalNouns
         costPerNounStr = "Cost per noun: " + str(round(costPerNoun, 3)) + " ms"
 
-        Data.to_csv(totalTimeStr, costPerNounStr, terms, uniqueNouns, totalNouns, filePath, outDir)
+        Data.parser_to_csv(totalTimeStr, costPerNounStr, terms, uniqueNouns, totalNouns, filePath, outDir)
 
         return terms
-
-
-
-
-
-
-
+        
 
 
 # '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''

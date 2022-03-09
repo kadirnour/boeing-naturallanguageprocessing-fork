@@ -1,4 +1,5 @@
 from pathlib import Path
+from ast import literal_eval
 import csv
 import os
 
@@ -26,15 +27,15 @@ def getInputFiles(input):
     return (total_files)
 
 
-##################################################
-#                CSV Functions
-##################################################
+########################################################################################################
+#                                             CSV Functions
+########################################################################################################
 
-'''''''''''''''''''''''''''''''''''''''''''''''''''
-Function: to_csv
-Description: Writes document information into a .csv file
-'''''''''''''''''''''''''''''''''''''''''''''''''''
-def to_csv(totalTimeStr, costPerNounStr, terms, uniqueNouns, totalNouns, filePath, outDir):
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: parser_to_csv
+Description: Writes terms found in parser to .csv file
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+def parser_to_csv(totalTimeStr, costPerNounStr, terms, uniqueNouns, totalNouns, filePath, outDir):
     output = Path(outDir)
     csv_name = filePath.stem + '_nouns.csv'
 
@@ -46,3 +47,49 @@ def to_csv(totalTimeStr, costPerNounStr, terms, uniqueNouns, totalNouns, filePat
 
         for noun in terms:
             nounwriter.writerow([noun.text, noun.contextSentences, noun.occurances])
+
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: write_weights
+Description: write weights to file
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+def write_weights(file, weightDictionary):
+    with open(file, 'w', newline='') as master:
+        master.truncate(0)
+        writer = csv.writer(master)
+
+        for term in weightDictionary:
+            context = weightDictionary[term]['context']
+            freq = weightDictionary[term]['frequency']
+            weight = weightDictionary[term]['weight']
+            writer.writerow([term, context, freq, weight])
+
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: read_weights
+Description: read weights from file
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+def read_weights(file):
+    data = {}
+
+    with open(file, 'r') as corpus:
+        rowreader = csv.reader(corpus, delimiter=',')
+
+        for row in rowreader:
+            if len(row) == 5:
+                data.update({row[0]: {"context": literal_eval(row[1]), "frequency": row[2], "weight": row[3], "category": row[4]}})
+            else:
+                data.update({row[0]: {"context": literal_eval(row[1]), "frequency": row[2], "weight": row[3]}})
+    return data
+
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: write_to_csv
+Description: writes to .csv
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+def write_to_csv(data_write, file_path):
+    with open(file_path, 'w', newline='') as write_obj:
+        csv_writer = csv.writer(write_obj)
+        
+        for row in data_write:
+            csv_writer.writerow(row)

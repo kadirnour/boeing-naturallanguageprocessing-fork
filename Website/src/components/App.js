@@ -6,11 +6,11 @@ import Categories from './Categories.js'
 import Taxonomy from './Taxonomy.js'
 import Load from './Load.js'
 
-/*******************************************************************
+/*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 Function: App
 Description: main webpage, calls back-end functions through routes
 Returns: current page
-********************************************************************/
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
 class App extends React.Component { 
   constructor(props) {
     super(props);
@@ -27,15 +27,15 @@ class App extends React.Component {
                 load: false}; //loading from or creating a new taxonomy
   }
 
-  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  //                     Folder/ File Functions
-  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  /*##################################################################################
+                                    Folder/ File Functions
+  ###################################################################################*/
   
-  /*******************************************************************
+  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
   Function: getFiles
   Description: gets files from input location
   Returns: sets filesList in state
-  ********************************************************************/
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   getFiles = async() => {
     if (this.state.input == "") {
       console.log("Error: no input location entered")
@@ -44,7 +44,6 @@ class App extends React.Component {
       console.log("Error: no output location entered")
       return false;
     }
-
     let info = {input: this.state.input}
 
     await fetch('/getFiles', {
@@ -55,14 +54,14 @@ class App extends React.Component {
           .then(data => {this.setState({filesList: data})})
   }
 
-  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  //                    Parser/ Weight Functions
-  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  /*######################################################################################################
+                                        Parser/ Weight Functions
+  ######################################################################################################*/
 
-  /*******************************************************************
+  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
   Function: getTerms
   Description: runs parser on selected files from input location
-  ********************************************************************/
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   getTerms = async() => {
     let info = {input: this.state.input, output: this.state.output, files: this.state.files}
     
@@ -74,11 +73,11 @@ class App extends React.Component {
           .then(this.getWeights()) //get weights after running parser
   }
 
-  /*******************************************************************
+  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
   Function: getWeights
   Description: runs parser on selected files from input location
-  Returns: 
-  ********************************************************************/
+  Returns: sets weightDictionary in state
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   getWeights = async() => {
     let info = {output: this.state.output, files: this.state.files}
 
@@ -91,98 +90,86 @@ class App extends React.Component {
   }
 
 
+  /*######################################################################################################
+                                           Save/ Load Functions
+  ######################################################################################################*/
 
-  // Route to save noun-phrase, context, freq and weight of full corpus
-  saveCorpus = async() => {
-    let input = {output: this.state.output, 
-      files: this.state.files, corpusName: this.state.corpusName} //TODO: pass name of corpus to backend
+  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  Function: saveWeight
+  Description: writes weight dictionary to master corpus .csv
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
+  saveWeight = async() => {
+    let input = {output: this.state.output, corpus: this.state.corpusName, weightDictionary: this.state.weightDictionary}
 
-    
-      await fetch('/saveCorpus', {
-        method: "POST",
-        headers:{
-            "content_type": "application/json",
-        },
-        body: JSON.stringify(input)})
-                .then(res => res.json())
-                  .then(data => {console.log("SAVE CORPUS COMPLETE")})
+    await fetch('/saveWeight', {
+      method: "POST",
+      headers:{"content_type": "application/json"},
+      body: JSON.stringify(input)})
   }
   
+
+  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  Function: loadCorpus
+  Description: loads weight dictionary from given file in output location
+  Returns: sets weight dictionary in state
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   loadCorpus = async() => {
-    // TODO: pass output location and name of csv then load to apps state.weights obj
     let input = {output: this.state.output, corpusName: this.state.corpusName}
 
     await fetch('loadCorpus', {
       method: "POST",
-      headers:{
-          "content_type": "application/json",
-      },
+      headers:{"content_type": "application/json",},
     body: JSON.stringify(input)})
-            .then(res => res.json())
-              .then(data => {this.setState({weightDictionary: data})})
-  }
-
-  saveWeight = async() => {
-    let inputInfo = {input: this.state.output, corpusName:this.state.corpusName, data:this.state.weightDictionary}
-    await fetch('/saveWeight', {
-      method: "POST",
-      headers:{
-          "content_type": "application/json",
-      },
-      body: JSON.stringify(inputInfo)})
-          .then(res => res.json())
+      .then(res => res.json())
+        .then(data => {this.setState({weightDictionary: data})})
   }
 
 
-
-  saveTaxonomy = (graph, relationshipTypes) => {
-    this.setState({graph: graph,
-                  relationshipTypes: relationshipTypes})
-  }
-
-
-
-  // Route to create a new category
-  createCategory = async(name) => {
-    const res = await fetch('/category', {
-            method: "POST",
-            headers:{
-                "content_type": "application/json",
-            },
-            body: JSON.stringify(name)})
-                .then(res => res.json())
-
-    const newCat = {...this.state.categories}
-    newCat[Object.keys(res)[0]] = Object.values(res)[0]
-    this.setState({categories: newCat})
-              // .then(res => res.json())
-              //     .then(data => {this.setState({categories: data})})
-  }
-
-  sendCategories = async(cat) => {
-    let inputInfo = {output: this.state.output, corpusName:this.state.corpusName, data:this.state.categories}
+  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  Function: saveCategories
+  Description: writes categories to .csv
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
+  saveCategories = async(cat) => {
+    let inputInfo = {output: this.state.output, corpusName: this.state.corpusName, categories: this.state.categories}
     await fetch('/saveCategories', {
       method: "POST",
-      headers:{
-          "content_type": "application/json",
-      },
+      headers:{"content_type": "application/json",},
       body: JSON.stringify(inputInfo)})
-          .then(res => res.json())
   }
 
-  //TODO!!!: save categories and pass to front end!!!
-  saveRelationships = async(edges, nodes, relationshipTypes) => {
-    let inputInfo = {input: this.state.output, corpus:this.state.corpusName, data1:edges, data2:nodes, data3:relationshipTypes}
-    await fetch('/saveRelationships', {
-      method: "POST",
-      headers:{
-          "content_type": "application/json",
-      },
-      body: JSON.stringify(inputInfo)})
-          .then(res => res.json())
+
+  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  Function: saveRelationships
+  Description: writes relationships to a .csv
+ '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
+ saveRelationships = async(edges, nodes, relationshipTypes) => {
+  let inputInfo = {input: this.state.output, corpus: this.state.corpusName, edges: edges, nodes: nodes, relationshipTypes: relationshipTypes}
+  await fetch('/saveRelationships', {
+    method: "POST",
+    headers:{"content_type": "application/json",},
+    body: JSON.stringify(inputInfo)})
+}
+
+
+
+
+
+  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  Function:
+  Description: 
+  Returns: 
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
+  saveTaxonomy = (graph, relationshipTypes) => {
+    this.setState({graph: graph,
+                relationshipTypes: relationshipTypes})
   }
 
-  // TODO: Create route to add term to weights and remove from category
+
+  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  Function:
+  Description: 
+  Returns: 
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   addToWeights = (termsIndex) => {
     const toDelete = []
     const newCat = {...this.state.categories}
@@ -202,7 +189,12 @@ class App extends React.Component {
                    weightDictionary: newWeights})
   }
 
-  // TODO: Create route to add term to category and remove from weights
+
+  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  Function:
+  Description: 
+  Returns: 
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   addToCategory = (termsIndex, cat) => {
     const toAdd = []
     const newCat = {...this.state.categories}
@@ -222,7 +214,12 @@ class App extends React.Component {
                    weightDictionary: newWeights})
   }
 
-  // TODO: Create route to delete terms from parser output before running weights
+
+  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  Function:
+  Description: 
+  Returns: 
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   deleteTerms = (terms) => {
     const newWeights = {...this.state.weightDictionary}
     const toDelete = []
@@ -237,19 +234,36 @@ class App extends React.Component {
     this.setState({weightDictionary: newWeights})
   }
 
+
+  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  Function:
+  Description: 
+  Returns: 
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   deleteFile = (r) => {
     const newFiles = {...this.state.files}
     delete newFiles[Object.keys(this.state.filesList)[r]]
     this.setState({files: newFiles})
   }
 
+
+  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  Function:
+  Description: 
+  Returns: 
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   addFile = (r) => {
     const newFiles = {...this.state.files}
     newFiles[Object.keys(this.state.filesList)[r]] = Object.values(this.state.filesList)[r]
     this.setState({files: newFiles})
   }
 
-  // TODO: Create route to delete a category and add its terms back to weight
+
+  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  Function:
+  Description: 
+  Returns: 
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   deleteCategory = (cat) => {
     const newWeights = {...this.state.weightDictionary}
     const newCat = {...this.state.categories}
@@ -270,15 +284,34 @@ class App extends React.Component {
                    weightDictionary: newWeights})
   }
 
-  saveCategories = (cats) => {
-    this.sendCategories(cats)
-  }
-  
-  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  //                       Webpage Functions
-  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-  // Moves to the next page in program
+  /*##################################################################################
+                                    Category Functions
+  ##################################################################################*/
+
+  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  Function: createCategory
+  Description: Creates a new category
+  Returns: adds new category to category state
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
+  createCategory = (category) => {
+    const newCat = {...this.state.categories}
+    newCat[category] = {}
+    this.setState({categories: newCat})
+  }
+
+
+
+  
+  /*##################################################################################
+                                     Webpage Functions
+  ##################################################################################*/
+
+  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  Function:
+  Description: 
+  Returns: 
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   nextPage = () => {
     if (this.state.mode === 0) {
       this.setState({mode: 33})
@@ -291,7 +324,12 @@ class App extends React.Component {
     }
   }
 
-  // Moves back to previous page in program
+
+  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  Function:
+  Description: 
+  Returns: 
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   prevPage = () => {
     if (this.state.mode === 100) {
       this.setState({mode: 99})
@@ -304,6 +342,12 @@ class App extends React.Component {
     }
   }
 
+
+  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  Function:
+  Description: 
+  Returns: 
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   loaded = (res) => {
     if (res) {
       this.setState({load: true})
@@ -313,21 +357,42 @@ class App extends React.Component {
     this.nextPage()
   }
 
-  // Sets the input location for parser
+
+  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  Function:
+  Description: 
+  Returns: 
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   setInput = (input) => {
     this.setState({input: input})
   }
 
-  // Sets the output location for parser
+
+  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  Function:
+  Description: 
+  Returns: 
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   setOutput = (output) => {
     this.setState({output: output})
   }
 
-  //Sets the corpus name for csv
+
+  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  Function:
+  Description: 
+  Returns: 
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   saveCorpusName = (name) => {
     this.setState({corpusName: name})
   }
 
+
+  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  Function:
+  Description: 
+  Returns: 
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   render() {
     return (
       <>

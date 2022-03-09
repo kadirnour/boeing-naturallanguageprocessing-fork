@@ -1,7 +1,7 @@
 from Parser import noun as Noun
 import re
 import spacy
-from Data import text_replacer
+from Parser import text_replacer
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 Function: get_terms
@@ -29,6 +29,7 @@ def get_sentences(text):
 
     sentences = nlp(sentences) # converts sentences into NLP span objects
     sentences = list(sentences.sents) # converts span objects into a list of span objects
+
     return sentences
 
 
@@ -64,4 +65,5 @@ def get_nouns(sentences):
             if not found:
                 newNoun = Noun.Noun(nounChunkCleaned, sentence.text) # create a new noun object
                 nouns.append(newNoun)
+    
     return nouns

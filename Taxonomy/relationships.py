@@ -1,23 +1,17 @@
 import csv
-import os
+from Data import main as Data
 
-def saveRelationships(folder, corpus, edges, nodes, relationshipTypes):
-    file = folder + '\\' + corpus + '_relationships.csv' # csv from folder
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: write_to_csv
+Description: 
+Returns: 
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+def write_to_csv(input, corpus, edges, nodes, relationshipTypes):
+    file = input + '\\' + corpus + '_relationships.csv'
     
-    data_write = []
-    data_write.append(edges)
-    data_write.append(nodes)
-    data_write.append(relationshipTypes)
+    dataWrite = []
+    dataWrite.append(edges)
+    dataWrite.append(nodes)
+    dataWrite.append(relationshipTypes)
 
-    data_writer(data_write, file)
-
-
-def data_writer(data_write, file_path):
-    with open(file_path, 'w', newline='') as write_obj:
-        
-        # Create a csv.writer object from the output file object
-        csv_writer = csv.writer(write_obj)
-        
-        # Read each row of the input csv file as list
-        for row in data_write:
-            csv_writer.writerow(row)
+    Data.write_to_csv(dataWrite, file)

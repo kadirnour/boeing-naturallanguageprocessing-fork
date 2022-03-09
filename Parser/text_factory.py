@@ -1,7 +1,7 @@
 import os
-from Data import pdf_extract
-from Data import txt_extract
-from Data import docx_extract
+from Parser import pdf_extract
+from Parser import txt_extract
+from Parser import docx_extract
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 Function: get_text

@@ -1,5 +1,5 @@
 import pdfplumber
-from Data import text_replacer
+from Parser import text_replacer
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 Function: get_text

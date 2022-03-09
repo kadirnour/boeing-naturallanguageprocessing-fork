@@ -1,20 +1,26 @@
-#Saves weights from state to csv everytime button is pressed to reflect changes#
-
-
-from csv import reader
+#from csv import reader
 import csv
 
+#Saves weights from state to csv everytime button is pressed to reflect changes#
+
 # master method that takes
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: 
+Description: 
+Returns: 
+'''''''''''''''''''''''''''''''''''''''''''''''''''
 def saveWeight(folder,corpusName,weight):
-    #print(folder)
-    #print(corpusName)
     file = folder + '\\' + corpusName + '.csv' # csv from folder
-    print(file)
-    #weightReader.append(next(csv_reader))
     weightWriter = processDict(weight)
+
     weightWrite(weightWriter,file)
 
 
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: 
+Description: 
+Returns: 
+'''''''''''''''''''''''''''''''''''''''''''''''''''
 def processDict(weight):
     weightReader = []
     for term,data in weight.items():
@@ -27,6 +33,11 @@ def processDict(weight):
     return weightReader
 
 
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: 
+Description: 
+Returns: 
+'''''''''''''''''''''''''''''''''''''''''''''''''''
 def weightWrite(weightWriter,file):
     with open(file, 'w', newline='') as write_obj:
         csv_writer = csv.writer(write_obj)
