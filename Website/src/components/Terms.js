@@ -22,7 +22,7 @@ class Terms extends React.Component {
         if(this.props.load) {
             this.props.loadCorpus()
         } else {
-            this.props.Parser()
+            this.props.getTerms()
         }
     }
 
@@ -67,15 +67,15 @@ class Terms extends React.Component {
     renderTable = () => {
         const table = []
         //for (let r = 0; r < Object.keys(this.props.weights).length; r++) {
-        if ((this.state.page * 100) + 100 > Object.keys(this.props.weights).length) {
+        if ((this.state.page * 100) + 100 > Object.keys(this.props.weightDictionary).length) {
 
-            for (let r = this.state.page * 100; r < Object.keys(this.props.weights).length; r++) {
+            for (let r = this.state.page * 100; r < Object.keys(this.props.weightDictionary).length; r++) {
         
                 table.push(
                     <tr key = {r} className={"centered weight" + (this.checkSelectedTerm(r) === true ? " weight-selected" : "")}>
-                        <td onClick={() => (this.checkSelectedTerm(r) ? this.removedSelectedTerm(r) : this.selectTerm(r))}>{Object.keys(this.props.weights)[r]}</td>
-                        <td onClick={() => (this.checkSelectedTerm(r) ? this.removedSelectedTerm(r) : this.selectTerm(r))}>{Object.values(this.props.weights)[r].frequency}</td>
-                        <td onClick={() => (this.checkSelectedTerm(r) ? this.removedSelectedTerm(r) : this.selectTerm(r))}>{Object.values(this.props.weights)[r].weight}</td>
+                        <td onClick={() => (this.checkSelectedTerm(r) ? this.removedSelectedTerm(r) : this.selectTerm(r))}>{Object.keys(this.props.weightDictionary)[r]}</td>
+                        <td onClick={() => (this.checkSelectedTerm(r) ? this.removedSelectedTerm(r) : this.selectTerm(r))}>{Object.values(this.props.weightDictionary)[r].frequency}</td>
+                        <td onClick={() => (this.checkSelectedTerm(r) ? this.removedSelectedTerm(r) : this.selectTerm(r))}>{Object.values(this.props.weightDictionary)[r].weight}</td>
                         <td><button className="btn" onClick={() => this.isShowPopup(true, r)}> Sentences </button></td>
                     </tr>
                 )
@@ -87,9 +87,9 @@ class Terms extends React.Component {
             
                 table.push(
                     <tr key = {r} className={"centered weight" + (this.checkSelectedTerm(r) === true ? " weight-selected" : "")}>
-                        <td onClick={() => (this.checkSelectedTerm(r) ? this.removedSelectedTerm(r) : this.selectTerm(r))}>{Object.keys(this.props.weights)[r]}</td>
-                        <td onClick={() => (this.checkSelectedTerm(r) ? this.removedSelectedTerm(r) : this.selectTerm(r))}>{Object.values(this.props.weights)[r].frequency}</td>
-                        <td onClick={() => (this.checkSelectedTerm(r) ? this.removedSelectedTerm(r) : this.selectTerm(r))}>{Object.values(this.props.weights)[r].weight}</td>
+                        <td onClick={() => (this.checkSelectedTerm(r) ? this.removedSelectedTerm(r) : this.selectTerm(r))}>{Object.keys(this.props.weightDictionary)[r]}</td>
+                        <td onClick={() => (this.checkSelectedTerm(r) ? this.removedSelectedTerm(r) : this.selectTerm(r))}>{Object.values(this.props.weightDictionary)[r].frequency}</td>
+                        <td onClick={() => (this.checkSelectedTerm(r) ? this.removedSelectedTerm(r) : this.selectTerm(r))}>{Object.values(this.props.weightDictionary)[r].weight}</td>
                         <td><button className="btn" onClick={() => this.isShowPopup(true, r)}> Sentences </button></td>
                     </tr>
                 )
@@ -123,8 +123,8 @@ class Terms extends React.Component {
             <div className="page">
                  <ModalPopup showModalPopup={this.state.showModalPopup}  
                             onPopupClose={this.isShowPopup}
-                            term={Object.keys(this.props.weights)[this.state.modalTerm]}
-                            sentences={Object.values(this.props.weights)[this.state.modalTerm]}
+                            term={Object.keys(this.props.weightDictionary)[this.state.modalTerm]}
+                            sentences={Object.values(this.props.weightDictionary)[this.state.modalTerm]}
                 />
                 <h2 className="pageTitle"> Step 2: Term Extraction </h2>
                 <div className="pageBox">
@@ -138,7 +138,7 @@ class Terms extends React.Component {
                                 </>
                                 :
                                 <>
-                                    <button className="btn" onClick={() => this.props.Parser()}> Refresh Weights: </button>
+                                    <button className="btn" onClick={() => this.props.getTerms()}> Refresh Weights: </button>
                                     <button className="btn" onClick={() => this.props.saveWeight()}> Save Weights: </button>
                                 </>
                             }
@@ -154,7 +154,7 @@ class Terms extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {Object.keys(this.props.weights).length === 0 ?
+                                {Object.keys(this.props.weightDictionary).length === 0 ?
                                     <tr>
                                         <td></td>
                                     </tr>
@@ -172,7 +172,7 @@ class Terms extends React.Component {
                                 <button className="btn" onClick={() => this.page('pervious')}> Previous: </button>
                             }
                             {this.state.page}
-                            {(this.state.page * 100) + 100 < Object.keys(this.props.weights).length ?
+                            {(this.state.page * 100) + 100 < Object.keys(this.props.weightDictionary).length ?
                                 <button className="btn" onClick={() => this.page('next')}> Next: </button>:
                                 <button className="btn" disabled={true} onClick={() => this.page('next')}> Next: </button>
                             }

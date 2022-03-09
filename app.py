@@ -1,13 +1,16 @@
 import csv
-from Parser import main as parser
-from Taxonomy import extraction, relationships
-from tests import unit_tests # Do we need this here?
+from Parser import main as Parser
+from Taxonomy import extraction as Extraction
+from Taxonomy import relationships
 from flask import Flask
 from flask import request
 from Taxonomy import categories
 from Taxonomy import saveWeights
 from pathlib import Path
 from ast import literal_eval
+#from tests import unit_tests
+from Data import main as Data
+
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 Function: main
@@ -18,42 +21,48 @@ app = Flask(__name__)
 
 
 #########################################################
-#               Folder/ File Functions
+#                 Folder/ File Functions
 #########################################################
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-Function: files
+Function: getFiles
 Description: gets all files from a given directory
 Returns: file names and file types
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-@app.route('/files', methods = ['POST'])
-def files():
-    inputInfo = request.get_json(force=True)
-    files = parser.getFiles(inputInfo['input'], inputInfo['output'])
-    return files
+@app.route('/getFiles', methods = ['POST'])
+def getFiles():
+    info = request.get_json(force=True)
+    filesList = Data.getInputFiles(info['input'])
+    return filesList
 
 
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-# Function: Parse
-# Direction: Bac to Front
-# Returns: all the nouns and send to front end
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-@app.route('/parse', methods = ['POST'])
-def parse():
-    location = request.get_json(force=True)
-    total_nouns = parser.parse(list(location.values())[0], list(location.values())[1], list(location.values())[2])
+#########################################################
+#                Parser/ Weight Functions
+#########################################################
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: getTerms
+Description: runs parser on given files from the input location and writes .csv's to output location.
+Returns: all the nouns and send to front end
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+@app.route('/getTerms', methods = ['POST'])
+def getTerms():
+    info = request.get_json(force=True)
+    total_nouns = Parser.parse(info['input'], info['output'], info['files'])
     return total_nouns
 
 
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-# Function: Weights
-# Direction: Bac to Front
-# Returns: all the weights, freq and snoun data as dict and sends to front end
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-@app.route('/weights', methods = ['POST'])
-def weights():
-    location = request.get_json(force=True)
-    return extraction.find_frequencies_and_weights(list(location.values())[0], list(location.values())[1])
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: getWeights
+Description: gets frequency and weights of terms from given files in output location
+Returns: all the weights, freq and snoun data as dict and sends to front end
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+@app.route('/getWeights', methods = ['POST'])
+def getWeights():
+    info = request.get_json(force=True)
+    return Extraction.find_frequencies_and_weights(info['output'], info['files'])
+
+
 
     
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -64,7 +73,7 @@ def weights():
 @app.route('/saveCorpus', methods = ['POST'])
 def saveCorpus():
     location = request.get_json(force=True)
-    data = extraction.find_frequencies_and_weights(location['output'], location['files'])
+    data = Extraction.find_frequencies_and_weights(location['output'], location['files'])
     corpusName = location['corpusName'] + '.csv'
     # TODO: save freq_dict to csv
     with open(Path(location['output']) / corpusName, 'w', newline='') as master:

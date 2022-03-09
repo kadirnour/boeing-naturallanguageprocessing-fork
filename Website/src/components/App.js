@@ -24,73 +24,73 @@ class App extends React.Component {
                 corpusName: 'corpus', //master corpus name for this taxonomy
                 relationshipTypes: [], //relationship types between categories. [{name: color}]
                 graph: {nodes: [], edges: []}, //relationship graph. {nodes: [{color, id, label}], edges:[{color, id, width, from, to, relationship}]}
-                load: false};
+                load: false}; //loading from or creating a new taxonomy
   }
 
-  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  //                         Route Functions
-  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //                     Folder/ File Functions
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   
-  
-  // Route to run parser from input location and save to output location
-  Files = async() => {
-
+  /*******************************************************************
+  Function: getFiles
+  Description: gets files from input location
+  Returns: sets filesList in state
+  ********************************************************************/
+  getFiles = async() => {
     if (this.state.input == "") {
-      console.log("NO INPUT")
+      console.log("Error: no input location entered")
       return false;
-    }
-    if (this.state.output == "") {
-      console.log("NO OUTPUT")
+    } else if (this.state.output == "") {
+      console.log("Error: no output location entered")
       return false;
     }
 
-    let directories = {input: this.state.input, output: this.state.output}
+    let info = {input: this.state.input}
 
-    await fetch('/files', {
+    await fetch('/getFiles', {
       method: "POST",
-      headers:{
-          "content_type": "application/json",
-      },
-      body: JSON.stringify(directories)})
+      headers:{"content_type": "application/json"},
+      body: JSON.stringify(info)})
         .then(res => res.json())
           .then(data => {this.setState({filesList: data})})
   }
 
-  // Route to run parser from input location and save to output location
-  Parser = async() => {
-    let directories = {input: this.state.input,
-      output: this.state.output,
-      files: this.state.files}
-    await fetch('/parse', {
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //                    Parser/ Weight Functions
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+  /*******************************************************************
+  Function: getTerms
+  Description: runs parser on selected files from input location
+  ********************************************************************/
+  getTerms = async() => {
+    let info = {input: this.state.input, output: this.state.output, files: this.state.files}
+    
+    await fetch('/getTerms', {
       method: "POST",
-      headers:{
-          "content_type": "application/json",
-      },
-      body: JSON.stringify(directories)})
+      headers:{"content_type": "application/json"},
+      body: JSON.stringify(info)})
         .then(res => res.json())
-          //.then(data => {this.setState({dict: data})})
-            .then(this.getWeight()) // Runs parser then gets the weights after.
-
-              //.then(this.saveCorpus)
-
-              //.then(this.saveCorpus()) // saves set of all noun/noun-phrases in corpus to a single csv 
-
+          .then(this.getWeights()) //get weights after running parser
   }
 
-  // Route to get weights from parser's output location
-  getWeight = async() => {
-    let input = {input: this.state.output,
-      files: this.state.files}
+  /*******************************************************************
+  Function: getWeights
+  Description: runs parser on selected files from input location
+  Returns: 
+  ********************************************************************/
+  getWeights = async() => {
+    let info = {output: this.state.output, files: this.state.files}
 
-    await fetch('/weights', {
-            method: "POST",
-            headers:{
-                "content_type": "application/json",
-            },
-            body: JSON.stringify(input)})
-                    .then(res => res.json())
-                      .then(data => {this.setState({weightDictionary: data})})
+    await fetch('/getWeights', {
+      method: "POST",
+      headers:{"content_type": "application/json"},
+      body: JSON.stringify(info)})
+        .then(res => res.json())
+          .then(data => {this.setState({weightDictionary: data})})
   }
+
+
 
   // Route to save noun-phrase, context, freq and weight of full corpus
   saveCorpus = async() => {
@@ -342,7 +342,7 @@ class App extends React.Component {
                     setOutput={this.setOutput}
                     oldInput={this.state.input}
                     oldOutput={this.state.output}
-                    Files={this.Files}
+                    Files={this.getFiles}
                     files={this.state.files}
                     filesList={this.state.filesList}
                     deleteFile={this.deleteFile}
@@ -351,20 +351,18 @@ class App extends React.Component {
                     load={this.state.load}/> 
                     : 
                     this.state.mode === 66 ?
-                      <Terms Parser={this.Parser}
+                      <Terms getTerms={this.getTerms}
                               loadCorpus = {this.loadCorpus}
                               nextPage={this.nextPage}
                               prevPage={this.prevPage}
-                              getWeight={this.getWeight}
                               saveWeight={this.saveWeight}
-                              weights={this.state.weightDictionary}
+                              weightDictionary={this.state.weightDictionary}
                               deleteTerms={this.deleteTerms}
                               save={this.saveCorpus}
                               load={this.state.load}/> 
                         :
                         this.state.mode === 99 ?
-                          <Categories getWeight={this.getWeight}
-                            weights={this.state.weightDictionary}
+                          <Categories weightDictionary={this.state.weightDictionary}
                             nextPage={this.nextPage}
                             prevPage={this.prevPage}
                             createCategory={this.createCategory}

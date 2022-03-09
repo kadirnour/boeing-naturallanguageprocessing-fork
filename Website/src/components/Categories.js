@@ -32,27 +32,17 @@ class Categories extends React.Component {
     // Renders the weight table
     renderWeightTable = () => {
         const table = []
-        // for (let r = 0; r < Object.keys(this.props.weights).length; r++) {
-        //   table.push(
-        //     <tr className={"centered weight" + (this.checkSelectedWeight(r) === true ? " weight-selected" : "")} key={r} 
-        //         onClick={() => (this.checkSelectedWeight(r) ? this.removedSelectedWeightTerm(r) : this.selectWeightTerm(r))}>
-        //       <td>{Object.keys(this.props.weights)[r]}</td>
-        //       <td>{Object.values(this.props.weights)[r].frequency}</td>
-        //       <td>{Object.values(this.props.weights)[r].weight}</td>
-        //     </tr>
-        //   )
-        // }
 
-        if ((this.state.pageTerms * 100) + 100 > Object.keys(this.props.weights).length) {
+        if ((this.state.pageTerms * 100) + 100 > Object.keys(this.props.weightDictionary).length) {
 
-            for (let r = this.state.pageTerms * 100; r < Object.keys(this.props.weights).length; r++) {
+            for (let r = this.state.pageTerms * 100; r < Object.keys(this.props.weightDictionary).length; r++) {
         
                 table.push(
                     <tr key = {r} className={"centered weight" + (this.checkSelectedWeight(r) === true ? " weight-selected" : "")}
                         onClick={() => (this.checkSelectedWeight(r) ? this.removedSelectedWeightTerm(r) : this.selectWeightTerm(r))}>
-                        <td>{Object.keys(this.props.weights)[r]}</td>
-                        <td>{Object.values(this.props.weights)[r].frequency}</td>
-                        <td>{Object.values(this.props.weights)[r].weight}</td>
+                        <td>{Object.keys(this.props.weightDictionary)[r]}</td>
+                        <td>{Object.values(this.props.weightDictionary)[r].frequency}</td>
+                        <td>{Object.values(this.props.weightDictionary)[r].weight}</td>
                     </tr>
                 )
             }
@@ -64,9 +54,9 @@ class Categories extends React.Component {
                 table.push(
                     <tr key = {r} className={"centered weight" + (this.checkSelectedWeight(r) === true ? " weight-selected" : "")}
                         onClick={() => (this.checkSelectedWeight(r) ? this.removedSelectedWeightTerm(r) : this.selectWeightTerm(r))}>
-                        <td>{Object.keys(this.props.weights)[r]}</td>
-                        <td>{Object.values(this.props.weights)[r].frequency}</td>
-                        <td>{Object.values(this.props.weights)[r].weight}</td>
+                        <td>{Object.keys(this.props.weightDictionary)[r]}</td>
+                        <td>{Object.values(this.props.weightDictionary)[r].frequency}</td>
+                        <td>{Object.values(this.props.weightDictionary)[r].weight}</td>
                     </tr>
                 )
             }
@@ -305,7 +295,7 @@ class Categories extends React.Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {Object.keys(this.props.weights).length === 0 ?
+                                    {Object.keys(this.props.weightDictionary).length === 0 ?
                                         <tr>
                                             <td></td>
                                         </tr>
@@ -324,7 +314,7 @@ class Categories extends React.Component {
                                 
                                 {this.state.pageTerms}
 
-                                {(this.state.pageTerms * 100) + 100 <  Object.keys(this.props.weights).length ?
+                                {(this.state.pageTerms * 100) + 100 <  Object.keys(this.props.weightDictionary).length ?
                                     <button className="btn" onClick={() => this.pageTerms('next')}> Next: </button> :
                                     <button className="btn" disabled={true} onClick={() => this.pageTerms('next')}> Next: </button>
                                 }
