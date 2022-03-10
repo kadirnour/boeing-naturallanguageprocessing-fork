@@ -1,5 +1,7 @@
 import React from 'react';
 import ModalPopup from './modal_terms';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowsRotate, faBackward, faForward, faFileArrowDown, faFileLines, faAngleRight, faAngleLeft, faRotateRight, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 
 /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -161,6 +163,7 @@ class Terms extends React.Component {
                         </td>
                         <td>
                             <button className="button" onClick={() => this.isShowPopup(true, r)}>
+                                <FontAwesomeIcon icon={faFileLines}/> &nbsp; 
                                 Sentences
                             </button>
                         </td>
@@ -188,6 +191,7 @@ class Terms extends React.Component {
                         </td>
                         <td>
                             <button className="button" onClick={() => this.isShowPopup(true, r)}>
+                                <FontAwesomeIcon icon={faFileLines}/> &nbsp; 
                                 Sentences
                             </button>
                         </td>
@@ -241,18 +245,22 @@ class Terms extends React.Component {
                                     {this.props.load ?
                                         <div>
                                             <button className="button__small" onClick={() => this.props.loadCorpus()}>
+                                                <FontAwesomeIcon icon={faArrowsRotate}/> &nbsp; 
                                                 Refresh Weights:
                                             </button> &nbsp;&nbsp;&nbsp;
                                             <button className="button__small" onClick={() => this.props.saveWeight()}>
+                                                <FontAwesomeIcon icon={faFileArrowDown}/> &nbsp; 
                                                 Save Weights:
                                             </button>
                                         </div>
                                         :
                                         <div>  
                                             <button className="button__small" onClick={() => this.props.getTerms()}>
+                                                <FontAwesomeIcon icon={faArrowsRotate}/> &nbsp; 
                                                 Refresh Weights:
                                             </button> &nbsp;&nbsp;&nbsp;
                                             <button className="button__small" onClick={() => this.props.saveWeight()}>
+                                                <FontAwesomeIcon icon={faFileArrowDown}/> &nbsp; 
                                                 Save Weights:
                                             </button>
                                         </div>
@@ -293,21 +301,25 @@ class Terms extends React.Component {
                                     <div className="terms-input-box">
                                             {this.state.page == 0 ?
                                                 <button className="button__small" disabled={true} onClick={() => this.page('pervious')}>
+                                                    <FontAwesomeIcon icon={faAngleLeft}/> &nbsp; 
                                                     Previous:
                                                 </button> 
                                                 :
                                                 <button className="button__small" onClick={() => this.page('pervious')}>
+                                                    <FontAwesomeIcon icon={faAngleLeft}/> &nbsp; 
                                                     Previous:
                                                 </button>
                                             } &nbsp;&nbsp;&nbsp;
                                             {this.state.page} &nbsp;&nbsp;&nbsp;
                                             {(this.state.page * 100) + 100 < Object.keys(this.props.weightDictionary).length ?
                                                 <button className="button__small" onClick={() => this.page('next')}>
-                                                    Next:
+                                                    Next: &nbsp; 
+                                                    <FontAwesomeIcon icon={faAngleRight}/>
                                                 </button>
                                                 :
                                                 <button className="button__small" disabled={true} onClick={() => this.page('next')}>
-                                                    Next:
+                                                    Next: &nbsp; 
+                                                    <FontAwesomeIcon icon={faAngleRight}/>
                                                 </button>
                                             }
                                     </div>
@@ -315,19 +327,23 @@ class Terms extends React.Component {
                                     <div className="terms-input-box">
                                         {this.state.selectedTerms.length != 0 ?
                                             <button className="button__small" onClick={() => this.clearSelected()}> 
+                                                <FontAwesomeIcon icon={faRotateRight}/> &nbsp; 
                                                 Clear Selected
                                             </button> 
                                             :
                                             <button disabled={true} className="button__small" onClick={() => this.clearSelected()}>
+                                                <FontAwesomeIcon icon={faRotateRight}/> &nbsp; 
                                                 Clear Selected
                                             </button>
                                         } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         {this.state.selectedTerms.length != 0 ?
                                             <button className="button__small" onClick={() => this.deleteTerms()}>
+                                                <FontAwesomeIcon icon={faTrash}/> &nbsp; 
                                                 Delete Terms
                                             </button> 
                                             :
                                             <button disabled={true} className="button__small" onClick={() => this.deleteTerms()}>
+                                                <FontAwesomeIcon icon={faTrash}/> &nbsp; 
                                                 Delete Terms
                                             </button>
                                         }
@@ -338,10 +354,12 @@ class Terms extends React.Component {
                             </div>
                             <div className="page-button-box">
                                 <button className="button__small" onClick={() => this.props.prevPage()}>
+                                    <FontAwesomeIcon icon={faBackward}/> &nbsp; 
                                     Back
                                 </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <button className="button__small" onClick={() =>  {this.props.nextPage()}}>
-                                    Forward 
+                                    Forward &nbsp; 
+                                    <FontAwesomeIcon icon={faForward}/> &nbsp; 
                                 </button>
                             </div>
                         </div>

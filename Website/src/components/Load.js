@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus, faUpload } from '@fortawesome/free-solid-svg-icons'
 
 class Load extends React.Component {
     constructor(props) {
@@ -21,9 +23,11 @@ class Load extends React.Component {
                             <div className="load-content-box--centered">
                                 <div className="load-input-box">
                                     <button onClick={() => this.props.loaded(false)} className="button">
+                                        <FontAwesomeIcon icon={faPlus}/> &nbsp;
                                         Create a new Taxonomy
                                     </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <button onClick={() => this.props.loaded(true)} className="button">
+                                        <FontAwesomeIcon icon={faUpload}/> &nbsp;
                                         Load from Taxonomy
                                     </button>
                                 </div>

@@ -1,6 +1,8 @@
 import React from 'react';
 import ModalPopup from './modal_relationship_type';
 import Graph from 'vis-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowsRotate, faBackward, faForward, faFileArrowDown, faFileLines, faAngleRight, faAngleLeft, faRotateRight, faTrash, faCirclePlus, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 
 //!! TODO: Create undo and redo array !!
@@ -387,29 +389,35 @@ class Taxonomy extends React.Component {
                                 <div className="taxonomy-terms-box--center">
                                     <h6 className="taxonomy--center-sub-header centered"> Edit Relationships </h6>
                                     <button className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "newRelationshipType", -1)}>
+                                        <FontAwesomeIcon icon={faCirclePlus}/> &nbsp; 
                                         Create New Relationship Type
                                     </button>
                                     {this.state.nodes.length == 2 ?
                                         this.state.relationshipTypes.length == 0 ?
                                             <button disabled={true} className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>
+                                                <FontAwesomeIcon icon={faPlus}/> &nbsp; 
                                                 Create New Relationship
                                             </button> 
                                             :
                                             <button className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>
+                                                <FontAwesomeIcon icon={faPlus}/> &nbsp;
                                                 Create New Relationship
                                             </button>
                                         : 
                                         <button disabled={true} className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>
+                                            <FontAwesomeIcon icon={faPlus}/> &nbsp;
                                             Create New Relationship
                                         </button>
                                     }
 
                                     {this.state.nodes.length == 1 ?
                                         <button className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "nouns", -1)}>
+                                            <FontAwesomeIcon icon={faFileLines}/> &nbsp;
                                             See Nouns
                                         </button>
                                         : 
                                         <button disabled={true} className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "nouns", -1)}>
+                                            <FontAwesomeIcon icon={faFileLines}/> &nbsp;
                                             See Nouns
                                         </button>
                                     }
@@ -417,32 +425,30 @@ class Taxonomy extends React.Component {
                                     {this.state.nodes.length == 2 ?
                                         this.state.exists == false ?
                                             <button disabled={true} className="button taxonomy__buttons" onClick={() => this.deleteEdge()}>
+                                                <FontAwesomeIcon icon={faTrash}/> &nbsp;
                                                 Delete Relationship?
                                             </button> 
                                             :
                                             <button className="button taxonomy__buttons" onClick={() => this.deleteEdge()}>
+                                                <FontAwesomeIcon icon={faTrash}/> &nbsp;
                                                 Delete Relationship?
                                             </button>
                                         : 
                                         <button disabled={true} className="button taxonomy__buttons" onClick={() => this.deleteEdge()}>
+                                            <FontAwesomeIcon icon={faTrash}/> &nbsp;
                                             Delete Relationship?
                                         </button>
                                     }
 
                                     <button className="button taxonomy__buttons" onClick={() => this.saveRelationships()}>
+                                        <FontAwesomeIcon icon={faFileArrowDown}/> &nbsp;
                                         Save Relationship
                                     </button>
                                 </div>
-
-
-
                                 <div className="taxonomy-terms-box--right">
                                     <h6 className="taxonomy-sub-header">
                                         Click to Edit
                                     </h6>
-
-
-
                                     <div className="table-box--taxonomy">
                                         <table className="table table-head">
                                             <thead className="table-light">
@@ -466,15 +472,11 @@ class Taxonomy extends React.Component {
                                             </tbody>
                                         </table>
                                     </div>
-                                    
-
-
-
                                 </div>
                             </div>     
-
                             <div className="page-button-box">
                                 <button className="button__small taxonomy__page-buttons" onClick={() => this.props.prevPage()}>
+                                    <FontAwesomeIcon icon={faBackward}/> &nbsp; 
                                     Back
                                 </button>
                             </div>

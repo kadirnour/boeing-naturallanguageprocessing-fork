@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFolder, faFile, faArrowsRotate, faPlus, faMinus, faBackward, faForward } from '@fortawesome/free-solid-svg-icons'
 
 class Documents extends React.Component {
     constructor(props) {
@@ -33,11 +35,13 @@ class Documents extends React.Component {
                         null
                         :
                         <button className="button" onClick={() => this.props.addFile(r)}>
+                            <FontAwesomeIcon icon={faPlus}/> &nbsp; 
                             Add
                         </button>
                     }
                     {this.disabledBtn(r) ?
                         <button className="button" onClick={() => this.props.deleteFile(r)}>
+                            <FontAwesomeIcon icon={faMinus}/> &nbsp; 
                             Delete
                         </button>
                         :
@@ -138,6 +142,7 @@ class Documents extends React.Component {
                                             <input onChange={this.handleChange} name="input" 
                                                 placeholder="C:\Users\user\OneDrive\Desktop\boeing-naturallanguageprocessing\Data\Input" size="75"/> &nbsp;&nbsp;&nbsp;
                                             <button className="button" onClick={() => this.submitInput()}>
+                                                <FontAwesomeIcon icon={faFolder}/> &nbsp;
                                                 Submit Input Folder:
                                             </button>
                                             <div className="document-location-box"> &nbsp; 
@@ -155,6 +160,7 @@ class Documents extends React.Component {
                                             <input onChange={this.handleChange} name="output" 
                                                 placeholder="C:\Users\user\OneDrive\Desktop\boeing-naturallanguageprocessing\Data\Output" size="75"/> &nbsp;&nbsp;&nbsp;
                                             <button className="button" onClick={() => this.submitOutput()}>
+                                                <FontAwesomeIcon icon={faFolder}/> &nbsp;
                                                 Submit Output Folder:
                                             </button>
                                             <div className="document-location-box">
@@ -165,7 +171,8 @@ class Documents extends React.Component {
                                         <div className="document-input-box"> &nbsp;&nbsp;
                                             <input onChange={this.handleChange} size="75" name="corpusName" 
                                                 placeholder="Will write over files with the same name"/> &nbsp;&nbsp;&nbsp;
-                                            <button className="button" onClick={() => this.submitCorpus()}> 
+                                            <button className="button" onClick={() => this.submitCorpus()}>
+                                                <FontAwesomeIcon icon={faFile}/> &nbsp; 
                                                 Submit Corpus Name: 
                                             </button>
                                             <div className="document-location-box"> &nbsp; 
@@ -178,7 +185,8 @@ class Documents extends React.Component {
                                         <div className="document-input-box"> &nbsp;&nbsp;
                                             <input onChange={this.handleChange} name="output" 
                                                 placeholder="C:\Users\user\OneDrive\Desktop\boeing-naturallanguageprocessing\Data\Output" size="75"/> &nbsp;&nbsp;&nbsp;
-                                            <button className="button" onClick={() => this.submitOutput()}> 
+                                            <button className="button" onClick={() => this.submitOutput()}>
+                                                <FontAwesomeIcon icon={faFolder}/> &nbsp; 
                                                 Submit Output Folder: 
                                             </button>
                                             <div className="document-location-box"> &nbsp; 
@@ -190,6 +198,7 @@ class Documents extends React.Component {
                                             <input onChange={this.handleChange} size="75" name="corpusName" 
                                                 placeholder="Will write over files with the same name"/> &nbsp;&nbsp;&nbsp;
                                             <button className="button" onClick={() => this.submitCorpus()}> 
+                                                <FontAwesomeIcon icon={faFile}/> &nbsp; 
                                                 Submit Corpus Name: 
                                             </button>
                                             <div className="document-location-box"> &nbsp; 
@@ -205,6 +214,7 @@ class Documents extends React.Component {
                                     <>
                                         <div> &nbsp;&nbsp;
                                             <button className="button" onClick={() => this.props.Files()}> 
+                                                <FontAwesomeIcon icon={faArrowsRotate}/> &nbsp; 
                                                 Get Files From Input Folder: 
                                             </button>
                                         </div>
@@ -236,10 +246,12 @@ class Documents extends React.Component {
                             </div>
                             <div className="page-button-box">
                                 <button className="button__small" onClick={() => this.props.prevPage()}> 
+                                    <FontAwesomeIcon icon={faBackward}/> &nbsp; 
                                     Back 
                                 </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <button className="button__small" onClick={() => {this.props.nextPage()}}>
-                                    Forward
+                                    Forward  &nbsp;
+                                    <FontAwesomeIcon icon={faForward}/> 
                                 </button>
                             </div>
                         </div>
