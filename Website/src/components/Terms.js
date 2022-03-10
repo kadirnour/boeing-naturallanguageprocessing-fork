@@ -141,25 +141,25 @@ class Terms extends React.Component {
             for (let r = this.state.page * 100; r < Object.keys(this.props.weightDictionary).length; r++) {
                 table.push(
                     <tr key = {r} className={"table-row" + (this.checkSelectedTerm(r) === true ? " table-row--selected" : "")}>
-                        <td className="table-data" onClick={() => (this.checkSelectedTerm(r) ? 
+                        <td onClick={() => (this.checkSelectedTerm(r) ? 
                             this.removedSelectedTerm(r)
                             :
                             this.selectTerm(r))}>
                             {Object.keys(this.props.weightDictionary)[r]}
                         </td>
-                        <td className="table-data" onClick={() => (this.checkSelectedTerm(r) ?
+                        <td onClick={() => (this.checkSelectedTerm(r) ?
                             this.removedSelectedTerm(r)
                             :
                             this.selectTerm(r))}> 
                             {Object.values(this.props.weightDictionary)[r].frequency}
                         </td>
-                        <td className="table-data" onClick={() => (this.checkSelectedTerm(r) ?
+                        <td onClick={() => (this.checkSelectedTerm(r) ?
                             this.removedSelectedTerm(r)
                             :
                             this.selectTerm(r))}>
                             {Object.values(this.props.weightDictionary)[r].weight}
                         </td>
-                        <td className="table-data">
+                        <td>
                             <button className="button" onClick={() => this.isShowPopup(true, r)}>
                                 Sentences
                             </button>
@@ -171,22 +171,22 @@ class Terms extends React.Component {
             for (let r = this.state.page * 100; r < (this.state.page * 100) + 100; r++) {
                 table.push(
                     <tr key = {r} className={"table-row" + (this.checkSelectedTerm(r) === true ? " table-row--selected" : "")}>
-                        <td className="table-data" onClick={() => (this.checkSelectedTerm(r) ?
+                        <td onClick={() => (this.checkSelectedTerm(r) ?
                             this.removedSelectedTerm(r)
                             :
                             this.selectTerm(r))}> {Object.keys(this.props.weightDictionary)[r]}
                         </td>
-                        <td className="table-data" onClick={() => (this.checkSelectedTerm(r) ?
+                        <td onClick={() => (this.checkSelectedTerm(r) ?
                             this.removedSelectedTerm(r)
                             :
                             this.selectTerm(r))}> {Object.values(this.props.weightDictionary)[r].frequency}
                         </td>
-                        <td className="table-data" onClick={() => (this.checkSelectedTerm(r) ?
+                        <td onClick={() => (this.checkSelectedTerm(r) ?
                             this.removedSelectedTerm(r)
                             :
                             this.selectTerm(r))}> {Object.values(this.props.weightDictionary)[r].weight}
                         </td>
-                        <td className="table-data">
+                        <td>
                             <button className="button" onClick={() => this.isShowPopup(true, r)}>
                                 Sentences
                             </button>
@@ -257,37 +257,38 @@ class Terms extends React.Component {
                                             </button>
                                         </div>
                                     } 
-                                <hr className="hr"/>
+                                    <hr className="hr"/>
                                 </div>
                                 <h6 className="terms-sub-header">
                                     Select terms to remove
                                 </h6>
-                                <table className="table table-head">
-                                    <thead className="table-light">
-                                        <tr>
-                                            <th className="centered table-header">
-                                                Noun
-                                            </th>
-                                            <th className="centered table-header">
-                                                Frequency
-                                            </th>
-                                            <th className="centered table-header">
-                                                Weight
-                                            </th>
-                                            <th>
-                                                Sentences
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="table-body--terms">
-                                        {Object.keys(this.props.weightDictionary).length === 0 ?
+                                <div className="table-box--terms">
+                                    <table className="table table-head">
+                                        <thead className="table-light">
                                             <tr>
-                                                <td></td>
+                                                <th className="table-header">
+                                                    Noun
+                                                </th>
+                                                <th className="table-header">
+                                                    Frequency
+                                                </th>
+                                                <th className="table-header">
+                                                    Weight
+                                                </th>
+                                                <th>
+                                                    Sentences
+                                                </th>
                                             </tr>
-                                            : this.renderTable()} 
-                                    </tbody>
-                                </table>
-
+                                        </thead>
+                                        <tbody>
+                                            {Object.keys(this.props.weightDictionary).length === 0 ?
+                                                <tr>
+                                                    <td></td>
+                                                </tr>
+                                                : this.renderTable()} 
+                                        </tbody>
+                                    </table>
+                                </div>
                                 <div className="terms-button-box">
                                     <div className="terms-input-box">
                                             {this.state.page == 0 ?

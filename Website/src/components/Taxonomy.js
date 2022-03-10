@@ -160,10 +160,10 @@ class Taxonomy extends React.Component {
         for (let r = 0; r < Object.keys(this.state.relationshipTypes).length; r++) {
             table.push( // Each table row is clickable to edit the relationship type (name and color)
                 <tr key={r} className="table-row" onClick={() => this.isShowPopup(true, "editRelationshipType", r)}>
-                    <td className="table-data">
+                    <td>
                         {Object.keys(this.state.relationshipTypes[r])}
                     </td>
-                    <td className="table-data" style={{ color: Object.values(this.state.relationshipTypes[r]) }}>
+                    <td style={{ color: Object.values(this.state.relationshipTypes[r]) }}>
                         {Object.values(this.state.relationshipTypes[r])}
                     </td>
                 </tr>
@@ -374,82 +374,88 @@ class Taxonomy extends React.Component {
                         </h2>
                         <div className="taxonomy-content-box">
                             <div className="taxonomy-terms-box">
-                                    <div className="taxonomy-terms-box--left">
-                                        <h6 className="taxonomy-sub-header">
-                                            Hold ctrl or long-click to select second node
-                                        </h6>
-                                        <div className="taxonomy-graph-box">
-                                            <Graph key={this.state.graphID} graph={this.state.graph} options={options} events={this.state.events} style={{height: "100%"}}/>
-                                        </div>
+                                
+                                <div className="taxonomy-terms-box--left">
+                                    <h6 className="taxonomy-sub-header">
+                                        Hold ctrl or long-click to select second node
+                                    </h6>
+                                    <div className="taxonomy-graph-box">
+                                        <Graph key={this.state.graphID} graph={this.state.graph} options={options} events={this.state.events} style={{height: "100%"}}/>
                                     </div>
-                                    <div className="taxonomy-terms-box--center">
-                                        <h6 className="taxonomy--center-sub-header centered"> Edit Relationships </h6>
-                                        <button className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "newRelationshipType", -1)}>
-                                            Create New Relationship Type
-                                        </button>
-                                        {this.state.nodes.length == 2 ?
-                                            this.state.relationshipTypes.length == 0 ?
-                                                <button disabled={true} className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>
-                                                    Create New Relationship
-                                                </button> 
-                                                :
-                                                <button className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>
-                                                    Create New Relationship
-                                                </button>
-                                            : 
+                                </div>
+
+                                <div className="taxonomy-terms-box--center">
+                                    <h6 className="taxonomy--center-sub-header centered"> Edit Relationships </h6>
+                                    <button className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "newRelationshipType", -1)}>
+                                        Create New Relationship Type
+                                    </button>
+                                    {this.state.nodes.length == 2 ?
+                                        this.state.relationshipTypes.length == 0 ?
                                             <button disabled={true} className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>
                                                 Create New Relationship
+                                            </button> 
+                                            :
+                                            <button className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>
+                                                Create New Relationship
                                             </button>
-                                        }
+                                        : 
+                                        <button disabled={true} className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>
+                                            Create New Relationship
+                                        </button>
+                                    }
 
-                                        {this.state.nodes.length == 1 ?
-                                            <button className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "nouns", -1)}>
-                                                See Nouns
-                                            </button>
-                                            : 
-                                            <button disabled={true} className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "nouns", -1)}>
-                                                See Nouns
-                                            </button>
-                                        }
+                                    {this.state.nodes.length == 1 ?
+                                        <button className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "nouns", -1)}>
+                                            See Nouns
+                                        </button>
+                                        : 
+                                        <button disabled={true} className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "nouns", -1)}>
+                                            See Nouns
+                                        </button>
+                                    }
 
-                                        {this.state.nodes.length == 2 ?
-                                            this.state.exists == false ?
-                                                <button disabled={true} className="button taxonomy__buttons" onClick={() => this.deleteEdge()}>
-                                                    Delete Relationship?
-                                                </button> 
-                                                :
-                                                <button className="button taxonomy__buttons" onClick={() => this.deleteEdge()}>
-                                                    Delete Relationship?
-                                                </button>
-                                            : 
+                                    {this.state.nodes.length == 2 ?
+                                        this.state.exists == false ?
                                             <button disabled={true} className="button taxonomy__buttons" onClick={() => this.deleteEdge()}>
                                                 Delete Relationship?
+                                            </button> 
+                                            :
+                                            <button className="button taxonomy__buttons" onClick={() => this.deleteEdge()}>
+                                                Delete Relationship?
                                             </button>
-                                        }
-
-                                        <button className="button taxonomy__buttons" onClick={() => this.saveRelationships()}>
-                                            Save Relationship
+                                        : 
+                                        <button disabled={true} className="button taxonomy__buttons" onClick={() => this.deleteEdge()}>
+                                            Delete Relationship?
                                         </button>
-                                    </div>
+                                    }
+
+                                    <button className="button taxonomy__buttons" onClick={() => this.saveRelationships()}>
+                                        Save Relationship
+                                    </button>
+                                </div>
 
 
 
-                                    <div className="taxonomy-terms-box--right">
-                                        <h6 className="taxonomy-sub-header">
-                                            Click to Edit
-                                        </h6>
+                                <div className="taxonomy-terms-box--right">
+                                    <h6 className="taxonomy-sub-header">
+                                        Click to Edit
+                                    </h6>
+
+
+
+                                    <div className="table-box--taxonomy">
                                         <table className="table table-head">
                                             <thead className="table-light">
                                                 <tr>
-                                                    <th className="centered table-header">
+                                                    <th className="table-header">
                                                         Relationship
                                                     </th>
-                                                    <th className="centered table-header">
+                                                    <th className="table-header">
                                                         Color
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody className="table-body--taxonomy">
+                                            <tbody>
                                                 {Object.keys(this.state.relationshipTypes).length === 0 ?
                                                     <tr>
                                                         <td></td>
@@ -460,6 +466,11 @@ class Taxonomy extends React.Component {
                                             </tbody>
                                         </table>
                                     </div>
+                                    
+
+
+
+                                </div>
                             </div>     
 
                             <div className="page-button-box">

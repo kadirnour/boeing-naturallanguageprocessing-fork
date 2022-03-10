@@ -44,13 +44,13 @@ class Categories extends React.Component {
                 table.push(
                     <tr key = {r} className={"table-row" + (this.checkSelectedWeight(r) === true ? " table-row--selected" : "")}
                         onClick={() => (this.checkSelectedWeight(r) ? this.removedSelectedWeightTerm(r) : this.selectWeightTerm(r))}>
-                        <td className="table-data">
+                        <td>
                             {Object.keys(this.props.weightDictionary)[r]}
                         </td>
-                        <td className="table-data">
+                        <td>
                             {Object.values(this.props.weightDictionary)[r].frequency}
                         </td>
-                        <td className="table-data">
+                        <td>
                             {Object.values(this.props.weightDictionary)[r].weight}
                         </td>
                     </tr>
@@ -61,13 +61,13 @@ class Categories extends React.Component {
                 table.push(
                     <tr key = {r} className={"table-row" + (this.checkSelectedWeight(r) === true ? " table-row--selected" : "")}
                         onClick={() => (this.checkSelectedWeight(r) ? this.removedSelectedWeightTerm(r) : this.selectWeightTerm(r))}>
-                        <td className="table-data">
+                        <td>
                             {Object.keys(this.props.weightDictionary)[r]}
                         </td>
-                        <td className="table-data">
+                        <td>
                             {Object.values(this.props.weightDictionary)[r].frequency}
                         </td>
-                        <td className="table-data">
+                        <td>
                             {Object.values(this.props.weightDictionary)[r].weight}
                         </td>
                     </tr>
@@ -89,10 +89,10 @@ class Categories extends React.Component {
             for (let r = this.state.pageCat * 100; r < Object.keys(this.props.categories).length; r++) {
                 table.push(
                     <tr onClick={() => this.changeMode(r)} className="table-row" key={r}>
-                        <td className="table-data">
+                        <td>
                             {Object.keys(this.props.categories)[r]}
                         </td>
-                        <td className="table-data">
+                        <td>
                             <div className="table-data--categories">
                                 {this.renderCatTerms(r)}
                             </div>
@@ -104,10 +104,10 @@ class Categories extends React.Component {
             for (let r = this.state.pageCat * 100; r < (this.state.pageCat * 100) + 100; r++) {
                 table.push(
                     <tr onClick={() => this.changeMode(r)} className="table-row" key={r}>
-                        <td className="table-data">
+                        <td>
                             {Object.keys(this.props.categories)[r]}
                         </td>
-                        <td className="table-data">
+                        <td>
                             <div className="table-data--categories">
                                 {this.renderCatTerms(r)}
                             </div>
@@ -154,7 +154,7 @@ class Categories extends React.Component {
         const table = []
         table.push(
             <tr className="table-row--no-hover" key={0}>
-                <td className="table-data">
+                <td>
                     <div>
                         {this.renderCatTerms(this.state.cat)}
                     </div>
@@ -391,6 +391,7 @@ class Categories extends React.Component {
                         </h2>
                         <div className="categories-content-box">
                             <div className="categories-terms-box">
+
                                 <div className="categories-terms-box--left">
                                     <h1 className="centered">
                                         Terms
@@ -398,32 +399,34 @@ class Categories extends React.Component {
                                     <h6 className="centered">
                                         Select terms to move to category
                                     </h6>
-
-                                    <table className="table table-head">
-                                        <thead className="table-light">
-                                            <tr>
-                                                <th className="centered table-header">
-                                                    Noun
-                                                </th>
-                                                <th className="centered table-header">
-                                                    Frequency
-                                                </th>
-                                                <th className="centered table-header">
-                                                    Weight
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody className="table-body--categories">
-                                            {Object.keys(this.props.weightDictionary).length === 0 ?
-                                                <tr>
-                                                    <td></td>
-                                                </tr>
-                                                : 
-                                                this.renderWeightTable()
-                                            } 
-                                        </tbody>
-                                    </table>
                                     
+                                    <div className="table-box--categories">
+                                        <table className="table table-head">
+                                            <thead className="table-light">
+                                                <tr>
+                                                    <th className="table-header">
+                                                        Noun
+                                                    </th>
+                                                    <th className="table-header">
+                                                        Frequency
+                                                    </th>
+                                                    <th className="table-header">
+                                                        Weight
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {Object.keys(this.props.weightDictionary).length === 0 ?
+                                                    <tr>
+                                                        <td></td>
+                                                    </tr>
+                                                    : 
+                                                    this.renderWeightTable()
+                                                } 
+                                            </tbody>
+                                        </table>
+                                    </div>
+
                                     <div className="categories-button-box">
                                         <div className="categories-input-box">
                                             {this.state.pageTerms == 0 ?
@@ -447,7 +450,6 @@ class Categories extends React.Component {
                                             }
                                         </div>   
                                     </div>
-
                                 </div>
 
                                 <div className="categories-terms-box--center">
@@ -525,26 +527,35 @@ class Categories extends React.Component {
                                             <h6 className="categories-sub-header centered">
                                                 Select a category to edit
                                             </h6>
-                                            <table className="table table-head">
-                                                <thead className="table-light">
-                                                    <tr>
-                                                        <th className="centered table-header">
-                                                            Category
-                                                        </th>
-                                                        <th className="centered table-header">
-                                                            Terms
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody className="table-body--categories">
-                                                    {Object.keys(this.props.categories).length === 0 ?
+
+
+
+                                            <div className="table-box--categories">
+                                                <table className="table table-head">
+                                                    <thead className="table-light">
                                                         <tr>
-                                                            <td></td>
+                                                            <th className="table-header">
+                                                                Category
+                                                            </th>
+                                                            <th className="table-header">
+                                                                Terms
+                                                            </th>
                                                         </tr>
-                                                        : this.renderCatTable()
-                                                    } 
-                                                </tbody>
-                                            </table> 
+                                                    </thead>
+                                                    <tbody>
+                                                        {Object.keys(this.props.categories).length === 0 ?
+                                                            <tr>
+                                                                <td></td>
+                                                            </tr>
+                                                            : this.renderCatTable()
+                                                        } 
+                                                    </tbody>
+                                                </table> 
+                                            </div>
+
+
+
+
                                             <div className="categories-button-box">
                                                 <div className="categories-input-box">
                                                     {this.state.pageCat == 0 ?
@@ -577,25 +588,33 @@ class Categories extends React.Component {
                                             <h6 className="categories-sub-header centered">
                                                 Select terms to remove from category
                                             </h6>
-                                            <table className="table table-head">
-                                                    <thead className="table-light">
-                                                        <tr>
-                                                            <th className="centered table-header">
-                                                                Terms
-                                                            </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody className="table-body--categories">
-                                                        {Object.keys(this.props.categories).length === 0 ?
+
+
+
+                                            <div className="table-box--categories">
+                                                <table className="table table-head">
+                                                        <thead className="table-light">
                                                             <tr>
-                                                                <td>
-                                                                </td>
+                                                                <th className="table-header">
+                                                                    Terms
+                                                                </th>
                                                             </tr>
-                                                            : 
-                                                            this.renderTermTable()
-                                                        } 
-                                                    </tbody>
-                                            </table> 
+                                                        </thead>
+                                                        <tbody>
+                                                            {Object.keys(this.props.categories).length === 0 ?
+                                                                <tr>
+                                                                    <td>
+                                                                    </td>
+                                                                </tr>
+                                                                : 
+                                                                this.renderTermTable()
+                                                            } 
+                                                        </tbody>
+                                                </table> 
+                                            </div>
+
+
+
                                         </div>
                                     }
                             </div>

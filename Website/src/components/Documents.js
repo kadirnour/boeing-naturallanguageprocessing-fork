@@ -25,11 +25,10 @@ class Documents extends React.Component {
           table.push(
             <tr key = {r} className={"table-row--no-hover" + (this.disabledBtn(r) === true ? " table-row--selected" : "")}>
                 
-                <td className="table-data">
-                  {Object.keys(this.props.filesList)[r] + Object.values(this.props.filesList)[r]}
+                <td>
+                    {Object.keys(this.props.filesList)[r] + Object.values(this.props.filesList)[r]}
                 </td>
-
-                <td className="table-data">
+                <td>
                     {this.disabledBtn(r) ?
                         null
                         :
@@ -45,6 +44,7 @@ class Documents extends React.Component {
                         null
                     }
                 </td>
+
             </tr>
           )
         }
@@ -208,27 +208,29 @@ class Documents extends React.Component {
                                                 Get Files From Input Folder: 
                                             </button>
                                         </div>
-                                        <table className="table table-head"> &nbsp;
-                                            <thead className="table-light">
-                                                <tr>
-                                                    <th className="centered table-header">
-                                                        File
-                                                    </th>
-                                                    <th className="centered table-header">
-                                                        Add/ Remove
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody className="table-body--document">
-                                                {Object.keys(this.props.filesList).length === 0 ?
+                                        <div className="table-box--documents">
+                                            <table className="table table-head"> &nbsp;
+                                                <thead className="table-light">
                                                     <tr>
-                                                        <td></td>
+                                                        <th className="table-header">
+                                                            File
+                                                        </th>
+                                                        <th className="table-header">
+                                                            Add/ Remove
+                                                        </th>
                                                     </tr>
-                                                    : 
-                                                    this.renderTable()
-                                                }
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    {Object.keys(this.props.filesList).length === 0 ?
+                                                        <tr>
+                                                            <td></td>
+                                                        </tr>
+                                                        : 
+                                                        this.renderTable()
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </>
                                 }
                             </div>
