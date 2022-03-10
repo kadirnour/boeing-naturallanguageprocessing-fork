@@ -1,0 +1,133 @@
+/*##########################################################
+                          Main 
+##########################################################*/
+.body {
+    margin: 0;
+    padding: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: white;
+}
+
+.section {
+    width: 100vw;
+    height: auto;
+    overflow: hidden;
+    /* overflow-y: scroll; */
+    /* background-color: purple; */
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* background-color: aqua; */
+}
+
+.button {
+    background-color: lightgrey !important;
+    border: 2px solid !important;
+    border-radius: 10px;
+    height: auto;
+    width: 200px;
+}
+
+.button:hover {
+    background-color: darkorange !important;
+    font-weight: bold;
+    /* transform: scale(1.05); */
+}
+
+.hr {
+    border-top: 2px solid black;
+    width: 100%;
+}
+
+.centered {
+    text-align: center;
+}
+
+.page-button-box {
+    position:absolute;
+    bottom: 5vh;
+}
+
+
+
+/* .btn-forward-doc {
+    margin-top: 0%;
+}
+
+.btn-delete {
+    background-color: lightcoral !important;
+}
+
+.btn-delete:hover {
+    background-color: red !important;
+}
+
+.btnLeft {
+    float: left; 
+    width: 25%;
+}
+
+.btnCenter {
+    float: left; 
+    width: 50%;
+}
+
+.btnRight {
+    float: right; 
+    width: 25%;
+}
+
+.us {
+    height: 30px;
+}
+
+.us2 {
+    margin-top: -70px;
+    margin-left: 1350px;
+    height: 50px;
+}
+
+.right {
+    float: right;
+}
+
+.bottom2 {
+    margin-top: 423px;
+}
+
+.bottom3 {
+    margin-top: -9px;
+}
+
+.bottom4 {
+    margin-top: 5px;
+}
+
+.btn2 {
+    border: 2px solid !important;
+}
+
+.btn2:hover {
+    background-color: lightblue !important;
+}
+
+.termUploadSection {
+    width: 90%;
+    height: 527px;
+    margin-left: 5%;
+    margin-top: 2%;
+    background-color: lightgray;
+    border: 2px solid black;
+}
+
+.folderSubmit {
+    margin-top: 10px;
+    margin-left: 10px;
+} */

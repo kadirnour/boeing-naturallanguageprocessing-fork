@@ -141,23 +141,23 @@ class Terms extends React.Component {
             for (let r = this.state.page * 100; r < Object.keys(this.props.weightDictionary).length; r++) {
                 table.push(
                     <tr key = {r} className={"centered weight" + (this.checkSelectedTerm(r) === true ? " weight-selected" : "")}>
-                        <td onClick={() => (this.checkSelectedTerm(r) ? 
+                        <td className="table-data" onClick={() => (this.checkSelectedTerm(r) ? 
                             this.removedSelectedTerm(r)
                             :
                             this.selectTerm(r))}>{Object.keys(this.props.weightDictionary)[r]}
                         </td>
-                        <td onClick={() => (this.checkSelectedTerm(r) ?
+                        <td className="table-data" onClick={() => (this.checkSelectedTerm(r) ?
                             this.removedSelectedTerm(r)
                             :
                             this.selectTerm(r))}> {Object.values(this.props.weightDictionary)[r].frequency}
                         </td>
-                        <td onClick={() => (this.checkSelectedTerm(r) ?
+                        <td className="table-data" onClick={() => (this.checkSelectedTerm(r) ?
                             this.removedSelectedTerm(r)
                             :
                             this.selectTerm(r))}>{Object.values(this.props.weightDictionary)[r].weight}
                         </td>
-                        <td>
-                            <button className="btn" onClick={() => this.isShowPopup(true, r)}>
+                        <td className="table-data">
+                            <button className="button" onClick={() => this.isShowPopup(true, r)}>
                                 Sentences
                             </button>
                         </td>
@@ -168,23 +168,23 @@ class Terms extends React.Component {
             for (let r = this.state.page * 100; r < (this.state.page * 100) + 100; r++) {
                 table.push(
                     <tr key = {r} className={"centered weight" + (this.checkSelectedTerm(r) === true ? " weight-selected" : "")}>
-                        <td onClick={() => (this.checkSelectedTerm(r) ?
+                        <td className="table-data" onClick={() => (this.checkSelectedTerm(r) ?
                             this.removedSelectedTerm(r)
                             :
                             this.selectTerm(r))}> {Object.keys(this.props.weightDictionary)[r]}
                         </td>
-                        <td onClick={() => (this.checkSelectedTerm(r) ?
+                        <td className="table-data" onClick={() => (this.checkSelectedTerm(r) ?
                             this.removedSelectedTerm(r)
                             :
                             this.selectTerm(r))}> {Object.values(this.props.weightDictionary)[r].frequency}
                         </td>
-                        <td onClick={() => (this.checkSelectedTerm(r) ?
+                        <td className="table-data" onClick={() => (this.checkSelectedTerm(r) ?
                             this.removedSelectedTerm(r)
                             :
                             this.selectTerm(r))}> {Object.values(this.props.weightDictionary)[r].weight}
                         </td>
-                        <td>
-                            <button className="btn" onClick={() => this.isShowPopup(true, r)}>
+                        <td className="table-data">
+                            <button className="button" onClick={() => this.isShowPopup(true, r)}>
                                 Sentences
                             </button>
                         </td>
@@ -221,119 +221,121 @@ class Terms extends React.Component {
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/ 
     render() {
         return (
-            <div className="page">
-                 <ModalPopup showModalPopup={this.state.showModalPopup}  
-                    onPopupClose={this.isShowPopup}
-                    term={Object.keys(this.props.weightDictionary)[this.state.modalTerm]}
-                    sentences={Object.values(this.props.weightDictionary)[this.state.modalTerm]}
-                />
-                <h2 className="pageTitle">
-                    Step 2: Term Extraction
-                </h2>
-                <div className="pageBox">
-                    <div className="termUploadSection">
-                        <div className="modeBtn">
-                            &nbsp;
-                            {this.props.load ?
-                                <>
-                                    <button className="btn" onClick={() => this.props.loadCorpus()}>
-                                        Refresh Weights:
-                                    </button>
-                                    <button className="btn" onClick={() => this.props.saveWeight()}>
-                                        Save Weights:
-                                    </button>
-                                </>
-                                :
-                                <>
-                                    <button className="btn" onClick={() => this.props.getTerms()}>
-                                        Refresh Weights:
-                                    </button>
-                                    <button className="btn" onClick={() => this.props.saveWeight()}>
-                                        Save Weights:
-                                    </button>
-                                </>
-                            }
+            <div className="section">
+                <div className="container">
+                    <div className="terms-wrapper">
+                        <ModalPopup showModalPopup={this.state.showModalPopup}  
+                            onPopupClose={this.isShowPopup}
+                            term={Object.keys(this.props.weightDictionary)[this.state.modalTerm]}
+                            sentences={Object.values(this.props.weightDictionary)[this.state.modalTerm]}
+                        />
+                        <div className="terms-header">
+                            <h2 className="pageTitle">
+                                Term Extraction/ Selection
+                            </h2>
                         </div>
-                        <h6 className="centered">
-                            Select terms to remove
-                        </h6>
-                        <table className="table table-hover tableBody t1">
-                            <thead className="table-light">
-                                <tr>
-                                    <th className="cell-align-middle centered tableHeader">
-                                        NOUN
-                                    </th>
-                                    <th className="cell-align-middle centered tableHeader">
-                                        FREQUENCY
-                                    </th>
-                                    <th className="cell-align-middle centered tableHeader">
-                                        WEIGHT
-                                    </th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {Object.keys(this.props.weightDictionary).length === 0 ?
+                        <div className="terms-content-box">
+                            <div className="terms-input-box">
+                                {this.props.load ?
+                                    <div>
+                                        <button className="button" onClick={() => this.props.loadCorpus()}>
+                                            Refresh Weights:
+                                        </button> &nbsp;&nbsp;&nbsp;
+                                        <button className="button" onClick={() => this.props.saveWeight()}>
+                                            Save Weights:
+                                        </button>
+                                    </div>
+                                    :
+                                    <div>  
+                                        <button className="button" onClick={() => this.props.getTerms()}>
+                                            Refresh Weights:
+                                        </button> &nbsp;&nbsp;&nbsp;
+                                        <button className="button" onClick={() => this.props.saveWeight()}>
+                                            Save Weights:
+                                        </button>
+                                    </div>
+                                } 
+                            </div> &nbsp;
+                            <h6 className="terms-sub-header">
+                                Select terms to remove
+                            </h6>
+                            <table className="table table-head">
+                                <thead className="table-light">
                                     <tr>
-                                        <td></td>
+                                        <th className="centered table-header">
+                                            Noun
+                                        </th>
+                                        <th className="centered table-header">
+                                            Frequency
+                                        </th>
+                                        <th className="centered table-header">
+                                            Weight
+                                        </th>
+                                        <th>
+                                            Sentences
+                                        </th>
                                     </tr>
-                                    : this.renderTable()} 
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody className="table-body--terms">
+                                    {Object.keys(this.props.weightDictionary).length === 0 ?
+                                        <tr>
+                                            <td></td>
+                                        </tr>
+                                        : this.renderTable()} 
+                                </tbody>
+                            </table>
+                            <div className="terms-input-box">
+                                    {this.state.page == 0 ?
+                                        <button className="button" disabled={true} onClick={() => this.page('pervious')}>
+                                            Previous:
+                                        </button> 
+                                        :
+                                        <button className="button" onClick={() => this.page('pervious')}>
+                                            Previous:
+                                        </button>
+                                    } &nbsp;&nbsp;&nbsp;
+                                    {this.state.page} &nbsp;&nbsp;&nbsp;
+                                    {(this.state.page * 100) + 100 < Object.keys(this.props.weightDictionary).length ?
+                                        <button className="button" onClick={() => this.page('next')}>
+                                            Next:
+                                        </button>
+                                        :
+                                        <button className="button" disabled={true} onClick={() => this.page('next')}>
+                                            Next:
+                                        </button>
+                                    }
+                            </div>
+                            <div className="terms-input-box">
+                                {this.state.selectedTerms.length != 0 ?
+                                    <button className="button" onClick={() => this.clearSelected()}> 
+                                        Clear Selected
+                                    </button> 
+                                    :
+                                    <button disabled={true} className="button" onClick={() => this.clearSelected()}>
+                                        Clear Selected
+                                    </button>
+                                } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                {this.state.selectedTerms.length != 0 ?
+                                    <button className="button" onClick={() => this.deleteTerms()}>
+                                        Delete Terms
+                                    </button> 
+                                    :
+                                    <button disabled={true} className="button" onClick={() => this.deleteTerms()}>
+                                        Delete Terms
+                                    </button>
+                                }
+                            </div>
 
-                        <div className="btnLeft">
-                            <button className="bottom3 btn" onClick={() => this.props.prevPage()}>
-                                Back
-                            </button>
-                        </div>
-
-                        <div className="btnCenter centered">
-                            {this.state.page == 0 ?
-                                <button className="btn" disabled={true} onClick={() => this.page('pervious')}>
-                                    Previous:
-                                </button> 
-                                :
-                                <button className="btn" onClick={() => this.page('pervious')}>
-                                    Previous:
+                            <div className="page-button-box">
+                                <button className="button" onClick={() => this.props.prevPage()}>
+                                    Back
+                                </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button className="button" onClick={() =>  {this.props.nextPage()}}>
+                                    Forward 
                                 </button>
-                            }
+                            </div>
 
-                            {this.state.page}
 
-                            {(this.state.page * 100) + 100 < Object.keys(this.props.weightDictionary).length ?
-                                <button className="btn" onClick={() => this.page('next')}>
-                                    Next:
-                                </button>
-                                :
-                                <button className="btn" disabled={true} onClick={() => this.page('next')}>
-                                    Next:
-                                </button>
-                            }
-                        </div>
-
-                        <div className="btnRight">
-                            <button className="right bottom3 btn" onClick={() =>  {this.props.nextPage()}}>
-                                Forward 
-                            </button>
-                            {this.state.selectedTerms.length != 0 ?
-                                <button className="right bottom3 btn" onClick={() => this.clearSelected()}> 
-                                    Clear Selected
-                                </button> 
-                                :
-                                <button disabled={true} className="right bottom3 btn" onClick={() => this.clearSelected()}>
-                                    Clear Selected
-                                </button>
-                            }
-
-                            {this.state.selectedTerms.length != 0 ?
-                                <button className="right bottom3 btn" onClick={() => this.deleteTerms()}>
-                                    Delete Terms
-                                </button> 
-                                :
-                                <button disabled={true} className="right bottom3 btn" onClick={() => this.deleteTerms()}>
-                                    Delete Terms
-                                </button>
-                            }
                         </div>
                     </div>
                 </div>

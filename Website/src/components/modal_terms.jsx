@@ -42,8 +42,8 @@ class ModalPopup extends Component {
             for (let t = 0; t<this.props.sentences['context'][r][1].length; t++){
                 table.push(
                     <tr key={r} className={"centered weight"}>
-                        <td>{this.props.sentences['context'].at(r).at(0)}</td>
-                        <td>{this.props.sentences['context'].at(r).at(1).at(t)}</td>
+                        <td className="table-data">{this.props.sentences['context'].at(r).at(0)}</td>
+                        <td className="table-data">{this.props.sentences['context'].at(r).at(1).at(t)}</td>
                     </tr>
                 )
             }
@@ -67,18 +67,18 @@ class ModalPopup extends Component {
                     <Modal.Body>  
                         <div className="centered">{this.props.term} </div>
                         
-                        <table className="table table-hover tableBody t1">
+                        <table className="table table-head">
                             <thead className="table-light">
                                 <tr>
-                                    <th className="cell-align-middle centered tableHeader">
+                                    <th className="centered table-header">
                                         Location
                                     </th>
-                                    <th className="cell-align-middle centered tableHeader">
+                                    <th className="centered table-header">
                                         Sentences
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody className="table-body--terms">
                                 {this.props.sentences == null ?
                                     null 
                                     :

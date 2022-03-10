@@ -1,0 +1,39 @@
+/*##########################################################
+                          Load 
+##########################################################*/
+.load-wrapper {
+    color: white;
+    /* background-size:100% 80%; */
+    width: 100%;
+    height: calc(100vh - 86px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: green; */
+}
+
+.load-header {
+    height: auto;
+    width: auto;
+    margin-right: auto;
+    color: black;
+    /* background-color: blue; */
+}
+
+.load-content-box {
+    height: 90%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: lightgray;
+    border: 2px solid black;
+}
+
+.load-content {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: white; */
+}

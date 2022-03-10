@@ -1,0 +1,154 @@
+/*##########################################################
+                         Categories 
+##########################################################*/
+.categories-wrapper {
+    color: white;
+    /* background-size:100% 80%; */
+    width: 100%;
+    height: calc(100vh - 86px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: green;
+}
+
+.categories-header {
+    height: auto;
+    width: auto;
+    margin-right: auto;
+    /* background-color: blue; */
+}
+
+.categories-sub-header {
+    color: black;
+    /* background-color: blue; */
+}
+
+.categories-content-box {
+    height: 90%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: lightgray;
+    border: 2px solid black;
+}
+
+.categories-input-box {
+    width: auto;
+    height: auto;
+    margin-top: 10px;
+    /* background-color: green; */
+}
+
+.categories-terms-box {
+    width: 100%;
+    height: 73vh;
+    margin-top: 10px;
+    /* background-color: orange; */
+}
+
+.categories-terms-box--left {
+    border: 2px solid black;
+    float: left; 
+    width: 45%;
+    height: 100%;
+    color: black;
+    background-color: white;
+}
+
+.categories-terms-box--center {
+    border: 2px solid black;
+    float: left; 
+    width: 10%;
+    height: 100%;
+    background-color: lightblue;
+}
+
+.categories-terms-box--right {
+    border: 2px solid black;
+    float: right; 
+    width: 45%;
+    height: 100%;
+    color: black;
+    background-color: white;
+}
+
+.categories__buttons {
+    width: 100%;
+}
+
+
+
+/* .categoriesUploadSection {
+    width: 90%;
+    height: 527px;
+    margin-left: 5%;
+    margin-top: 2%;
+    background-color: lightgray;
+    border: 2px solid black;
+}
+
+.categoriesUploadSection2 {
+    width: 90%;
+    height: 508px;
+    margin-left: 5%;
+    margin-top: 2%;
+    background-color: lightgray;
+    border: 2px solid black;
+}
+
+.categoriesLeft {
+    border: 2px solid black;
+    float: left; 
+    width: 45%;
+    background-color: white;
+    height: 438px;
+}
+
+.categoriesCenter {
+    border: 2px solid black;
+    float: left; 
+    width: 10%;
+    background-color: lightblue;
+    height: 438px;
+}
+
+.categoriesRight {
+    border: 2px solid black;
+    float: right; 
+    width: 45%;
+    background-color: white;
+    height: 438px;
+}
+
+.weight {
+    background-color: white;
+    height: auto;
+    width: auto;
+}
+
+.weight-selected {
+    background-color: rgba(0, 0, 255, 0.445);
+    font-weight: bold;
+}
+
+.weight-selected2 {
+    font-weight: bold;
+}
+
+.weight:hover {
+    background-color: lightblue !important;
+}
+
+.tl {
+    max-height: 300px;
+}
+
+.tr {
+    height: 300px;
+}
+
+.t1 {
+    max-height: 54%;
+} */

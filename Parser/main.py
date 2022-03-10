@@ -6,11 +6,10 @@ from Parser import text_factory
 from Data import main as Data
 #import multiprocessing
 
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 Function: main
-Description: parser functions
-Returns: parser results to app.py
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Description: all the parser functions will be called from here
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 outDir = None
 nounData = {}
 
@@ -74,7 +73,7 @@ def single_parse(filePath):
 
 
 # '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-# WHAT DOES THIS DO?
+# WHAT THIS DO?
 # '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 # # need correct chunks, capture output
 # def parseAll(input, output, files):

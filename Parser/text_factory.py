@@ -10,7 +10,6 @@ Returns: cleaned token, and booleans for found special characters
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 def get_text(filePath):
     extension = os.path.splitext(filePath)[1]
-
     if extension == '.pdf':
         file_text = pdf_extract.get_text(filePath)
     elif extension == '.txt':

@@ -7,6 +7,9 @@ class Documents extends React.Component {
     }
 
 
+    //!!!!!!!!!!! ADD PAGINATION AND ADD ALL BUTTON TO TABLE !!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
     /*##################################################################################
                                         Table Functions
     ###################################################################################*/
@@ -21,19 +24,21 @@ class Documents extends React.Component {
         for (let r = 0; r < Object.keys(this.props.filesList).length; r++) {
           table.push(
             <tr key = {r} className={"weight" + (this.disabledBtn(r) === true ? " weight-selected2" : "")}>
-                <td className="centered">
+                
+                <td className="table-data">
                   {Object.keys(this.props.filesList)[r] + Object.values(this.props.filesList)[r]}
                 </td>
-                <td className="centered">
+
+                <td className="table-data">
                     {this.disabledBtn(r) ?
                         null
                         :
-                        <button className="btn" onClick={() => this.props.addFile(r)}>
+                        <button className="button" onClick={() => this.props.addFile(r)}>
                             Add
                         </button>
                     }
                     {this.disabledBtn(r) ?
-                        <button className="btn-delete" onClick={() => this.props.deleteFile(r)}>
+                        <button className="button" onClick={() => this.props.deleteFile(r)}>
                             Delete
                         </button>
                         :
@@ -86,6 +91,16 @@ class Documents extends React.Component {
     Description:
     Returns:
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
+    submitCorpus = () => {
+        this.props.saveCorpusName(this.state.corpusName)
+    }
+
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     disabledBtn = (r) => {
         if (Object.keys(this.props.filesList)[r] in this.props.files){
             return true
@@ -101,151 +116,131 @@ class Documents extends React.Component {
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     render() {
         return (
-            <div className="page">
-                <h2 className="pageTitle">
-                    Step 1: Document Corpus
-                </h2>
-                <div className="pageBox">
-                    <div className="documentUploadSection">
-                        {this.props.load ?
-                            <h3 className="pageTitle">
-                                Load Taxonomy
-                            </h3>
-                            :
-                            <h3 className="pageTitle">
-                                Create a New Taxonomy
-                            </h3>
-                        }
-                        {this.props.load ? 
-                            <></>
-                            :
-                            <>
-                                <div className="modeBtn">
-                                    &nbsp;&nbsp;
-                                    <input onChange={this.handleChange} name="input" placeholder="Enter Input Directory" size="80"/>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <button className="btn" onClick={() => this.submitInput()}>
-                                        Enter Input:
-                                    </button>
-                                    <div>
-                                        <h7>
-                                            &nbsp;&nbsp;example: C:\Users\user\OneDrive\Desktop\boeing-naturallanguageprocessing\Parser\data
-                                        </h7>
-                                    </div> 
-                                </div>
-                                <div className="folderLocation">
-                                    &nbsp; Input Location: &nbsp; {this.props.oldInput}
-                                </div>
-                            </>
-                        }
-                        
-                        {this.props.load ? 
-                            <>
-                                &nbsp;
-                                <div className="modeBtn">
-                                    &nbsp;&nbsp;
-                                    <input onChange={this.handleChange} name="output" placeholder="Enter Location of Taxonomy" size="80"/>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <button className="btn" onClick={() => this.submitOutput()}>
-                                        Enter Location:
-                                    </button>
-                                    <div>
-                                        <h7>
-                                            &nbsp;&nbsp; example: C:\Users\user\OneDrive\Desktop\boeing-naturallanguageprocessing\Parser\output
-                                        </h7>
-                                    </div> 
-                                </div>
-                                <div className="folderLocation">
-                                    &nbsp; Taxonomy Location: &nbsp; {this.props.oldOutput}
-                                </div>
-                                &nbsp;
-                                <div id="corpusName">
-                                    &nbsp;&nbsp;
-                                    <input onChange={this.handleChange} size="15" name="corpusName" placeholder="Enter Corpus Name"/>
-                                    <div>
-                                        <h7>
-                                            &nbsp;&nbsp; *Defaults name to "corpus".
-                                        </h7>
-                                    </div> 
-                                </div>
-                            </>
-                            :
-                            <>
-                                &nbsp;
-                                <div className="modeBtn">
-                                    &nbsp;&nbsp;
-                                    <input onChange={this.handleChange} name="output" placeholder="Enter Output Directory" size="80"/>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <button className="btn" onClick={() => this.submitOutput()}> 
-                                        Enter Output: 
-                                    </button>
-                                    <div>
-                                        <h7>
-                                            &nbsp;&nbsp; example: C:\Users\user\OneDrive\Desktop\boeing-naturallanguageprocessing\Parser\output
-                                        </h7>
-                                    </div> 
-                                </div>
-                                <div className="folderLocation">
-                                    &nbsp; Output Location: &nbsp; {this.props.oldOutput}
-                                </div>
-                                &nbsp;
-                                <div id="corpusName">
-                                    &nbsp;&nbsp;
-                                    <input onChange={this.handleChange} size="15" name="corpusName" placeholder="Enter Corpus Name"/>
-                                    <div>
-                                        <h7>
-                                            &nbsp;&nbsp; *Defaults name to "corpus". Will rewrite over files with same name.
-                                        </h7>
-                                    </div> 
-                                </div>
-                            </>
-                        }
-
-                        &nbsp;
-                        {this.props.load ? 
-                            <></>
-                            :
-                            <>
-                                <div>
-                                    &nbsp;&nbsp;
-                                    <button className="btn-files" onClick={() => this.props.Files()}> 
-                                        Refresh Files: 
-                                    </button>
-                                </div>
-                                &nbsp;
-                                <table className="table tableBody t1">
-                                &nbsp;
-                                    <thead className="table-light">
-                                        <tr>
-                                            <th className="cell-align-middle centered tableHeader">
-                                                File
-                                            </th>
-                                            <th className="cell-align-middle centered tableHeader">
-                                                Actions
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {Object.keys(this.props.filesList).length === 0 ?
-                                            <tr>
-                                                <td></td>
-                                            </tr>
-                                            : 
-                                            this.renderTable()} 
-                                    </tbody>
-                                </table>
-                            </>
-                        }
-
-                        <div className="modeBtn">
-                            <button className="right btn-forward-doc btn" onClick={() => {this.props.nextPage(); this.props.saveCorpusName(this.state.corpusName);}}>
-                                Forward
-                            </button>
+            <div className="section">
+                <div className="container">
+                    <div className="document-wrapper">
+                        <div className="document-header">
+                            {this.props.load ?
+                                <h2 >
+                                    Load From Taxonomy
+                                </h2>
+                                :
+                                <h2 >
+                                    Create a New Taxonomy
+                                </h2>
+                            }
                         </div>
-                        <div className="btnLeft">
-                            <button className="bottom3 btn" onClick={() => this.props.prevPage()}> 
-                                Back 
-                            </button>
+                        <div className="document-content-box">
+                            {this.props.load ? 
+                                <></>
+                                :
+                                <> &nbsp;
+                                    <div className="document-input-box"> &nbsp;&nbsp;
+                                        <input onChange={this.handleChange} name="input" 
+                                            placeholder="C:\Users\user\OneDrive\Desktop\boeing-naturallanguageprocessing\Data\Input" size="75"/> &nbsp;&nbsp;&nbsp;
+                                        <button className="button" onClick={() => this.submitInput()}>
+                                            Submit Input Folder:
+                                        </button>
+                                        <div className="document-location-box"> &nbsp; 
+                                            Input Location: {this.props.oldInput}
+                                        </div>   
+                                    </div>
+                                    <hr className="hr"/>
+                                </>
+                            }
+                            {this.props.load ? 
+                                
+                                <> &nbsp;
+                                    <div className="document-input-box">
+                                        &nbsp;&nbsp;
+                                        <input onChange={this.handleChange} name="output" 
+                                            placeholder="C:\Users\user\OneDrive\Desktop\boeing-naturallanguageprocessing\Data\Output" size="75"/> &nbsp;&nbsp;&nbsp;
+                                        <button className="button" onClick={() => this.submitOutput()}>
+                                            Submit Output Folder:
+                                        </button>
+                                        <div className="document-location-box">
+                                            &nbsp; Output Location: {this.props.oldOutput}
+                                        </div>
+                                    </div>
+                                    <hr className="hr"/>
+                                    <div className="document-input-box"> &nbsp;&nbsp;
+                                        <input onChange={this.handleChange} size="75" name="corpusName" 
+                                            placeholder="Will write over files with the same name"/> &nbsp;&nbsp;&nbsp;
+                                        <button className="button" onClick={() => this.submitCorpus()}> 
+                                            Submit Corpus Name: 
+                                        </button>
+                                        <div className="document-location-box"> &nbsp; 
+                                            Corpus Name: {this.props.corpusName}
+                                        </div>
+                                    </div>
+                                </>
+                                :
+                                <>
+                                    <div className="document-input-box"> &nbsp;&nbsp;
+                                        <input onChange={this.handleChange} name="output" 
+                                            placeholder="C:\Users\user\OneDrive\Desktop\boeing-naturallanguageprocessing\Data\Output" size="75"/> &nbsp;&nbsp;&nbsp;
+                                        <button className="button" onClick={() => this.submitOutput()}> 
+                                            Submit Output Folder: 
+                                        </button>
+                                        <div className="document-location-box"> &nbsp; 
+                                            Output Location: {this.props.oldOutput}
+                                        </div>
+                                    </div>
+                                    <hr class="hr"/>
+                                    <div className="document-input-box"> &nbsp;&nbsp;
+                                        <input onChange={this.handleChange} size="75" name="corpusName" 
+                                            placeholder="Will write over files with the same name"/> &nbsp;&nbsp;&nbsp;
+                                        <button className="button" onClick={() => this.submitCorpus()}> 
+                                            Submit Corpus Name: 
+                                        </button>
+                                        <div className="document-location-box"> &nbsp; 
+                                            Corpus Name: {this.props.corpusName}
+                                        </div>
+                                    </div>
+                                </>
+                            }
+                            <hr className="hr"/>
+                            {this.props.load ? 
+                                <></>
+                                :
+                                <>
+                                    <div> &nbsp;&nbsp;
+                                        <button className="button" onClick={() => this.props.Files()}> 
+                                            Get Files From Input Folder: 
+                                        </button>
+                                    </div>
+                                    <table className="table table-head"> &nbsp;
+                                        <thead className="table-light">
+                                            <tr>
+                                                <th className="centered table-header">
+                                                    File
+                                                </th>
+                                                <th className="centered table-header">
+                                                    Add/ Remove
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="table-body">
+                                            {Object.keys(this.props.filesList).length === 0 ?
+                                                <tr>
+                                                    <td></td>
+                                                </tr>
+                                                : 
+                                                this.renderTable()
+                                            }
+                                        </tbody>
+                                    </table>
+                                </>
+                            }
+                            <div className="page-button-box">
+                                <button className="button" onClick={() => this.props.prevPage()}> 
+                                    Back 
+                                </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button className="right button" onClick={() => {this.props.nextPage()}}>
+                                    Forward
+                                </button>
+                            </div>
+
                         </div>
                     </div>
                 </div>

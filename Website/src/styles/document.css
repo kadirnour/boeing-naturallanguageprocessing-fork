@@ -1,0 +1,47 @@
+/*##########################################################
+                        Document 
+##########################################################*/
+.document-wrapper {
+    color: white;
+    /* background-size:100% 80%; */
+    width: 100%;
+    height: calc(100vh - 86px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: green; */
+}
+
+.document-header {
+    height: auto;
+    width: auto;
+    margin-right: auto;
+    color: black;
+    /* background-color: blue; */
+}
+
+.document-content-box {
+    height: 90%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: lightgray;
+    border: 2px solid black;
+}
+
+.document-input-box {
+    width: auto;
+    height: auto;
+    /* background-color: green; */
+}
+
+.document-location-box {
+    border: 2px solid black;
+    background-color: white;
+    color: black;
+    height: auto;
+    width: auto;
+    margin-top: 10px;
+    margin-left: 10px;
+}

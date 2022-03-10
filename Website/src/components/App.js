@@ -399,10 +399,12 @@ class App extends React.Component {
   '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   render() {
     return (
-      <>
+      <div className="body">
         <NavBar mode={this.state.mode}/>
+
         {this.state.mode == 0 ?
           <Load loaded={this.loaded}/>
+
           :
           this.state.mode === 33 ? 
             <Documents nextPage={this.nextPage}
@@ -417,7 +419,8 @@ class App extends React.Component {
               deleteFile={this.deleteFile}
               addFile={this.addFile}
               saveCorpusName={this.saveCorpusName}
-              load={this.state.load}/> 
+              load={this.state.load}
+              corpusName={this.state.corpusName}/> 
               : 
               this.state.mode === 66 ?
                 <Terms getTerms={this.getTerms}
@@ -448,7 +451,7 @@ class App extends React.Component {
                         relationshipTypes={this.state.relationshipTypes}
                         graph={this.state.graph}/>
           }  
-      </>
+      </div>
     )
   }
 }

@@ -1,0 +1,96 @@
+/*##########################################################
+                           Taxonomy 
+##########################################################*/
+.taxonomy-wrapper {
+    color: white;
+    /* background-size:100% 80%; */
+    width: 100%;
+    height: calc(100vh - 86px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: green; */
+}
+
+.taxonomy-header {
+    height: auto;
+    width: auto;
+    margin-right: auto;
+    color: black;
+    /* background-color: blue; */
+}
+
+.taxonomy-sub-header {
+    color: black;
+    /* background-color: blue; */
+}
+
+.taxonomy-content-box {
+    height: 90%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: lightgray;
+    border: 2px solid black;
+}
+
+.taxonomy-input-box {
+    width: auto;
+    height: auto;
+    margin-top: 10px;
+    /* background-color: green; */
+}
+
+.taxonomy-terms-box {
+    width: 100%;
+    height: 73vh;
+    margin-top: 10px;
+    /* background-color: orange; */
+}
+
+.taxonomy-terms-box--left {
+    border: 2px solid black;
+    float: left; 
+    width: 45%;
+    background-color: white;
+    height: 100%;
+    color: black;
+}
+
+.taxonomy-terms-box--center {
+    border: 2px solid black;
+    float: left; 
+    width: 10%;
+    background-color: lightblue;
+    height: 100%;
+}
+
+.taxonomy-terms-box--right {
+    border: 2px solid black;
+    float: right; 
+    width: 45%;
+    background-color: white;
+    height: 100%;
+    color: black;
+}
+
+.taxonomy__buttons {
+    width: 100%;
+}
+
+.taxonomy__page-buttons {
+    margin-right: 245px;
+}
+
+
+
+/* .example {
+    margin-top: 1%;
+    margin-left: 25%;
+    height: 481px;
+}
+
+.bottom6 {
+    margin-top: -48px;
+} */

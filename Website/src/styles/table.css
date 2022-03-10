@@ -1,0 +1,74 @@
+/*##########################################################
+                            Table 
+##########################################################*/
+.table-head {
+    display: block;
+}
+
+.table-header {
+    width: 100vw;
+}
+
+.table-body {
+    display: block;
+    height: 27vh;
+    overflow: auto;
+}
+
+.table-data{
+    width: 100%;
+}
+
+.table-body--terms {
+    display: block;
+    height: 50vh;
+    overflow: auto;
+}
+
+.table-body--categories {
+    display: block;
+    height: 53vh;
+    overflow: auto;
+}
+
+.table-body--taxonomy {
+    display: block;
+    height: 53vh;
+    overflow: auto;
+}
+
+
+
+/* .term {
+    border: 2px solid black;
+    float: left;
+    height: auto;
+    width: auto;
+    padding: 0 5px;
+    margin-left: 3%;
+    margin-top: 3%;
+}
+
+.term2 {
+    border: 2px solid black;
+    float: left;
+    height: auto;
+    width: auto;
+    padding: 0 5px;
+    margin-left: 3%;
+    margin-top: 3%;
+}
+
+.term2-selected {
+    background-color: rgba(0, 0, 255, 0.445) !important;
+    font-weight: bold !important;
+}
+
+.term2:hover {
+    background-color: lightblue !important;
+}
+
+.maxHeight {
+    height: 100px;
+    overflow: scroll;
+} */

@@ -1,0 +1,73 @@
+/*##########################################################    
+                            Navbar 
+##########################################################*/
+.navbar {
+    background-color: gray;
+}
+
+.navbar-wrapper {
+    color: white;
+    width: 100%;
+    margin-top: 0vh;
+    height: 70px;
+    /* display: flex; */
+    align-items: center;
+    justify-content: space-between;
+}
+
+.progress-bar__numbers {
+    width: 90%;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.indexed-step__numbers {
+    color: black;
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+    font-weight: normal;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+  }
+  
+.indexed-step__numbers.numbers--accomplished {
+    border: 3px solid orange;
+    background-color: darkorange;
+}
+
+.progress-bar__labels {
+    width: 90%;
+    margin: auto;
+    margin-top: 25px;
+}
+
+.indexed-step__labels {
+    color: white;
+    width: 0px;
+    height: 0px;
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: normal;
+    text-shadow: 2px 2px 4px black;
+  }
+
+.indexed-step__labels.labels--accomplished {
+    color: black;
+    font-weight: bold;
+    text-shadow: 0px 0px 0px black;
+}
+
+/* .navbar-logo {
+    width: 140px;
+    height: 100px;
+    margin-left: 86%;
+    margin-top: -71px;
+    position: absolute;
+} */

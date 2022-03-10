@@ -149,7 +149,7 @@ class ModalPopup extends Component {
         for (let i = 0; i < Object.keys(this.props.nouns).length; i++){
             table.push(
                 <tr key={i} className={"centered weight"}>
-                    <td>
+                    <td className="table-data">
                         {Object.keys(this.props.nouns)[i]}
                     </td>
                 </tr>
@@ -178,15 +178,15 @@ class ModalPopup extends Component {
                             </Modal.Title>  
                         </Modal.Header>  
                         <Modal.Body>  
-                            <table className="table table-hover tableBody t1">
+                            <table className="table table-head">
                                 <thead className="table-light">
                                     <tr>
-                                        <th className="cell-align-middle centered tableHeader">
+                                        <th className="centered table-header">
                                             Nouns
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody className="table-body--taxonomy">
                                     {this.props.nouns == null ?
                                         null 
                                         :

@@ -23,14 +23,11 @@ Description: appends categories to main corpus .csv
 def write_to_csv(output, corpus, taxDict):
     file = output + '\\' + corpus + '.csv'
     dataWrite = []
-
     with open(file, 'r') as read_obj:    
         csv_reader = csv.reader(read_obj, delimiter=',')
-        
         dataWrite.append(next(csv_reader)) # skip 3 lines
         dataWrite.append(next(csv_reader))
         dataWrite.append(next(csv_reader))
-
         for row in csv_reader:
             if len(row) >= 5:
                 row[4] = " "
@@ -44,5 +41,4 @@ def write_to_csv(output, corpus, taxDict):
                         else:
                             pass
             dataWrite.append(row)
-
     Data.write_to_csv(dataWrite, file)

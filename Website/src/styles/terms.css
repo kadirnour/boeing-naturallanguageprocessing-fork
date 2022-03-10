@@ -1,0 +1,42 @@
+/*##########################################################    
+                            Terms 
+##########################################################*/
+.terms-wrapper {
+    color: white;
+    /* background-size:100% 80%; */
+    width: 100%;
+    height: calc(100vh - 86px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: green; */
+}
+
+.terms-header {
+    height: auto;
+    width: auto;
+    margin-right: auto;
+    color: black;
+    /* background-color: blue; */
+}
+
+.terms-content-box {
+    height: 90%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: lightgray;
+    border: 2px solid black;
+}
+
+.terms-sub-header {
+    color: black;
+}
+
+.terms-input-box {
+    width: auto;
+    height: auto;
+    margin-top: 10px;
+    /* background-color: green; */
+}

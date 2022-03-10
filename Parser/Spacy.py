@@ -22,14 +22,11 @@ Returns: a list of the Span objects from the Spacy library, representing each se
 def get_sentences(text):
     sentences = ""
     nlp = spacy.load('en_core_web_sm')
-
     for page in text:
         textCleaned = re.sub(' +', ' ', page) # removes extra spaces
         sentences += textCleaned
-
     sentences = nlp(sentences) # converts sentences into NLP span objects
     sentences = list(sentences.sents) # converts span objects into a list of span objects
-
     return sentences
 
 
@@ -41,22 +38,17 @@ Returns: a list of noun objects
 def get_nouns(sentences):
     nouns = []
     nlp = spacy.load('en_core_web_sm')
-
     for sentence in sentences:
         foundDash = False
         foundSlash = False
         sentenceCleaned = nlp(sentence.text.lower()) # creates nlp object from sentence
-
         for chunk in sentenceCleaned.noun_chunks:
             nounChunk = ""
             found = False
-            
             for token in chunk:
                 noun, foundDash, foundSlash = text_replacer.token_replacer(token, foundDash, foundSlash) # removes extra spaces in front and behind of dash or slash
                 nounChunk += noun
-            
             nounChunkCleaned = nounChunk.lstrip().rstrip() # removes extra spaces
-            
             for noun in nouns:
                 if nounChunkCleaned == noun.text: # chunk is already in total_nouns
                     noun.add_occurance(sentence.text) # add new sentence to noun object
@@ -65,5 +57,4 @@ def get_nouns(sentences):
             if not found:
                 newNoun = Noun.Noun(nounChunkCleaned, sentence.text) # create a new noun object
                 nouns.append(newNoun)
-    
     return nouns
