@@ -300,7 +300,7 @@ class Terms extends React.Component {
                                 <div className="terms-button-box">
                                     <div className="terms-input-box">
                                             {this.state.page == 0 ?
-                                                <button className="button__small" disabled={true} onClick={() => this.page('pervious')}>
+                                                <button className="button__small--disabled" disabled={true} onClick={() => this.page('pervious')}>
                                                     <FontAwesomeIcon icon={faAngleLeft}/> &nbsp; 
                                                     Previous:
                                                 </button> 
@@ -317,7 +317,7 @@ class Terms extends React.Component {
                                                     <FontAwesomeIcon icon={faAngleRight}/>
                                                 </button>
                                                 :
-                                                <button className="button__small" disabled={true} onClick={() => this.page('next')}>
+                                                <button className="button__small--disabled" disabled={true} onClick={() => this.page('next')}>
                                                     Next: &nbsp; 
                                                     <FontAwesomeIcon icon={faAngleRight}/>
                                                 </button>
@@ -331,18 +331,18 @@ class Terms extends React.Component {
                                                 Clear Selected
                                             </button> 
                                             :
-                                            <button disabled={true} className="button__small" onClick={() => this.clearSelected()}>
+                                            <button disabled={true} className="button__small--disabled" onClick={() => this.clearSelected()}>
                                                 <FontAwesomeIcon icon={faRotateRight}/> &nbsp; 
                                                 Clear Selected
                                             </button>
                                         } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         {this.state.selectedTerms.length != 0 ?
-                                            <button className="button__small" onClick={() => this.deleteTerms()}>
+                                            <button className="button__small red" onClick={() => this.deleteTerms()}>
                                                 <FontAwesomeIcon icon={faTrash}/> &nbsp; 
                                                 Delete Terms
                                             </button> 
                                             :
-                                            <button disabled={true} className="button__small" onClick={() => this.deleteTerms()}>
+                                            <button disabled={true} className="button__small--disabled" onClick={() => this.deleteTerms()}>
                                                 <FontAwesomeIcon icon={faTrash}/> &nbsp; 
                                                 Delete Terms
                                             </button>

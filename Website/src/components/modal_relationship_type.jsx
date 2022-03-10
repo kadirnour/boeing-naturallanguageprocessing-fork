@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';  
 import { Modal } from 'react-bootstrap';  
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus, faPlusCircle, faTractor, faTrash, faCheck } from '@fortawesome/free-solid-svg-icons'
 
 /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 Function: 
@@ -210,12 +212,21 @@ class ModalPopup extends Component {
                                 </Modal.Title>  
                             </Modal.Header>  
                             <Modal.Body>  
-                                <input type="string" value={this.state.relationship} placeholder="New relationship name..." onChange={this.handleChange}/>
-                                <input type="color" value={this.state.color} onChange={this.handleChangeColor}/>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <button onClick={() => this.handleSubmit()}>
-                                    Create
-                                </button>
+                                <div>
+                                    <input type="string" size="95" value={this.state.relationship} placeholder="Enter a Relationship Name..." onChange={this.handleChange}/> 
+                                </div> &nbsp;&nbsp;&nbsp;
+                                <div>
+                                    <h6>
+                                        Choose a Color for the Relationship
+                                    </h6>
+                                    <input type="color" value={this.state.color} onChange={this.handleChangeColor}/> &nbsp;&nbsp;&nbsp;
+                                </div> &nbsp;&nbsp;&nbsp;
+                                <div>
+                                    <button className="button__small blue" onClick={() => this.handleSubmit()}>
+                                        <FontAwesomeIcon icon={faPlusCircle}/> &nbsp;
+                                        Create
+                                    </button>
+                                </div>
                             </Modal.Body>
                         </Modal>  
                     </Fragment>  
@@ -232,16 +243,25 @@ class ModalPopup extends Component {
                                     </Modal.Title>  
                                 </Modal.Header>
                                 <Modal.Body>  
-                                    <input type="string" value={this.state.relationship} placeholder="New relationship name..." onChange={this.handleChange}/>
-                                    <input type="color" value={this.state.color} onChange={this.handleChangeColor}/>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <button onClick={() => this.handleSubmit()}>
-                                        Enter
-                                    </button>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <button onClick={() => this.handleDelete()}>
-                                        Delete
-                                    </button>
+                                    <div>
+                                        <input type="string" size="95" value={this.state.relationship} placeholder="New relationship name..." onChange={this.handleChange}/> 
+                                    </div> &nbsp;&nbsp;&nbsp;
+                                    <div>
+                                        <h6>
+                                            Edit Color for the Relationship
+                                        </h6>
+                                        <input type="color" value={this.state.color} onChange={this.handleChangeColor}/>
+                                    </div> &nbsp;&nbsp;&nbsp;
+                                    <div>
+                                        <button className="button__small blue" onClick={() => this.handleSubmit()}>
+                                            <FontAwesomeIcon icon={faCheck}/> &nbsp;
+                                            Enter
+                                        </button> &nbsp;&nbsp;&nbsp;
+                                        <button className="button__small red" onClick={() => this.handleDelete()}>
+                                            <FontAwesomeIcon icon={faTrash}/> &nbsp;
+                                            Delete
+                                        </button>
+                                    </div>
                                 </Modal.Body>
                             </Modal>  
                         </Fragment>  
@@ -257,17 +277,21 @@ class ModalPopup extends Component {
                                     </Modal.Title>  
                                 </Modal.Header>  
                                 <Modal.Body>  
-                                    <select value={this.state.relationship} onChange={this.handleChooseRelationship}>
-                                        {this.props.relationshipTypes.map((option) => (
-                                            <option value={Object.keys(option)}>
-                                                {Object.keys(option)}
-                                            </option>)) // Display current options from created relationshipTypes
-                                        }
-                                    </select>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <button onClick={() => this.handleSubmit()}>
-                                        Select
-                                    </button>
+                                    <div>
+                                        <select value={this.state.relationship} onChange={this.handleChooseRelationship}>
+                                            {this.props.relationshipTypes.map((option) => (
+                                                <option value={Object.keys(option)}>
+                                                    {Object.keys(option)}
+                                                </option>)) // Display current options from created relationshipTypes
+                                            }
+                                        </select>
+                                    </div> &nbsp;&nbsp;&nbsp;
+                                    <div>
+                                        <button className="button__small blue" onClick={() => this.handleSubmit()}>
+                                            <FontAwesomeIcon icon={faCheck}/> &nbsp;
+                                            Select
+                                        </button>
+                                    </div>
                                 </Modal.Body>
                             </Modal>  
                         </Fragment>  

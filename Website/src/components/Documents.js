@@ -34,13 +34,13 @@ class Documents extends React.Component {
                     {this.disabledBtn(r) ?
                         null
                         :
-                        <button className="button" onClick={() => this.props.addFile(r)}>
+                        <button className="button blue" onClick={() => this.props.addFile(r)}>
                             <FontAwesomeIcon icon={faPlus}/> &nbsp; 
                             Add
                         </button>
                     }
                     {this.disabledBtn(r) ?
-                        <button className="button" onClick={() => this.props.deleteFile(r)}>
+                        <button className="button red" onClick={() => this.props.deleteFile(r)}>
                             <FontAwesomeIcon icon={faMinus}/> &nbsp; 
                             Delete
                         </button>

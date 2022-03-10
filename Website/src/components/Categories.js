@@ -432,7 +432,7 @@ class Categories extends React.Component {
                                     <div className="categories-button-box">
                                         <div className="categories-input-box">
                                             {this.state.pageTerms == 0 ?
-                                                <button className="button__small" disabled={true} onClick={() => this.pageTerms('pervious')}>
+                                                <button className="button__small--disabled" disabled={true} onClick={() => this.pageTerms('pervious')}>
                                                     <FontAwesomeIcon icon={faAngleLeft}/> &nbsp;
                                                     Previous:
                                                 </button>
@@ -449,7 +449,7 @@ class Categories extends React.Component {
                                                     <FontAwesomeIcon icon={faAngleRight}/>
                                                 </button> 
                                                 :
-                                                <button className="button__small" disabled={true} onClick={() => this.pageTerms('next')}>
+                                                <button className="button__small--disabled" disabled={true} onClick={() => this.pageTerms('next')}>
                                                     Next: &nbsp;
                                                     <FontAwesomeIcon icon={faAngleRight}/>
                                                 </button>
@@ -464,7 +464,7 @@ class Categories extends React.Component {
                                     </h6> &nbsp;
                                     <div className="categories-input-box">
                                         {this.state.cat === -1 ? 
-                                            <button className="button categories__buttons" onClick={() => this.isShowPopup(true)}>
+                                            <button className="button categories__buttons blue" onClick={() => this.isShowPopup(true)}>
                                                 <FontAwesomeIcon icon={faPlus}/> &nbsp; 
                                                 Create New Category
                                             </button> 
@@ -478,7 +478,7 @@ class Categories extends React.Component {
                                         {this.state.cat === -1 ? 
                                             null 
                                             : 
-                                            <button className="button categories__buttons" onClick={() => this.deleteCat()}>
+                                            <button className="button categories__buttons red" onClick={() => this.deleteCat()}>
                                                 <FontAwesomeIcon icon={faTrash}/> &nbsp; 
                                                 Delete Category
                                             </button>
@@ -487,7 +487,7 @@ class Categories extends React.Component {
                                             null 
                                             :
                                             this.state.selectedTerms.length == 0 ?
-                                                <button disabled={true} onClick={() => this.addToWeights()} className="button categories__buttons">
+                                                <button disabled={true} onClick={() => this.addToWeights()} className="button--disabled categories__buttons">
                                                     <FontAwesomeIcon icon={faLeftLong}/>
                                                 </button> 
                                                 :
@@ -500,7 +500,7 @@ class Categories extends React.Component {
                                             null 
                                             :
                                             this.state.selectedWeightTerms.length == 0 ?
-                                                <button disabled={true} className="button categories__buttons" onClick={() => this.addToCategory()}>
+                                                <button disabled={true} className="button--disabled categories__buttons" onClick={() => this.addToCategory()}>
                                                     <FontAwesomeIcon icon={faRightLong}/>
                                                 </button> 
                                                 :
@@ -515,7 +515,7 @@ class Categories extends React.Component {
                                                 Clear Selected
                                             </button> 
                                             :
-                                            <button disabled={true} className="button categories__buttons" onClick={() => this.clearSelected()}>
+                                            <button disabled={true} className="button--disabled categories__buttons" onClick={() => this.clearSelected()}>
                                                 <FontAwesomeIcon icon={faRotateRight}/> &nbsp; 
                                                 Clear Selected
                                             </button>
@@ -539,9 +539,6 @@ class Categories extends React.Component {
                                             <h6 className="categories-sub-header centered">
                                                 Select a category to edit
                                             </h6>
-
-
-
                                             <div className="table-box--categories">
                                                 <table className="table table-head">
                                                     <thead className="table-light">
@@ -564,14 +561,10 @@ class Categories extends React.Component {
                                                     </tbody>
                                                 </table> 
                                             </div>
-
-
-
-
                                             <div className="categories-button-box">
                                                 <div className="categories-input-box">
                                                     {this.state.pageCat == 0 ?
-                                                        <button className="button__small" disabled={true} onClick={() => this.pageCat('pervious')}>
+                                                        <button className="button__small--disabled" disabled={true} onClick={() => this.pageCat('pervious')}>
                                                             <FontAwesomeIcon icon={faAngleLeft}/> &nbsp;
                                                             Previous:
                                                         </button>
@@ -588,7 +581,7 @@ class Categories extends React.Component {
                                                             <FontAwesomeIcon icon={faAngleRight}/>
                                                         </button> 
                                                         :
-                                                        <button className="button__small" disabled={true} onClick={() => this.pageCat('next')}>
+                                                        <button className="button__small--disabled" disabled={true} onClick={() => this.pageCat('next')}>
                                                             Next: &nbsp;
                                                             <FontAwesomeIcon icon={faAngleRight}/>
                                                         </button>

@@ -388,23 +388,23 @@ class Taxonomy extends React.Component {
 
                                 <div className="taxonomy-terms-box--center">
                                     <h6 className="taxonomy--center-sub-header centered"> Edit Relationships </h6>
-                                    <button className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "newRelationshipType", -1)}>
+                                    <button className="button taxonomy__buttons blue" onClick={() => this.isShowPopup(true, "newRelationshipType", -1)}>
                                         <FontAwesomeIcon icon={faCirclePlus}/> &nbsp; 
                                         Create New Relationship Type
                                     </button>
                                     {this.state.nodes.length == 2 ?
                                         this.state.relationshipTypes.length == 0 ?
-                                            <button disabled={true} className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>
+                                            <button disabled={true} className="button--disabled taxonomy__buttons" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>
                                                 <FontAwesomeIcon icon={faPlus}/> &nbsp; 
                                                 Create New Relationship
                                             </button> 
                                             :
-                                            <button className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>
+                                            <button className="button taxonomy__buttons blue" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>
                                                 <FontAwesomeIcon icon={faPlus}/> &nbsp;
                                                 Create New Relationship
                                             </button>
                                         : 
-                                        <button disabled={true} className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>
+                                        <button disabled={true} className="button--disabled taxonomy__buttons" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>
                                             <FontAwesomeIcon icon={faPlus}/> &nbsp;
                                             Create New Relationship
                                         </button>
@@ -416,7 +416,7 @@ class Taxonomy extends React.Component {
                                             See Nouns
                                         </button>
                                         : 
-                                        <button disabled={true} className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "nouns", -1)}>
+                                        <button disabled={true} className="button--disabled--disabled taxonomy__buttons" onClick={() => this.isShowPopup(true, "nouns", -1)}>
                                             <FontAwesomeIcon icon={faFileLines}/> &nbsp;
                                             See Nouns
                                         </button>
@@ -424,17 +424,17 @@ class Taxonomy extends React.Component {
 
                                     {this.state.nodes.length == 2 ?
                                         this.state.exists == false ?
-                                            <button disabled={true} className="button taxonomy__buttons" onClick={() => this.deleteEdge()}>
+                                            <button disabled={true} className="button--disabled taxonomy__buttons" onClick={() => this.deleteEdge()}>
                                                 <FontAwesomeIcon icon={faTrash}/> &nbsp;
                                                 Delete Relationship?
                                             </button> 
                                             :
-                                            <button className="button taxonomy__buttons" onClick={() => this.deleteEdge()}>
+                                            <button className="button taxonomy__buttons red" onClick={() => this.deleteEdge()}>
                                                 <FontAwesomeIcon icon={faTrash}/> &nbsp;
                                                 Delete Relationship?
                                             </button>
                                         : 
-                                        <button disabled={true} className="button taxonomy__buttons" onClick={() => this.deleteEdge()}>
+                                        <button disabled={true} className="button--disabled taxonomy__buttons" onClick={() => this.deleteEdge()}>
                                             <FontAwesomeIcon icon={faTrash}/> &nbsp;
                                             Delete Relationship?
                                         </button>
