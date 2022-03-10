@@ -463,7 +463,7 @@ class Taxonomy extends React.Component {
                             </div>     
 
                             <div className="page-button-box">
-                                <button className="button taxonomy__page-buttons" onClick={() => this.props.prevPage()}>
+                                <button className="button__small taxonomy__page-buttons" onClick={() => this.props.prevPage()}>
                                     Back
                                 </button>
                             </div>

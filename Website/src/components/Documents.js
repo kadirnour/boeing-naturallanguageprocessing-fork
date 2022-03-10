@@ -235,10 +235,10 @@ class Documents extends React.Component {
                                 }
                             </div>
                             <div className="page-button-box">
-                                <button className="button" onClick={() => this.props.prevPage()}> 
+                                <button className="button__small" onClick={() => this.props.prevPage()}> 
                                     Back 
                                 </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <button className="right button" onClick={() => {this.props.nextPage()}}>
+                                <button className="right button__small" onClick={() => {this.props.nextPage()}}>
                                     Forward
                                 </button>
                             </div>

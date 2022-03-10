@@ -242,19 +242,19 @@ class Terms extends React.Component {
                                 <div className="terms-input-box">
                                     {this.props.load ?
                                         <div>
-                                            <button className="button" onClick={() => this.props.loadCorpus()}>
+                                            <button className="button__small" onClick={() => this.props.loadCorpus()}>
                                                 Refresh Weights:
                                             </button> &nbsp;&nbsp;&nbsp;
-                                            <button className="button" onClick={() => this.props.saveWeight()}>
+                                            <button className="button__small" onClick={() => this.props.saveWeight()}>
                                                 Save Weights:
                                             </button>
                                         </div>
                                         :
                                         <div>  
-                                            <button className="button" onClick={() => this.props.getTerms()}>
+                                            <button className="button__small" onClick={() => this.props.getTerms()}>
                                                 Refresh Weights:
                                             </button> &nbsp;&nbsp;&nbsp;
-                                            <button className="button" onClick={() => this.props.saveWeight()}>
+                                            <button className="button__small" onClick={() => this.props.saveWeight()}>
                                                 Save Weights:
                                             </button>
                                         </div>
@@ -293,21 +293,21 @@ class Terms extends React.Component {
                                 <div className="terms-button-box">
                                     <div className="terms-input-box">
                                             {this.state.page == 0 ?
-                                                <button className="button" disabled={true} onClick={() => this.page('pervious')}>
+                                                <button className="button__small" disabled={true} onClick={() => this.page('pervious')}>
                                                     Previous:
                                                 </button> 
                                                 :
-                                                <button className="button" onClick={() => this.page('pervious')}>
+                                                <button className="button__small" onClick={() => this.page('pervious')}>
                                                     Previous:
                                                 </button>
                                             } &nbsp;&nbsp;&nbsp;
                                             {this.state.page} &nbsp;&nbsp;&nbsp;
                                             {(this.state.page * 100) + 100 < Object.keys(this.props.weightDictionary).length ?
-                                                <button className="button" onClick={() => this.page('next')}>
+                                                <button className="button__small" onClick={() => this.page('next')}>
                                                     Next:
                                                 </button>
                                                 :
-                                                <button className="button" disabled={true} onClick={() => this.page('next')}>
+                                                <button className="button__small" disabled={true} onClick={() => this.page('next')}>
                                                     Next:
                                                 </button>
                                             }
@@ -315,20 +315,20 @@ class Terms extends React.Component {
                                     
                                     <div className="terms-input-box">
                                         {this.state.selectedTerms.length != 0 ?
-                                            <button className="button" onClick={() => this.clearSelected()}> 
+                                            <button className="button__small" onClick={() => this.clearSelected()}> 
                                                 Clear Selected
                                             </button> 
                                             :
-                                            <button disabled={true} className="button" onClick={() => this.clearSelected()}>
+                                            <button disabled={true} className="button__small" onClick={() => this.clearSelected()}>
                                                 Clear Selected
                                             </button>
                                         } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         {this.state.selectedTerms.length != 0 ?
-                                            <button className="button" onClick={() => this.deleteTerms()}>
+                                            <button className="button__small" onClick={() => this.deleteTerms()}>
                                                 Delete Terms
                                             </button> 
                                             :
-                                            <button disabled={true} className="button" onClick={() => this.deleteTerms()}>
+                                            <button disabled={true} className="button__small" onClick={() => this.deleteTerms()}>
                                                 Delete Terms
                                             </button>
                                         }
@@ -338,10 +338,10 @@ class Terms extends React.Component {
                                 
                             </div>
                             <div className="page-button-box">
-                                <button className="button" onClick={() => this.props.prevPage()}>
+                                <button className="button__small" onClick={() => this.props.prevPage()}>
                                     Back
                                 </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <button className="button" onClick={() =>  {this.props.nextPage()}}>
+                                <button className="button__small" onClick={() =>  {this.props.nextPage()}}>
                                     Forward 
                                 </button>
                             </div>

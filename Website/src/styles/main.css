@@ -32,10 +32,24 @@
     border: 2px solid !important;
     border-radius: 10px;
     height: auto;
-    width: 200px;
+    width: 230px;
 }
 
 .button:hover {
+    background-color: darkorange !important;
+    font-weight: bold;
+    /* transform: scale(1.05); */
+}
+
+.button__small {
+    background-color: lightgrey !important;
+    border: 2px solid !important;
+    border-radius: 10px;
+    height: auto;
+    width: 150px;
+}
+
+.button__small:hover {
     background-color: darkorange !important;
     font-weight: bold;
     /* transform: scale(1.05); */

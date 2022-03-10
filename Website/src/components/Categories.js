@@ -431,21 +431,21 @@ class Categories extends React.Component {
                                     <div className="categories-button-box">
                                         <div className="categories-input-box">
                                             {this.state.pageTerms == 0 ?
-                                                <button className="button" disabled={true} onClick={() => this.pageTerms('pervious')}>
+                                                <button className="button__small" disabled={true} onClick={() => this.pageTerms('pervious')}>
                                                     Previous:
                                                 </button>
                                                 :
-                                                <button className="button" onClick={() => this.pageTerms('pervious')}>
+                                                <button className="button__small" onClick={() => this.pageTerms('pervious')}>
                                                     Previous:
                                                 </button>
                                             } &nbsp;&nbsp;&nbsp;
                                             {this.state.pageTerms} &nbsp;&nbsp;&nbsp;
                                             {(this.state.pageTerms * 100) + 100 <  Object.keys(this.props.weightDictionary).length ?
-                                                <button className="button" onClick={() => this.pageTerms('next')}>
+                                                <button className="button__small" onClick={() => this.pageTerms('next')}>
                                                     Next:
                                                 </button> 
                                                 :
-                                                <button className="button" disabled={true} onClick={() => this.pageTerms('next')}>
+                                                <button className="button__small" disabled={true} onClick={() => this.pageTerms('next')}>
                                                     Next:
                                                 </button>
                                             }
@@ -522,8 +522,6 @@ class Categories extends React.Component {
                                         }
                                     </div>
                                 </div>
-
-                                {/* <div className="categories-terms-box--right"> */}
                                     {this.state.mode === "categories" ?
                                         <div className="categories-terms-box--right">
                                             <h1 className="centered">
@@ -556,21 +554,21 @@ class Categories extends React.Component {
                                             <div className="categories-button-box">
                                                 <div className="categories-input-box">
                                                     {this.state.pageCat == 0 ?
-                                                        <button className="button" disabled={true} onClick={() => this.pageCat('pervious')}>
+                                                        <button className="button__small" disabled={true} onClick={() => this.pageCat('pervious')}>
                                                             Previous:
                                                         </button>
                                                         :
-                                                        <button className="button" onClick={() => this.pageCat('pervious')}>
+                                                        <button className="button__small" onClick={() => this.pageCat('pervious')}>
                                                             Previous:
                                                         </button>
                                                     } &nbsp;&nbsp;&nbsp;
                                                     {this.state.pageCat} &nbsp;&nbsp;&nbsp;
                                                     {(this.state.pageCat * 100) + 100 <  Object.keys(this.props.categories).length ?
-                                                        <button className="button" onClick={() => this.pageCat('next')}>
+                                                        <button className="button__small" onClick={() => this.pageCat('next')}>
                                                             Next:
                                                         </button> 
                                                         :
-                                                        <button className="button" disabled={true} onClick={() => this.pageCat('next')}>
+                                                        <button className="button__small" disabled={true} onClick={() => this.pageCat('next')}>
                                                             Next:
                                                         </button>
                                                     }
@@ -606,17 +604,12 @@ class Categories extends React.Component {
                                             </table> 
                                         </div>
                                     }
-                                {/* </div> */}
-
-
-
-
                             </div>
                             <div className="page-button-box">
-                                <button className="button" onClick={() => this.props.prevPage()}>
+                                <button className="button__small" onClick={() => this.props.prevPage()}>
                                     Back
                                 </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <button className="button" onClick={() => this.props.nextPage()}>
+                                <button className="button__small" onClick={() => this.props.nextPage()}>
                                     Forward 
                                 </button>
                             </div>
