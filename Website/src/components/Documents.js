@@ -238,7 +238,7 @@ class Documents extends React.Component {
                                 <button className="button__small" onClick={() => this.props.prevPage()}> 
                                     Back 
                                 </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <button className="right button__small" onClick={() => {this.props.nextPage()}}>
+                                <button className="button__small" onClick={() => {this.props.nextPage()}}>
                                     Forward
                                 </button>
                             </div>
