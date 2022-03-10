@@ -42,7 +42,7 @@ class Categories extends React.Component {
         if ((this.state.pageTerms * 100) + 100 > Object.keys(this.props.weightDictionary).length) {
             for (let r = this.state.pageTerms * 100; r < Object.keys(this.props.weightDictionary).length; r++) {
                 table.push(
-                    <tr key = {r} className={"centered weight" + (this.checkSelectedWeight(r) === true ? " weight-selected" : "")}
+                    <tr key = {r} className={"table-row" + (this.checkSelectedWeight(r) === true ? " table-row--selected" : "")}
                         onClick={() => (this.checkSelectedWeight(r) ? this.removedSelectedWeightTerm(r) : this.selectWeightTerm(r))}>
                         <td className="table-data">
                             {Object.keys(this.props.weightDictionary)[r]}
@@ -59,7 +59,7 @@ class Categories extends React.Component {
         } else {
             for (let r = this.state.pageTerms * 100; r < (this.state.pageTerms * 100) + 100; r++) {
                 table.push(
-                    <tr key = {r} className={"centered weight" + (this.checkSelectedWeight(r) === true ? " weight-selected" : "")}
+                    <tr key = {r} className={"table-row" + (this.checkSelectedWeight(r) === true ? " table-row--selected" : "")}
                         onClick={() => (this.checkSelectedWeight(r) ? this.removedSelectedWeightTerm(r) : this.selectWeightTerm(r))}>
                         <td className="table-data">
                             {Object.keys(this.props.weightDictionary)[r]}
@@ -88,12 +88,12 @@ class Categories extends React.Component {
         if ((this.state.pageCat * 100) + 100 > Object.keys(this.props.categories).length) {
             for (let r = this.state.pageCat * 100; r < Object.keys(this.props.categories).length; r++) {
                 table.push(
-                    <tr onClick={() => this.changeMode(r)} className="centered weight" key={r}>
+                    <tr onClick={() => this.changeMode(r)} className="table-row" key={r}>
                         <td className="table-data">
                             {Object.keys(this.props.categories)[r]}
                         </td>
                         <td className="table-data">
-                            <div className="maxHeight">
+                            <div className="table-data--categories">
                                 {this.renderCatTerms(r)}
                             </div>
                         </td>
@@ -103,12 +103,12 @@ class Categories extends React.Component {
         } else {
             for (let r = this.state.pageCat * 100; r < (this.state.pageCat * 100) + 100; r++) {
                 table.push(
-                    <tr onClick={() => this.changeMode(r)} className="centered weight" key={r}>
+                    <tr onClick={() => this.changeMode(r)} className="table-row" key={r}>
                         <td className="table-data">
                             {Object.keys(this.props.categories)[r]}
                         </td>
                         <td className="table-data">
-                            <div className="maxHeight">
+                            <div className="table-data--categories">
                                 {this.renderCatTerms(r)}
                             </div>
                         </td>
@@ -129,12 +129,12 @@ class Categories extends React.Component {
         const Terms = [];
         if (this.state.cat === -1) {
             for (let d = 0; d < Object.values(Object.values(this.props.categories)[r]).length; d++) {
-                Terms.push(<div className="term"> {Object.keys(Object.values(this.props.categories)[r])[d]} </div>)
+                Terms.push(<div className="table-data--categories__terms"> {Object.keys(Object.values(this.props.categories)[r])[d]} </div>)
             }
         } else {
             for (let d = 0; d < Object.values(Object.values(this.props.categories)[r]).length; d++) {
                 Terms.push(
-                    <button className={"term2 btn2" + (this.checkSelected(r, d) === true ? " term2-selected": "")}
+                    <button className={"table-data--categories__terms__inside" + (this.checkSelected(r, d) === true ? " table-data--categories__terms__inside--selected": "")}
                         onClick={ () => (this.checkSelected(r, d) === false ? this.selectTerm(r, d) : this.removeSelectedTerm(r, d)) }> 
                         {Object.keys(Object.values(this.props.categories)[r])[d]} 
                     </button>
@@ -153,9 +153,9 @@ class Categories extends React.Component {
     renderTermTable = () => {
         const table = []
         table.push(
-            <tr className="centered" key={0}>
+            <tr className="table-row--no-hover" key={0}>
                 <td className="table-data">
-                    <div className="termBox">
+                    <div>
                         {this.renderCatTerms(this.state.cat)}
                     </div>
                 </td>
@@ -386,16 +386,12 @@ class Categories extends React.Component {
                             createCategory={this.props.createCategory}
                             categories={this.props.categories}
                         />
-                        <div className="categories-header">
-                            <h2 className="pageTitle">
-                                Category Creation
-                            </h2>
-                        </div>
+                        <h2 className="categories-header">
+                            Category Creation
+                        </h2>
                         <div className="categories-content-box">
                             <div className="categories-terms-box">
-
                                 <div className="categories-terms-box--left">
-
                                     <h1 className="centered">
                                         Terms
                                     </h1>
@@ -455,9 +451,9 @@ class Categories extends React.Component {
                                 </div>
 
                                 <div className="categories-terms-box--center">
-                                    <h6 className="categories-sub-header centered"> Edit Categories</h6>
-                                    &nbsp;
-                                    <div className="categories-button-box"></div>
+                                    <h6 className="categories-sub-header centered">
+                                        Edit Categories
+                                    </h6> &nbsp;
                                     <div className="categories-input-box">
                                         {this.state.cat === -1 ? 
                                             <button className="button categories__buttons" onClick={() => this.isShowPopup(true)}>
@@ -475,8 +471,7 @@ class Categories extends React.Component {
                                             <button className="button categories__buttons" onClick={() => this.deleteCat()}>
                                                 Delete Category
                                             </button>
-                                        }
-                                        &nbsp;
+                                        } &nbsp;
                                         {this.state.cat === -1 ?
                                             null 
                                             :
@@ -524,19 +519,19 @@ class Categories extends React.Component {
                                 </div>
                                     {this.state.mode === "categories" ?
                                         <div className="categories-terms-box--right">
-                                            <h1 className="centered">
+                                            <h1 className="categories-sub-header centered">
                                                 Categories
                                             </h1>
-                                            <h6 className="centered">
+                                            <h6 className="categories-sub-header centered">
                                                 Select a category to edit
                                             </h6>
-                                            <table className="table table-hover tableBody tr">
+                                            <table className="table table-head">
                                                 <thead className="table-light">
                                                     <tr>
-                                                        <th className="cell-align-middle centered tableHeader">
+                                                        <th className="centered table-header">
                                                             Category
                                                         </th>
-                                                        <th className="cell-align-middle centered tableHeader">
+                                                        <th className="centered table-header">
                                                             Terms
                                                         </th>
                                                     </tr>
@@ -550,7 +545,6 @@ class Categories extends React.Component {
                                                     } 
                                                 </tbody>
                                             </table> 
-                                            
                                             <div className="categories-button-box">
                                                 <div className="categories-input-box">
                                                     {this.state.pageCat == 0 ?
@@ -576,17 +570,17 @@ class Categories extends React.Component {
                                             </div>
                                         </div>
                                         :
-                                        <div>
-                                            <h1 className="centered">
+                                        <div className="categories-terms-box--right">
+                                            <h1 className="categories-sub-header centered">
                                                 {Object.keys(this.props.categories)[this.state.cat]}
                                             </h1>
-                                            <h6 className="centered">
+                                            <h6 className="categories-sub-header centered">
                                                 Select terms to remove from category
                                             </h6>
-                                            <table className="table tableBody tr">
+                                            <table className="table table-head">
                                                     <thead className="table-light">
                                                         <tr>
-                                                            <th className="cell-align-middle centered tableHeader">
+                                                            <th className="centered table-header">
                                                                 Terms
                                                             </th>
                                                         </tr>

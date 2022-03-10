@@ -30,7 +30,7 @@
     border: 2px solid black;
 }
 
-.load-content {
+.load-input-box {
     margin: auto;
     display: flex;
     flex-direction: column;

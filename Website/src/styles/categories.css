@@ -15,6 +15,7 @@
     height: auto;
     width: auto;
     margin-right: auto;
+    color: black;
     /* background-color: blue; */
 }
 
@@ -135,10 +136,6 @@
     background-color: white;
     height: 438px;
 }
-
-
-
-
 
 .tl {
     max-height: 300px;

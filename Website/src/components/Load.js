@@ -14,15 +14,12 @@ class Load extends React.Component {
             <div className="section">
                 <div className="container">
                     <div className="load-wrapper">
-
-                        <div className="load-header">
-                            <h2>
-                                Create/ Load Taxonomy
-                            </h2>
-                        </div>
+                        <h2 className="load-header">
+                            Create/ Load Taxonomy
+                        </h2>
                         <div className="load-content-box">
                             <div className="load-content-box--centered">
-                                <div className="load-content">
+                                <div className="load-input-box">
                                     <button onClick={() => this.props.loaded(false)} className="button">
                                         Create a new Taxonomy
                                     </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

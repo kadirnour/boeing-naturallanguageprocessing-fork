@@ -23,7 +23,7 @@ class Documents extends React.Component {
         const table = []
         for (let r = 0; r < Object.keys(this.props.filesList).length; r++) {
           table.push(
-            <tr key = {r} className={"weight" + (this.disabledBtn(r) === true ? " weight-selected2" : "")}>
+            <tr key = {r} className={"table-row--no-hover" + (this.disabledBtn(r) === true ? " table-row--selected" : "")}>
                 
                 <td className="table-data">
                   {Object.keys(this.props.filesList)[r] + Object.values(this.props.filesList)[r]}
@@ -119,17 +119,15 @@ class Documents extends React.Component {
             <div className="section">
                 <div className="container">
                     <div className="document-wrapper">
-                        <div className="document-header">
-                            {this.props.load ?
-                                <h2 >
-                                    Load From Taxonomy
-                                </h2>
-                                :
-                                <h2 >
-                                    Create a New Taxonomy
-                                </h2>
-                            }
-                        </div>
+                        {this.props.load ?
+                            <h2 className="document-header">
+                                Load From Taxonomy
+                            </h2>
+                            :
+                            <h2 className="document-header">
+                                Create a New Taxonomy
+                            </h2>
+                        }
                         <div className="document-content-box">
                             <div className="document-content-box--centered">
                                 {this.props.load ? 

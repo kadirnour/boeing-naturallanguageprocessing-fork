@@ -159,7 +159,7 @@ class Taxonomy extends React.Component {
         const table = []
         for (let r = 0; r < Object.keys(this.state.relationshipTypes).length; r++) {
             table.push( // Each table row is clickable to edit the relationship type (name and color)
-                <tr key={r} className="weight centered" onClick={() => this.isShowPopup(true, "editRelationshipType", r)}>
+                <tr key={r} className="table-row" onClick={() => this.isShowPopup(true, "editRelationshipType", r)}>
                     <td className="table-data">
                         {Object.keys(this.state.relationshipTypes[r])}
                     </td>
@@ -369,11 +369,9 @@ class Taxonomy extends React.Component {
                             nouns={this.state.nouns}
                             label={this.state.label}
                         />
-                        <div className="taxonomy-header">
-                            <h2 className="pageTitle">
-                                Taxonomy Relationships
-                            </h2>
-                        </div>
+                        <h2 className="taxonomy-header">
+                            Taxonomy Relationships
+                        </h2>
                         <div className="taxonomy-content-box">
                             <div className="taxonomy-terms-box">
                                     <div className="taxonomy-terms-box--left">

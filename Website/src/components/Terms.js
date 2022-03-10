@@ -140,7 +140,7 @@ class Terms extends React.Component {
         if ((this.state.page * 100) + 100 > Object.keys(this.props.weightDictionary).length) {
             for (let r = this.state.page * 100; r < Object.keys(this.props.weightDictionary).length; r++) {
                 table.push(
-                    <tr key = {r} className={"centered weight" + (this.checkSelectedTerm(r) === true ? " weight-selected" : "")}>
+                    <tr key = {r} className={"table-row" + (this.checkSelectedTerm(r) === true ? " table-row--selected" : "")}>
                         <td className="table-data" onClick={() => (this.checkSelectedTerm(r) ? 
                             this.removedSelectedTerm(r)
                             :
@@ -170,7 +170,7 @@ class Terms extends React.Component {
         } else {
             for (let r = this.state.page * 100; r < (this.state.page * 100) + 100; r++) {
                 table.push(
-                    <tr key = {r} className={"centered weight" + (this.checkSelectedTerm(r) === true ? " weight-selected" : "")}>
+                    <tr key = {r} className={"table-row" + (this.checkSelectedTerm(r) === true ? " table-row--selected" : "")}>
                         <td className="table-data" onClick={() => (this.checkSelectedTerm(r) ?
                             this.removedSelectedTerm(r)
                             :
@@ -232,11 +232,9 @@ class Terms extends React.Component {
                             term={Object.keys(this.props.weightDictionary)[this.state.modalTerm]}
                             sentences={Object.values(this.props.weightDictionary)[this.state.modalTerm]}
                         />
-                        <div className="terms-header">
-                            <h2 className="pageTitle">
-                                Term Extraction/ Selection
-                            </h2>
-                        </div>
+                        <h2 className="terms-header">
+                            Term Extraction/ Selection
+                        </h2>
                         <div className="terms-content-box">
                             <div className="terms-content-box--centered">
                                 <div className="terms-input-box">
