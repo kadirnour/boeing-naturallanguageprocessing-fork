@@ -380,7 +380,9 @@ class Taxonomy extends React.Component {
                                         <h6 className="taxonomy-sub-header">
                                             Hold ctrl or long-click to select second node
                                         </h6>
-                                        <Graph key={this.state.graphID} graph={this.state.graph} options={options} events={this.state.events} style={{height: "435px"}}/>
+                                        <div className="taxonomy-graph-box">
+                                            <Graph key={this.state.graphID} graph={this.state.graph} options={options} events={this.state.events} style={{height: "100%"}}/>
+                                        </div>
                                     </div>
                                     <div className="taxonomy-terms-box--center">
                                         <h6 className="taxonomy--center-sub-header centered"> Edit Relationships </h6>
