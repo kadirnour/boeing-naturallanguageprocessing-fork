@@ -273,7 +273,7 @@ class ModalPopup extends Component {
                                 centered>  
                                 <Modal.Header closeButton>  
                                     <Modal.Title id="sign-in-title">  
-                                        Choose relationship
+                                        Create a New Relationship
                                     </Modal.Title>  
                                 </Modal.Header>  
                                 <Modal.Body>  
@@ -288,8 +288,8 @@ class ModalPopup extends Component {
                                     </div> &nbsp;&nbsp;&nbsp;
                                     <div>
                                         <button className="button__small blue" onClick={() => this.handleSubmit()}>
-                                            <FontAwesomeIcon icon={faCheck}/> &nbsp;
-                                            Select
+                                            <FontAwesomeIcon icon={faPlus}/> &nbsp;
+                                            Create
                                         </button>
                                     </div>
                                 </Modal.Body>
