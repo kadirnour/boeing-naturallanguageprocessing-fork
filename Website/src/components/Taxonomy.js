@@ -159,7 +159,7 @@ class Taxonomy extends React.Component {
         const table = []
         for (let r = 0; r < Object.keys(this.state.relationshipTypes).length; r++) {
             table.push( // Each table row is clickable to edit the relationship type (name and color)
-                <tr key={r} className="centered" onClick={() => this.isShowPopup(true, "editRelationshipType", r)}>
+                <tr key={r} className="weight centered" onClick={() => this.isShowPopup(true, "editRelationshipType", r)}>
                     <td className="table-data">
                         {Object.keys(this.state.relationshipTypes[r])}
                     </td>
@@ -377,11 +377,13 @@ class Taxonomy extends React.Component {
                         <div className="taxonomy-content-box">
                             <div className="taxonomy-terms-box">
                                     <div className="taxonomy-terms-box--left">
-                                        Hold ctrl or long-click to select second node
+                                        <h6 className="taxonomy-sub-header">
+                                            Hold ctrl or long-click to select second node
+                                        </h6>
                                         <Graph key={this.state.graphID} graph={this.state.graph} options={options} events={this.state.events} style={{height: "435px"}}/>
                                     </div>
                                     <div className="taxonomy-terms-box--center">
-                                        <h6 className="taxonomy-sub-header centered"> Edit Relationships </h6>
+                                        <h6 className="taxonomy--center-sub-header centered"> Edit Relationships </h6>
                                         <button className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "newRelationshipType", -1)}>
                                             Create New Relationship Type
                                         </button>
@@ -433,7 +435,9 @@ class Taxonomy extends React.Component {
 
 
                                     <div className="taxonomy-terms-box--right">
-                                        Click to edit
+                                        <h6 className="taxonomy-sub-header">
+                                            Click to Edit
+                                        </h6>
                                         <table className="table table-head">
                                             <thead className="table-light">
                                                 <tr>

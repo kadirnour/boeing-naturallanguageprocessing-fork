@@ -3,13 +3,12 @@
 ##########################################################*/
 .categories-wrapper {
     color: white;
-    /* background-size:100% 80%; */
     width: 100%;
     height: calc(100vh - 86px);
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: green;
+    /* background-color: green; */
 }
 
 .categories-header {
@@ -32,6 +31,7 @@
     align-items: center;
     background-color: lightgray;
     border: 2px solid black;
+    position: relative;
 }
 
 .categories-input-box {
@@ -42,19 +42,22 @@
 }
 
 .categories-terms-box {
-    width: 100%;
-    height: 73vh;
+    width: auto;
+    height: auto;
     margin-top: 10px;
     /* background-color: orange; */
 }
 
 .categories-terms-box--left {
     border: 2px solid black;
+    text-align: center;
     float: left; 
     width: 45%;
     height: 100%;
     color: black;
-    background-color: white;
+    background-color: darkgray;
+    margin-bottom: 20px;
+    position: relative;
 }
 
 .categories-terms-box--center {
@@ -62,20 +65,31 @@
     float: left; 
     width: 10%;
     height: 100%;
-    background-color: lightblue;
+    background-color: silver;
 }
 
 .categories-terms-box--right {
     border: 2px solid black;
+    text-align: center;
     float: right; 
     width: 45%;
     height: 100%;
     color: black;
-    background-color: white;
+    background-color: darkgray;
+    position: relative;
 }
 
 .categories__buttons {
     width: 100%;
+}
+
+.categories-button-box {
+    position: absolute;
+    bottom: .1vh;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
 }
 
 
@@ -122,24 +136,9 @@
     height: 438px;
 }
 
-.weight {
-    background-color: white;
-    height: auto;
-    width: auto;
-}
 
-.weight-selected {
-    background-color: rgba(0, 0, 255, 0.445);
-    font-weight: bold;
-}
 
-.weight-selected2 {
-    font-weight: bold;
-}
 
-.weight:hover {
-    background-color: lightblue !important;
-}
 
 .tl {
     max-height: 300px;

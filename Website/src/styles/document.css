@@ -3,7 +3,6 @@
 ##########################################################*/
 .document-wrapper {
     color: white;
-    /* background-size:100% 80%; */
     width: 100%;
     height: calc(100vh - 86px);
     display: flex;
@@ -28,6 +27,18 @@
     align-items: center;
     background-color: lightgray;
     border: 2px solid black;
+    position: relative;
+}
+
+.document-content-box--centered {
+    margin-top: 10px;
+    text-align: center;
+    border: 2px solid black; 
+    width: 100%;
+    height: 94.5%;
+    color: black;
+    background-color: darkgray;
+    position: relative;
 }
 
 .document-input-box {
@@ -40,8 +51,12 @@
     border: 2px solid black;
     background-color: white;
     color: black;
-    height: auto;
-    width: auto;
     margin-top: 10px;
-    margin-left: 10px;
+    height: auto;
+    width: 85%;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    left: 00;
+    right: 0;
 }

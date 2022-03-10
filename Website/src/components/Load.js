@@ -20,11 +20,8 @@ class Load extends React.Component {
                                 Create/ Load Taxonomy
                             </h2>
                         </div>
-
-                        {/* </div> */}
-                        {/* <div className="page-box"> */}
-                            <div className="load-content-box">
-
+                        <div className="load-content-box">
+                            <div className="load-content-box--centered">
                                 <div className="load-content">
                                     <button onClick={() => this.props.loaded(false)} className="button">
                                         Create a new Taxonomy
@@ -33,12 +30,8 @@ class Load extends React.Component {
                                         Load from Taxonomy
                                     </button>
                                 </div>
-                                
                             </div>
-                        {/* </div>  */}
-                    {/* </div> */}
-
-
+                        </div>
                     </div>
                 </div>
             </div>

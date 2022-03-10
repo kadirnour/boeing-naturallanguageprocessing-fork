@@ -19,15 +19,21 @@
     width: 100%;
 }
 
+.table-body--document {
+    display: block;
+    height: 26vh;
+    overflow: auto;
+}
+
 .table-body--terms {
     display: block;
-    height: 50vh;
+    height: 54vh;
     overflow: auto;
 }
 
 .table-body--categories {
     display: block;
-    height: 53vh;
+    height: 60vh;
     overflow: auto;
 }
 
@@ -39,7 +45,7 @@
 
 
 
-/* .term {
+.term {
     border: 2px solid black;
     float: left;
     height: auto;
@@ -68,7 +74,26 @@
     background-color: lightblue !important;
 }
 
-.maxHeight {
+/* .maxHeight {
     height: 100px;
     overflow: scroll;
 } */
+
+.weight {
+    background-color: white;
+    height: auto;
+    width: auto;
+}
+
+.weight-selected {
+    background-color: rgba(0, 0, 255, 0.445);
+    font-weight: bold;
+}
+
+.weight-selected2 {
+    font-weight: bold;
+}
+
+.weight:hover {
+    background-color: lightblue !important;
+}

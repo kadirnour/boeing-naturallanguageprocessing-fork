@@ -380,7 +380,7 @@ class Categories extends React.Component {
         return (
             <div className="section">
                 <div className="container">
-                    <div className="terms-wrapper">
+                    <div className="categories-wrapper">
                         <ModalPopup showModalPopup={this.state.showModalPopup}  
                             onPopupClose={this.isShowPopup}
                             createCategory={this.props.createCategory}
@@ -427,103 +427,107 @@ class Categories extends React.Component {
                                             } 
                                         </tbody>
                                     </table>
+                                    
+                                    <div className="categories-button-box">
+                                        <div className="categories-input-box">
+                                            {this.state.pageTerms == 0 ?
+                                                <button className="button" disabled={true} onClick={() => this.pageTerms('pervious')}>
+                                                    Previous:
+                                                </button>
+                                                :
+                                                <button className="button" onClick={() => this.pageTerms('pervious')}>
+                                                    Previous:
+                                                </button>
+                                            } &nbsp;&nbsp;&nbsp;
+                                            {this.state.pageTerms} &nbsp;&nbsp;&nbsp;
+                                            {(this.state.pageTerms * 100) + 100 <  Object.keys(this.props.weightDictionary).length ?
+                                                <button className="button" onClick={() => this.pageTerms('next')}>
+                                                    Next:
+                                                </button> 
+                                                :
+                                                <button className="button" disabled={true} onClick={() => this.pageTerms('next')}>
+                                                    Next:
+                                                </button>
+                                            }
+                                        </div>   
+                                    </div>
 
-                                    <div className="centered">
-                                        {this.state.pageTerms == 0 ?
-                                            <button className="button" disabled={true} onClick={() => this.pageTerms('pervious')}>
-                                                Previous:
-                                            </button>
-                                            :
-                                            <button className="button" onClick={() => this.pageTerms('pervious')}>
-                                                Previous:
-                                            </button>
-                                        }
-                                        
-                                        {this.state.pageTerms}
-
-                                        {(this.state.pageTerms * 100) + 100 <  Object.keys(this.props.weightDictionary).length ?
-                                            <button className="button" onClick={() => this.pageTerms('next')}>
-                                                Next:
-                                            </button> 
-                                            :
-                                            <button className="button" disabled={true} onClick={() => this.pageTerms('next')}>
-                                                Next:
-                                            </button>
-                                        }
-                                    </div>   
                                 </div>
 
                                 <div className="categories-terms-box--center">
                                     <h6 className="categories-sub-header centered"> Edit Categories</h6>
                                     &nbsp;
-                                    {this.state.cat === -1 ? 
-                                        <button className="button categories__buttons" onClick={() => this.isShowPopup(true)}>
-                                            Create New Category
-                                        </button> 
-                                        : 
-                                        <button className="button categories__buttons" onClick={() => this.changeMode(-1)}>
-                                            Exit Category
-                                        </button>
-                                    }
-                                    &nbsp;
-                                    {this.state.cat === -1 ? 
-                                        null 
-                                        : 
-                                        <button className="button categories__buttons" onClick={() => this.deleteCat()}>
-                                            Delete Category
-                                        </button>
-                                    }
-                                    &nbsp;
-                                    {this.state.cat === -1 ?
-                                        null 
-                                        :
-                                        this.state.selectedTerms.length == 0 ?
-                                            <button disabled={true} onClick={() => this.addToWeights()} className="button categories__buttons">
-                                                &lt;&lt;&lt;
+                                    <div className="categories-button-box"></div>
+                                    <div className="categories-input-box">
+                                        {this.state.cat === -1 ? 
+                                            <button className="button categories__buttons" onClick={() => this.isShowPopup(true)}>
+                                                Create New Category
+                                            </button> 
+                                            : 
+                                            <button className="button categories__buttons" onClick={() => this.changeMode(-1)}>
+                                                Exit Category
+                                            </button>
+                                        }
+                                        &nbsp;
+                                        {this.state.cat === -1 ? 
+                                            null 
+                                            : 
+                                            <button className="button categories__buttons" onClick={() => this.deleteCat()}>
+                                                Delete Category
+                                            </button>
+                                        }
+                                        &nbsp;
+                                        {this.state.cat === -1 ?
+                                            null 
+                                            :
+                                            this.state.selectedTerms.length == 0 ?
+                                                <button disabled={true} onClick={() => this.addToWeights()} className="button categories__buttons">
+                                                    &lt;&lt;&lt;
+                                                </button> 
+                                                :
+                                                <button onClick={() => this.addToWeights()} className="button categories__buttons">
+                                                    &lt;&lt;&lt;
+                                                </button>
+                                        }
+                                        &nbsp;
+                                        {this.state.cat === -1 ?
+                                            null 
+                                            :
+                                            this.state.selectedWeightTerms.length == 0 ?
+                                                <button disabled={true} className="button categories__buttons" onClick={() => this.addToCategory()}>
+                                                    &gt;&gt;&gt;
+                                                </button> 
+                                                :
+                                                <button className="button categories__buttons" onClick={() => this.addToCategory()}>
+                                                    &gt;&gt;&gt;
+                                                </button>
+                                        }
+                                        &nbsp;
+                                        {this.state.selectedWeightTerms.length != 0 || this.state.selectedTerms.length != 0 ?
+                                            <button className="button categories__buttons" onClick={() => this.clearSelected()}>
+                                                Clear Selected
                                             </button> 
                                             :
-                                            <button onClick={() => this.addToWeights()} className="button categories__buttons">
-                                                &lt;&lt;&lt;
+                                            <button disabled={true} className="button categories__buttons" onClick={() => this.clearSelected()}>
+                                                Clear Selected
                                             </button>
-                                    }
-                                    &nbsp;
-                                    {this.state.cat === -1 ?
-                                        null 
-                                        :
-                                        this.state.selectedWeightTerms.length == 0 ?
-                                            <button disabled={true} className="button categories__buttons" onClick={() => this.addToCategory()}>
-                                                &gt;&gt;&gt;
+                                        }
+                                        &nbsp;
+                                        {this.state.cat === -1  ?
+                                            <button className="button categories__buttons" onClick={() => this.saveCategories()}>
+                                                Save Categories
                                             </button> 
                                             :
-                                            <button className="button categories__buttons" onClick={() => this.addToCategory()}>
-                                                &gt;&gt;&gt;
-                                            </button>
-                                    }
-                                    &nbsp;
-                                    {this.state.selectedWeightTerms.length != 0 || this.state.selectedTerms.length != 0 ?
-                                        <button className="button categories__buttons" onClick={() => this.clearSelected()}>
-                                            Clear Selected
-                                        </button> 
-                                        :
-                                        <button disabled={true} className="button categories__buttons" onClick={() => this.clearSelected()}>
-                                            Clear Selected
-                                        </button>
-                                    }
-                                    &nbsp;
-                                    {this.state.cat === -1  ?
-                                        <button className="button categories__buttons" onClick={() => this.saveCategories()}>
-                                            Save Categories
-                                        </button> 
-                                        :
-                                        null
-                                    }
+                                            null
+                                        }
+                                    </div>
                                 </div>
 
-                                <div className="categories-terms-box--right">
+                                {/* <div className="categories-terms-box--right"> */}
                                     {this.state.mode === "categories" ?
-                                        <div>
+                                        <div className="categories-terms-box--right">
                                             <h1 className="centered">
-                                                CATEGORIES
+                                                Categories
                                             </h1>
                                             <h6 className="centered">
                                                 Select a category to edit
@@ -548,26 +552,29 @@ class Categories extends React.Component {
                                                     } 
                                                 </tbody>
                                             </table> 
-                                            <div className="centered">
-                                                {this.state.pageCat == 0 ?
-                                                    <button className="button" disabled={true} onClick={() => this.pageCat('pervious')}>
-                                                        Previous:
-                                                    </button>
-                                                    :
-                                                    <button className="button" onClick={() => this.pageCat('pervious')}>
-                                                        Previous:
-                                                    </button>
-                                                }
-                                                {this.state.pageCat}
-                                                {(this.state.pageCat * 100) + 100 <  Object.keys(this.props.categories).length ?
-                                                    <button className="button" onClick={() => this.pageCat('next')}>
-                                                        Next:
-                                                    </button> 
-                                                    :
-                                                    <button className="button" disabled={true} onClick={() => this.pageCat('next')}>
-                                                        Next:
-                                                    </button>
-                                                }
+                                            
+                                            <div className="categories-button-box">
+                                                <div className="categories-input-box">
+                                                    {this.state.pageCat == 0 ?
+                                                        <button className="button" disabled={true} onClick={() => this.pageCat('pervious')}>
+                                                            Previous:
+                                                        </button>
+                                                        :
+                                                        <button className="button" onClick={() => this.pageCat('pervious')}>
+                                                            Previous:
+                                                        </button>
+                                                    } &nbsp;&nbsp;&nbsp;
+                                                    {this.state.pageCat} &nbsp;&nbsp;&nbsp;
+                                                    {(this.state.pageCat * 100) + 100 <  Object.keys(this.props.categories).length ?
+                                                        <button className="button" onClick={() => this.pageCat('next')}>
+                                                            Next:
+                                                        </button> 
+                                                        :
+                                                        <button className="button" disabled={true} onClick={() => this.pageCat('next')}>
+                                                            Next:
+                                                        </button>
+                                                    }
+                                                </div>
                                             </div>
                                         </div>
                                         :
@@ -599,7 +606,7 @@ class Categories extends React.Component {
                                             </table> 
                                         </div>
                                     }
-                                </div>
+                                {/* </div> */}
 
 
 

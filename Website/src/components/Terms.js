@@ -144,17 +144,20 @@ class Terms extends React.Component {
                         <td className="table-data" onClick={() => (this.checkSelectedTerm(r) ? 
                             this.removedSelectedTerm(r)
                             :
-                            this.selectTerm(r))}>{Object.keys(this.props.weightDictionary)[r]}
+                            this.selectTerm(r))}>
+                            {Object.keys(this.props.weightDictionary)[r]}
                         </td>
                         <td className="table-data" onClick={() => (this.checkSelectedTerm(r) ?
                             this.removedSelectedTerm(r)
                             :
-                            this.selectTerm(r))}> {Object.values(this.props.weightDictionary)[r].frequency}
+                            this.selectTerm(r))}> 
+                            {Object.values(this.props.weightDictionary)[r].frequency}
                         </td>
                         <td className="table-data" onClick={() => (this.checkSelectedTerm(r) ?
                             this.removedSelectedTerm(r)
                             :
-                            this.selectTerm(r))}>{Object.values(this.props.weightDictionary)[r].weight}
+                            this.selectTerm(r))}>
+                            {Object.values(this.props.weightDictionary)[r].weight}
                         </td>
                         <td className="table-data">
                             <button className="button" onClick={() => this.isShowPopup(true, r)}>
@@ -235,97 +238,105 @@ class Terms extends React.Component {
                             </h2>
                         </div>
                         <div className="terms-content-box">
-                            <div className="terms-input-box">
-                                {this.props.load ?
-                                    <div>
-                                        <button className="button" onClick={() => this.props.loadCorpus()}>
-                                            Refresh Weights:
-                                        </button> &nbsp;&nbsp;&nbsp;
-                                        <button className="button" onClick={() => this.props.saveWeight()}>
-                                            Save Weights:
-                                        </button>
-                                    </div>
-                                    :
-                                    <div>  
-                                        <button className="button" onClick={() => this.props.getTerms()}>
-                                            Refresh Weights:
-                                        </button> &nbsp;&nbsp;&nbsp;
-                                        <button className="button" onClick={() => this.props.saveWeight()}>
-                                            Save Weights:
-                                        </button>
-                                    </div>
-                                } 
-                            </div> &nbsp;
-                            <h6 className="terms-sub-header">
-                                Select terms to remove
-                            </h6>
-                            <table className="table table-head">
-                                <thead className="table-light">
-                                    <tr>
-                                        <th className="centered table-header">
-                                            Noun
-                                        </th>
-                                        <th className="centered table-header">
-                                            Frequency
-                                        </th>
-                                        <th className="centered table-header">
-                                            Weight
-                                        </th>
-                                        <th>
-                                            Sentences
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody className="table-body--terms">
-                                    {Object.keys(this.props.weightDictionary).length === 0 ?
+                            <div className="terms-content-box--centered">
+                                <div className="terms-input-box">
+                                    {this.props.load ?
+                                        <div>
+                                            <button className="button" onClick={() => this.props.loadCorpus()}>
+                                                Refresh Weights:
+                                            </button> &nbsp;&nbsp;&nbsp;
+                                            <button className="button" onClick={() => this.props.saveWeight()}>
+                                                Save Weights:
+                                            </button>
+                                        </div>
+                                        :
+                                        <div>  
+                                            <button className="button" onClick={() => this.props.getTerms()}>
+                                                Refresh Weights:
+                                            </button> &nbsp;&nbsp;&nbsp;
+                                            <button className="button" onClick={() => this.props.saveWeight()}>
+                                                Save Weights:
+                                            </button>
+                                        </div>
+                                    } 
+                                <hr className="hr"/>
+                                </div>
+                                <h6 className="terms-sub-header">
+                                    Select terms to remove
+                                </h6>
+                                <table className="table table-head">
+                                    <thead className="table-light">
                                         <tr>
-                                            <td></td>
+                                            <th className="centered table-header">
+                                                Noun
+                                            </th>
+                                            <th className="centered table-header">
+                                                Frequency
+                                            </th>
+                                            <th className="centered table-header">
+                                                Weight
+                                            </th>
+                                            <th>
+                                                Sentences
+                                            </th>
                                         </tr>
-                                        : this.renderTable()} 
-                                </tbody>
-                            </table>
-                            <div className="terms-input-box">
-                                    {this.state.page == 0 ?
-                                        <button className="button" disabled={true} onClick={() => this.page('pervious')}>
-                                            Previous:
-                                        </button> 
-                                        :
-                                        <button className="button" onClick={() => this.page('pervious')}>
-                                            Previous:
-                                        </button>
-                                    } &nbsp;&nbsp;&nbsp;
-                                    {this.state.page} &nbsp;&nbsp;&nbsp;
-                                    {(this.state.page * 100) + 100 < Object.keys(this.props.weightDictionary).length ?
-                                        <button className="button" onClick={() => this.page('next')}>
-                                            Next:
-                                        </button>
-                                        :
-                                        <button className="button" disabled={true} onClick={() => this.page('next')}>
-                                            Next:
-                                        </button>
-                                    }
-                            </div>
-                            <div className="terms-input-box">
-                                {this.state.selectedTerms.length != 0 ?
-                                    <button className="button" onClick={() => this.clearSelected()}> 
-                                        Clear Selected
-                                    </button> 
-                                    :
-                                    <button disabled={true} className="button" onClick={() => this.clearSelected()}>
-                                        Clear Selected
-                                    </button>
-                                } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                {this.state.selectedTerms.length != 0 ?
-                                    <button className="button" onClick={() => this.deleteTerms()}>
-                                        Delete Terms
-                                    </button> 
-                                    :
-                                    <button disabled={true} className="button" onClick={() => this.deleteTerms()}>
-                                        Delete Terms
-                                    </button>
-                                }
-                            </div>
+                                    </thead>
+                                    <tbody className="table-body--terms">
+                                        {Object.keys(this.props.weightDictionary).length === 0 ?
+                                            <tr>
+                                                <td></td>
+                                            </tr>
+                                            : this.renderTable()} 
+                                    </tbody>
+                                </table>
 
+                                <div className="terms-button-box">
+                                    <div className="terms-input-box">
+                                            {this.state.page == 0 ?
+                                                <button className="button" disabled={true} onClick={() => this.page('pervious')}>
+                                                    Previous:
+                                                </button> 
+                                                :
+                                                <button className="button" onClick={() => this.page('pervious')}>
+                                                    Previous:
+                                                </button>
+                                            } &nbsp;&nbsp;&nbsp;
+                                            {this.state.page} &nbsp;&nbsp;&nbsp;
+                                            {(this.state.page * 100) + 100 < Object.keys(this.props.weightDictionary).length ?
+                                                <button className="button" onClick={() => this.page('next')}>
+                                                    Next:
+                                                </button>
+                                                :
+                                                <button className="button" disabled={true} onClick={() => this.page('next')}>
+                                                    Next:
+                                                </button>
+                                            }
+                                    </div>
+                                    
+                                    <div className="terms-input-box">
+                                        {this.state.selectedTerms.length != 0 ?
+                                            <button className="button" onClick={() => this.clearSelected()}> 
+                                                Clear Selected
+                                            </button> 
+                                            :
+                                            <button disabled={true} className="button" onClick={() => this.clearSelected()}>
+                                                Clear Selected
+                                            </button>
+                                        } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        {this.state.selectedTerms.length != 0 ?
+                                            <button className="button" onClick={() => this.deleteTerms()}>
+                                                Delete Terms
+                                            </button> 
+                                            :
+                                            <button disabled={true} className="button" onClick={() => this.deleteTerms()}>
+                                                Delete Terms
+                                            </button>
+                                        }
+                                    </div>
+                                </div>  
+
+                                
+                            </div>
                             <div className="page-button-box">
                                 <button className="button" onClick={() => this.props.prevPage()}>
                                     Back
@@ -334,8 +345,6 @@ class Terms extends React.Component {
                                     Forward 
                                 </button>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
