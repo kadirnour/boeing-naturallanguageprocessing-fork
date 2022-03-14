@@ -1,3 +1,3 @@
-"{'from': 1, 'to': 2, 'color': '#e12323', 'width': 3, 'relationship': 'maw', 'id': '79e63f05-0685-4da8-a1c1-2d68ffa18f5b'}"
-"{'id': 1, 'label': 'jo', 'color': '#e04141'}","{'id': 2, 'label': 'moo', 'color': '#e04141'}"
-{'maw': '#e12323'}
+"{'from': 2, 'to': 3, 'color': '#ed0c0c', 'width': 3, 'relationship': 'rawr', 'id': '777ad53b-4511-427e-bcb9-c1fb5283a3a2'}"
+"{'id': 1, 'label': 'legday', 'color': '#e04141'}","{'id': 2, 'label': 'neckday', 'color': '#e04141'}","{'id': 3, 'label': 'pelviselvisday', 'color': '#e04141'}"
+{'grrr': '#000000'},{'rawr': '#ed0c0c'},{'lookatyourselfinthemirrortoolong': '#ecdb18'}

@@ -3,6 +3,7 @@ import ModalPopup from './modal_relationship_type';
 import Graph from 'vis-react';
 import download from 'downloadjs';
 import html2canvas from "html2canvas";
+//import ModalConfirmation from './modal_confirmation'
 
 //!! TODO: Create undo and redo array !!
 //!! TODO: Fix bug where user slected 2 nodes, then holds ctrl and drags a third node
@@ -336,9 +337,14 @@ class Taxonomy extends React.Component {
     Returns: Void
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     saveRelationships = () => {
-        this.props.saveRelationships(this.state.graph.edges, this.state.graph.nodes, this.state.relationshipTypes)
+        
+        this.isShowPopup(true, "confirm", -1)
+        
     }
 
+    confirmSave = () => {
+        this.props.saveRelationships(this.state.graph.edges, this.state.graph.nodes, this.state.relationshipTypes)
+    }
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     Function: getNouns
@@ -390,7 +396,8 @@ class Taxonomy extends React.Component {
             <div className="section">
                 <div className="container">
                     <div className="taxonomy-wrapper">
-                        <ModalPopup showModalPopup={this.state.showModalPopup}  
+                        <ModalPopup showModalPopup={this.state.showModalPopup}
+                            confirmSave={this.confirmSave}
                             type={this.state.type}
                             onPopupClose={this.isShowPopup}
                             relationshipTypes={this.state.relationshipTypes}
