@@ -1,7 +1,8 @@
 import React from 'react';
 import ModalPopup from './modal_popup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowsRotate, faBackward, faForward, faFileArrowDown, faFileLines, faAngleRight, faAngleLeft, faRotateRight, faTrash, faPlus, faCircleXmark, faCircle, faLeftLong, faRightLong } from '@fortawesome/free-solid-svg-icons'
+import { faBackward, faForward, faFileArrowDown, faAngleRight, faAngleLeft, faRotateRight, faTrash, faPlus, faCircleXmark, faLeftLong, faRightLong } 
+    from '@fortawesome/free-solid-svg-icons'
 
 class Categories extends React.Component {
     constructor() {  

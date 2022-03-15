@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';  
 import { Modal } from 'react-bootstrap';  
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faPlusCircle, faTractor, faTrash, faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faPlusCircle, faTrash, faCheck } from '@fortawesome/free-solid-svg-icons'
 
 /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 Function: 

@@ -207,11 +207,11 @@ class Documents extends React.Component {
                                         </div>
                                     </>
                                 }
-                                <hr className="hr"/>
                                 {this.props.load ? 
                                     <></>
                                     :
                                     <>
+                                        <hr className="hr"/>
                                         <div> &nbsp;&nbsp;
                                             <button className="button" onClick={() => this.props.Files()}> 
                                                 <FontAwesomeIcon icon={faArrowsRotate}/> &nbsp; 

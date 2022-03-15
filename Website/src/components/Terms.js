@@ -1,7 +1,8 @@
 import React from 'react';
 import ModalPopup from './modal_terms';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowsRotate, faBackward, faForward, faFileArrowDown, faFileLines, faAngleRight, faAngleLeft, faRotateRight, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faArrowsRotate, faBackward, faForward, faFileArrowDown, faFileLines, faAngleRight, faAngleLeft, faRotateRight, faTrash }
+    from '@fortawesome/free-solid-svg-icons'
 
 
 /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''

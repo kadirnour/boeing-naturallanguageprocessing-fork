@@ -2,7 +2,8 @@ import React from 'react';
 import ModalPopup from './modal_relationship_type';
 import Graph from 'vis-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowsRotate, faBackward, faForward, faFileArrowDown, faFileLines, faAngleRight, faAngleLeft, faRotateRight, faTrash, faCirclePlus, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faBackward, faFileArrowDown, faFileLines, faTrash, faCirclePlus, faPlus }
+    from '@fortawesome/free-solid-svg-icons'
 
 
 //!! TODO: Create undo and redo array !!
@@ -445,6 +446,8 @@ class Taxonomy extends React.Component {
                                         Save Relationship
                                     </button>
                                 </div>
+
+                                
                                 <div className="taxonomy-terms-box--right">
                                     <h6 className="taxonomy-sub-header">
                                         Click to Edit
