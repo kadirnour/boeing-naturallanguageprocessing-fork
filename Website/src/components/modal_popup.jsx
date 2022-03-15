@@ -55,7 +55,11 @@ class ModalPopup extends Component {
     Returns:
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     handleSubmit = () => {
-        if (Object.values(Object.keys(this.props.categories)).indexOf(this.state.Category) > -1) {
+        if (this.props.type=="confirm"){
+            this.props.confirmSave()
+            this.handleClose();
+        }
+        else if (Object.values(Object.keys(this.props.categories)).indexOf(this.state.Category) > -1) {
             console.log("Name already used")
         } else {
             this.props.createCategory(this.state.Category);
@@ -70,7 +74,29 @@ class ModalPopup extends Component {
     Returns:
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     render() {  
-        return (  
+        return ( 
+            this.props.type == "confirm"? 
+            <Fragment>  
+            <Modal show={this.props.showModalPopup} onHide={this.handleClose}
+                size="lg"  
+                aria-labelledby="contained-modal-title-vcenter"  
+                centered>  
+                <Modal.Header closeButton>  
+                    <Modal.Title id="sign-in-title">  
+                        Are you really double dog sure, you want save?
+                     </Modal.Title>  
+                </Modal.Header>  
+                <Modal.Body>  
+                    <button onClick={() => this.handleSubmit()}>
+                        Yes!
+                    </button>
+                    <button onClick={() => this.handleClose()}>
+                        No!
+                    </button>
+                </Modal.Body>
+            </Modal>  
+        </Fragment>  
+        : 
             <Fragment>  
                 <Modal show={this.props.showModalPopup} onHide={this.handleClose}
                     size="lg"  

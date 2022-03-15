@@ -1,10 +1,12 @@
 import React from 'react';
 import ModalPopup from './modal_relationship_type';
 import Graph from 'vis-react';
+import download from 'downloadjs';
+import html2canvas from "html2canvas";
+//import ModalConfirmation from './modal_confirmation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBackward, faFileArrowDown, faFileLines, faTrash, faCirclePlus, faPlus }
     from '@fortawesome/free-solid-svg-icons'
-
 
 //!! TODO: Create undo and redo array !!
 //!! TODO: Fix bug where user slected 2 nodes, then holds ctrl and drags a third node
@@ -26,10 +28,11 @@ var options = {
 };
 
 
+
 /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-Function: 
-Description:
-Returns:
+Function: Taxonomy Class
+Description: Contains functions relating to graph and constructor
+Returns: 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
 class Taxonomy extends React.Component {
     constructor() {  
@@ -79,9 +82,9 @@ class Taxonomy extends React.Component {
 
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: componentDidMount
+    Description: Pushes nodes, graph and relationshiptypes into components
+    Returns: Void
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     componentDidMount() {
         if(this.props.graph.nodes.length == 0) {
@@ -111,9 +114,9 @@ class Taxonomy extends React.Component {
     ###################################################################################*/
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: isShowPopup
+    Description: 
+    Returns: Void
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     isShowPopup = (status, type, r) => {  
         if (type == "nouns"){
@@ -131,9 +134,10 @@ class Taxonomy extends React.Component {
 
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: checkLineExists
+    Description: Checks if line exists between node A and node B and
+    sets exists to true or false.
+    Returns: Void
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     checkLineExists = () =>   {
         let exists = "FALSE"
@@ -154,9 +158,9 @@ class Taxonomy extends React.Component {
 
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: renderRelationshipTypes
+    Description: Renders relationship types to the table.
+    Returns: table
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     renderRelationshipTypes = () => {
         const table = []
@@ -181,9 +185,10 @@ class Taxonomy extends React.Component {
     ###################################################################################*/
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: createRelationshipType
+    Description: if the relations type does not exist, function creates
+    the new relationship type and pushes it to relationshipTypes
+    Returns: Void
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     createRelationshipType = (color, relationship) => {
         if(!this.checkRelationshipExists(relationship)) {
@@ -196,9 +201,10 @@ class Taxonomy extends React.Component {
 
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: createRelationship
+    Description: Draws the relationship from node a and nod b and saves the
+    result.
+    Returns: Void
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     createRelationship = (color, relationship) => {
         let newEdges = [...this.state.graph.edges]
@@ -221,9 +227,10 @@ class Taxonomy extends React.Component {
 
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: checkRelationshipExists
+    Description: Check that the relationship is empty but exists return true
+    or check that ther is an non empty relationship. Otherwise we return false.
+    Returns: boolean value (true, false)
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     checkRelationshipExists = (relationship) => {
         if(relationship.toString() == "") {
@@ -242,9 +249,10 @@ class Taxonomy extends React.Component {
 
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: editRelationshipType
+    Description: Edits relationship type by calling update, then saves
+    the taxonomy.
+    Returns: Void
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     editRelationshipType = (color, relationship) => {
         this.updateRelationshipType(color, relationship) // Updates the graph
@@ -256,9 +264,11 @@ class Taxonomy extends React.Component {
 
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: updateRelationshipType
+    Description: saves the new graph/edges and relationships
+    by copying and modifying that new graph then putting that 
+    into the state.
+    Returns: Void
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     updateRelationshipType = (color, relationship) => {
         let edgesCopy = [...this.state.graph.edges]
@@ -277,9 +287,9 @@ class Taxonomy extends React.Component {
     
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: deleteRelationshipType
+    Description: 
+    Returns: Void
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     deleteRelationshipType = () => {
         let edgesCopy = [...this.state.graph.edges]
@@ -301,9 +311,10 @@ class Taxonomy extends React.Component {
 
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: deleteEdge
+    Description: Deletes the edges by splicing by the two ends of the relationship
+    then saving result
+    Returns: Void
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     deleteEdge = () => {
         let edgesCopy = [...this.state.graph.edges]
@@ -324,19 +335,27 @@ class Taxonomy extends React.Component {
 
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: saveRelationships
+    Description: Shows pop up asking if we would like to save.
+    Returns: Void
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     saveRelationships = () => {
+        this.isShowPopup(true, "confirm", -1)
+    }
+
+     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: confirmSave
+    Description: If so we send relationship data to the flask route.
+    Returns: Void
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
+    confirmSave = () => {
         this.props.saveRelationships(this.state.graph.edges, this.state.graph.nodes, this.state.relationshipTypes)
     }
 
-
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: getNouns
+    Description: Gets terms for the term pop up.
+    Returns: Void
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     getNouns = () => {
         let label = ""
@@ -349,18 +368,40 @@ class Taxonomy extends React.Component {
             nouns: this.props.categories[label]})
     }
 
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: Screenshot
+    Description: Takes the screenshot them downlads that result
+    as a png file
+    Returns: Void 
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
+    
+    Screenshot = () =>{
+        html2canvas(document.getElementById("graphbox"), {
+          })
+          .then(function (canvas) {
+            // It will return a canvas element
+            let image = canvas.toDataURL("image/png");
+            download(image, "relationship.png", "text/png")
+          })
+          .catch((e) => {
+            // Handle errors
+            console.log(e);
+          });
+    }
+
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: resnder
+    Description: HTML script that vuilds the page
+    Returns: HTML script
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     render() {
         return (
             <div className="section">
                 <div className="container">
                     <div className="taxonomy-wrapper">
-                        <ModalPopup showModalPopup={this.state.showModalPopup}  
+                        <ModalPopup showModalPopup={this.state.showModalPopup}
+                            confirmSave={this.confirmSave}
                             type={this.state.type}
                             onPopupClose={this.isShowPopup}
                             relationshipTypes={this.state.relationshipTypes}
@@ -376,14 +417,15 @@ class Taxonomy extends React.Component {
                             Taxonomy Relationships
                         </h2>
                         <div className="taxonomy-content-box">
-                            <div className="taxonomy-terms-box">
-                                
+
+                            <div id='graphbox' className="taxonomy-terms-box">
                                 <div className="taxonomy-terms-box--left">
                                     <h6 className="taxonomy-sub-header">
                                         Hold ctrl or long-click to select second node
                                     </h6>
                                     <div className="taxonomy-graph-box">
                                         <Graph key={this.state.graphID} graph={this.state.graph} options={options} events={this.state.events} style={{height: "100%"}}/>
+
                                     </div>
                                 </div>
 
@@ -439,20 +481,32 @@ class Taxonomy extends React.Component {
                                             <FontAwesomeIcon icon={faTrash}/> &nbsp;
                                             Delete Relationship?
                                         </button>
-                                    }
 
-                                    <button className="button taxonomy__buttons" onClick={() => this.saveRelationships()}>
-                                        <FontAwesomeIcon icon={faFileArrowDown}/> &nbsp;
-                                        Save Relationship
-                                    </button>
-                                </div>
 
-                                
-                                <div className="taxonomy-terms-box--right">
-                                    <h6 className="taxonomy-sub-header">
-                                        Click to Edit
-                                    </h6>
-                                    <div className="table-box--taxonomy">
+                                        <button className="button taxonomy__buttons" onClick={() => this.Screenshot()}>
+                                            Take Screenshot
+                                        </button>
+                                    </div>
+
+
+
+                                    <div className="taxonomy-terms-box--right">
+                                        <h6 className="taxonomy-sub-header">
+                                            Click to Edit
+                                        </h6>
+
+//                                     }
+//                                     <button className="button taxonomy__buttons" onClick={() => this.saveRelationships()}>
+//                                         <FontAwesomeIcon icon={faFileArrowDown}/> &nbsp;
+//                                         Save Relationship
+//                                     </button>
+//                                 </div>                                
+//                                 <div className="taxonomy-terms-box--right">
+//                                     <h6 className="taxonomy-sub-header">
+//                                         Click to Edit
+//                                     </h6>
+//                                     <div className="table-box--taxonomy">
+
                                         <table className="table table-head">
                                             <thead className="table-light">
                                                 <tr>

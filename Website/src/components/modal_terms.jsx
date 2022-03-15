@@ -27,6 +27,16 @@ class ModalPopup extends Component {
         this.props.onPopupClose(false);  
     }  
 
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/ 
+    handleSubmit = () => {
+        this.props.confirmSave()
+        this.handleClose();
+    }
+
     /*##################################################################################
                                         Table Functions
     ###################################################################################*/
@@ -59,6 +69,27 @@ class ModalPopup extends Component {
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     render() {  
         return (  
+            this.props.type == "confirm"? 
+            <Fragment>  
+                <Modal show={this.props.showModalPopup} onHide={this.handleClose}
+                    size="lg"  
+                    aria-labelledby="contained-modal-title-vcenter"  
+                    centered>  
+                    <Modal.Header closeButton>  
+                        <Modal.Title id="sign-in-title">  
+                            Are you really double dog sure, you want save?
+                        </Modal.Title>  
+                    </Modal.Header>  
+                    <Modal.Body>  
+                        <button onClick={() => this.handleSubmit()}>
+                            Yes!
+                        </button>
+                        <button onClick={() => this.handleClose()}>
+                            No!
+                        </button>
+                    </Modal.Body>
+                </Modal>  
+            </Fragment>: 
             <Fragment>  
                 <Modal show={this.props.showModalPopup} onHide={this.handleClose} onShow={this.handleCreateLoad}
                     size="lg"  

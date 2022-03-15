@@ -5,10 +5,11 @@ import Terms from './Terms.js'
 import Categories from './Categories.js'
 import Taxonomy from './Taxonomy.js'
 import Load from './Load.js'
+//import downloader from '../download.js';
 
 /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 Function: App
-Description: main webpage, calls back-end functions through routes
+Description: Main webpage, calls back-end functions through routes.
 Returns: current page
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
 class App extends React.Component { 

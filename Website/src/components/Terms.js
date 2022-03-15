@@ -27,8 +27,9 @@ class Terms extends React.Component {
     Description:
     Returns:
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
-    isShowPopup = (status, r) => {  
+    isShowPopup = (status, type, r) => {  
         this.setState({showModalPopup: status,
+            type:type,
             modalTerm: r});
     };  
 
@@ -129,6 +130,7 @@ class Terms extends React.Component {
     }
 
 
+
     /*##################################################################################
                                         Table Functions
     ###################################################################################*/
@@ -162,10 +164,12 @@ class Terms extends React.Component {
                             this.selectTerm(r))}>
                             {Object.values(this.props.weightDictionary)[r].weight}
                         </td>
-                        <td>
-                            <button className="button" onClick={() => this.isShowPopup(true, r)}>
-                                <FontAwesomeIcon icon={faFileLines}/> &nbsp; 
-                                Sentences
+
+                        <td className="table-data">
+                            <button className="button" onClick={() => this.isShowPopup(true, "", r)}>
+                              <FontAwesomeIcon icon={faFileLines}/> &nbsp; 
+
+                              Sentences
                             </button>
                         </td>
                     </tr>
@@ -190,9 +194,12 @@ class Terms extends React.Component {
                             :
                             this.selectTerm(r))}> {Object.values(this.props.weightDictionary)[r].weight}
                         </td>
-                        <td>
-                            <button className="button" onClick={() => this.isShowPopup(true, r)}>
+
+                        <td className="table-data">
+                            <button className="button" onClick={() => this.isShowPopup(true,"", r)}>
+
                                 <FontAwesomeIcon icon={faFileLines}/> &nbsp; 
+
                                 Sentences
                             </button>
                         </td>
@@ -221,6 +228,23 @@ class Terms extends React.Component {
         }
     }
 
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/ 
+    saveWeight = () => {
+        this.isShowPopup(true, "confirm", -1)
+    }
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/ 
+    confirmSave = () =>{
+        this.props.saveWeight()
+    }
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     Function: 
@@ -234,6 +258,8 @@ class Terms extends React.Component {
                     <div className="terms-wrapper">
                         <ModalPopup showModalPopup={this.state.showModalPopup}  
                             onPopupClose={this.isShowPopup}
+                            type={this.state.type}
+                            confirmSave={this.confirmSave}
                             term={Object.keys(this.props.weightDictionary)[this.state.modalTerm]}
                             sentences={Object.values(this.props.weightDictionary)[this.state.modalTerm]}
                         />
@@ -249,7 +275,10 @@ class Terms extends React.Component {
                                                 <FontAwesomeIcon icon={faArrowsRotate}/> &nbsp; 
                                                 Refresh Weights:
                                             </button> &nbsp;&nbsp;&nbsp;
-                                            <button className="button__small" onClick={() => this.props.saveWeight()}>
+
+                                            <button className="button__small" onClick={() => this.saveWeight()}>
+
+                                            //<button className="button__small" onClick={() => this.props.saveWeight()}>
                                                 <FontAwesomeIcon icon={faFileArrowDown}/> &nbsp; 
                                                 Save Weights:
                                             </button>
@@ -260,8 +289,12 @@ class Terms extends React.Component {
                                                 <FontAwesomeIcon icon={faArrowsRotate}/> &nbsp; 
                                                 Refresh Weights:
                                             </button> &nbsp;&nbsp;&nbsp;
-                                            <button className="button__small" onClick={() => this.props.saveWeight()}>
+
+                                            <button className="button__small" onClick={() => this.saveWeight()}>
+
+                                            //<button className="button__small" onClick={() => this.props.saveWeight()}>
                                                 <FontAwesomeIcon icon={faFileArrowDown}/> &nbsp; 
+
                                                 Save Weights:
                                             </button>
                                         </div>
