@@ -171,27 +171,27 @@ class ModalPopup extends Component {
     render() {  
         return (  
             this.props.type == "confirm"? 
-            <Fragment>  
-            <Modal show={this.props.showModalPopup} onHide={this.handleClose}
-                size="lg"  
-                aria-labelledby="contained-modal-title-vcenter"  
-                centered>  
-                <Modal.Header closeButton>  
-                    <Modal.Title id="sign-in-title">  
-                        Are you really double dog sure, you want save?
-                     </Modal.Title>  
-                </Modal.Header>  
-                <Modal.Body>  
-                    <button onClick={() => this.handleSubmit()}>
-                        Yes!
-                    </button>
-                    <button onClick={() => this.handleClose()}>
-                        No!
-                    </button>
-                </Modal.Body>
-            </Modal>  
-        </Fragment>  
-        :
+                <Fragment>  
+                    <Modal show={this.props.showModalPopup} onHide={this.handleClose}
+                        size="lg"  
+                        aria-labelledby="contained-modal-title-vcenter"  
+                        centered>  
+                        <Modal.Header closeButton>  
+                            <Modal.Title id="sign-in-title">  
+                                Are you really double dog sure, you want save?
+                            </Modal.Title>  
+                        </Modal.Header>  
+                        <Modal.Body>  
+                            <button onClick={() => this.handleSubmit()}>
+                                Yes!
+                            </button>
+                            <button onClick={() => this.handleClose()}>
+                                No!
+                            </button>
+                        </Modal.Body>
+                    </Modal>  
+                </Fragment>
+                :
                 this.props.type == "nouns" ?
                     <Fragment>  
                         <Modal show={this.props.showModalPopup} onHide={this.handleClose} onShow={this.handleCreateLoad}

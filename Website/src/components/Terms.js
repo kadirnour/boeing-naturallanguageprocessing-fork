@@ -24,8 +24,9 @@ class Terms extends React.Component {
     Description:
     Returns:
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
-    isShowPopup = (status, r) => {  
+    isShowPopup = (status, type, r) => {  
         this.setState({showModalPopup: status,
+            type:type,
             modalTerm: r});
     };  
 
@@ -126,6 +127,7 @@ class Terms extends React.Component {
     }
 
 
+
     /*##################################################################################
                                         Table Functions
     ###################################################################################*/
@@ -160,7 +162,7 @@ class Terms extends React.Component {
                             {Object.values(this.props.weightDictionary)[r].weight}
                         </td>
                         <td className="table-data">
-                            <button className="button" onClick={() => this.isShowPopup(true, r)}>
+                            <button className="button" onClick={() => this.isShowPopup(true, "", r)}>
                                 Sentences
                             </button>
                         </td>
@@ -187,7 +189,7 @@ class Terms extends React.Component {
                             this.selectTerm(r))}> {Object.values(this.props.weightDictionary)[r].weight}
                         </td>
                         <td className="table-data">
-                            <button className="button" onClick={() => this.isShowPopup(true, r)}>
+                            <button className="button" onClick={() => this.isShowPopup(true,"", r)}>
                                 Sentences
                             </button>
                         </td>
@@ -216,6 +218,23 @@ class Terms extends React.Component {
         }
     }
 
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/ 
+    saveWeight = () => {
+        this.isShowPopup(true, "confirm", -1)
+    }
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: 
+    Description:
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/ 
+    confirmSave = () =>{
+        this.props.saveWeight()
+    }
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     Function: 
@@ -229,6 +248,8 @@ class Terms extends React.Component {
                     <div className="terms-wrapper">
                         <ModalPopup showModalPopup={this.state.showModalPopup}  
                             onPopupClose={this.isShowPopup}
+                            type={this.state.type}
+                            confirmSave={this.confirmSave}
                             term={Object.keys(this.props.weightDictionary)[this.state.modalTerm]}
                             sentences={Object.values(this.props.weightDictionary)[this.state.modalTerm]}
                         />
@@ -245,7 +266,7 @@ class Terms extends React.Component {
                                             <button className="button__small" onClick={() => this.props.loadCorpus()}>
                                                 Refresh Weights:
                                             </button> &nbsp;&nbsp;&nbsp;
-                                            <button className="button__small" onClick={() => this.props.saveWeight()}>
+                                            <button className="button__small" onClick={() => this.saveWeight()}>
                                                 Save Weights:
                                             </button>
                                         </div>
@@ -254,7 +275,7 @@ class Terms extends React.Component {
                                             <button className="button__small" onClick={() => this.props.getTerms()}>
                                                 Refresh Weights:
                                             </button> &nbsp;&nbsp;&nbsp;
-                                            <button className="button__small" onClick={() => this.props.saveWeight()}>
+                                            <button className="button__small" onClick={() => this.saveWeight()}>
                                                 Save Weights:
                                             </button>
                                         </div>
