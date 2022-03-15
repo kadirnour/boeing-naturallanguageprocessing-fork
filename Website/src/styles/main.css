@@ -1,0 +1,94 @@
+/*##########################################################
+                          Main 
+##########################################################*/
+.body {
+    margin: 0;
+    padding: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: white;
+}
+
+.section {
+    width: 100vw;
+    height: auto;
+    overflow: hidden;
+    /* overflow-y: scroll; */
+    /* background-color: purple; */
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* background-color: aqua; */
+}
+
+.button {
+    background-color: white !important;
+    border: 2px solid !important;
+    border-radius: 10px;
+    height: auto;
+    width: 260px;
+}
+
+.button:hover {
+    background-color: darkorange !important;
+    font-weight: bold;
+    /* transform: scale(1.05); */
+}
+
+.button--disabled {
+    background-color: white !important;
+    border: 2px solid !important;
+    border-radius: 10px;
+    height: auto;
+    width: 260px;
+}
+
+.button__small {
+    background-color: white !important;
+    border: 2px solid !important;
+    border-radius: 10px;
+    height: auto;
+    width: 180px;
+}
+
+.button__small:hover {
+    background-color: darkorange !important;
+    font-weight: bold;
+    /* transform: scale(1.05); */
+}
+
+.button__small--disabled {
+    background-color: white !important;
+    border: 2px solid !important;
+    border-radius: 10px;
+    height: auto;
+    width: 180px;
+}
+
+.hr {
+    border-top: 2px solid black;
+    width: 100%;
+}
+
+.centered {
+    text-align: center;
+}
+
+.page-button-box {
+    position: absolute;
+    bottom: .1vh;
+}
+
+.red:hover {
+    background-color: lightcoral !important;;
+}
+
+.blue:hover {
+    background-color: lightblue !important;;
+}

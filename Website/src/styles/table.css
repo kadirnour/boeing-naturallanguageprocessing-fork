@@ -1,0 +1,91 @@
+/*##########################################################
+                            Table 
+##########################################################*/
+.table-head {
+    display: block;
+}
+
+.table-header {
+    width: 100vw;
+}
+
+.table-box--documents {
+    margin-top: 10px;
+    height: 38vh;
+    overflow: auto;
+}
+
+.table-box--terms {
+    margin-top: 10px;
+    height: 58vh;
+    overflow: auto;
+}
+
+.table-box--categories {
+    margin-top: 10px;
+    height: 63vh;
+    overflow: auto;
+}
+
+.table-box--taxonomy {
+    margin-top: 10px;
+    height: 73.2vh;
+    overflow: auto;
+}
+
+
+.table-data--categories {
+    height: 100px;
+    overflow: scroll;
+    /* background-color: green; */
+}
+
+.table-data--categories__terms {
+    border: 2px solid black;
+    /* float: left; */
+    /* height: auto;
+    width: auto; */
+    /* padding: 0 5px; */
+    /* margin-left: 3%;
+    margin-top: 3%; */
+}
+
+.table-data--categories__terms__inside {
+    border: 2px solid black;
+    float: left;
+    height: auto;
+    width: auto;
+    padding: 0 5px;
+    margin-left: 3%;
+    margin-top: 3%;
+}
+
+.table-data--categories__terms__inside--selected {
+    background-color: darkorange !important;
+    font-weight: bold !important;
+}
+
+.table-data--categories__terms__inside:hover {
+    background-color: orange !important;
+}
+
+.table-row {
+    background-color: white;
+    /* height: auto; */
+    /* width: auto; */
+}
+
+.table-row:hover {
+    background-color: orange !important;
+}
+
+.table-row--no-hover {
+    background-color: white;
+    height: auto;
+    width: auto;
+}
+
+.table-row--selected {
+    background-color: darkorange;
+    font-weight: bold;
+}

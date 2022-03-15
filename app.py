@@ -1,216 +1,110 @@
-import csv
-from Parser import main as parser
-from Taxonomy import extraction, relationships
-from tests import unit_tests
 from flask import Flask
 from flask import request
-from Taxonomy import categories
-from Taxonomy import saveWeights
 from pathlib import Path
-from ast import literal_eval
+#from tests import unit_tests
 
-# from tkinter import Tk
-# from tkinter import filedialog
+from Parser import main as Parser
+from Data import main as Data
+from Taxonomy import main as Taxonomy
 
-'''''''''''''''''''''''''''''''''''''''''''''''''''
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 Function: main
-Description: main, runs all functions
-Parameters:
-Returns:
-'''''''''''''''''''''''''''''''''''''''''''''''''''
-# def main():
-#     # STEP 1: Run parser and extract terms from documents
-#     parser.parse()
-
-#     # STEP 2: Find frequencies and weights of terms
-#     parsed_terms = extraction.find_frequencies_and_weights()
-#     print(parsed_terms)
-
-#     unit_tests.test_accuracy()
-
-
-# if __name__ == "__main__":
-#     main()
-
+Description: runs all back-end functions
+Returns: back-end results to front-end
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 app = Flask(__name__)
 
 
+#####################################################################################################
+#                                       Folder/ File Functions
+#####################################################################################################
 
-# TODO: Need functions to check if file locations are correct.
-@app.route('/files', methods = ['POST'])
-def files():
-    location = request.get_json(force=True)
-    files = parser.getFiles(list(location.values())[0], list(location.values())[1])
-    return files
-
-
-#################################################################################################
-# Function: Parse
-# Direction: Bac to Front
-# Returns: all the nouns and send to front end
-#################################################################################################
-@app.route('/parse', methods = ['POST'])
-def parse():
-    #json = {'time' : "HERE"}
-    location = request.get_json(force=True)
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: getFiles
+Description: gets all files from a given directory
+Returns: file names and file types
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+@app.route('/getFiles', methods = ['POST'])
+def getFiles():
+    info = request.get_json(force=True)
+    filesList = Data.getInputFiles(info['input'])
+    return filesList
 
 
+#####################################################################################################
+#                                        Parser/ Weight Functions
+#####################################################################################################
 
-    #print(location)
-    #print(list(location.values())[2])
-    total_nouns = parser.parse(list(location.values())[0], list(location.values())[1], list(location.values())[2])
-
-
-
-    print(location)
-    print(list(location.values())[0])
-    #total_nouns = parser.parse(list(location.values())[0], list(location.values())[1])
-
-    return total_nouns
-    #selectFolder()
-
-#################################################################################################
-# Function: Weights
-# Direction: Bac to Front
-# Returns: all the weights, freq and snoun data as dict and sends to front end
-#################################################################################################
-@app.route('/weights', methods = ['POST'])
-def weights():
-    location = request.get_json(force=True)
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: getTerms
+Description: runs parser on given files from the input location and writes .csv's to output location.
+Returns: all the nouns and send to front end
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+@app.route('/getTerms', methods = ['POST'])
+def getTerms():
+    info = request.get_json(force=True)
+    totalNouns = Parser.parse(info['input'], info['output'], info['files'])
+    return totalNouns
 
 
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: getWeights
+Description: gets frequency and weights of terms from given files in output location
+Returns: weights dictionary
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+@app.route('/getWeights', methods = ['POST'])
+def getWeights():
+    info = request.get_json(force=True)
+    return Taxonomy.get_weight_dictionary(info['output'], info['files'])
 
-    return extraction.find_frequencies_and_weights(list(location.values())[0], list(location.values())[1])
+
+#####################################################################################################
+#                                        Save/ Load Functions
+#####################################################################################################
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: saveWeights
+Description: writes weights to the master corpus
+'''''''''''''''''''''''''''''''''''''''''''''''''''''
+@app.route('/saveWeight', methods = ['POST'])
+def saveWeight():
+    info = request.get_json(force=True)
+    weightDictionary = info['weightDictionary']
+    corpusName = info['corpus'] + '.csv'
+    Data.write_weights(Path(info['output']) / corpusName, weightDictionary)
+    return ""
 
 
-
-    #print(location)
-    #return extraction.find_frequencies_and_weights(list(location.values())[0])
-
-@app.route('/saveCorpus', methods = ['POST'])
-def saveCorpus():
-    location = request.get_json(force=True)
-    data = extraction.find_frequencies_and_weights(location['output'], location['files'])
-
-    print(location)
-    corpusName = location['corpusName'] + '.csv'
-    # TODO: save freq_dict to csv
-    with open(Path(location['output']) / corpusName, 'w', newline='') as master:
-
-        master.truncate(0)
-        writer = csv.writer(master)
-        for term in data:
-            context = data[term]['context']
-            freq = data[term]['frequency']
-            weight = data[term]['weight']
-            writer.writerow([term, context, freq, weight])
-    return "hehe"
-
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: loadCorpus
+Description: reads weights from master corpus
+Returns: weights
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 @app.route('/loadCorpus', methods = ['POST'])
 def loadCorpus():
     location = request.get_json(force=True)
     corpusName = location['corpusName'] + '.csv'
-    data = {}
+    return Data.read_weights(Path(location['output']) / corpusName)
+       
 
-    with open(Path(location['output']) / corpusName, 'r') as corpus:
-        rowreader = csv.reader(corpus, delimiter=',')
-        for row in rowreader:
-            # row = [term, (doc, context), freq, weight, category?]
-            if len(row) == 5:
-                data.update({row[0]: {"context": literal_eval(row[1]), "frequency": row[2], "weight": row[3], "category": row[4]}})
-            else:
-                data.update({row[0]: {"context": literal_eval(row[1]), "frequency": row[2], "weight": row[3]}})
-    return data
-            
-
-@app.route('/saveWeight', methods = ['POST'])
-def saveWeight():
-    inputInfo = request.get_json(force=True)
-    #print(inputInfo)
-    #print(inputInfo['data'])
-
-    #retrieves file location
-    folder = inputInfo['input']
-
-    #retrieves category dictionary from the front end
-    weights = inputInfo['data']
-
-    corpusName = inputInfo['corpusName']
-
-    saveWeights.saveWeight(folder, corpusName, weights)
-
-    return inputInfo
-
-# @app.route('/folder')
-# def folder():
-#     #Tk().withdraw() # we don't want a full GUI, so keep the root window from appearing
-#     #dir = filedialog.askdirectory()
-#     return {'directory': dir}
-
-#################################################################################################
-# Function: category
-# Direction: Front to Back to front
-# Returns: Helps to create the categories themselves
-#################################################################################################
-@app.route('/category', methods = ['POST'])
-def category():
-    category = request.get_json(force=True)
-    print(category)
-    #return categories.receive_categories(category)
-    return {category["Category"]: {}}
-
-#################################################################################################
-# Function: saveCategories
-# Direction: Front to Back
-# Returns: Retrieves dictionary of all the terms and cats and sends to method 
-#################################################################################################
+'''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: saveCategories
+Description: writes the categories to the master .csv
+'''''''''''''''''''''''''''''''''''''''''''''''''''''
 @app.route('/saveCategories', methods = ['POST'])
 def saveCategories():
     inputInfo = request.get_json(force=True)
-    #print(inputInfo['input'])
-    #print(inputInfo['data'])
+    Taxonomy.write_categories(inputInfo['output'], inputInfo['corpusName'], inputInfo['categories'])
+    return ""
 
-    #retrieves file location
-    folder = inputInfo['output']
 
-    #retrieves category dictionary from the front end
-    categoryDict = inputInfo['data']
-
-    corpusName = inputInfo['corpusName']
-
-    #Send to the csv writer
-    categories.receive_categories(folder, categoryDict, corpusName)
-
-    return inputInfo
-
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: saveRelationships
+Description: writes relationships to .csv
+'''''''''''''''''''''''''''''''''''''''''''''''''''
 @app.route('/saveRelationships', methods = ['POST'])
 def saveRelationships():
     inputInfo = request.get_json(force=True)
-    #print(inputInfo)
-    #print(inputInfo['data'])
-
-    #retrieves file location
-    folder = inputInfo['input']
-    print(folder)
-
-    corpus = inputInfo['corpus']
-
-    #retrieves category dictionary from the front end
-    edges = inputInfo['data1']
-    print(edges)
-
-    nodes = inputInfo['data2']
-    print(nodes)
-
-    relationshipTypes = inputInfo['data3']
-    print(relationshipTypes)
-
-    relationships.saveRelationships(folder, corpus, edges, nodes, relationshipTypes)
-
-    return inputInfo
-""" 
-@app.route('/sendTaxonomy', methods = ['POST'])
-def sendTaxonomy():
-    location = request.get_json(force=True)
-    return taxonomy.taxonomySender(location)
-    #return categories.receive_categories(inputInfo) """
+    Taxonomy.write_relationships(inputInfo['input'], inputInfo['corpus'], inputInfo['edges'], inputInfo['nodes'], inputInfo['relationshipTypes'])
+    return ""

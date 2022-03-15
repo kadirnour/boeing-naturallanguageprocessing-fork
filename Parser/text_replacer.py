@@ -1,10 +1,9 @@
-'''''''''''''''''''''''''''''''''''''''''''''''
-Function: text_replacer
-Description: checks the inputed text for special character exceptions and cleans them
-Parameters: text
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: replace_text
+Description: checks the given text for special character exceptions and cleans them
 Returns: cleaned text
-'''''''''''''''''''''''''''''''''''''''''''''''
-def text_replacer(text):
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+def replace_text(text):
     if text.find("\\xe2\\x80\\x99") != -1:
         text = text.replace("\\xe2\\x80\\x99", "'")
     if text.find("\\xe2\\x80\\x9c") != -1:
@@ -35,12 +34,12 @@ def text_replacer(text):
         text = text.replace("\\xe2\\x80\\xa2", "")
     return text
 
-'''''''''''''''''''''''''''''''''''''''''''''''''''
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 Function: token_replacer
 Description: removes extra spaces created when parsing tokens
-Parameters: token, boolean for dash, boolean for slash
 Returns: cleaned token, and booleans for found special characters
-'''''''''''''''''''''''''''''''''''''''''''''''''''
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 def token_replacer(token, foundDash, foundSlash):
     if token.text != "(":     
         if ("'s" == token.text):

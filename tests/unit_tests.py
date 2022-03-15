@@ -4,10 +4,11 @@ from Parser import text_factory
 import os
 from pathlib import Path
 
-'''''''''''''''''''''''''''''''''''''''''''''''''''
-OLD TESTS: DO WE NEED THIS ANYMORE?
-'''''''''''''''''''''''''''''''''''''''''''''''''''
-
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: unit_tests
+Description:
+Returns:
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 test_data = Path('tests/test_data')
 output = Path('Parser/output')
 # TODO: make multiple dicionaries with varying sizes, counts and punctuation
@@ -21,10 +22,20 @@ tsd4 = {}
 tsd5 = {}
 
 
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: 
+Description:
+Returns:
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 def test_sentence_no_punc():
     pass
 
 
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: 
+Description:
+Returns:
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 def test_blank_pdf():
     docInfo, total_nouns, total_sentences = parsers.run_parsers(
         test_data / 'blank_pdf.pdf')
@@ -36,6 +47,11 @@ def test_blank_pdf():
     os.remove(outfile)  # cleanup
 
 
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: 
+Description:
+Returns:
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 def test_accuracy():
     text = text_factory.get_text(test_data / 'test_sentences_10.txt')
     total_nouns = parsers.run_parsers(text)
@@ -64,6 +80,11 @@ def test_accuracy():
     # print("Total accuracy = " + str(round(correct_counts / sum(d.values()), 2) * 100))
 
 
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: 
+Description:
+Returns:
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 def test_accuracy_():
     # TODO: Mock data in test_data dir
     # nlp = spacy.load('en_core_web_sm')
@@ -72,6 +93,11 @@ def test_accuracy_():
         test_data / 'test_sentences_10.pdf')
 
 
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: 
+Description:
+Returns:
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 def test_info_parsing():
     docInfo, total_nouns, total_sentences = parsers.run_parsers(
         test_data / 'test_paragraph.pdf')
@@ -79,6 +105,11 @@ def test_info_parsing():
         print("docInfo working")
 
 
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: 
+Description:
+Returns:
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 def test_sentence_punc():
     docInfo, total_nouns, total_sentences = parsers.run_parsers(
         test_data / 'test_paragraph.pdf')
@@ -88,24 +119,49 @@ def test_sentence_punc():
         print("sentence parsing inaccurate")
 
 
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: 
+Description:
+Returns:
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 def test_invalid_input_extension():
     assert parsers.validate_file(Path('tests/unit_tests.py')) == False
 
 
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: 
+Description:
+Returns:
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 def test_invalid_input_path():
     assert parsers.validate_file(Path('asdfasdfa')) == False
 
 
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: 
+Description:
+Returns:
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 def test_valid_input_pdf():
     assert parsers.validate_file(test_data / 'Game_Genres.pdf') == True
 
 
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: 
+Description:
+Returns:
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 def test_valid_input_docx():
     assert parsers.validate_file(
         test_data / 'Alpha_Prototype_Report_template.docx') == True
 # what is this supposed to test?
 
 
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: 
+Description:
+Returns:
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 def test_non_english_input():
     docInfo, total_nouns, total_sentences = parsers.run_parsers(
         test_data / 'non_english_pdf.pdf')
@@ -116,9 +172,19 @@ def test_non_english_input():
     os.remove(outfile)  # cleanup
 
 
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: 
+Description:
+Returns:
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 def test_existing_database():
     pass
 
 
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: 
+Description:
+Returns:
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 if __name__ == "__main__":
     test_accuracy()

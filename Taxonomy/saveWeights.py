@@ -1,20 +1,29 @@
+#from csv import reader
+#import csv
+from Data import main as Data
+
 #Saves weights from state to csv everytime button is pressed to reflect changes#
 
-
-from csv import reader
-import csv
-
 # master method that takes
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: Save Weights
+Description: Gets the file location for the weights save.
+Calls the process dictionary method to create easy to write list.
+Then calls the writer to write to the csv.
+Returns: Void
+'''''''''''''''''''''''''''''''''''''''''''''''''''
 def saveWeight(folder,corpusName,weight):
-    #print(folder)
-    #print(corpusName)
     file = folder + '\\' + corpusName + '.csv' # csv from folder
-    print(file)
-    #weightReader.append(next(csv_reader))
     weightWriter = processDict(weight)
-    weightWrite(weightWriter,file)
+    Data.write_to_csv(weightWriter,file)
 
 
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: Process Dictionary
+Description: Turns the weights dictionary to easy write
+list.
+Returns: weightReader List
+'''''''''''''''''''''''''''''''''''''''''''''''''''
 def processDict(weight):
     weightReader = []
     for term,data in weight.items():
@@ -25,10 +34,3 @@ def processDict(weight):
         weightReader.append(rowData)
     print(weightReader)
     return weightReader
-
-
-def weightWrite(weightWriter,file):
-    with open(file, 'w', newline='') as write_obj:
-        csv_writer = csv.writer(write_obj)
-        for row in weightWriter:
-            csv_writer.writerow(row)
