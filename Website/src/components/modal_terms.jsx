@@ -81,10 +81,10 @@ class ModalPopup extends Component {
                         </Modal.Title>  
                     </Modal.Header>  
                     <Modal.Body>  
-                        <button onClick={() => this.handleSubmit()}>
+                        <button className="button__small blue" onClick={() => this.handleSubmit()}>
                             Yes!
-                        </button>
-                        <button onClick={() => this.handleClose()}>
+                        </button> &nbsp;&nbsp;&nbsp;
+                        <button className="button__small red" onClick={() => this.handleClose()}>
                             No!
                         </button>
                     </Modal.Body>

@@ -184,10 +184,10 @@ class ModalPopup extends Component {
                             </Modal.Title>  
                         </Modal.Header>  
                         <Modal.Body>  
-                            <button onClick={() => this.handleSubmit()}>
+                            <button className="button__small blue" onClick={() => this.handleSubmit()}>
                                 Yes!
-                            </button>
-                            <button onClick={() => this.handleClose()}>
+                            </button> &nbsp;&nbsp;&nbsp;
+                            <button className="button__small red" onClick={() => this.handleClose()}>
                                 No!
                             </button>
                         </Modal.Body>
@@ -223,23 +223,6 @@ class ModalPopup extends Component {
                                         }
                                     </tbody>
                                 </table>
-
-//                                 <div>
-//                                     <input type="string" size="95" value={this.state.relationship} placeholder="Enter a Relationship Name..." onChange={this.handleChange}/> 
-//                                 </div> &nbsp;&nbsp;&nbsp;
-//                                 <div>
-//                                     <h6>
-//                                         Choose a Color for the Relationship
-//                                     </h6>
-//                                     <input type="color" value={this.state.color} onChange={this.handleChangeColor}/> &nbsp;&nbsp;&nbsp;
-//                                 </div> &nbsp;&nbsp;&nbsp;
-//                                 <div>
-//                                     <button className="button__small blue" onClick={() => this.handleSubmit()}>
-//                                         <FontAwesomeIcon icon={faPlusCircle}/> &nbsp;
-//                                         Create
-//                                     </button>
-//                                 </div>
-
                             </Modal.Body>
                         </Modal>  
                     </Fragment>  
@@ -256,65 +239,55 @@ class ModalPopup extends Component {
                                     </Modal.Title>  
                                 </Modal.Header>  
                                 <Modal.Body>  
-                                    <input type="string" value={this.state.relationship} placeholder="New relationship name..." onChange={this.handleChange}/>
-                                    <input type="color" value={this.state.color} onChange={this.handleChangeColor}/>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <button onClick={() => this.handleSubmit()}>
+                                <div>
+                                    <input type="string" size="95" value={this.state.relationship} placeholder="Enter a Relationship Name..." onChange={this.handleChange}/> 
+                                </div> &nbsp;&nbsp;&nbsp;
+                                <div>
+                                    <h6>
+                                        Choose a Color for the Relationship
+                                    </h6>
+                                    <input type="color" value={this.state.color} onChange={this.handleChangeColor}/> &nbsp;&nbsp;&nbsp;
+                                </div> &nbsp;&nbsp;&nbsp;
+                                <div>
+                                    <button className="button__small blue" onClick={() => this.handleSubmit()}>
+                                        <FontAwesomeIcon icon={faPlusCircle}/> &nbsp;
                                         Create
                                     </button>
-//                                     <div>
-//                                         <input type="string" size="95" value={this.state.relationship} placeholder="New relationship name..." onChange={this.handleChange}/> 
-//                                     </div> &nbsp;&nbsp;&nbsp;
-//                                     <div>
-//                                         <h6>
-//                                             Edit Color for the Relationship
-//                                         </h6>
-//                                         <input type="color" value={this.state.color} onChange={this.handleChangeColor}/>
-//                                     </div> &nbsp;&nbsp;&nbsp;
-//                                     <div>
-//                                         <button className="button__small blue" onClick={() => this.handleSubmit()}>
-//                                             <FontAwesomeIcon icon={faCheck}/> &nbsp;
-//                                             Enter
-//                                         </button> &nbsp;&nbsp;&nbsp;
-//                                         <button className="button__small red" onClick={() => this.handleDelete()}>
-//                                             <FontAwesomeIcon icon={faTrash}/> &nbsp;
-//                                             Delete
-//                                         </button>
-//                                     </div>
-//                                 </Modal.Body>
-//                             </Modal>  
-//                         </Fragment>  
-//                         : // Creating a new relationship line between 2 nodes
-//                         <Fragment> 
-//                             <Modal show={this.props.showModalPopup} onHide={this.handleClose} 
-//                                 size="lg"  
-//                                 aria-labelledby="contained-modal-title-vcenter"  
-//                                 centered>  
-//                                 <Modal.Header closeButton>  
-//                                     <Modal.Title id="sign-in-title">  
-//                                         Create a New Relationship
-//                                     </Modal.Title>  
-//                                 </Modal.Header>  
-//                                 <Modal.Body>  
-//                                     <div>
-//                                         <select value={this.state.relationship} onChange={this.handleChooseRelationship}>
-//                                             {this.props.relationshipTypes.map((option) => (
-//                                                 <option value={Object.keys(option)}>
-//                                                     {Object.keys(option)}
-//                                                 </option>)) // Display current options from created relationshipTypes
-//                                             }
-//                                         </select>
-//                                     </div> &nbsp;&nbsp;&nbsp;
-//                                     <div>
-//                                         <button className="button__small blue" onClick={() => this.handleSubmit()}>
-//                                             <FontAwesomeIcon icon={faPlus}/> &nbsp;
-//                                             Create
-//                                         </button>
-//                                     </div>
-
+                                </div> 
                                 </Modal.Body>
                             </Modal>  
                         </Fragment>  
+                         : // Creating a new relationship line between 2 nodes
+                        this.props.type == "newRelationshipLine" ?
+                         <Fragment> 
+                             <Modal show={this.props.showModalPopup} onHide={this.handleClose}
+                                 size="lg"  
+                                 aria-labelledby="contained-modal-title-vcenter"  
+                                 centered>  
+                                <Modal.Header closeButton>  
+                                    <Modal.Title id="sign-in-title">  
+                                        Create a New Relationship
+                                    </Modal.Title>  
+                                </Modal.Header>  
+                                <Modal.Body>  
+                                    <div>
+                                        <select value={this.state.relationship} onChange={this.handleChooseRelationship}>
+                                            {this.props.relationshipTypes.map((option) => (
+                                                <option value={Object.keys(option)}>
+                                                    {Object.keys(option)}
+                                                </option>)) // Display current options from created relationshipTypes
+                                            }
+                                        </select>
+                                    </div> &nbsp;&nbsp;&nbsp;
+                                    <div>
+                                        <button className="button__small blue" onClick={() => this.handleSubmit()}>
+                                            <FontAwesomeIcon icon={faPlus}/> &nbsp;
+                                            Create
+                                        </button>
+                                    </div>
+                                </Modal.Body>
+                            </Modal>  
+                        </Fragment> 
                         : 
                         this.props.type == "editRelationshipType" ? // Editing a relationship type
                             <Fragment>   
@@ -328,16 +301,25 @@ class ModalPopup extends Component {
                                         </Modal.Title>  
                                     </Modal.Header>
                                     <Modal.Body>  
-                                        <input type="string" value={this.state.relationship} placeholder="New relationship name..." onChange={this.handleChange}/>
-                                        <input type="color" value={this.state.color} onChange={this.handleChangeColor}/>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <button onClick={() => this.handleSubmit()}>
-                                            Enter
-                                        </button>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <button onClick={() => this.handleDelete()}>
-                                            Delete
-                                        </button>
+                                        <div>
+                                            <input type="string" size="95" value={this.state.relationship} placeholder="New relationship name..." onChange={this.handleChange}/> 
+                                        </div> &nbsp;&nbsp;&nbsp;
+                                        <div>
+                                            <h6>
+                                                Edit Color for the Relationship
+                                            </h6>
+                                            <input type="color" value={this.state.color} onChange={this.handleChangeColor}/>
+                                    </div> &nbsp;&nbsp;&nbsp;
+                                        <div>
+                                            <button className="button__small blue" onClick={() => this.handleSubmit()}>
+                                                <FontAwesomeIcon icon={faCheck}/> &nbsp;
+                                                Enter
+                                        </button> &nbsp;&nbsp;&nbsp;
+                                            <button className="button__small red" onClick={() => this.handleDelete()}>
+                                                <FontAwesomeIcon icon={faTrash}/> &nbsp;
+                                                Delete
+                                            </button>
+                                        </div>
                                     </Modal.Body>
                                 </Modal>  
                             </Fragment>  

@@ -61,12 +61,12 @@
 }
 
 .table-data--categories__terms__inside--selected {
-    background-color: darkorange !important;
+    background-color: lightblue !important;
     font-weight: bold !important;
 }
 
 .table-data--categories__terms__inside:hover {
-    background-color: orange !important;
+    background-color: lightblue !important;
 }
 
 .table-row {
@@ -76,7 +76,7 @@
 }
 
 .table-row:hover {
-    background-color: orange !important;
+    background-color: lightblue !important;
 }
 
 .table-row--no-hover {
@@ -86,6 +86,6 @@
 }
 
 .table-row--selected {
-    background-color: darkorange;
+    background-color: lightblue;
     font-weight: bold;
 }

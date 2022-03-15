@@ -275,10 +275,7 @@ class Terms extends React.Component {
                                                 <FontAwesomeIcon icon={faArrowsRotate}/> &nbsp; 
                                                 Refresh Weights:
                                             </button> &nbsp;&nbsp;&nbsp;
-
                                             <button className="button__small" onClick={() => this.saveWeight()}>
-
-                                            //<button className="button__small" onClick={() => this.props.saveWeight()}>
                                                 <FontAwesomeIcon icon={faFileArrowDown}/> &nbsp; 
                                                 Save Weights:
                                             </button>
@@ -289,12 +286,8 @@ class Terms extends React.Component {
                                                 <FontAwesomeIcon icon={faArrowsRotate}/> &nbsp; 
                                                 Refresh Weights:
                                             </button> &nbsp;&nbsp;&nbsp;
-
                                             <button className="button__small" onClick={() => this.saveWeight()}>
-
-                                            //<button className="button__small" onClick={() => this.props.saveWeight()}>
                                                 <FontAwesomeIcon icon={faFileArrowDown}/> &nbsp; 
-
                                                 Save Weights:
                                             </button>
                                         </div>
