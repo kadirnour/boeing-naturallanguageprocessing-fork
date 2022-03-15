@@ -1,5 +1,8 @@
 import React from 'react';
 import ModalPopup from './modal_popup';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBackward, faForward, faFileArrowDown, faAngleRight, faAngleLeft, faRotateRight, faTrash, faPlus, faCircleXmark, faLeftLong, faRightLong } 
+    from '@fortawesome/free-solid-svg-icons'
 
 class Categories extends React.Component {
     constructor() {  
@@ -42,15 +45,15 @@ class Categories extends React.Component {
         if ((this.state.pageTerms * 100) + 100 > Object.keys(this.props.weightDictionary).length) {
             for (let r = this.state.pageTerms * 100; r < Object.keys(this.props.weightDictionary).length; r++) {
                 table.push(
-                    <tr key = {r} className={"centered weight" + (this.checkSelectedWeight(r) === true ? " weight-selected" : "")}
+                    <tr key = {r} className={"table-row" + (this.checkSelectedWeight(r) === true ? " table-row--selected" : "")}
                         onClick={() => (this.checkSelectedWeight(r) ? this.removedSelectedWeightTerm(r) : this.selectWeightTerm(r))}>
-                        <td className="table-data">
+                        <td>
                             {Object.keys(this.props.weightDictionary)[r]}
                         </td>
-                        <td className="table-data">
+                        <td>
                             {Object.values(this.props.weightDictionary)[r].frequency}
                         </td>
-                        <td className="table-data">
+                        <td>
                             {Object.values(this.props.weightDictionary)[r].weight}
                         </td>
                     </tr>
@@ -59,15 +62,15 @@ class Categories extends React.Component {
         } else {
             for (let r = this.state.pageTerms * 100; r < (this.state.pageTerms * 100) + 100; r++) {
                 table.push(
-                    <tr key = {r} className={"centered weight" + (this.checkSelectedWeight(r) === true ? " weight-selected" : "")}
+                    <tr key = {r} className={"table-row" + (this.checkSelectedWeight(r) === true ? " table-row--selected" : "")}
                         onClick={() => (this.checkSelectedWeight(r) ? this.removedSelectedWeightTerm(r) : this.selectWeightTerm(r))}>
-                        <td className="table-data">
+                        <td>
                             {Object.keys(this.props.weightDictionary)[r]}
                         </td>
-                        <td className="table-data">
+                        <td>
                             {Object.values(this.props.weightDictionary)[r].frequency}
                         </td>
-                        <td className="table-data">
+                        <td>
                             {Object.values(this.props.weightDictionary)[r].weight}
                         </td>
                     </tr>
@@ -88,12 +91,12 @@ class Categories extends React.Component {
         if ((this.state.pageCat * 100) + 100 > Object.keys(this.props.categories).length) {
             for (let r = this.state.pageCat * 100; r < Object.keys(this.props.categories).length; r++) {
                 table.push(
-                    <tr onClick={() => this.changeMode(r)} className="centered weight" key={r}>
-                        <td className="table-data">
+                    <tr onClick={() => this.changeMode(r)} className="table-row" key={r}>
+                        <td>
                             {Object.keys(this.props.categories)[r]}
                         </td>
-                        <td className="table-data">
-                            <div className="maxHeight">
+                        <td>
+                            <div className="table-data--categories">
                                 {this.renderCatTerms(r)}
                             </div>
                         </td>
@@ -103,12 +106,12 @@ class Categories extends React.Component {
         } else {
             for (let r = this.state.pageCat * 100; r < (this.state.pageCat * 100) + 100; r++) {
                 table.push(
-                    <tr onClick={() => this.changeMode(r)} className="centered weight" key={r}>
-                        <td className="table-data">
+                    <tr onClick={() => this.changeMode(r)} className="table-row" key={r}>
+                        <td>
                             {Object.keys(this.props.categories)[r]}
                         </td>
-                        <td className="table-data">
-                            <div className="maxHeight">
+                        <td>
+                            <div className="table-data--categories">
                                 {this.renderCatTerms(r)}
                             </div>
                         </td>
@@ -129,12 +132,12 @@ class Categories extends React.Component {
         const Terms = [];
         if (this.state.cat === -1) {
             for (let d = 0; d < Object.values(Object.values(this.props.categories)[r]).length; d++) {
-                Terms.push(<div className="term"> {Object.keys(Object.values(this.props.categories)[r])[d]} </div>)
+                Terms.push(<div className="table-data--categories__terms"> {Object.keys(Object.values(this.props.categories)[r])[d]} </div>)
             }
         } else {
             for (let d = 0; d < Object.values(Object.values(this.props.categories)[r]).length; d++) {
                 Terms.push(
-                    <button className={"term2 btn2" + (this.checkSelected(r, d) === true ? " term2-selected": "")}
+                    <button className={"table-data--categories__terms__inside" + (this.checkSelected(r, d) === true ? " table-data--categories__terms__inside--selected": "")}
                         onClick={ () => (this.checkSelected(r, d) === false ? this.selectTerm(r, d) : this.removeSelectedTerm(r, d)) }> 
                         {Object.keys(Object.values(this.props.categories)[r])[d]} 
                     </button>
@@ -153,9 +156,9 @@ class Categories extends React.Component {
     renderTermTable = () => {
         const table = []
         table.push(
-            <tr className="centered" key={0}>
-                <td className="table-data">
-                    <div className="termBox">
+            <tr className="table-row--no-hover" key={0}>
+                <td>
+                    <div>
                         {this.renderCatTerms(this.state.cat)}
                     </div>
                 </td>
@@ -396,85 +399,89 @@ class Categories extends React.Component {
                             createCategory={this.props.createCategory}
                             categories={this.props.categories}
                         />
-                        <div className="categories-header">
-                            <h2 className="pageTitle">
-                                Category Creation
-                            </h2>
-                        </div>
+                        <h2 className="categories-header">
+                            Category Creation
+                        </h2>
                         <div className="categories-content-box">
                             <div className="categories-terms-box">
 
                                 <div className="categories-terms-box--left">
-
                                     <h1 className="centered">
                                         Terms
                                     </h1>
                                     <h6 className="centered">
                                         Select terms to move to category
                                     </h6>
-
-                                    <table className="table table-head">
-                                        <thead className="table-light">
-                                            <tr>
-                                                <th className="centered table-header">
-                                                    Noun
-                                                </th>
-                                                <th className="centered table-header">
-                                                    Frequency
-                                                </th>
-                                                <th className="centered table-header">
-                                                    Weight
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody className="table-body--categories">
-                                            {Object.keys(this.props.weightDictionary).length === 0 ?
-                                                <tr>
-                                                    <td></td>
-                                                </tr>
-                                                : 
-                                                this.renderWeightTable()
-                                            } 
-                                        </tbody>
-                                    </table>
                                     
+                                    <div className="table-box--categories">
+                                        <table className="table table-head">
+                                            <thead className="table-light">
+                                                <tr>
+                                                    <th className="table-header">
+                                                        Noun
+                                                    </th>
+                                                    <th className="table-header">
+                                                        Frequency
+                                                    </th>
+                                                    <th className="table-header">
+                                                        Weight
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {Object.keys(this.props.weightDictionary).length === 0 ?
+                                                    <tr>
+                                                        <td></td>
+                                                    </tr>
+                                                    : 
+                                                    this.renderWeightTable()
+                                                } 
+                                            </tbody>
+                                        </table>
+                                    </div>
+
                                     <div className="categories-button-box">
                                         <div className="categories-input-box">
                                             {this.state.pageTerms == 0 ?
-                                                <button className="button__small" disabled={true} onClick={() => this.pageTerms('pervious')}>
+                                                <button className="button__small--disabled" disabled={true} onClick={() => this.pageTerms('pervious')}>
+                                                    <FontAwesomeIcon icon={faAngleLeft}/> &nbsp;
                                                     Previous:
                                                 </button>
                                                 :
                                                 <button className="button__small" onClick={() => this.pageTerms('pervious')}>
+                                                    <FontAwesomeIcon icon={faAngleLeft}/> &nbsp;
                                                     Previous:
                                                 </button>
                                             } &nbsp;&nbsp;&nbsp;
                                             {this.state.pageTerms} &nbsp;&nbsp;&nbsp;
                                             {(this.state.pageTerms * 100) + 100 <  Object.keys(this.props.weightDictionary).length ?
                                                 <button className="button__small" onClick={() => this.pageTerms('next')}>
-                                                    Next:
+                                                    Next: &nbsp; 
+                                                    <FontAwesomeIcon icon={faAngleRight}/>
                                                 </button> 
                                                 :
-                                                <button className="button__small" disabled={true} onClick={() => this.pageTerms('next')}>
-                                                    Next:
+                                                <button className="button__small--disabled" disabled={true} onClick={() => this.pageTerms('next')}>
+                                                    Next: &nbsp;
+                                                    <FontAwesomeIcon icon={faAngleRight}/>
                                                 </button>
                                             }
                                         </div>   
                                     </div>
-
                                 </div>
 
                                 <div className="categories-terms-box--center">
-                                    <h6 className="categories-sub-header centered"> Edit Categories</h6>
-                                    &nbsp;
-                                    <div className="categories-button-box"></div>
+                                    <h6 className="categories-sub-header centered">
+                                        Edit Categories
+                                    </h6> &nbsp;
                                     <div className="categories-input-box">
                                         {this.state.cat === -1 ? 
                                             <button className="button categories__buttons" onClick={() => this.isShowPopup(true,"")}>
+                                                <FontAwesomeIcon icon={faPlus}/> &nbsp; 
                                                 Create New Category
                                             </button> 
                                             : 
                                             <button className="button categories__buttons" onClick={() => this.changeMode(-1)}>
+                                                <FontAwesomeIcon icon={faCircleXmark}/> &nbsp; 
                                                 Exit Category
                                             </button>
                                         }
@@ -482,21 +489,21 @@ class Categories extends React.Component {
                                         {this.state.cat === -1 ? 
                                             null 
                                             : 
-                                            <button className="button categories__buttons" onClick={() => this.deleteCat()}>
+                                            <button className="button categories__buttons red" onClick={() => this.deleteCat()}>
+                                                <FontAwesomeIcon icon={faTrash}/> &nbsp; 
                                                 Delete Category
                                             </button>
-                                        }
-                                        &nbsp;
+                                        } &nbsp;
                                         {this.state.cat === -1 ?
                                             null 
                                             :
                                             this.state.selectedTerms.length == 0 ?
-                                                <button disabled={true} onClick={() => this.addToWeights()} className="button categories__buttons">
-                                                    &lt;&lt;&lt;
+                                                <button disabled={true} onClick={() => this.addToWeights()} className="button--disabled categories__buttons">
+                                                    <FontAwesomeIcon icon={faLeftLong}/>
                                                 </button> 
                                                 :
                                                 <button onClick={() => this.addToWeights()} className="button categories__buttons">
-                                                    &lt;&lt;&lt;
+                                                    <FontAwesomeIcon icon={faLeftLong}/>
                                                 </button>
                                         }
                                         &nbsp;
@@ -504,27 +511,30 @@ class Categories extends React.Component {
                                             null 
                                             :
                                             this.state.selectedWeightTerms.length == 0 ?
-                                                <button disabled={true} className="button categories__buttons" onClick={() => this.addToCategory()}>
-                                                    &gt;&gt;&gt;
+                                                <button disabled={true} className="button--disabled categories__buttons" onClick={() => this.addToCategory()}>
+                                                    <FontAwesomeIcon icon={faRightLong}/>
                                                 </button> 
                                                 :
                                                 <button className="button categories__buttons" onClick={() => this.addToCategory()}>
-                                                    &gt;&gt;&gt;
+                                                    <FontAwesomeIcon icon={faRightLong}/>
                                                 </button>
                                         }
                                         &nbsp;
                                         {this.state.selectedWeightTerms.length != 0 || this.state.selectedTerms.length != 0 ?
                                             <button className="button categories__buttons" onClick={() => this.clearSelected()}>
+                                                <FontAwesomeIcon icon={faRotateRight}/> &nbsp; 
                                                 Clear Selected
                                             </button> 
                                             :
-                                            <button disabled={true} className="button categories__buttons" onClick={() => this.clearSelected()}>
+                                            <button disabled={true} className="button--disabled categories__buttons" onClick={() => this.clearSelected()}>
+                                                <FontAwesomeIcon icon={faRotateRight}/> &nbsp; 
                                                 Clear Selected
                                             </button>
                                         }
                                         &nbsp;
                                         {this.state.cat === -1  ?
                                             <button className="button categories__buttons" onClick={() => this.saveCategories()}>
+                                                <FontAwesomeIcon icon={faFileArrowDown}/> &nbsp; 
                                                 Save Categories
                                             </button> 
                                             :
@@ -534,93 +544,102 @@ class Categories extends React.Component {
                                 </div>
                                     {this.state.mode === "categories" ?
                                         <div className="categories-terms-box--right">
-                                            <h1 className="centered">
+                                            <h1 className="categories-sub-header centered">
                                                 Categories
                                             </h1>
-                                            <h6 className="centered">
+                                            <h6 className="categories-sub-header centered">
                                                 Select a category to edit
                                             </h6>
-                                            <table className="table table-hover tableBody tr">
-                                                <thead className="table-light">
-                                                    <tr>
-                                                        <th className="cell-align-middle centered tableHeader">
-                                                            Category
-                                                        </th>
-                                                        <th className="cell-align-middle centered tableHeader">
-                                                            Terms
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody className="table-body--categories">
-                                                    {Object.keys(this.props.categories).length === 0 ?
+                                            <div className="table-box--categories">
+                                                <table className="table table-head">
+                                                    <thead className="table-light">
                                                         <tr>
-                                                            <td></td>
+                                                            <th className="table-header">
+                                                                Category
+                                                            </th>
+                                                            <th className="table-header">
+                                                                Terms
+                                                            </th>
                                                         </tr>
-                                                        : this.renderCatTable()
-                                                    } 
-                                                </tbody>
-                                            </table> 
-                                            
+                                                    </thead>
+                                                    <tbody>
+                                                        {Object.keys(this.props.categories).length === 0 ?
+                                                            <tr>
+                                                                <td></td>
+                                                            </tr>
+                                                            : this.renderCatTable()
+                                                        } 
+                                                    </tbody>
+                                                </table> 
+                                            </div>
                                             <div className="categories-button-box">
                                                 <div className="categories-input-box">
                                                     {this.state.pageCat == 0 ?
-                                                        <button className="button__small" disabled={true} onClick={() => this.pageCat('pervious')}>
+                                                        <button className="button__small--disabled" disabled={true} onClick={() => this.pageCat('pervious')}>
+                                                            <FontAwesomeIcon icon={faAngleLeft}/> &nbsp;
                                                             Previous:
                                                         </button>
                                                         :
                                                         <button className="button__small" onClick={() => this.pageCat('pervious')}>
+                                                            <FontAwesomeIcon icon={faAngleLeft}/> &nbsp;
                                                             Previous:
                                                         </button>
                                                     } &nbsp;&nbsp;&nbsp;
                                                     {this.state.pageCat} &nbsp;&nbsp;&nbsp;
                                                     {(this.state.pageCat * 100) + 100 <  Object.keys(this.props.categories).length ?
                                                         <button className="button__small" onClick={() => this.pageCat('next')}>
-                                                            Next:
+                                                            Next: &nbsp;
+                                                            <FontAwesomeIcon icon={faAngleRight}/>
                                                         </button> 
                                                         :
-                                                        <button className="button__small" disabled={true} onClick={() => this.pageCat('next')}>
-                                                            Next:
+                                                        <button className="button__small--disabled" disabled={true} onClick={() => this.pageCat('next')}>
+                                                            Next: &nbsp;
+                                                            <FontAwesomeIcon icon={faAngleRight}/>
                                                         </button>
                                                     }
                                                 </div>
                                             </div>
                                         </div>
                                         :
-                                        <div>
-                                            <h1 className="centered">
+                                        <div className="categories-terms-box--right">
+                                            <h1 className="categories-sub-header centered">
                                                 {Object.keys(this.props.categories)[this.state.cat]}
                                             </h1>
-                                            <h6 className="centered">
+                                            <h6 className="categories-sub-header centered">
                                                 Select terms to remove from category
                                             </h6>
-                                            <table className="table tableBody tr">
-                                                    <thead className="table-light">
-                                                        <tr>
-                                                            <th className="cell-align-middle centered tableHeader">
-                                                                Terms
-                                                            </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody className="table-body--categories">
-                                                        {Object.keys(this.props.categories).length === 0 ?
+                                            <div className="table-box--categories">
+                                                <table className="table table-head">
+                                                        <thead className="table-light">
                                                             <tr>
-                                                                <td>
-                                                                </td>
+                                                                <th className="table-header">
+                                                                    Terms
+                                                                </th>
                                                             </tr>
-                                                            : 
-                                                            this.renderTermTable()
-                                                        } 
-                                                    </tbody>
-                                            </table> 
+                                                        </thead>
+                                                        <tbody>
+                                                            {Object.keys(this.props.categories).length === 0 ?
+                                                                <tr>
+                                                                    <td>
+                                                                    </td>
+                                                                </tr>
+                                                                : 
+                                                                this.renderTermTable()
+                                                            } 
+                                                        </tbody>
+                                                </table> 
+                                            </div>
                                         </div>
                                     }
                             </div>
                             <div className="page-button-box">
                                 <button className="button__small" onClick={() => this.props.prevPage()}>
+                                    <FontAwesomeIcon icon={faBackward}/> &nbsp;
                                     Back
                                 </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <button className="button__small" onClick={() => this.props.nextPage()}>
-                                    Forward 
+                                    Forward &nbsp;
+                                    <FontAwesomeIcon icon={faForward}/>
                                 </button>
                             </div>
                         </div>

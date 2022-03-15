@@ -55,11 +55,10 @@
     justify-content: center;
     align-items: center;
     font-weight: normal;
-    text-shadow: 2px 2px 4px black;
   }
 
 .indexed-step__labels.labels--accomplished {
-    color: black;
+    color: darkorange;
     font-weight: bold;
     text-shadow: 0px 0px 0px black;
 }

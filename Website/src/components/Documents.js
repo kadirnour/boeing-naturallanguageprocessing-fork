@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFolder, faFile, faArrowsRotate, faPlus, faMinus, faBackward, faForward } from '@fortawesome/free-solid-svg-icons'
 
 class Documents extends React.Component {
     constructor(props) {
@@ -23,28 +25,30 @@ class Documents extends React.Component {
         const table = []
         for (let r = 0; r < Object.keys(this.props.filesList).length; r++) {
           table.push(
-            <tr key = {r} className={"weight" + (this.disabledBtn(r) === true ? " weight-selected2" : "")}>
+            <tr key = {r} className={"table-row--no-hover" + (this.disabledBtn(r) === true ? " table-row--selected" : "")}>
                 
-                <td className="table-data">
-                  {Object.keys(this.props.filesList)[r] + Object.values(this.props.filesList)[r]}
+                <td>
+                    {Object.keys(this.props.filesList)[r] + Object.values(this.props.filesList)[r]}
                 </td>
-
-                <td className="table-data">
+                <td>
                     {this.disabledBtn(r) ?
                         null
                         :
-                        <button className="button" onClick={() => this.props.addFile(r)}>
+                        <button className="button blue" onClick={() => this.props.addFile(r)}>
+                            <FontAwesomeIcon icon={faPlus}/> &nbsp; 
                             Add
                         </button>
                     }
                     {this.disabledBtn(r) ?
-                        <button className="button" onClick={() => this.props.deleteFile(r)}>
+                        <button className="button red" onClick={() => this.props.deleteFile(r)}>
+                            <FontAwesomeIcon icon={faMinus}/> &nbsp; 
                             Delete
                         </button>
                         :
                         null
                     }
                 </td>
+
             </tr>
           )
         }
@@ -119,17 +123,15 @@ class Documents extends React.Component {
             <div className="section">
                 <div className="container">
                     <div className="document-wrapper">
-                        <div className="document-header">
-                            {this.props.load ?
-                                <h2 >
-                                    Load From Taxonomy
-                                </h2>
-                                :
-                                <h2 >
-                                    Create a New Taxonomy
-                                </h2>
-                            }
-                        </div>
+                        {this.props.load ?
+                            <h2 className="document-header">
+                                Load From Taxonomy
+                            </h2>
+                            :
+                            <h2 className="document-header">
+                                Create a New Taxonomy
+                            </h2>
+                        }
                         <div className="document-content-box">
                             <div className="document-content-box--centered">
                                 {this.props.load ? 
@@ -140,6 +142,7 @@ class Documents extends React.Component {
                                             <input onChange={this.handleChange} name="input" 
                                                 placeholder="C:\Users\user\OneDrive\Desktop\boeing-naturallanguageprocessing\Data\Input" size="75"/> &nbsp;&nbsp;&nbsp;
                                             <button className="button" onClick={() => this.submitInput()}>
+                                                <FontAwesomeIcon icon={faFolder}/> &nbsp;
                                                 Submit Input Folder:
                                             </button>
                                             <div className="document-location-box"> &nbsp; 
@@ -157,6 +160,7 @@ class Documents extends React.Component {
                                             <input onChange={this.handleChange} name="output" 
                                                 placeholder="C:\Users\user\OneDrive\Desktop\boeing-naturallanguageprocessing\Data\Output" size="75"/> &nbsp;&nbsp;&nbsp;
                                             <button className="button" onClick={() => this.submitOutput()}>
+                                                <FontAwesomeIcon icon={faFolder}/> &nbsp;
                                                 Submit Output Folder:
                                             </button>
                                             <div className="document-location-box">
@@ -167,7 +171,8 @@ class Documents extends React.Component {
                                         <div className="document-input-box"> &nbsp;&nbsp;
                                             <input onChange={this.handleChange} size="75" name="corpusName" 
                                                 placeholder="Will write over files with the same name"/> &nbsp;&nbsp;&nbsp;
-                                            <button className="button" onClick={() => this.submitCorpus()}> 
+                                            <button className="button" onClick={() => this.submitCorpus()}>
+                                                <FontAwesomeIcon icon={faFile}/> &nbsp; 
                                                 Submit Corpus Name: 
                                             </button>
                                             <div className="document-location-box"> &nbsp; 
@@ -180,7 +185,8 @@ class Documents extends React.Component {
                                         <div className="document-input-box"> &nbsp;&nbsp;
                                             <input onChange={this.handleChange} name="output" 
                                                 placeholder="C:\Users\user\OneDrive\Desktop\boeing-naturallanguageprocessing\Data\Output" size="75"/> &nbsp;&nbsp;&nbsp;
-                                            <button className="button" onClick={() => this.submitOutput()}> 
+                                            <button className="button" onClick={() => this.submitOutput()}>
+                                                <FontAwesomeIcon icon={faFolder}/> &nbsp; 
                                                 Submit Output Folder: 
                                             </button>
                                             <div className="document-location-box"> &nbsp; 
@@ -192,6 +198,7 @@ class Documents extends React.Component {
                                             <input onChange={this.handleChange} size="75" name="corpusName" 
                                                 placeholder="Will write over files with the same name"/> &nbsp;&nbsp;&nbsp;
                                             <button className="button" onClick={() => this.submitCorpus()}> 
+                                                <FontAwesomeIcon icon={faFile}/> &nbsp; 
                                                 Submit Corpus Name: 
                                             </button>
                                             <div className="document-location-box"> &nbsp; 
@@ -200,46 +207,51 @@ class Documents extends React.Component {
                                         </div>
                                     </>
                                 }
-                                <hr className="hr"/>
                                 {this.props.load ? 
                                     <></>
                                     :
                                     <>
+                                        <hr className="hr"/>
                                         <div> &nbsp;&nbsp;
                                             <button className="button" onClick={() => this.props.Files()}> 
+                                                <FontAwesomeIcon icon={faArrowsRotate}/> &nbsp; 
                                                 Get Files From Input Folder: 
                                             </button>
                                         </div>
-                                        <table className="table table-head"> &nbsp;
-                                            <thead className="table-light">
-                                                <tr>
-                                                    <th className="centered table-header">
-                                                        File
-                                                    </th>
-                                                    <th className="centered table-header">
-                                                        Add/ Remove
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody className="table-body--document">
-                                                {Object.keys(this.props.filesList).length === 0 ?
+                                        <div className="table-box--documents">
+                                            <table className="table table-head"> &nbsp;
+                                                <thead className="table-light">
                                                     <tr>
-                                                        <td></td>
+                                                        <th className="table-header">
+                                                            File
+                                                        </th>
+                                                        <th className="table-header">
+                                                            Add/ Remove
+                                                        </th>
                                                     </tr>
-                                                    : 
-                                                    this.renderTable()
-                                                }
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    {Object.keys(this.props.filesList).length === 0 ?
+                                                        <tr>
+                                                            <td></td>
+                                                        </tr>
+                                                        : 
+                                                        this.renderTable()
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </>
                                 }
                             </div>
                             <div className="page-button-box">
                                 <button className="button__small" onClick={() => this.props.prevPage()}> 
+                                    <FontAwesomeIcon icon={faBackward}/> &nbsp; 
                                     Back 
                                 </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <button className="right button__small" onClick={() => {this.props.nextPage()}}>
-                                    Forward
+                                <button className="button__small" onClick={() => {this.props.nextPage()}}>
+                                    Forward  &nbsp;
+                                    <FontAwesomeIcon icon={faForward}/> 
                                 </button>
                             </div>
                         </div>

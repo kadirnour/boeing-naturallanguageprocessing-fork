@@ -1,5 +1,8 @@
 import React, { Component, Fragment } from 'react';  
 import { Modal } from 'react-bootstrap';  
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+
 
 
 /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -105,9 +108,10 @@ class ModalPopup extends Component {
                          </Modal.Title>  
                     </Modal.Header>  
                     <Modal.Body>  
-                        <input type="string" placeholder="New category name..." onChange={this.handleChange}/>
-                        <button onClick={() => this.handleSubmit()}>
-                            Submit
+                        <input type="string" size="70" placeholder="Enter a Category Name..." onChange={this.handleChange}/> &nbsp;&nbsp;&nbsp;
+                        <button className="button__small blue" onClick={() => this.handleSubmit()}>
+                            <FontAwesomeIcon icon={faPlus}/> &nbsp;
+                            Enter
                         </button>
                     </Modal.Body>
                 </Modal>  

@@ -1,5 +1,8 @@
 import React from 'react';
 import ModalPopup from './modal_terms';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowsRotate, faBackward, faForward, faFileArrowDown, faFileLines, faAngleRight, faAngleLeft, faRotateRight, faTrash }
+    from '@fortawesome/free-solid-svg-icons'
 
 
 /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -142,28 +145,31 @@ class Terms extends React.Component {
         if ((this.state.page * 100) + 100 > Object.keys(this.props.weightDictionary).length) {
             for (let r = this.state.page * 100; r < Object.keys(this.props.weightDictionary).length; r++) {
                 table.push(
-                    <tr key = {r} className={"centered weight" + (this.checkSelectedTerm(r) === true ? " weight-selected" : "")}>
-                        <td className="table-data" onClick={() => (this.checkSelectedTerm(r) ? 
+                    <tr key = {r} className={"table-row" + (this.checkSelectedTerm(r) === true ? " table-row--selected" : "")}>
+                        <td onClick={() => (this.checkSelectedTerm(r) ? 
                             this.removedSelectedTerm(r)
                             :
                             this.selectTerm(r))}>
                             {Object.keys(this.props.weightDictionary)[r]}
                         </td>
-                        <td className="table-data" onClick={() => (this.checkSelectedTerm(r) ?
+                        <td onClick={() => (this.checkSelectedTerm(r) ?
                             this.removedSelectedTerm(r)
                             :
                             this.selectTerm(r))}> 
                             {Object.values(this.props.weightDictionary)[r].frequency}
                         </td>
-                        <td className="table-data" onClick={() => (this.checkSelectedTerm(r) ?
+                        <td onClick={() => (this.checkSelectedTerm(r) ?
                             this.removedSelectedTerm(r)
                             :
                             this.selectTerm(r))}>
                             {Object.values(this.props.weightDictionary)[r].weight}
                         </td>
+
                         <td className="table-data">
                             <button className="button" onClick={() => this.isShowPopup(true, "", r)}>
-                                Sentences
+                              <FontAwesomeIcon icon={faFileLines}/> &nbsp; 
+
+                              Sentences
                             </button>
                         </td>
                     </tr>
@@ -172,24 +178,28 @@ class Terms extends React.Component {
         } else {
             for (let r = this.state.page * 100; r < (this.state.page * 100) + 100; r++) {
                 table.push(
-                    <tr key = {r} className={"centered weight" + (this.checkSelectedTerm(r) === true ? " weight-selected" : "")}>
-                        <td className="table-data" onClick={() => (this.checkSelectedTerm(r) ?
+                    <tr key = {r} className={"table-row" + (this.checkSelectedTerm(r) === true ? " table-row--selected" : "")}>
+                        <td onClick={() => (this.checkSelectedTerm(r) ?
                             this.removedSelectedTerm(r)
                             :
                             this.selectTerm(r))}> {Object.keys(this.props.weightDictionary)[r]}
                         </td>
-                        <td className="table-data" onClick={() => (this.checkSelectedTerm(r) ?
+                        <td onClick={() => (this.checkSelectedTerm(r) ?
                             this.removedSelectedTerm(r)
                             :
                             this.selectTerm(r))}> {Object.values(this.props.weightDictionary)[r].frequency}
                         </td>
-                        <td className="table-data" onClick={() => (this.checkSelectedTerm(r) ?
+                        <td onClick={() => (this.checkSelectedTerm(r) ?
                             this.removedSelectedTerm(r)
                             :
                             this.selectTerm(r))}> {Object.values(this.props.weightDictionary)[r].weight}
                         </td>
+
                         <td className="table-data">
                             <button className="button" onClick={() => this.isShowPopup(true,"", r)}>
+
+                                <FontAwesomeIcon icon={faFileLines}/> &nbsp; 
+
                                 Sentences
                             </button>
                         </td>
@@ -253,83 +263,97 @@ class Terms extends React.Component {
                             term={Object.keys(this.props.weightDictionary)[this.state.modalTerm]}
                             sentences={Object.values(this.props.weightDictionary)[this.state.modalTerm]}
                         />
-                        <div className="terms-header">
-                            <h2 className="pageTitle">
-                                Term Extraction/ Selection
-                            </h2>
-                        </div>
+                        <h2 className="terms-header">
+                            Term Extraction/ Selection
+                        </h2>
                         <div className="terms-content-box">
                             <div className="terms-content-box--centered">
                                 <div className="terms-input-box">
                                     {this.props.load ?
                                         <div>
                                             <button className="button__small" onClick={() => this.props.loadCorpus()}>
+                                                <FontAwesomeIcon icon={faArrowsRotate}/> &nbsp; 
                                                 Refresh Weights:
                                             </button> &nbsp;&nbsp;&nbsp;
+
                                             <button className="button__small" onClick={() => this.saveWeight()}>
+
+                                            //<button className="button__small" onClick={() => this.props.saveWeight()}>
+                                                <FontAwesomeIcon icon={faFileArrowDown}/> &nbsp; 
                                                 Save Weights:
                                             </button>
                                         </div>
                                         :
                                         <div>  
                                             <button className="button__small" onClick={() => this.props.getTerms()}>
+                                                <FontAwesomeIcon icon={faArrowsRotate}/> &nbsp; 
                                                 Refresh Weights:
                                             </button> &nbsp;&nbsp;&nbsp;
+
                                             <button className="button__small" onClick={() => this.saveWeight()}>
+
+                                            //<button className="button__small" onClick={() => this.props.saveWeight()}>
+                                                <FontAwesomeIcon icon={faFileArrowDown}/> &nbsp; 
+
                                                 Save Weights:
                                             </button>
                                         </div>
                                     } 
-                                <hr className="hr"/>
+                                    <hr className="hr"/>
                                 </div>
                                 <h6 className="terms-sub-header">
                                     Select terms to remove
                                 </h6>
-                                <table className="table table-head">
-                                    <thead className="table-light">
-                                        <tr>
-                                            <th className="centered table-header">
-                                                Noun
-                                            </th>
-                                            <th className="centered table-header">
-                                                Frequency
-                                            </th>
-                                            <th className="centered table-header">
-                                                Weight
-                                            </th>
-                                            <th>
-                                                Sentences
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="table-body--terms">
-                                        {Object.keys(this.props.weightDictionary).length === 0 ?
+                                <div className="table-box--terms">
+                                    <table className="table table-head">
+                                        <thead className="table-light">
                                             <tr>
-                                                <td></td>
+                                                <th className="table-header">
+                                                    Noun
+                                                </th>
+                                                <th className="table-header">
+                                                    Frequency
+                                                </th>
+                                                <th className="table-header">
+                                                    Weight
+                                                </th>
+                                                <th>
+                                                    Sentences
+                                                </th>
                                             </tr>
-                                            : this.renderTable()} 
-                                    </tbody>
-                                </table>
-
+                                        </thead>
+                                        <tbody>
+                                            {Object.keys(this.props.weightDictionary).length === 0 ?
+                                                <tr>
+                                                    <td></td>
+                                                </tr>
+                                                : this.renderTable()} 
+                                        </tbody>
+                                    </table>
+                                </div>
                                 <div className="terms-button-box">
                                     <div className="terms-input-box">
                                             {this.state.page == 0 ?
-                                                <button className="button__small" disabled={true} onClick={() => this.page('pervious')}>
+                                                <button className="button__small--disabled" disabled={true} onClick={() => this.page('pervious')}>
+                                                    <FontAwesomeIcon icon={faAngleLeft}/> &nbsp; 
                                                     Previous:
                                                 </button> 
                                                 :
                                                 <button className="button__small" onClick={() => this.page('pervious')}>
+                                                    <FontAwesomeIcon icon={faAngleLeft}/> &nbsp; 
                                                     Previous:
                                                 </button>
                                             } &nbsp;&nbsp;&nbsp;
                                             {this.state.page} &nbsp;&nbsp;&nbsp;
                                             {(this.state.page * 100) + 100 < Object.keys(this.props.weightDictionary).length ?
                                                 <button className="button__small" onClick={() => this.page('next')}>
-                                                    Next:
+                                                    Next: &nbsp; 
+                                                    <FontAwesomeIcon icon={faAngleRight}/>
                                                 </button>
                                                 :
-                                                <button className="button__small" disabled={true} onClick={() => this.page('next')}>
-                                                    Next:
+                                                <button className="button__small--disabled" disabled={true} onClick={() => this.page('next')}>
+                                                    Next: &nbsp; 
+                                                    <FontAwesomeIcon icon={faAngleRight}/>
                                                 </button>
                                             }
                                     </div>
@@ -337,19 +361,23 @@ class Terms extends React.Component {
                                     <div className="terms-input-box">
                                         {this.state.selectedTerms.length != 0 ?
                                             <button className="button__small" onClick={() => this.clearSelected()}> 
+                                                <FontAwesomeIcon icon={faRotateRight}/> &nbsp; 
                                                 Clear Selected
                                             </button> 
                                             :
-                                            <button disabled={true} className="button__small" onClick={() => this.clearSelected()}>
+                                            <button disabled={true} className="button__small--disabled" onClick={() => this.clearSelected()}>
+                                                <FontAwesomeIcon icon={faRotateRight}/> &nbsp; 
                                                 Clear Selected
                                             </button>
                                         } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         {this.state.selectedTerms.length != 0 ?
-                                            <button className="button__small" onClick={() => this.deleteTerms()}>
+                                            <button className="button__small red" onClick={() => this.deleteTerms()}>
+                                                <FontAwesomeIcon icon={faTrash}/> &nbsp; 
                                                 Delete Terms
                                             </button> 
                                             :
-                                            <button disabled={true} className="button__small" onClick={() => this.deleteTerms()}>
+                                            <button disabled={true} className="button__small--disabled" onClick={() => this.deleteTerms()}>
+                                                <FontAwesomeIcon icon={faTrash}/> &nbsp; 
                                                 Delete Terms
                                             </button>
                                         }
@@ -360,10 +388,12 @@ class Terms extends React.Component {
                             </div>
                             <div className="page-button-box">
                                 <button className="button__small" onClick={() => this.props.prevPage()}>
+                                    <FontAwesomeIcon icon={faBackward}/> &nbsp; 
                                     Back
                                 </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <button className="button__small" onClick={() =>  {this.props.nextPage()}}>
-                                    Forward 
+                                    Forward &nbsp; 
+                                    <FontAwesomeIcon icon={faForward}/> &nbsp; 
                                 </button>
                             </div>
                         </div>

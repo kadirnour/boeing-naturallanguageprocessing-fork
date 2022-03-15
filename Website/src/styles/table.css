@@ -9,43 +9,48 @@
     width: 100vw;
 }
 
-.table-body {
-    display: block;
-    height: 27vh;
+.table-box--documents {
+    margin-top: 10px;
+    height: 38vh;
     overflow: auto;
 }
 
-.table-data{
-    width: 100%;
-}
-
-.table-body--document {
-    display: block;
-    height: 26vh;
+.table-box--terms {
+    margin-top: 10px;
+    height: 58vh;
     overflow: auto;
 }
 
-.table-body--terms {
-    display: block;
-    height: 54vh;
+.table-box--categories {
+    margin-top: 10px;
+    height: 63vh;
     overflow: auto;
 }
 
-.table-body--categories {
-    display: block;
-    height: 60vh;
-    overflow: auto;
-}
-
-.table-body--taxonomy {
-    display: block;
-    height: 53vh;
+.table-box--taxonomy {
+    margin-top: 10px;
+    height: 73.2vh;
     overflow: auto;
 }
 
 
+.table-data--categories {
+    height: 100px;
+    overflow: scroll;
+    /* background-color: green; */
+}
 
-.term {
+.table-data--categories__terms {
+    border: 2px solid black;
+    /* float: left; */
+    /* height: auto;
+    width: auto; */
+    /* padding: 0 5px; */
+    /* margin-left: 3%;
+    margin-top: 3%; */
+}
+
+.table-data--categories__terms__inside {
     border: 2px solid black;
     float: left;
     height: auto;
@@ -55,45 +60,32 @@
     margin-top: 3%;
 }
 
-.term2 {
-    border: 2px solid black;
-    float: left;
-    height: auto;
-    width: auto;
-    padding: 0 5px;
-    margin-left: 3%;
-    margin-top: 3%;
-}
-
-.term2-selected {
-    background-color: rgba(0, 0, 255, 0.445) !important;
+.table-data--categories__terms__inside--selected {
+    background-color: darkorange !important;
     font-weight: bold !important;
 }
 
-.term2:hover {
-    background-color: lightblue !important;
+.table-data--categories__terms__inside:hover {
+    background-color: orange !important;
 }
 
-/* .maxHeight {
-    height: 100px;
-    overflow: scroll;
-} */
+.table-row {
+    background-color: white;
+    /* height: auto; */
+    /* width: auto; */
+}
 
-.weight {
+.table-row:hover {
+    background-color: orange !important;
+}
+
+.table-row--no-hover {
     background-color: white;
     height: auto;
     width: auto;
 }
 
-.weight-selected {
-    background-color: rgba(0, 0, 255, 0.445);
+.table-row--selected {
+    background-color: darkorange;
     font-weight: bold;
-}
-
-.weight-selected2 {
-    font-weight: bold;
-}
-
-.weight:hover {
-    background-color: lightblue !important;
 }

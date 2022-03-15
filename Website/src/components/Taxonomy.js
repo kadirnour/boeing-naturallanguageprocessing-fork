@@ -4,6 +4,9 @@ import Graph from 'vis-react';
 import download from 'downloadjs';
 import html2canvas from "html2canvas";
 //import ModalConfirmation from './modal_confirmation'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBackward, faFileArrowDown, faFileLines, faTrash, faCirclePlus, faPlus }
+    from '@fortawesome/free-solid-svg-icons'
 
 //!! TODO: Create undo and redo array !!
 //!! TODO: Fix bug where user slected 2 nodes, then holds ctrl and drags a third node
@@ -163,11 +166,11 @@ class Taxonomy extends React.Component {
         const table = []
         for (let r = 0; r < Object.keys(this.state.relationshipTypes).length; r++) {
             table.push( // Each table row is clickable to edit the relationship type (name and color)
-                <tr key={r} className="weight centered" onClick={() => this.isShowPopup(true, "editRelationshipType", r)}>
-                    <td className="table-data">
+                <tr key={r} className="table-row" onClick={() => this.isShowPopup(true, "editRelationshipType", r)}>
+                    <td>
                         {Object.keys(this.state.relationshipTypes[r])}
                     </td>
-                    <td className="table-data" style={{ color: Object.values(this.state.relationshipTypes[r]) }}>
+                    <td style={{ color: Object.values(this.state.relationshipTypes[r]) }}>
                         {Object.values(this.state.relationshipTypes[r])}
                     </td>
                 </tr>
@@ -410,69 +413,75 @@ class Taxonomy extends React.Component {
                             nouns={this.state.nouns}
                             label={this.state.label}
                         />
-                        <div className="taxonomy-header">
-                            <h2 className="pageTitle">
-                                Taxonomy Relationships
-                            </h2>
-                        </div>
+                        <h2 className="taxonomy-header">
+                            Taxonomy Relationships
+                        </h2>
                         <div className="taxonomy-content-box">
+
                             <div id='graphbox' className="taxonomy-terms-box">
-                                    <div className="taxonomy-terms-box--left">
-                                        <h6 className="taxonomy-sub-header">
-                                            Hold ctrl or long-click to select second node
-                                        </h6>
-                                        <div className="taxonomy-graph-box" id='taxgraphbox'>
-                                            <Graph key={this.state.graphID} graph={this.state.graph} options={options} events={this.state.events} style={{height: "100%"}}/>
-                                        </div>
+                                <div className="taxonomy-terms-box--left">
+                                    <h6 className="taxonomy-sub-header">
+                                        Hold ctrl or long-click to select second node
+                                    </h6>
+                                    <div className="taxonomy-graph-box">
+                                        <Graph key={this.state.graphID} graph={this.state.graph} options={options} events={this.state.events} style={{height: "100%"}}/>
+
                                     </div>
-                                    <div className="taxonomy-terms-box--center">
-                                        <h6 className="taxonomy--center-sub-header centered"> Edit Relationships </h6>
-                                        <button className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "newRelationshipType", -1)}>
-                                            Create New Relationship Type
-                                        </button>
-                                        {this.state.nodes.length == 2 ?
-                                            this.state.relationshipTypes.length == 0 ?
-                                                <button disabled={true} className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>
-                                                    Create New Relationship
-                                                </button> 
-                                                :
-                                                <button className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>
-                                                    Create New Relationship
-                                                </button>
-                                            : 
-                                            <button disabled={true} className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>
+                                </div>
+
+                                <div className="taxonomy-terms-box--center">
+                                    <h6 className="taxonomy--center-sub-header centered"> Edit Relationships </h6>
+                                    <button className="button taxonomy__buttons blue" onClick={() => this.isShowPopup(true, "newRelationshipType", -1)}>
+                                        <FontAwesomeIcon icon={faCirclePlus}/> &nbsp; 
+                                        Create New Relationship Type
+                                    </button>
+                                    {this.state.nodes.length == 2 ?
+                                        this.state.relationshipTypes.length == 0 ?
+                                            <button disabled={true} className="button--disabled taxonomy__buttons" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>
+                                                <FontAwesomeIcon icon={faPlus}/> &nbsp; 
+                                                Create New Relationship
+                                            </button> 
+                                            :
+                                            <button className="button taxonomy__buttons blue" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>
+                                                <FontAwesomeIcon icon={faPlus}/> &nbsp;
                                                 Create New Relationship
                                             </button>
-                                        }
+                                        : 
+                                        <button disabled={true} className="button--disabled taxonomy__buttons" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>
+                                            <FontAwesomeIcon icon={faPlus}/> &nbsp;
+                                            Create New Relationship
+                                        </button>
+                                    }
 
-                                        {this.state.nodes.length == 1 ?
-                                            <button className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "nouns", -1)}>
-                                                See Nouns
-                                            </button>
-                                            : 
-                                            <button disabled={true} className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "nouns", -1)}>
-                                                See Nouns
-                                            </button>
-                                        }
+                                    {this.state.nodes.length == 1 ?
+                                        <button className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "nouns", -1)}>
+                                            <FontAwesomeIcon icon={faFileLines}/> &nbsp;
+                                            See Nouns
+                                        </button>
+                                        : 
+                                        <button disabled={true} className="button--disabled--disabled taxonomy__buttons" onClick={() => this.isShowPopup(true, "nouns", -1)}>
+                                            <FontAwesomeIcon icon={faFileLines}/> &nbsp;
+                                            See Nouns
+                                        </button>
+                                    }
 
-                                        {this.state.nodes.length == 2 ?
-                                            this.state.exists == false ?
-                                                <button disabled={true} className="button taxonomy__buttons" onClick={() => this.deleteEdge()}>
-                                                    Delete Relationship?
-                                                </button> 
-                                                :
-                                                <button className="button taxonomy__buttons" onClick={() => this.deleteEdge()}>
-                                                    Delete Relationship?
-                                                </button>
-                                            : 
-                                            <button disabled={true} className="button taxonomy__buttons" onClick={() => this.deleteEdge()}>
+                                    {this.state.nodes.length == 2 ?
+                                        this.state.exists == false ?
+                                            <button disabled={true} className="button--disabled taxonomy__buttons" onClick={() => this.deleteEdge()}>
+                                                <FontAwesomeIcon icon={faTrash}/> &nbsp;
+                                                Delete Relationship?
+                                            </button> 
+                                            :
+                                            <button className="button taxonomy__buttons red" onClick={() => this.deleteEdge()}>
+                                                <FontAwesomeIcon icon={faTrash}/> &nbsp;
                                                 Delete Relationship?
                                             </button>
-                                        }
-
-                                        <button className="button taxonomy__buttons" onClick={() => this.saveRelationships()}>
-                                            Save Relationship
+                                        : 
+                                        <button disabled={true} className="button--disabled taxonomy__buttons" onClick={() => this.deleteEdge()}>
+                                            <FontAwesomeIcon icon={faTrash}/> &nbsp;
+                                            Delete Relationship?
                                         </button>
+
 
                                         <button className="button taxonomy__buttons" onClick={() => this.Screenshot()}>
                                             Take Screenshot
@@ -485,18 +494,31 @@ class Taxonomy extends React.Component {
                                         <h6 className="taxonomy-sub-header">
                                             Click to Edit
                                         </h6>
+
+//                                     }
+//                                     <button className="button taxonomy__buttons" onClick={() => this.saveRelationships()}>
+//                                         <FontAwesomeIcon icon={faFileArrowDown}/> &nbsp;
+//                                         Save Relationship
+//                                     </button>
+//                                 </div>                                
+//                                 <div className="taxonomy-terms-box--right">
+//                                     <h6 className="taxonomy-sub-header">
+//                                         Click to Edit
+//                                     </h6>
+//                                     <div className="table-box--taxonomy">
+
                                         <table className="table table-head">
                                             <thead className="table-light">
                                                 <tr>
-                                                    <th className="centered table-header">
+                                                    <th className="table-header">
                                                         Relationship
                                                     </th>
-                                                    <th className="centered table-header">
+                                                    <th className="table-header">
                                                         Color
                                                     </th>
                                                 </tr>
                                             </thead>
-                                            <tbody className="table-body--taxonomy">
+                                            <tbody>
                                                 {Object.keys(this.state.relationshipTypes).length === 0 ?
                                                     <tr>
                                                         <td></td>
@@ -507,10 +529,11 @@ class Taxonomy extends React.Component {
                                             </tbody>
                                         </table>
                                     </div>
+                                </div>
                             </div>     
-
                             <div className="page-button-box">
                                 <button className="button__small taxonomy__page-buttons" onClick={() => this.props.prevPage()}>
+                                    <FontAwesomeIcon icon={faBackward}/> &nbsp; 
                                     Back
                                 </button>
                             </div>
