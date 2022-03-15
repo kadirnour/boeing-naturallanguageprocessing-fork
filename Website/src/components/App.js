@@ -9,7 +9,7 @@ import Load from './Load.js'
 
 /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 Function: App
-Description: main webpage, calls back-end functions through routes
+Description: Main webpage, calls back-end functions through routes.
 Returns: current page
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
 class App extends React.Component { 

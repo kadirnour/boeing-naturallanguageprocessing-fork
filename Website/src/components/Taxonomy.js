@@ -333,22 +333,25 @@ class Taxonomy extends React.Component {
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     Function: saveRelationships
-    Description: Sends relationship data to the flask route.
+    Description: Shows pop up asking if we would like to save.
     Returns: Void
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     saveRelationships = () => {
-        
         this.isShowPopup(true, "confirm", -1)
-        
     }
 
+     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: confirmSave
+    Description: If so we send relationship data to the flask route.
+    Returns: Void
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     confirmSave = () => {
         this.props.saveRelationships(this.state.graph.edges, this.state.graph.nodes, this.state.relationshipTypes)
     }
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     Function: getNouns
-    Description: gets terms for the term pop up
+    Description: Gets terms for the term pop up.
     Returns: Void
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     getNouns = () => {
@@ -371,8 +374,6 @@ class Taxonomy extends React.Component {
     
     Screenshot = () =>{
         html2canvas(document.getElementById("graphbox"), {
-            //allowTaint: true,
-            //useCORS: true,
           })
           .then(function (canvas) {
             // It will return a canvas element

@@ -23,8 +23,8 @@ class Categories extends React.Component {
     Description:
     Returns:
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
-    isShowPopup = (status) => {  
-        this.setState({ showModalPopup: status});  
+    isShowPopup = (status, type) => {  
+        this.setState({ showModalPopup: status, type:type});  
     };  
 
   /*##################################################################################
@@ -367,14 +367,22 @@ class Categories extends React.Component {
     Returns:
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     saveCategories = () => {
-        this.props.saveCategories(this.state.categories)
+        this.isShowPopup(true, "confirm")
     }
-
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     Function: 
     Description:
     Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
+    confirmSave = () => {
+        this.props.saveCategories(this.state.categories)
+    }
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: render
+    Description:
+    Returns: HTML Scripts
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     render() {
         return (
@@ -382,6 +390,8 @@ class Categories extends React.Component {
                 <div className="container">
                     <div className="categories-wrapper">
                         <ModalPopup showModalPopup={this.state.showModalPopup}  
+                            confirmSave={this.confirmSave}
+                            type={this.state.type}
                             onPopupClose={this.isShowPopup}
                             createCategory={this.props.createCategory}
                             categories={this.props.categories}
@@ -460,7 +470,7 @@ class Categories extends React.Component {
                                     <div className="categories-button-box"></div>
                                     <div className="categories-input-box">
                                         {this.state.cat === -1 ? 
-                                            <button className="button categories__buttons" onClick={() => this.isShowPopup(true)}>
+                                            <button className="button categories__buttons" onClick={() => this.isShowPopup(true,"")}>
                                                 Create New Category
                                             </button> 
                                             : 
