@@ -1,13 +1,15 @@
 from Data import main as Data
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''
-Function: write_to_csv
-Description: used to write relationnships to .csv
+Function: write_to_json
+Description: used to write relationnships to .json file
 '''''''''''''''''''''''''''''''''''''''''''''''''''
-def write_to_csv(input, corpus, edges, nodes, relationshipTypes):
-    file = input + '\\' + corpus + '_relationships.csv'
-    dataWrite = []
-    dataWrite.append(edges)
-    dataWrite.append(nodes)
-    dataWrite.append(relationshipTypes)
-    Data.write_to_csv(dataWrite, file)
+def write_to_json(input, corpus, graph, relationshipTypes):
+    file = input + '\\' + corpus + '_relationships.json'
+
+    data = {
+        'graph': graph,
+        'relationshipTypes': relationshipTypes
+    }
+
+    Data.write_to_json(data, file)

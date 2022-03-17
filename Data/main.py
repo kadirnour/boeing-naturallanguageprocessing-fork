@@ -2,6 +2,7 @@ from pathlib import Path
 from ast import literal_eval
 import csv
 import os
+import json
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 Function: main.py
@@ -64,16 +65,25 @@ def write_weights(file, weightDictionary):
 Function: read_weights
 Description: read weights from file
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-def read_weights(file):
-    data = {}
-    with open(file, 'r') as corpus:
+def read_weights(dir, corpusName):
+    vis_data = {}
+    corpus_data = {}
+    visName = corpusName + '_relationships.json'
+    corpusName = corpusName + '.csv'
+
+    with open(dir / corpusName, 'r') as corpus:
         rowreader = csv.reader(corpus, delimiter=',')
         for row in rowreader:
             if len(row) == 5:
-                data.update({row[0]: {"context": literal_eval(row[1]), "frequency": row[2], "weight": row[3], "category": row[4]}})
+                corpus_data.update({row[0]: {"context": literal_eval(row[1]), "frequency": row[2], "weight": row[3], "category": row[4]}})
             else:
-                data.update({row[0]: {"context": literal_eval(row[1]), "frequency": row[2], "weight": row[3]}})
-    return data
+                corpus_data.update({row[0]: {"context": literal_eval(row[1]), "frequency": row[2], "weight": row[3]}})
+
+    with open(dir / visName, 'r') as f:
+        vis_data = json.load(f)
+        print(vis_data)
+
+    return {'weight': corpus_data, 'graph': vis_data['graph'], 'relationshipTypes': vis_data['relationshipTypes']}
 
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -85,3 +95,12 @@ def write_to_csv(data_write, file_path):
         csv_writer = csv.writer(write_obj)
         for row in data_write:
             csv_writer.writerow(row)
+
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Function: write_to_json
+Description: writes to .json
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+def write_to_json(data, file):
+    with open(file, 'w', encoding='UTF-8') as f: # TODO:  change to use Pathlib for reproducible results
+        json.dump(data, f, indent=4)

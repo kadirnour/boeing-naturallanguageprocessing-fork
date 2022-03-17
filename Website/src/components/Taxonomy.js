@@ -350,7 +350,7 @@ class Taxonomy extends React.Component {
     Returns: Void
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     confirmSave = () => {
-        this.props.saveRelationships(this.state.graph.edges, this.state.graph.nodes, this.state.relationshipTypes)
+        this.props.saveRelationships(this.state.graph, this.state.relationshipTypes)
     }
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''

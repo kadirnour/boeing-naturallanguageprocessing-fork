@@ -122,7 +122,12 @@ class App extends React.Component {
       headers:{"content_type": "application/json",},
     body: JSON.stringify(input)})
       .then(res => res.json())
-        .then(data => {this.setState({weightDictionary: data})})
+        .then(data => {this.setState({
+          weightDictionary: data['weight'],
+          graph: data['graph'],
+          relationshipTypes: data['relationshipTypes']
+        })
+      })
   }
 
 
@@ -141,10 +146,10 @@ class App extends React.Component {
 
   /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
   Function: saveRelationships
-  Description: writes relationships to a .csv
+  Description: writes relationships to a .json file
  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
- saveRelationships = async(edges, nodes, relationshipTypes) => {
-  let inputInfo = {input: this.state.output, corpus: this.state.corpusName, edges: edges, nodes: nodes, relationshipTypes: relationshipTypes}
+ saveRelationships = async(graph, relationshipTypes) => {
+  let inputInfo = {input: this.state.output, corpus: this.state.corpusName, graph: graph, relationshipTypes: relationshipTypes}
   await fetch('/saveRelationships', {
     method: "POST",
     headers:{"content_type": "application/json",},

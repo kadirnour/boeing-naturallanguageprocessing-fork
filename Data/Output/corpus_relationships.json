@@ -1,0 +1,31 @@
+{
+    "graph": {
+        "nodes": [
+            {
+                "id": 1,
+                "label": "ttt",
+                "color": "#e04141"
+            },
+            {
+                "id": 2,
+                "label": "aaa",
+                "color": "#e04141"
+            }
+        ],
+        "edges": [
+            {
+                "from": 1,
+                "to": 2,
+                "color": "#1bac1d",
+                "width": 3,
+                "relationship": "r3",
+                "id": "00cbed04-85ce-4214-ac51-04eeb591c93e"
+            }
+        ]
+    },
+    "relationshipTypes": [
+        {
+            "r3": "#1bac1d"
+        }
+    ]
+}

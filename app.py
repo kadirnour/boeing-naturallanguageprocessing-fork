@@ -84,8 +84,8 @@ Returns: weights
 @app.route('/loadCorpus', methods = ['POST'])
 def loadCorpus():
     location = request.get_json(force=True)
-    corpusName = location['corpusName'] + '.csv'
-    return Data.read_weights(Path(location['output']) / corpusName)
+    corpusName = location['corpusName']
+    return Data.read_weights(Path(location['output']), corpusName)
        
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -106,5 +106,5 @@ Description: writes relationships to .csv
 @app.route('/saveRelationships', methods = ['POST'])
 def saveRelationships():
     inputInfo = request.get_json(force=True)
-    Taxonomy.write_relationships(inputInfo['input'], inputInfo['corpus'], inputInfo['edges'], inputInfo['nodes'], inputInfo['relationshipTypes'])
+    Taxonomy.write_relationships(inputInfo['input'], inputInfo['corpus'], inputInfo['graph'], inputInfo['relationshipTypes'])
     return ""

@@ -28,7 +28,7 @@ def write_categories(output, corpus, category):
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 Function: write_relationships
-Description: writes relationships into main corpus .csv
+Description: writes relationships into main corpus .json file
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-def write_relationships(input, corpus, edges, nodes, relationshipTypes):
-    relationships.write_to_csv(input, corpus, edges, nodes, relationshipTypes)
+def write_relationships(input, corpus, graph, relationshipTypes):
+    relationships.write_to_json(input, corpus, graph, relationshipTypes)
