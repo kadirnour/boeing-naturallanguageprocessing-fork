@@ -44,37 +44,41 @@ class Categories extends React.Component {
 
         if ((this.state.pageTerms * 100) + 100 > Object.keys(this.props.weightDictionary).length) {
             for (let r = this.state.pageTerms * 100; r < Object.keys(this.props.weightDictionary).length; r++) {
-                table.push(
-                    <tr key = {r} className={"table-row" + (this.checkSelectedWeight(r) === true ? " table-row--selected" : "")}
-                        onClick={() => (this.checkSelectedWeight(r) ? this.removedSelectedWeightTerm(r) : this.selectWeightTerm(r))}>
-                        <td>
-                            {Object.keys(this.props.weightDictionary)[r]}
-                        </td>
-                        <td>
-                            {Object.values(this.props.weightDictionary)[r].frequency}
-                        </td>
-                        <td>
-                            {Object.values(this.props.weightDictionary)[r].weight}
-                        </td>
-                    </tr>
-                )
+                if(!this.props.weightDictionary[Object.keys(this.props.weightDictionary)[r]].category){
+                    table.push(
+                        <tr key = {r} className={"table-row" + (this.checkSelectedWeight(r) === true ? " table-row--selected" : "")}
+                            onClick={() => (this.checkSelectedWeight(r) ? this.removedSelectedWeightTerm(r) : this.selectWeightTerm(r))}>
+                            <td>
+                                {Object.keys(this.props.weightDictionary)[r]}
+                            </td>
+                            <td>
+                                {Object.values(this.props.weightDictionary)[r].frequency}
+                            </td>
+                            <td>
+                                {Object.values(this.props.weightDictionary)[r].weight}
+                            </td>
+                        </tr>
+                    )
+                }
             }
         } else {
             for (let r = this.state.pageTerms * 100; r < (this.state.pageTerms * 100) + 100; r++) {
-                table.push(
-                    <tr key = {r} className={"table-row" + (this.checkSelectedWeight(r) === true ? " table-row--selected" : "")}
-                        onClick={() => (this.checkSelectedWeight(r) ? this.removedSelectedWeightTerm(r) : this.selectWeightTerm(r))}>
-                        <td>
-                            {Object.keys(this.props.weightDictionary)[r]}
-                        </td>
-                        <td>
-                            {Object.values(this.props.weightDictionary)[r].frequency}
-                        </td>
-                        <td>
-                            {Object.values(this.props.weightDictionary)[r].weight}
-                        </td>
-                    </tr>
-                )
+                if(!this.props.weightDictionary[Object.keys(this.props.weightDictionary)[r]].category){
+                    table.push(
+                        <tr key = {r} className={"table-row" + (this.checkSelectedWeight(r) === true ? " table-row--selected" : "")}
+                            onClick={() => (this.checkSelectedWeight(r) ? this.removedSelectedWeightTerm(r) : this.selectWeightTerm(r))}>
+                            <td>
+                                {Object.keys(this.props.weightDictionary)[r]}
+                            </td>
+                            <td>
+                                {Object.values(this.props.weightDictionary)[r].frequency}
+                            </td>
+                            <td>
+                                {Object.values(this.props.weightDictionary)[r].weight}
+                            </td>
+                        </tr>
+                    )
+                }
             }
         }
         return table;

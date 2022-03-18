@@ -118,7 +118,6 @@ class App extends React.Component {
     for(let [key, value] of Object.entries(this.state.weightDictionary)){
       if(Object.keys(value).includes('category')){
         let subCategory = cat[value['category']];
-        console.log(subCategory);
         if(subCategory){
           // ammend new value
           cat[value['category']] = {[key]: value, ...subCategory}
