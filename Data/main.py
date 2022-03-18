@@ -71,17 +71,24 @@ def read_weights(dir, corpusName):
     visName = corpusName + '_relationships.json'
     corpusName = corpusName + '.csv'
 
-    with open(dir / corpusName, 'r') as corpus:
-        rowreader = csv.reader(corpus, delimiter=',')
-        for row in rowreader:
-            if len(row) == 5:
-                corpus_data.update({row[0]: {"context": literal_eval(row[1]), "frequency": row[2], "weight": row[3], "category": row[4]}})
-            else:
-                corpus_data.update({row[0]: {"context": literal_eval(row[1]), "frequency": row[2], "weight": row[3]}})
-
-    with open(dir / visName, 'r') as f:
-        vis_data = json.load(f)
-        print(vis_data)
+    if Path(dir / corpusName).exists():
+        # loads weights 
+        with open(dir / corpusName, 'r') as corpus:
+            rowreader = csv.reader(corpus, delimiter=',')
+            for row in rowreader:
+                if len(row) == 5:
+                    corpus_data.update({row[0]: {"context": literal_eval(row[1]), "frequency": row[2], "weight": row[3], "category": row[4]}})
+                else:
+                    corpus_data.update({row[0]: {"context": literal_eval(row[1]), "frequency": row[2], "weight": row[3]}})
+    
+    if Path(dir / visName).exists():
+        # loads visualization 
+        with open(dir / visName, 'r') as f:
+            vis_data = json.load(f)
+            print(vis_data)
+    else:
+        vis_data['graph'] = {'nodes': [], 'edges': []}
+        vis_data['relationshipTypes'] = []
 
     return {'weight': corpus_data, 'graph': vis_data['graph'], 'relationshipTypes': vis_data['relationshipTypes']}
 

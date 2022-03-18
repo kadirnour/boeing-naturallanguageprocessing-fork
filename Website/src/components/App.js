@@ -107,6 +107,30 @@ class App extends React.Component {
       headers:{"content_type": "application/json"},
       body: JSON.stringify(input)})
   }
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  Function: deriveCategories
+  Description: creates a dictionary of categories from weightDictionary
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
+  deriveCategories = async() => {
+    let cat = {};
+
+    for(let [key, value] of Object.entries(this.state.weightDictionary)){
+      if(Object.keys(value).includes('category')){
+        let subCategory = cat[value['category']];
+        console.log(subCategory);
+        if(subCategory){
+          // ammend new value
+          cat[value['category']] = {[key]: value, ...subCategory}
+        }
+        else{
+          // create new entry
+          cat[value['category']] = {[key]: value};
+        }
+      }
+    }
+    this.setState({categories: cat});
+  }
   
 
   /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -127,6 +151,9 @@ class App extends React.Component {
           graph: data['graph'],
           relationshipTypes: data['relationshipTypes']
         })
+      })
+      .then(() => {
+        this.deriveCategories()
       })
   }
 
