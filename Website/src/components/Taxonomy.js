@@ -44,7 +44,7 @@ class Taxonomy extends React.Component {
         super();  
         this.state = {  
             graphID: 0, // ID for graph. Whenever the graph is updated, needs a new graphID to display changes
-            nodeID: 0, // ID for nodes
+            //nodeID: 0, // ID for nodes
             edgeTypes: [],
             showModalPopup: false,
             nodes: [], // List of currently selected nodes
@@ -94,28 +94,11 @@ class Taxonomy extends React.Component {
     Returns: Void
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     componentDidMount() {
-        if(this.props.graph.nodes.length == 0) {
-            let nodes = []
-            let newGraph = {...this.state.graph}
-            let nodeID = this.state.nodeID
 
-            for (let r = 0; r < Object.keys(this.props.categories).length; r++) { // Displays categories from last page as nodes in graph
-                nodeID = nodeID + 1
-                nodes.push({id: nodeID, label: Object.keys(this.props.categories)[r], color: '#e04141'})
-            }
-
-            newGraph.nodes = nodes
-            this.setState({nodeID: nodeID,   //!!!!!! NEED TO REWORD NODEID, MIGHT NOT BE NECCESSARY
-                graph: newGraph,
-                graphID: this.state.graphID + 1,
-                edgeTypes: this.props.edgeTypes
-            })
-        } else {
-            this.setState({graph: this.props.graph,
-                graphID: this.state.graphID + 1,
-                edgeTypes: this.props.edgeTypes
-            })
-        }
+        this.setState({graph: this.props.graph,
+            graphID: this.state.graphID + 1,
+            edgeTypes: this.props.edgeTypes
+        })
   
     }
 

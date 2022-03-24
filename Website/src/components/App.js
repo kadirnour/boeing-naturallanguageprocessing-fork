@@ -25,7 +25,9 @@ class App extends React.Component {
       corpusName: 'corpus', //master corpus name for this taxonomy
       edgeTypes: [], //relationship types between categories. [{name: color}]
       graph: {nodes: [], edges: []}, //relationship graph. {nodes: [{color, id, label}], edges:[{color, id, width, from, to, relationship}]}
-      load: false}; //loading from or creating a new taxonomy
+      nodeID: 0, // ID for nodes
+      load: false //loading from or creating a new taxonomy
+    }; 
   }
 
   /*##################################################################################
@@ -247,13 +249,29 @@ class App extends React.Component {
 
   /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
   Function: createCategory
-  Description: Creates a new category
+  Description: Creates a new category and adds it to the graph as a node
   Returns: adds new category to category state
   '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   createCategory = (category) => {
     const newCat = {...this.state.categories}
     newCat[category] = {}
-    this.setState({categories: newCat})
+
+    let nodes = this.state.graph.nodes
+    let newGraph = {...this.state.graph}
+    let nodeID = this.state.nodeID
+
+    nodeID = nodeID + 1
+    nodes.push({id: nodeID,
+      label: category,
+      color: '#e04141'
+    })
+
+    newGraph.nodes = nodes
+
+    this.setState({categories: newCat,
+      graph: newGraph,
+      nodeID: nodeID
+    })
   }
 
 
