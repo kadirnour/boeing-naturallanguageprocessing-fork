@@ -22,9 +22,14 @@ var options = {
         hierarchical: false
     },
     edges: {
-        color: '#000000'
+        color: '#000000',
     },
-    interaction: { multiselect: true, hover: true}
+    interaction: {
+        multiselect: true, 
+        hover: true, 
+        selectConnectedEdges: false, 
+        hoverConnectedEdges: false, 
+        hoverEdges: true }
 };
 
 
@@ -45,6 +50,7 @@ class Taxonomy extends React.Component {
             nodes: [], // List of currently selected nodes
             node1: -1, // First node selected (Needed for relationship line direction)
             node2: -1, // Second node selected (Needed for relationship line direction)
+            edges: [], // List of selected edges
             type: "", // Type of modal to be opened
             graph: {
               nodes: [],
@@ -52,9 +58,9 @@ class Taxonomy extends React.Component {
             },
 
             events: { // Logic for selecting nodes
-              click: ({ nodes, edges }) => {
-                    //console.log(edges)
-                    if(nodes.length == 2) { // Two nodes are selected
+                click: ({ nodes, edges }) => {
+                    this.setState({edges: edges}) // Adds selected edges to state
+                    if(nodes.length == 2) { // Two nodes are already selected
                         if(this.state.node1 == -1) { // Deals with bug where user drags a node instead of clicking and node is not added to nodes list
                             this.setState({node1: nodes[0]}) // Sets node1 to the first node in the list as default
                         }
@@ -68,15 +74,15 @@ class Taxonomy extends React.Component {
 
                         this.setState({nodes: nodes,
                             node2: node2})
-                        this.checkLineExists() // Used to determine if the delete relationship line button should be enabled/disabled
+                        //this.checkLineExists() // Used to determine if the delete relationship line button should be enabled/disabled
 
-                        } else if (nodes.length == 1) { // Only the first node is selected
-                            this.setState({nodes: nodes,
-                                node1: nodes[0]})
-                        } else { // No nodes are selected
-                            this.setState({nodes: nodes})
+                    } else if (nodes.length == 1) { // One node is already selected
+                        this.setState({nodes: nodes,
+                            node1: nodes[0]})
+                    } else { // No nodes are already selected
+                        this.setState({nodes: nodes})
                     }
-              }
+                }
             }
         }  
     } 
@@ -140,22 +146,22 @@ class Taxonomy extends React.Component {
     sets exists to true or false.
     Returns: Void
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
-    checkLineExists = () =>   {
-        let exists = "FALSE"
-        if(this.state.graph.edges.length != 0) {
-            for(let i = 0; i < this.state.graph.edges.length; i++) { 
-                if((this.state.graph.edges[i].from == this.state.node1 || this.state.graph.edges[i].from == this.state.node2) && // Checks if there is a realtionship line between the two nodes
-                    (this.state.graph.edges[i].to == this.state.node1 || this.state.graph.edges[i].to == this.state.node2)) {
-                        exists = "TRUE"
-                    }
-            }
-        }
-        if (exists == "TRUE") {
-            this.setState({exists: true})
-        } else {
-            this.setState({exists: false})
-        }
-    }
+    // checkLineExists = () =>   {
+    //     let exists = "FALSE"
+    //     if(this.state.graph.edges.length != 0) {
+    //         for(let i = 0; i < this.state.graph.edges.length; i++) { 
+    //             if((this.state.graph.edges[i].from == this.state.node1 || this.state.graph.edges[i].from == this.state.node2) && // Checks if there is a realtionship line between the two nodes
+    //                 (this.state.graph.edges[i].to == this.state.node1 || this.state.graph.edges[i].to == this.state.node2)) {
+    //                     exists = "TRUE"
+    //                 }
+    //         }
+    //     }
+    //     if (exists == "TRUE") {
+    //         this.setState({exists: true})
+    //     } else {
+    //         this.setState({exists: false})
+    //     }
+    // }
 
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -321,12 +327,14 @@ class Taxonomy extends React.Component {
         let edgesCopy = [...this.state.graph.edges]
         let newGraph = {...this.state.graph}
 
-        for(let i = 0; i < this.state.graph.edges.length; i++) {
-            if((this.state.graph.edges[i].from == this.state.node1 || this.state.graph.edges[i].from == this.state.node2)
-                && (this.state.graph.edges[i].to == this.state.node1 || this.state.graph.edges[i].to == this.state.node2)) {
-                    edgesCopy.splice(i, 1)
+        for(let i = 0; i < this.state.edges.length; i++) {
+            for(let g = 0; g < this.state.graph.edges.length; g++) {
+                if(this.state.edges[i] == this.state.graph.edges[g].id) {
+                    edgesCopy.splice(g, 1)
                 }
+            }
         }
+
         newGraph.edges = edgesCopy
         this.props.saveTaxonomy(newGraph, this.state.relationshipTypes)
         this.setState({graph: newGraph,
@@ -422,7 +430,7 @@ class Taxonomy extends React.Component {
                             <div id='graphbox' className="taxonomy-terms-box">
                                 <div className="taxonomy-terms-box--left">
                                     <h6 className="taxonomy-sub-header">
-                                        Hold ctrl or long-click to select second node
+                                        Hold ctrl to select multiple node or edges
                                     </h6>
                                     <div className="taxonomy-graph-box">
                                         <Graph key={this.state.graphID} graph={this.state.graph} options={options} events={this.state.events} style={{height: "100%"}}/>
@@ -464,21 +472,18 @@ class Taxonomy extends React.Component {
                                             See Nouns
                                         </button>
                                     } &nbsp;
-                                    {this.state.nodes.length == 2 ?
-                                        this.state.exists == false ?
-                                            <button disabled={true} className="button--disabled taxonomy__buttons" onClick={() => this.deleteEdge()}>
-                                                <FontAwesomeIcon icon={faTrash}/> &nbsp;
-                                                Delete Relationship Line
-                                            </button> 
-                                            :
-                                            <button className="button taxonomy__buttons red" onClick={() => this.deleteEdge()}>
-                                                <FontAwesomeIcon icon={faTrash}/> &nbsp;
-                                                Delete Relationship Line
-                                            </button>
-                                        : 
-                                        <button disabled={true} className="button--disabled taxonomy__buttons" onClick={() => this.deleteEdge()}>
-                                            <FontAwesomeIcon icon={faTrash}/> &nbsp;
-                                            Delete Relationship Line
+                                    {this.state.edges.length == 0 ?
+                                        <button disabled={true} className="button--disabled taxonomy__buttons">
+                                            <FontAwesomeIcon icon={faTrash}/>
+                                            Delete Edge
+                                        </button> 
+                                        :
+                                        <button className="button taxonomy__buttons red" onClick={() => this.deleteEdge()}>
+                                            <FontAwesomeIcon icon={faTrash}/>
+                                            {this.state.edges.length == 1 ?
+                                                "Delete Edge" :
+                                                "Delete Edges"
+                                            }
                                         </button>
                                     }  &nbsp;
                                 <button className="button taxonomy__buttons" onClick={() => this.Screenshot()}>
