@@ -373,9 +373,27 @@ class App extends React.Component {
   '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   loaded = (res) => {
     if (res) {
-      this.setState({load: true})
+      this.setState({load: true,
+        input: "",
+        output: "",
+        weightDictionary: {},
+        categories: {},
+        edgeTypes: [],
+        files: {},
+        filesList: {},
+        graph: {nodes: [], edges: []}
+      })
     } else {
-      this.setState({load: false})
+      this.setState({load: false,
+        input: "",
+        output: "",
+        weightDictionary: {},
+        categories: {},
+        edgeTypes: [],
+        files: {},
+        filesList: {},
+        graph: {nodes: [], edges: []}
+      })
     }
     this.nextPage()
   }
