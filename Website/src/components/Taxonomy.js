@@ -139,31 +139,6 @@ class Taxonomy extends React.Component {
                                     Graph Functions
     ###################################################################################*/
 
-
-    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: checkLineExists
-    Description: Checks if line exists between node A and node B and
-    sets exists to true or false.
-    Returns: Void
-    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
-    // checkLineExists = () =>   {
-    //     let exists = "FALSE"
-    //     if(this.state.graph.edges.length != 0) {
-    //         for(let i = 0; i < this.state.graph.edges.length; i++) { 
-    //             if((this.state.graph.edges[i].from == this.state.node1 || this.state.graph.edges[i].from == this.state.node2) && // Checks if there is a realtionship line between the two nodes
-    //                 (this.state.graph.edges[i].to == this.state.node1 || this.state.graph.edges[i].to == this.state.node2)) {
-    //                     exists = "TRUE"
-    //                 }
-    //         }
-    //     }
-    //     if (exists == "TRUE") {
-    //         this.setState({exists: true})
-    //     } else {
-    //         this.setState({exists: false})
-    //     }
-    // }
-
-
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     Function: renderRelationshipTypes
     Description: Renders relationship types to the table.
@@ -184,6 +159,36 @@ class Taxonomy extends React.Component {
             )
         }
         return table;
+    }
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: displaySelectedNodes
+    Description: 
+    Returns: 
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
+    displaySelectedNodes = () => {
+        let result = ""
+        for(let i = 0; i < this.state.nodes.length; i++) {
+            result += this.state.nodes[i]  + ", "
+        }
+        return result.slice(0, result.length - 2)
+    }
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: displaySelectedEdges
+    Description: 
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
+    displaySelectedEdges = () => {
+        let result = ""
+        for(let i = 0; i < this.state.edges.length; i++) {
+            for(let g = 0; g < this.state.graph.edges.length; g++) {
+                if(this.state.edges[i] == this.state.graph.edges[g].id) {
+                    result += this.state.graph.edges[g].from.toString() + ">" + this.state.graph.edges[g].to.toString() + ", "
+                }
+            }
+        }
+        return result.slice(0, result.length - 2)
     }
 
 
@@ -430,16 +435,30 @@ class Taxonomy extends React.Component {
                             <div id='graphbox' className="taxonomy-terms-box">
                                 <div className="taxonomy-terms-box--left">
                                     <h6 className="taxonomy-sub-header">
-                                        Hold ctrl to select multiple node or edges
+                                        Hold ctrl to click on multiple nodes or edges
                                     </h6>
                                     <div className="taxonomy-graph-box">
-                                        <Graph key={this.state.graphID} graph={this.state.graph} options={options} events={this.state.events} style={{height: "100%"}}/>
-
+                                        <Graph 
+                                            key={this.state.graphID}
+                                            graph={this.state.graph}
+                                            options={options}
+                                            events={this.state.events}
+                                            style={{height: "100%"}}
+                                        />
+                                        <div className="selected-box">
+                                            Currently Selected Edges: &nbsp; 
+                                            {this.displaySelectedEdges()}
+                                            <br/>
+                                            Currently Selected Nodes: &nbsp; 
+                                            {this.displaySelectedNodes()}
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div className="taxonomy-terms-box--center">
-                                    <h6 className="taxonomy--center-sub-header centered"> Edit Relationships </h6> &nbsp; 
+                                    <h6 className="taxonomy--center-sub-header centered">
+                                        Edit Relationships
+                                    </h6> &nbsp; 
                                     <button className="button taxonomy__buttons blue" onClick={() => this.isShowPopup(true, "newRelationshipType", -1)}>
                                         <FontAwesomeIcon icon={faCirclePlus}/> &nbsp; 
                                         Create New Relationship Type
