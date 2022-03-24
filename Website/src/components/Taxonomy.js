@@ -107,11 +107,14 @@ class Taxonomy extends React.Component {
             newGraph.nodes = nodes
             this.setState({nodeID: nodeID,   //!!!!!! NEED TO REWORD NODEID, MIGHT NOT BE NECCESSARY
                 graph: newGraph,
-                graphID: this.state.graphID + 1})
+                graphID: this.state.graphID + 1,
+                edgeTypes: this.props.edgeTypes
+            })
         } else {
             this.setState({graph: this.props.graph,
                 graphID: this.state.graphID + 1,
-                edgeTypes: this.props.edgeTypes})
+                edgeTypes: this.props.edgeTypes
+            })
         }
   
     }

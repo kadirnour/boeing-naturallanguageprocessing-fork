@@ -23,7 +23,7 @@ class App extends React.Component {
       filesList: {}, //list of files found in input location. {fileName: extension}
       files: {}, //files to be parsed. {fileName: extension}
       corpusName: 'corpus', //master corpus name for this taxonomy
-      relationshipTypes: [], //relationship types between categories. [{name: color}]
+      edgeTypes: [], //relationship types between categories. [{name: color}]
       graph: {nodes: [], edges: []}, //relationship graph. {nodes: [{color, id, label}], edges:[{color, id, width, from, to, relationship}]}
       load: false}; //loading from or creating a new taxonomy
   }
@@ -143,8 +143,8 @@ class App extends React.Component {
   Function: saveRelationships
   Description: writes relationships to a .csv
  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
- saveRelationships = async(edges, nodes, relationshipTypes) => {
-  let inputInfo = {input: this.state.output, corpus: this.state.corpusName, edges: edges, nodes: nodes, relationshipTypes: relationshipTypes}
+ saveRelationships = async(edges, nodes, edgeTypes) => {
+  let inputInfo = {input: this.state.output, corpus: this.state.corpusName, edges: edges, nodes: nodes, relationshipTypes: edgeTypes}
   await fetch('/saveRelationships', {
     method: "POST",
     headers:{"content_type": "application/json",},
@@ -157,9 +157,9 @@ class App extends React.Component {
   Description: 
   Returns: 
   '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
-  saveTaxonomy = (graph, relationshipTypes) => {
+  saveTaxonomy = (graph, edgeTypes) => {
     this.setState({graph: graph,
-      relationshipTypes: relationshipTypes})
+      edgeTypes: edgeTypes})
   }
 
 
@@ -449,7 +449,7 @@ class App extends React.Component {
                         prevPage={this.prevPage}
                         categories={this.state.categories}
                         saveTaxonomy={this.saveTaxonomy}
-                        relationshipTypes={this.state.relationshipTypes}
+                        edgeTypes={this.state.edgeTypes}
                         graph={this.state.graph}/>
           }  
       </div>
