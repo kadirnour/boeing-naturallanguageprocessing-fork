@@ -121,10 +121,12 @@ class App extends React.Component {
         if(subCategory){
           // ammend new value
           cat[value['category']] = {[key]: value, ...subCategory}
+          // delete cat[value['category']][key]['category'];
         }
         else{
           // create new entry
           cat[value['category']] = {[key]: value};
+          // delete cat[value['category']][key]['category'];
         }
       }
     }
@@ -216,11 +218,13 @@ class App extends React.Component {
     }
 
     for (let r = 0; r < toDelete.length; r++) {
+
+      delete toDelete[r][2]['category']
       newWeights[toDelete[r][1]] = toDelete[r][2]
       delete newCat[toDelete[r][0]][toDelete[r][1]]
     }
-    this.setState({categories: newCat,
-      weightDictionary: newWeights})
+    this.setState({categories: newCat, 
+    weightDictionary: newWeights})
   }
 
 
@@ -296,7 +300,7 @@ class App extends React.Component {
   addToCategory = (termsIndex, cat) => {
     const toAdd = []
     const newCat = {...this.state.categories}
-    const newWeights = {...this.state.weightDictionary}
+    // const newWeights = {...this.state.weightDictionary}
 
     for (let r = 0; r < termsIndex.length; r++) {
       toAdd.push([Object.keys(this.state.categories)[cat], 
@@ -305,11 +309,12 @@ class App extends React.Component {
     }
 
     for (let r = 0; r < toAdd.length; r++) {
+      toAdd[r][2]['category'] = toAdd[r][0]
       newCat[toAdd[r][0]][toAdd[r][1]] = toAdd[r][2]
-      delete newWeights[toAdd[r][1]]
+      //delete newWeights[toAdd[r][1]]
     }
-    this.setState({categories: newCat,
-      weightDictionary: newWeights})
+
+    this.setState({categories: newCat})
   }
 
 
@@ -329,7 +334,8 @@ class App extends React.Component {
     }
 
     for (let r = 0; r < Object.keys(toAdd).length; r++) {
-      newWeights[toAdd[r][0]] = toAdd[r][1]
+      delete newWeights[toAdd[r][0]]['category']
+      // newWeights[toAdd[r][0]] = toAdd[r][1]
     }
 
     delete newCat[Object.keys(this.state.categories)[cat]]
@@ -471,8 +477,8 @@ class App extends React.Component {
                       prevPage={this.prevPage}
                       createCategory={this.createCategory}
                       categories={this.state.categories}
-                      addToWeights={this.addToWeights}
-                      addToCategory={this.addToCategory}
+                      addToWeights={this.addToWeights} // delete from cat
+                      addToCategory={this.addToCategory} 
                       saveCategories={this.saveCategories}
                       deleteCategory={this.deleteCategory}/> 
                       :

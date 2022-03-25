@@ -77,6 +77,7 @@ def read_weights(dir, corpusName):
             rowreader = csv.reader(corpus, delimiter=',')
             for row in rowreader:
                 if len(row) == 5:
+                    print('here')
                     corpus_data.update({row[0]: {"context": literal_eval(row[1]), "frequency": row[2], "weight": row[3], "category": row[4]}})
                 else:
                     corpus_data.update({row[0]: {"context": literal_eval(row[1]), "frequency": row[2], "weight": row[3]}})

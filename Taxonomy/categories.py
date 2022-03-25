@@ -38,7 +38,7 @@ def write_to_csv(output, corpus, taxDict):
         csv_reader = csv.reader(read_obj, delimiter=',')
         for row in csv_reader:
             if len(row) >= 5:
-                row[4] = " "
+                row.pop()
 
             for category,terms in taxDict.items():
                 for term,weight in terms.items():
