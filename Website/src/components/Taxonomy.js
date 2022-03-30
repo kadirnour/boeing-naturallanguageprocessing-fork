@@ -22,9 +22,14 @@ var options = {
         hierarchical: false
     },
     edges: {
-        color: '#000000'
+        color: '#000000',
     },
-    interaction: { multiselect: true, hover: true}
+    interaction: {
+        multiselect: true, 
+        hover: true, 
+        selectConnectedEdges: false, 
+        hoverConnectedEdges: false, 
+        hoverEdges: true }
 };
 
 
@@ -39,12 +44,13 @@ class Taxonomy extends React.Component {
         super();  
         this.state = {  
             graphID: 0, // ID for graph. Whenever the graph is updated, needs a new graphID to display changes
-            nodeID: 0, // ID for nodes
-            relationshipTypes: [],
+            //nodeID: 0, // ID for nodes
+            edgeTypes: [],
             showModalPopup: false,
             nodes: [], // List of currently selected nodes
             node1: -1, // First node selected (Needed for relationship line direction)
             node2: -1, // Second node selected (Needed for relationship line direction)
+            edges: [], // List of selected edges
             type: "", // Type of modal to be opened
             graph: {
               nodes: [],
@@ -52,9 +58,9 @@ class Taxonomy extends React.Component {
             },
 
             events: { // Logic for selecting nodes
-              click: ({ nodes, edges }) => {
-                    //console.log(edges)
-                    if(nodes.length == 2) { // Two nodes are selected
+                click: ({ nodes, edges }) => {
+                    this.setState({edges: edges}) // Adds selected edges to state
+                    if(nodes.length == 2) { // Two nodes are already selected
                         if(this.state.node1 == -1) { // Deals with bug where user drags a node instead of clicking and node is not added to nodes list
                             this.setState({node1: nodes[0]}) // Sets node1 to the first node in the list as default
                         }
@@ -68,15 +74,15 @@ class Taxonomy extends React.Component {
 
                         this.setState({nodes: nodes,
                             node2: node2})
-                        this.checkLineExists() // Used to determine if the delete relationship line button should be enabled/disabled
+                        //this.checkLineExists() // Used to determine if the delete relationship line button should be enabled/disabled
 
-                        } else if (nodes.length == 1) { // Only the first node is selected
-                            this.setState({nodes: nodes,
-                                node1: nodes[0]})
-                        } else { // No nodes are selected
-                            this.setState({nodes: nodes})
+                    } else if (nodes.length == 1) { // One node is already selected
+                        this.setState({nodes: nodes,
+                            node1: nodes[0]})
+                    } else { // No nodes are already selected
+                        this.setState({nodes: nodes})
                     }
-              }
+                }
             }
         }  
     } 
@@ -88,25 +94,11 @@ class Taxonomy extends React.Component {
     Returns: Void
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     componentDidMount() {
-        if(this.props.graph.nodes.length == 0) {
-            let nodes = []
-            let newGraph = {...this.state.graph}
-            let nodeID = this.state.nodeID
 
-            for (let r = 0; r < Object.keys(this.props.categories).length; r++) { // Displays categories from last page as nodes in graph
-                nodeID = nodeID + 1
-                nodes.push({id: nodeID, label: Object.keys(this.props.categories)[r], color: '#e04141'})
-            }
-
-            newGraph.nodes = nodes
-            this.setState({nodeID: nodeID,   //!!!!!! NEED TO REWORD NODEID, MIGHT NOT BE NECCESSARY
-                graph: newGraph,
-                graphID: this.state.graphID + 1})
-        } else {
-            this.setState({graph: this.props.graph,
-                graphID: this.state.graphID + 1,
-                relationshipTypes: this.props.relationshipTypes})
-        }
+        this.setState({graph: this.props.graph,
+            graphID: this.state.graphID + 1,
+            edgeTypes: this.props.edgeTypes
+        })
   
     }
 
@@ -133,31 +125,6 @@ class Taxonomy extends React.Component {
                                     Graph Functions
     ###################################################################################*/
 
-
-    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: checkLineExists
-    Description: Checks if line exists between node A and node B and
-    sets exists to true or false.
-    Returns: Void
-    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
-    checkLineExists = () =>   {
-        let exists = "FALSE"
-        if(this.state.graph.edges.length != 0) {
-            for(let i = 0; i < this.state.graph.edges.length; i++) { 
-                if((this.state.graph.edges[i].from == this.state.node1 || this.state.graph.edges[i].from == this.state.node2) && // Checks if there is a realtionship line between the two nodes
-                    (this.state.graph.edges[i].to == this.state.node1 || this.state.graph.edges[i].to == this.state.node2)) {
-                        exists = "TRUE"
-                    }
-            }
-        }
-        if (exists == "TRUE") {
-            this.setState({exists: true})
-        } else {
-            this.setState({exists: false})
-        }
-    }
-
-
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     Function: renderRelationshipTypes
     Description: Renders relationship types to the table.
@@ -165,19 +132,49 @@ class Taxonomy extends React.Component {
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     renderRelationshipTypes = () => {
         const table = []
-        for (let r = 0; r < Object.keys(this.state.relationshipTypes).length; r++) {
+        for (let r = 0; r < Object.keys(this.state.edgeTypes).length; r++) {
             table.push( // Each table row is clickable to edit the relationship type (name and color)
-                <tr key={r} className="table-row" onClick={() => this.isShowPopup(true, "editRelationshipType", r)}>
+                <tr key={r} className="table-row" onClick={() => this.isShowPopup(true, "editEdgeType", r)}>
                     <td>
-                        {Object.keys(this.state.relationshipTypes[r])}
+                        {Object.keys(this.state.edgeTypes[r])}
                     </td>
-                    <td style={{ color: Object.values(this.state.relationshipTypes[r]) }}>
-                        {Object.values(this.state.relationshipTypes[r])}
+                    <td style={{ color: Object.values(this.state.edgeTypes[r]) }}>
+                        {Object.values(this.state.edgeTypes[r])}
                     </td>
                 </tr>
             )
         }
         return table;
+    }
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: displaySelectedNodes
+    Description: 
+    Returns: 
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
+    displaySelectedNodes = () => {
+        let result = ""
+        for(let i = 0; i < this.state.nodes.length; i++) {
+            result += this.state.nodes[i]  + ", "
+        }
+        return result.slice(0, result.length - 2)
+    }
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: displaySelectedEdges
+    Description: 
+    Returns:
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
+    displaySelectedEdges = () => {
+        let result = ""
+        for(let i = 0; i < this.state.edges.length; i++) {
+            for(let g = 0; g < this.state.graph.edges.length; g++) {
+                if(this.state.edges[i] == this.state.graph.edges[g].id) {
+                    result += this.state.graph.edges[g].from.toString() + ">" + this.state.graph.edges[g].to.toString() + ", "
+                }
+            }
+        }
+        return result.slice(0, result.length - 2)
     }
 
 
@@ -186,28 +183,28 @@ class Taxonomy extends React.Component {
     ###################################################################################*/
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: createRelationshipType
+    Function: createEdgeType
     Description: if the relations type does not exist, function creates
     the new relationship type and pushes it to relationshipTypes
     Returns: Void
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
-    createRelationshipType = (color, relationship) => {
-        if(!this.checkRelationshipExists(relationship)) {
-            let newrelationshipTypes = [...this.state.relationshipTypes]
-            newrelationshipTypes.push({[relationship]: color})
-            this.props.saveTaxonomy(this.state.graph, newrelationshipTypes)
-            this.setState({relationshipTypes: newrelationshipTypes})
+    createEdgeType = (color, relationship) => {
+        if(!this.checkEdgeExists(relationship)) {
+            let newrEdgeTypes = [...this.state.edgeTypes]
+            newrEdgeTypes.push({[relationship]: color})
+            this.props.saveTaxonomy(this.state.graph, newrEdgeTypes)
+            this.setState({edgeTypes: newrEdgeTypes})
         }
     }
 
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: createRelationship
+    Function: createEdge
     Description: Draws the relationship from node a and nod b and saves the
     result.
     Returns: Void
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
-    createRelationship = (color, relationship) => {
+    createEdge = (color, relationship) => {
         let newEdges = [...this.state.graph.edges]
         let newGraph = {...this.state.graph}
 
@@ -220,7 +217,7 @@ class Taxonomy extends React.Component {
 
         newEdges.push({from: this.state.node1, to: this.state.node2, color: color, width: 3, relationship: relationship})
         newGraph.edges = newEdges
-        this.props.saveTaxonomy(newGraph, this.state.relationshipTypes)
+        this.props.saveTaxonomy(newGraph, this.state.edgeTypes)
         this.setState({graph: newGraph,
             graphID: this.state.graphID + 1,
             nodes: []})            
@@ -228,19 +225,19 @@ class Taxonomy extends React.Component {
 
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: checkRelationshipExists
+    Function: checkEdgeExists
     Description: Check that the relationship is empty but exists return true
-    or check that ther is an non empty relationship. Otherwise we return false.
+    or check that there is an non empty relationship. Otherwise we return false.
     Returns: boolean value (true, false)
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
-    checkRelationshipExists = (relationship) => {
+    checkEdgeExists = (relationship) => {
         if(relationship.toString() == "") {
             return true
         }
 
-        if(this.state.relationshipTypes.length != 0) {
-            for(let i = 0; i < this.state.relationshipTypes.length; i++) {
-                if(Object.keys(this.state.relationshipTypes[i]) == relationship.toString()) {
+        if(this.state.edgeTypes.length != 0) {
+            for(let i = 0; i < this.state.edgeTypes.length; i++) {
+                if(Object.keys(this.state.edgeTypes[i]) == relationship.toString()) {
                     return true
                 }
             }
@@ -250,31 +247,31 @@ class Taxonomy extends React.Component {
 
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: editRelationshipType
+    Function: editEdgeType
     Description: Edits relationship type by calling update, then saves
     the taxonomy.
     Returns: Void
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
-    editRelationshipType = (color, relationship) => {
-        this.updateRelationshipType(color, relationship) // Updates the graph
-        let newrelationshipTypes = [...this.state.relationshipTypes] // Updates the state
-        newrelationshipTypes[this.state.row] = {[relationship]: color}
-        this.props.saveTaxonomy(this.state.graph, newrelationshipTypes)
-        this.setState({relationshipTypes: newrelationshipTypes})
+    editEdgeType = (color, relationship) => {
+        this.updateEdgeType(color, relationship) // Updates the graph
+        let newrEdgeTypes = [...this.state.edgeTypes] // Updates the state
+        newrEdgeTypes[this.state.row] = {[relationship]: color}
+        this.props.saveTaxonomy(this.state.graph, newrEdgeTypes)
+        this.setState({edgeTypes: newrEdgeTypes})
     }
 
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: updateRelationshipType
+    Function: updateEdgeType
     Description: saves the new graph/edges and relationships
     by copying and modifying that new graph then putting that 
     into the state.
     Returns: Void
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
-    updateRelationshipType = (color, relationship) => {
+    updateEdgeType = (color, relationship) => {
         let edgesCopy = [...this.state.graph.edges]
         let newGraph = {...this.state.graph}
-        let oldRelationship = Object.keys(this.state.relationshipTypes[this.state.row]) // Name of old relationship. Used to index which relationship lines need to be updated.
+        let oldRelationship = Object.keys(this.state.edgeTypes[this.state.row]) // Name of old relationship. Used to index which relationship lines need to be updated.
         for(let i = 0; i < this.state.graph.edges.length; i++) {
             if(this.state.graph.edges[i].relationship == oldRelationship) {
                 edgesCopy[i].color = color
@@ -288,24 +285,24 @@ class Taxonomy extends React.Component {
     
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: deleteRelationshipType
+    Function: deleteEdgeType
     Description: 
     Returns: Void
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
-    deleteRelationshipType = () => {
+    deleteEdgeType = () => {
         let edgesCopy = [...this.state.graph.edges]
         let newGraph = {...this.state.graph}
-        let oldRelationship = Object.keys(this.state.relationshipTypes[this.state.row]) // Name of old relationship. Used to index which relationship lines need to be deleted.
+        let oldRelationship = Object.keys(this.state.edgeTypes[this.state.row]) // Name of old relationship. Used to index which relationship lines need to be deleted.
 
         edgesCopy = edgesCopy.filter(a => a.relationship !== oldRelationship.toString())
         newGraph.edges = edgesCopy
 
-        let newrelationshipTypes = [...this.state.relationshipTypes]
-        newrelationshipTypes.splice(this.state.row, 1)
+        let newrEdgeTypes = [...this.state.edgeTypes]
+        newrEdgeTypes.splice(this.state.row, 1)
 
-        this.props.saveTaxonomy(newGraph, newrelationshipTypes)
+        this.props.saveTaxonomy(newGraph, newrEdgeTypes)
 
-        this.setState({relationshipTypes: newrelationshipTypes,
+        this.setState({edgeTypes: newrEdgeTypes,
             graph: newGraph,
             graphID: this.state.graphID + 1})
     }
@@ -321,14 +318,16 @@ class Taxonomy extends React.Component {
         let edgesCopy = [...this.state.graph.edges]
         let newGraph = {...this.state.graph}
 
-        for(let i = 0; i < this.state.graph.edges.length; i++) {
-            if((this.state.graph.edges[i].from == this.state.node1 || this.state.graph.edges[i].from == this.state.node2)
-                && (this.state.graph.edges[i].to == this.state.node1 || this.state.graph.edges[i].to == this.state.node2)) {
-                    edgesCopy.splice(i, 1)
+        for(let i = 0; i < this.state.edges.length; i++) {
+            for(let g = 0; g < this.state.graph.edges.length; g++) {
+                if(this.state.edges[i] == this.state.graph.edges[g].id) {
+                    edgesCopy.splice(g, 1)
                 }
+            }
         }
+
         newGraph.edges = edgesCopy
-        this.props.saveTaxonomy(newGraph, this.state.relationshipTypes)
+        this.props.saveTaxonomy(newGraph, this.state.edgeTypes)
         this.setState({graph: newGraph,
             nodes: [],
             graphID: this.state.graphID + 1})
@@ -350,7 +349,11 @@ class Taxonomy extends React.Component {
     Returns: Void
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     confirmSave = () => {
-        this.props.saveRelationships(this.state.graph, this.state.relationshipTypes)
+
+        // this.props.saveRelationships(this.state.graph, this.state.relationshipTypes)
+
+        this.props.saveRelationships(this.state.graph.edges, this.state.graph.nodes, this.state.edgeTypes)
+
     }
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -405,11 +408,11 @@ class Taxonomy extends React.Component {
                             confirmSave={this.confirmSave}
                             type={this.state.type}
                             onPopupClose={this.isShowPopup}
-                            relationshipTypes={this.state.relationshipTypes}
-                            createRelationshipType={this.createRelationshipType}
-                            createRelationship={this.createRelationship}
-                            editRelationshipType={this.editRelationshipType}
-                            deleteRelationshipType={this.deleteRelationshipType}
+                            edgeTypes={this.state.edgeTypes}
+                            createEdgeType={this.createEdgeType}
+                            createEdge={this.createEdge}
+                            editEdgeType={this.editEdgeType}
+                            deleteEdgeType={this.deleteEdgeType}
                             row={this.state.row}
                             nouns={this.state.nouns}
                             label={this.state.label}
@@ -422,35 +425,49 @@ class Taxonomy extends React.Component {
                             <div id='graphbox' className="taxonomy-terms-box">
                                 <div className="taxonomy-terms-box--left">
                                     <h6 className="taxonomy-sub-header">
-                                        Hold ctrl or long-click to select second node
+                                        Hold ctrl to click on multiple nodes or edges
                                     </h6>
                                     <div className="taxonomy-graph-box">
-                                        <Graph key={this.state.graphID} graph={this.state.graph} options={options} events={this.state.events} style={{height: "100%"}}/>
-
+                                        <Graph 
+                                            key={this.state.graphID}
+                                            graph={this.state.graph}
+                                            options={options}
+                                            events={this.state.events}
+                                            style={{height: "100%"}}
+                                        />
+                                        <div className="selected-box">
+                                            Currently Selected Edges: &nbsp; 
+                                            {this.displaySelectedEdges()}
+                                            <br/>
+                                            Currently Selected Nodes: &nbsp; 
+                                            {this.displaySelectedNodes()}
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div className="taxonomy-terms-box--center">
-                                    <h6 className="taxonomy--center-sub-header centered"> Edit Relationships </h6> &nbsp; 
-                                    <button className="button taxonomy__buttons blue" onClick={() => this.isShowPopup(true, "newRelationshipType", -1)}>
+                                    <h6 className="taxonomy--center-sub-header centered">
+                                        Edit Relationships
+                                    </h6> &nbsp; 
+                                    <button className="button taxonomy__buttons blue" onClick={() => this.isShowPopup(true, "createNewEdgeType", -1)}>
                                         <FontAwesomeIcon icon={faCirclePlus}/> &nbsp; 
-                                        Create New Relationship Type
+                                        Create New Edge Type
                                     </button>  &nbsp;
                                     {this.state.nodes.length == 2 ?
-                                        this.state.relationshipTypes.length == 0 ?
-                                            <button disabled={true} className="button--disabled taxonomy__buttons" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>
+                                        this.state.edgeTypes.length == 0 ?
+                                            <button disabled={true} className="button--disabled taxonomy__buttons" onClick={() => this.isShowPopup(true, "createNewEdge", -1)}>
                                                 <FontAwesomeIcon icon={faPlus}/> &nbsp; 
-                                                Create New Relationship
+                                                Create New Edge
                                             </button> 
                                             :
-                                            <button className="button taxonomy__buttons blue" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>
+                                            <button className="button taxonomy__buttons blue" onClick={() => this.isShowPopup(true, "createNewEdge", -1)}>
                                                 <FontAwesomeIcon icon={faPlus}/> &nbsp;
-                                                Create New Relationship
+                                                Create New Edge
                                             </button>
                                         : 
-                                        <button disabled={true} className="button--disabled taxonomy__buttons" onClick={() => this.isShowPopup(true, "newRelationshipLine", -1)}>
+                                        <button disabled={true} className="button--disabled taxonomy__buttons" onClick={() => this.isShowPopup(true, "createNewEdge", -1)}>
                                             <FontAwesomeIcon icon={faPlus}/> &nbsp;
-                                            Create New Relationship
+                                            Create New Edge
                                         </button>
                                     } &nbsp;
                                     {this.state.nodes.length == 1 ?
@@ -464,21 +481,18 @@ class Taxonomy extends React.Component {
                                             See Nouns
                                         </button>
                                     } &nbsp;
-                                    {this.state.nodes.length == 2 ?
-                                        this.state.exists == false ?
-                                            <button disabled={true} className="button--disabled taxonomy__buttons" onClick={() => this.deleteEdge()}>
-                                                <FontAwesomeIcon icon={faTrash}/> &nbsp;
-                                                Delete Relationship Line
-                                            </button> 
-                                            :
-                                            <button className="button taxonomy__buttons red" onClick={() => this.deleteEdge()}>
-                                                <FontAwesomeIcon icon={faTrash}/> &nbsp;
-                                                Delete Relationship Line
-                                            </button>
-                                        : 
-                                        <button disabled={true} className="button--disabled taxonomy__buttons" onClick={() => this.deleteEdge()}>
-                                            <FontAwesomeIcon icon={faTrash}/> &nbsp;
-                                            Delete Relationship Line
+                                    {this.state.edges.length == 0 ?
+                                        <button disabled={true} className="button--disabled taxonomy__buttons">
+                                            <FontAwesomeIcon icon={faTrash}/>
+                                            Delete Edge
+                                        </button> 
+                                        :
+                                        <button className="button taxonomy__buttons red" onClick={() => this.deleteEdge()}>
+                                            <FontAwesomeIcon icon={faTrash}/>
+                                            {this.state.edges.length == 1 ?
+                                                "Delete Edge" :
+                                                "Delete Edges"
+                                            }
                                         </button>
                                     }  &nbsp;
                                 <button className="button taxonomy__buttons" onClick={() => this.Screenshot()}>
@@ -490,11 +504,10 @@ class Taxonomy extends React.Component {
                                 </button>  &nbsp;
                                 </div>                                
                                  <div className="taxonomy-terms-box--right">
-                                     <h6 className="taxonomy-sub-header">
-                                         Click to Edit
-                                     </h6>
-                                     <div className="table-box--taxonomy">
-
+                                    <h6 className="taxonomy-sub-header">
+                                        Click to Edit
+                                    </h6>
+                                    <div className="table-box--taxonomy">
                                         <table className="table table-head">
                                             <thead className="table-light">
                                                 <tr>
@@ -507,7 +520,7 @@ class Taxonomy extends React.Component {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {Object.keys(this.state.relationshipTypes).length === 0 ?
+                                                {Object.keys(this.state.edgeTypes).length === 0 ?
                                                     <tr>
                                                         <td></td>
                                                     </tr>

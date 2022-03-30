@@ -13,7 +13,7 @@ class ModalPopup extends Component {
         super(props);  
         this.state = {  
             showModal: false,
-            relationship: "", // Name of relationship
+            edge: "", // Name of relationship
             color: "#000000" // Color of relationship
         };  
     }
@@ -52,7 +52,7 @@ class ModalPopup extends Component {
     Returns:
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     handleChange = (event) => {
-        this.setState({relationship: event.target.value});
+        this.setState({edge: event.target.value});
     }
     
 
@@ -61,7 +61,7 @@ class ModalPopup extends Component {
     Description:
     Returns:
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
-    handleChangeColor = (event) => {
+    handleChangeEdgeColor = (event) => {
         this.setState({color: event.target.value});
     }
 
@@ -72,8 +72,8 @@ class ModalPopup extends Component {
     Returns:
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     handleEditLoad = () => {
-        this.setState({relationship: Object.keys(this.props.relationshipTypes[this.props.row]).toString(),
-            color: Object.values(this.props.relationshipTypes[this.props.row]).toString()})
+        this.setState({edge: Object.keys(this.props.edgeTypes[this.props.row]).toString(),
+            color: Object.values(this.props.edgeTypes[this.props.row]).toString()})
     }
 
 
@@ -83,7 +83,7 @@ class ModalPopup extends Component {
     Returns:
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     handleCreateLoad = () => {
-        this.setState({relationship: "",
+        this.setState({edge: "",
             color: "#000000"})
     }
 
@@ -96,13 +96,13 @@ class ModalPopup extends Component {
     handleSubmit = () => {
         this.props.type=="confirm" ?
             this.props.confirmSave():
-        this.props.type == "newRelationshipType" ? // Creating a new relationship type
-            this.props.createRelationshipType(this.state.color, this.state.relationship)
+        this.props.type == "createNewEdgeType" ? // Creating a new relationship type
+            this.props.createEdgeType(this.state.color, this.state.edge)
             :
-            this.props.type == "editRelationshipType" ? // Editing an existing relationship type
-                this.props.editRelationshipType(this.state.color, this.state.relationship)
+            this.props.type == "editEdgeType" ? // Editing an existing relationship type
+                this.props.editEdgeType(this.state.color, this.state.edge)
                 : // Creating a new relationship line between 2 nodes
-                this.props.createRelationship(this.state.color, this.state.relationship)
+                this.props.createEdge(this.state.color, this.state.edge)
 
         this.handleClose();
     }
@@ -117,15 +117,15 @@ class ModalPopup extends Component {
     Description:
     Returns:
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
-    handleChooseRelationship = (event) => {
+    handleChooseEdge = (event) => {
         let color;
-        for(let i = 0; i < this.props.relationshipTypes.length; i++) {
-            if(Object.keys(this.props.relationshipTypes[i]) == event.target.value) {
-                color = (Object.values(this.props.relationshipTypes[i])).toString()
+        for(let i = 0; i < this.props.edgeTypes.length; i++) {
+            if(Object.keys(this.props.edgeTypes[i]) == event.target.value) {
+                color = (Object.values(this.props.edgeTypes[i])).toString()
             }
         }
 
-        this.setState({relationship: event.target.value,
+        this.setState({edge: event.target.value,
             color: color})
     }
 
@@ -135,8 +135,8 @@ class ModalPopup extends Component {
     Description:
     Returns:
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
-    handleDelete = () => {
-        this.props.deleteRelationshipType()
+    handleDeleteEdge = () => {
+        this.props.deleteEdgeType()
         this.handleClose()
     }
 
@@ -227,7 +227,7 @@ class ModalPopup extends Component {
                         </Modal>  
                     </Fragment>  
                     : 
-                    this.props.type == "newRelationshipType" ? // Creating a new relationship type
+                    this.props.type == "createNewEdgeType" ? // Creating a new relationship type
                         <Fragment>  
                             <Modal show={this.props.showModalPopup} onHide={this.handleClose} onShow={this.handleCreateLoad}
                                 size="lg"  
@@ -235,18 +235,18 @@ class ModalPopup extends Component {
                                 centered>  
                                 <Modal.Header closeButton>  
                                     <Modal.Title id="sign-in-title">  
-                                        Create a new relationship type
+                                        Create a new edge type
                                     </Modal.Title>  
                                 </Modal.Header>  
                                 <Modal.Body>  
                                 <div>
-                                    <input type="string" size="95" value={this.state.relationship} placeholder="Enter a Relationship Name..." onChange={this.handleChange}/> 
+                                    <input type="string" size="95" value={this.state.edge} placeholder="Enter a Relationship Name..." onChange={this.handleChange}/> 
                                 </div> &nbsp;&nbsp;&nbsp;
                                 <div>
                                     <h6>
-                                        Choose a Color for the Relationship
+                                        Choose a color for the edge
                                     </h6>
-                                    <input type="color" value={this.state.color} onChange={this.handleChangeColor}/> &nbsp;&nbsp;&nbsp;
+                                    <input type="color" value={this.state.color} onChange={this.handleChangeEdgeColor}/> &nbsp;&nbsp;&nbsp;
                                 </div> &nbsp;&nbsp;&nbsp;
                                 <div>
                                     <button className="button__small blue" onClick={() => this.handleSubmit()}>
@@ -258,7 +258,7 @@ class ModalPopup extends Component {
                             </Modal>  
                         </Fragment>  
                          : // Creating a new relationship line between 2 nodes
-                        this.props.type == "newRelationshipLine" ?
+                        this.props.type == "createNewEdge" ?
                          <Fragment> 
                              <Modal show={this.props.showModalPopup} onHide={this.handleClose}
                                  size="lg"  
@@ -266,13 +266,13 @@ class ModalPopup extends Component {
                                  centered>  
                                 <Modal.Header closeButton>  
                                     <Modal.Title id="sign-in-title">  
-                                        Create a New Relationship
+                                        Create a new edge
                                     </Modal.Title>  
                                 </Modal.Header>  
                                 <Modal.Body>  
                                     <div>
-                                        <select value={this.state.relationship} onChange={this.handleChooseRelationship}>
-                                            {this.props.relationshipTypes.map((option) => (
+                                        <select value={this.state.edge} onChange={this.handleChooseEdge}>
+                                            {this.props.edgeTypes.map((option) => (
                                                 <option value={Object.keys(option)}>
                                                     {Object.keys(option)}
                                                 </option>)) // Display current options from created relationshipTypes
@@ -289,7 +289,7 @@ class ModalPopup extends Component {
                             </Modal>  
                         </Fragment> 
                         : 
-                        this.props.type == "editRelationshipType" ? // Editing a relationship type
+                        this.props.type == "editEdgeType" ? // Editing a relationship type
                             <Fragment>   
                                 <Modal show={this.props.showModalPopup} onHide={this.handleClose} onShow={this.handleEditLoad}
                                     size="lg"  
@@ -297,25 +297,25 @@ class ModalPopup extends Component {
                                     centered>  
                                     <Modal.Header closeButton>  
                                         <Modal.Title id="sign-in-title">  
-                                            Edit relationship
+                                            Edit edge
                                         </Modal.Title>  
                                     </Modal.Header>
                                     <Modal.Body>  
                                         <div>
-                                            <input type="string" size="95" value={this.state.relationship} placeholder="New relationship name..." onChange={this.handleChange}/> 
+                                            <input type="string" size="95" value={this.state.edge} placeholder="New edge name..." onChange={this.handleChange}/> 
                                         </div> &nbsp;&nbsp;&nbsp;
                                         <div>
                                             <h6>
-                                                Edit Color for the Relationship
+                                                Edit color for the edge
                                             </h6>
-                                            <input type="color" value={this.state.color} onChange={this.handleChangeColor}/>
+                                            <input type="color" value={this.state.color} onChange={this.handleChangeEdgeColor}/>
                                     </div> &nbsp;&nbsp;&nbsp;
                                         <div>
                                             <button className="button__small blue" onClick={() => this.handleSubmit()}>
                                                 <FontAwesomeIcon icon={faCheck}/> &nbsp;
                                                 Enter
                                         </button> &nbsp;&nbsp;&nbsp;
-                                            <button className="button__small red" onClick={() => this.handleDelete()}>
+                                            <button className="button__small red" onClick={() => this.handleDeleteEdge()}>
                                                 <FontAwesomeIcon icon={faTrash}/> &nbsp;
                                                 Delete
                                             </button>
@@ -331,12 +331,12 @@ class ModalPopup extends Component {
                                     centered>  
                                     <Modal.Header closeButton>  
                                         <Modal.Title id="sign-in-title">  
-                                            Choose relationship
+                                            Choose edge
                                         </Modal.Title>  
                                     </Modal.Header>  
                                     <Modal.Body>  
-                                        <select value={this.state.relationship} onChange={this.handleChooseRelationship}>
-                                            {this.props.relationshipTypes.map((option) => (
+                                        <select value={this.state.edge} onChange={this.handleChooseEdge}>
+                                            {this.props.edgeTypes.map((option) => (
                                                 <option value={Object.keys(option)}>
                                                     {Object.keys(option)}
                                                 </option>)) // Display current options from created relationshipTypes

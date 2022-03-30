@@ -23,9 +23,11 @@ class App extends React.Component {
       filesList: {}, //list of files found in input location. {fileName: extension}
       files: {}, //files to be parsed. {fileName: extension}
       corpusName: 'corpus', //master corpus name for this taxonomy
-      relationshipTypes: [], //relationship types between categories. [{name: color}]
+      edgeTypes: [], //relationship types between categories. [{name: color}]
       graph: {nodes: [], edges: []}, //relationship graph. {nodes: [{color, id, label}], edges:[{color, id, width, from, to, relationship}]}
-      load: false}; //loading from or creating a new taxonomy
+      nodeID: 0, // ID for nodes
+      load: false //loading from or creating a new taxonomy
+    }; 
   }
 
   /*##################################################################################
@@ -176,8 +178,13 @@ class App extends React.Component {
   Function: saveRelationships
   Description: writes relationships to a .json file
  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
- saveRelationships = async(graph, relationshipTypes) => {
-  let inputInfo = {input: this.state.output, corpus: this.state.corpusName, graph: graph, relationshipTypes: relationshipTypes}
+
+//  saveRelationships = async(graph, relationshipTypes) => {
+//   let inputInfo = {input: this.state.output, corpus: this.state.corpusName, graph: graph, relationshipTypes: relationshipTypes}
+
+ saveRelationships = async(edges, nodes, edgeTypes) => {
+  let inputInfo = {input: this.state.output, corpus: this.state.corpusName, edges: edges, nodes: nodes, relationshipTypes: edgeTypes}
+
   await fetch('/saveRelationships', {
     method: "POST",
     headers:{"content_type": "application/json",},
@@ -190,9 +197,9 @@ class App extends React.Component {
   Description: 
   Returns: 
   '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
-  saveTaxonomy = (graph, relationshipTypes) => {
+  saveTaxonomy = (graph, edgeTypes) => {
     this.setState({graph: graph,
-      relationshipTypes: relationshipTypes})
+      edgeTypes: edgeTypes})
   }
 
 
@@ -282,13 +289,29 @@ class App extends React.Component {
 
   /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
   Function: createCategory
-  Description: Creates a new category
+  Description: Creates a new category and adds it to the graph as a node
   Returns: adds new category to category state
   '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   createCategory = (category) => {
     const newCat = {...this.state.categories}
     newCat[category] = {}
-    this.setState({categories: newCat})
+
+    let nodes = this.state.graph.nodes
+    let newGraph = {...this.state.graph}
+    let nodeID = this.state.nodeID
+
+    nodeID = nodeID + 1
+    nodes.push({id: nodeID,
+      label: category,
+      color: '#e04141'
+    })
+
+    newGraph.nodes = nodes
+
+    this.setState({categories: newCat,
+      graph: newGraph,
+      nodeID: nodeID
+    })
   }
 
 
@@ -392,9 +415,27 @@ class App extends React.Component {
   '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   loaded = (res) => {
     if (res) {
-      this.setState({load: true})
+      this.setState({load: true,
+        input: "",
+        output: "",
+        weightDictionary: {},
+        categories: {},
+        edgeTypes: [],
+        files: {},
+        filesList: {},
+        graph: {nodes: [], edges: []}
+      })
     } else {
-      this.setState({load: false})
+      this.setState({load: false,
+        input: "",
+        output: "",
+        weightDictionary: {},
+        categories: {},
+        edgeTypes: [],
+        files: {},
+        filesList: {},
+        graph: {nodes: [], edges: []}
+      })
     }
     this.nextPage()
   }
@@ -486,7 +527,7 @@ class App extends React.Component {
                         prevPage={this.prevPage}
                         categories={this.state.categories}
                         saveTaxonomy={this.saveTaxonomy}
-                        relationshipTypes={this.state.relationshipTypes}
+                        edgeTypes={this.state.edgeTypes}
                         graph={this.state.graph}/>
           }  
       </div>

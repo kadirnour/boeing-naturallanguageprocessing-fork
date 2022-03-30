@@ -45,6 +45,12 @@
     height: 96%;
     margin: auto;
     border: 2px solid black;
+    position: relative;
+}
+
+.selected-box {
+    position: absolute;
+    top: 0px;
 }
 
 .taxonomy-input-box {
