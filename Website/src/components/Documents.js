@@ -5,30 +5,25 @@ import { faFolder, faFile, faArrowsRotate, faPlus, faMinus, faBackward, faForwar
 class Documents extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {corpusName: 'corpus'}
+        this.state = {corpusName: 'corpus'} // default master corpus name
     }
-
-
-    //!!!!!!!!!!! ADD PAGINATION AND ADD ALL BUTTON TO TABLE !!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 
     /*##################################################################################
                                         Table Functions
     ###################################################################################*/
     
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: renderFilesTable
+    Description: creates the files list table
+    Returns: list of files
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
-    renderTable = () => {
+    renderFilesTable = () => {
         const table = []
-        for (let r = 0; r < Object.keys(this.props.filesList).length; r++) {
+        for (let r = 0; r < Object.keys(this.props.filesList).length; r++) { // for each file in file list
           table.push(
             <tr key = {r} className={"table-row--no-hover" + (this.disabledBtn(r) === true ? " table-row--selected" : "")}>
-                
-                <td>
-                    {Object.keys(this.props.filesList)[r] + Object.values(this.props.filesList)[r]}
+                <td> 
+                    {Object.keys(this.props.filesList)[r] + Object.values(this.props.filesList)[r]} 
                 </td>
                 <td>
                     {this.disabledBtn(r) ?
@@ -40,7 +35,7 @@ class Documents extends React.Component {
                         </button>
                     }
                     {this.disabledBtn(r) ?
-                        <button className="button red" onClick={() => this.props.deleteFile(r)}>
+                        <button className="button red" onClick={() => this.props.removeFile(r)}>
                             <FontAwesomeIcon icon={faMinus}/> &nbsp; 
                             Delete
                         </button>
@@ -48,7 +43,6 @@ class Documents extends React.Component {
                         null
                     }
                 </td>
-
             </tr>
           )
         }
@@ -61,69 +55,60 @@ class Documents extends React.Component {
     ###################################################################################*/
     
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: handleChange
+    Description: updates when a user types in input box
+    Returns: sets in state input, output, or corpus name
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     handleChange = (event) => {
         this.setState({[event.target.name]: event.target.value})
     }
 
-
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: submitInput
+    Description: submits the input location
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     submitInput = () => {
         this.props.setInput(this.state.input)
     }
 
-    
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: submitOutput
+    Description: submits the output location
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     submitOutput = () => {
         this.props.setOutput(this.state.output)
     }
 
-
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: submitCorpus
+    Description: submits name of master corpus
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     submitCorpus = () => {
-        this.props.saveCorpusName(this.state.corpusName)
+        this.props.setCorpusName(this.state.corpusName)
     }
 
-
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: disabledBtn
+    Description: checks if file has been selected
+    Returns: returns true if the file has been selected
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     disabledBtn = (r) => {
-        if (Object.keys(this.props.filesList)[r] in this.props.files){
+        if (Object.keys(this.props.filesList)[r] in this.props.selectedFiles){
             return true
         } 
         return false
     }
 
-
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: render
+    Description: renders the Documents page in pipeline
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     render() {
         return (
             <div className="section">
                 <div className="container">
                     <div className="document-wrapper">
-                        {this.props.load ?
+                        {this.props.load ? // load or create from a taxonomy
                             <h2 className="document-header">
                                 Load From Taxonomy
                             </h2>
@@ -134,9 +119,9 @@ class Documents extends React.Component {
                         }
                         <div className="document-content-box">
                             <div className="document-content-box--centered">
-                                {this.props.load ? 
+                                {this.props.load ? // loading from a .csv
                                     <></>
-                                    :
+                                    : // creating a new taxonomy
                                     <> &nbsp;
                                         <div className="document-input-box"> &nbsp;&nbsp;
                                             <input onChange={this.handleChange} name="input" 
@@ -152,8 +137,7 @@ class Documents extends React.Component {
                                         <hr className="hr"/>
                                     </>
                                 }
-                                {this.props.load ? 
-                                    
+                                {this.props.load ? // loading from a .csv
                                     <> &nbsp;
                                         <div className="document-input-box">
                                             &nbsp;&nbsp;
@@ -180,7 +164,7 @@ class Documents extends React.Component {
                                             </div>
                                         </div>
                                     </>
-                                    :
+                                    : // creating a new taxonomy
                                     <>
                                         <div className="document-input-box"> &nbsp;&nbsp;
                                             <input onChange={this.handleChange} name="output" 
@@ -207,9 +191,9 @@ class Documents extends React.Component {
                                         </div>
                                     </>
                                 }
-                                {this.props.load ? 
+                                {this.props.load ? // loading from a .csv
                                     <></>
-                                    :
+                                    : // creating a new taxonomy
                                     <>
                                         <hr className="hr"/>
                                         <div> &nbsp;&nbsp;
@@ -236,7 +220,7 @@ class Documents extends React.Component {
                                                             <td></td>
                                                         </tr>
                                                         : 
-                                                        this.renderTable()
+                                                        this.renderFilesTable()
                                                     }
                                                 </tbody>
                                             </table>

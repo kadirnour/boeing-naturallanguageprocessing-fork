@@ -1,0 +1,44 @@
+{
+    "graph": {
+        "edges": [
+            {
+                "color": "#000000",
+                "from": 8,
+                "id": "f3ff9ab7-7e60-4645-b768-6ea747ae178b",
+                "relationship": "",
+                "to": 7,
+                "width": 3
+            },
+            {
+                "from": 8,
+                "to": 9,
+                "color": "#000000",
+                "width": 3,
+                "relationship": "",
+                "id": "f1dfb210-bad3-4715-a209-3408e238488b"
+            }
+        ],
+        "nodes": [
+            {
+                "color": "#e04141",
+                "id": 7,
+                "label": "gdfg"
+            },
+            {
+                "color": "#e04141",
+                "id": 8,
+                "label": "dfgdfg"
+            },
+            {
+                "id": 9,
+                "label": "tyteste",
+                "color": "#e04141"
+            }
+        ]
+    },
+    "edgeTypes": [
+        {
+            "gdfgdf": "#000000"
+        }
+    ]
+}

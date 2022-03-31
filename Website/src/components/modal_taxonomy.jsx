@@ -3,11 +3,6 @@ import { Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faPlusCircle, faTrash, faCheck } from '@fortawesome/free-solid-svg-icons'
 
-/*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-Function: 
-Description:
-Returns:
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
 class ModalPopup extends Component {  
     constructor(props) {  
         super(props);  
@@ -21,87 +16,78 @@ class ModalPopup extends Component {
     /*##################################################################################
                                         Modal Functions
     ###################################################################################*/
-      
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: isShowModal
+    Description: shows or hides modal
+    Returns: sets in state modal status
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/    
     isShowModal = (status) => {
-        
         this.handleClose();  
         this.setState({showModal: status}); 
         
     }  
 
-
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: handleClose
+    Description: closes modal
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/  
     handleClose = () => {  
         this.props.onPopupClose(false, "", this.props.row);  
     }  
 
-
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: handleChange
+    Description: handles renaming an edge type
+    Returns: sets in state edge type name
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     handleChange = (event) => {
         this.setState({edge: event.target.value});
     }
     
-
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: handleChangeEdgeColor
+    Description: handles changing an edge type color
+    Returns: sets in state edge type color
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     handleChangeEdgeColor = (event) => {
         this.setState({color: event.target.value});
     }
 
-
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: handleEditLoad
+    Description: when editing, loads the current edge type information
+    Returns: sets in state original edge type name and color
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     handleEditLoad = () => {
         this.setState({edge: Object.keys(this.props.edgeTypes[this.props.row]).toString(),
-            color: Object.values(this.props.edgeTypes[this.props.row]).toString()})
+            color: Object.values(this.props.edgeTypes[this.props.row]).toString()
+        })
     }
 
-
-    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
-    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: handleCreateLoad
+    Description: when creating a new edge type, set default edge name and color
+    Returns: sets in state default edge type name and color
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     handleCreateLoad = () => {
         this.setState({edge: "",
             color: "#000000"})
     }
 
-
-    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
-    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
+    /*''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: handleSubmit
+    Description: either saves edge types and graph to .csv, creates a new edge type, submits a edge type edit, or creates an edge between 2 nodes
+    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     handleSubmit = () => {
-        this.props.type=="confirm" ?
+        this.props.type=="confirm" ? // confirm save to .csv
             this.props.confirmSave():
-        this.props.type == "createNewEdgeType" ? // Creating a new relationship type
+        this.props.type == "createNewEdgeType" ? // Creating a new edge type
             this.props.createEdgeType(this.state.color, this.state.edge)
             :
-            this.props.type == "editEdgeType" ? // Editing an existing relationship type
+            this.props.type == "editEdgeType" ? // Editing an existing edge type
                 this.props.editEdgeType(this.state.color, this.state.edge)
-                : // Creating a new relationship line between 2 nodes
+                : // Creating a new edge line between 2 nodes
                 this.props.createEdge(this.state.color, this.state.edge)
 
         this.handleClose();
@@ -111,15 +97,15 @@ class ModalPopup extends Component {
                                     Relationship Functions
     ###################################################################################*/
 
-
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: handleChooseEdge
+    Description: when you select an edge type from drop down menu
+    Returns: sets in state that edge type color and name
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     handleChooseEdge = (event) => {
         let color;
-        for(let i = 0; i < this.props.edgeTypes.length; i++) {
+
+        for(let i = 0; i < this.props.edgeTypes.length; i++) { // gets the selected edge types name and color from edge type list
             if(Object.keys(this.props.edgeTypes[i]) == event.target.value) {
                 color = (Object.values(this.props.edgeTypes[i])).toString()
             }
@@ -129,11 +115,9 @@ class ModalPopup extends Component {
             color: color})
     }
 
-
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: handleDeleteEdge
+    Description: deletes an edge type
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     handleDeleteEdge = () => {
         this.props.deleteEdgeType()
@@ -146,12 +130,13 @@ class ModalPopup extends Component {
     ###################################################################################*/
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: renderTermTable
+    Description: renders the terms found in a node
+    Returns: list of terms
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
-    renderTable = () => {
+    renderTermTable = () => {
         const table = []
+
         for (let i = 0; i < Object.keys(this.props.nouns).length; i++){
             table.push(
                 <tr key={i} className={"centered weight"}>
@@ -161,18 +146,18 @@ class ModalPopup extends Component {
                 </tr>
             )
         }
+
         return table
     }
 
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: render
+    Description: renders modal for Taxonomy page
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     render() {  
         return (  
-            this.props.type == "confirm"? 
+            this.props.type == "confirm" ? // save confirmation to .csv
                 <Fragment>  
                     <Modal show={this.props.showModalPopup} onHide={this.handleClose}
                         size="lg"  
@@ -194,7 +179,7 @@ class ModalPopup extends Component {
                     </Modal>  
                 </Fragment>
                 :
-                this.props.type == "nouns" ?
+                this.props.type == "nouns" ? // load nouns from a node
                     <Fragment>  
                         <Modal show={this.props.showModalPopup} onHide={this.handleClose} onShow={this.handleCreateLoad}
                             size="lg"  
@@ -206,7 +191,6 @@ class ModalPopup extends Component {
                                 </Modal.Title>  
                             </Modal.Header>  
                             <Modal.Body>  
-
                                 <table className="table table-head">
                                     <thead className="table-light">
                                         <tr>
@@ -216,10 +200,10 @@ class ModalPopup extends Component {
                                         </tr>
                                     </thead>
                                     <tbody className="table-body--taxonomy">
-                                        {this.props.nouns == null ?
+                                        {this.props.nouns == null ? // there are no nouns in node
                                             null 
-                                            :
-                                            this.renderTable()
+                                            : // there are nouns in node
+                                            this.renderTermTable()
                                         }
                                     </tbody>
                                 </table>
@@ -227,7 +211,7 @@ class ModalPopup extends Component {
                         </Modal>  
                     </Fragment>  
                     : 
-                    this.props.type == "createNewEdgeType" ? // Creating a new relationship type
+                    this.props.type == "createNewEdgeType" ? // Creating a new edge type
                         <Fragment>  
                             <Modal show={this.props.showModalPopup} onHide={this.handleClose} onShow={this.handleCreateLoad}
                                 size="lg"  
@@ -257,8 +241,8 @@ class ModalPopup extends Component {
                                 </Modal.Body>
                             </Modal>  
                         </Fragment>  
-                         : // Creating a new relationship line between 2 nodes
-                        this.props.type == "createNewEdge" ?
+                        :
+                        this.props.type == "createNewEdge" ? // Creating a new edge line between 2 nodes
                          <Fragment> 
                              <Modal show={this.props.showModalPopup} onHide={this.handleClose}
                                  size="lg"  
@@ -275,7 +259,7 @@ class ModalPopup extends Component {
                                             {this.props.edgeTypes.map((option) => (
                                                 <option value={Object.keys(option)}>
                                                     {Object.keys(option)}
-                                                </option>)) // Display current options from created relationshipTypes
+                                                </option>)) // Display current options from created edgeTypes
                                             }
                                         </select>
                                     </div> &nbsp;&nbsp;&nbsp;
@@ -289,66 +273,66 @@ class ModalPopup extends Component {
                             </Modal>  
                         </Fragment> 
                         : 
-                        this.props.type == "editEdgeType" ? // Editing a relationship type
-                            <Fragment>   
-                                <Modal show={this.props.showModalPopup} onHide={this.handleClose} onShow={this.handleEditLoad}
-                                    size="lg"  
-                                    aria-labelledby="contained-modal-title-vcenter"  
-                                    centered>  
-                                    <Modal.Header closeButton>  
-                                        <Modal.Title id="sign-in-title">  
-                                            Edit edge
-                                        </Modal.Title>  
-                                    </Modal.Header>
-                                    <Modal.Body>  
-                                        <div>
-                                            <input type="string" size="95" value={this.state.edge} placeholder="New edge name..." onChange={this.handleChange}/> 
-                                        </div> &nbsp;&nbsp;&nbsp;
-                                        <div>
-                                            <h6>
-                                                Edit color for the edge
-                                            </h6>
-                                            <input type="color" value={this.state.color} onChange={this.handleChangeEdgeColor}/>
+                        // this.props.type == "editEdgeType" ? // Editing a edge type
+                        <Fragment>   
+                            <Modal show={this.props.showModalPopup} onHide={this.handleClose} onShow={this.handleEditLoad}
+                                size="lg"  
+                                aria-labelledby="contained-modal-title-vcenter"  
+                                centered>  
+                                <Modal.Header closeButton>  
+                                    <Modal.Title id="sign-in-title">  
+                                        Edit edge
+                                    </Modal.Title>  
+                                </Modal.Header>
+                                <Modal.Body>  
+                                    <div>
+                                        <input type="string" size="95" value={this.state.edge} placeholder="New edge name..." onChange={this.handleChange}/> 
                                     </div> &nbsp;&nbsp;&nbsp;
-                                        <div>
-                                            <button className="button__small blue" onClick={() => this.handleSubmit()}>
-                                                <FontAwesomeIcon icon={faCheck}/> &nbsp;
-                                                Enter
-                                        </button> &nbsp;&nbsp;&nbsp;
-                                            <button className="button__small red" onClick={() => this.handleDeleteEdge()}>
-                                                <FontAwesomeIcon icon={faTrash}/> &nbsp;
-                                                Delete
-                                            </button>
-                                        </div>
-                                    </Modal.Body>
-                                </Modal>  
-                            </Fragment>  
-                            : // Creating a new relationship line between 2 nodes
-                            <Fragment> 
-                                <Modal show={this.props.showModalPopup} onHide={this.handleClose} 
-                                    size="lg"  
-                                    aria-labelledby="contained-modal-title-vcenter"  
-                                    centered>  
-                                    <Modal.Header closeButton>  
-                                        <Modal.Title id="sign-in-title">  
-                                            Choose edge
-                                        </Modal.Title>  
-                                    </Modal.Header>  
-                                    <Modal.Body>  
-                                        <select value={this.state.edge} onChange={this.handleChooseEdge}>
-                                            {this.props.edgeTypes.map((option) => (
-                                                <option value={Object.keys(option)}>
-                                                    {Object.keys(option)}
-                                                </option>)) // Display current options from created relationshipTypes
-                                            }
-                                        </select>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <button onClick={() => this.handleSubmit()}>
-                                            Select
+                                    <div>
+                                        <h6>
+                                            Edit color for the edge
+                                        </h6>
+                                        <input type="color" value={this.state.color} onChange={this.handleChangeEdgeColor}/>
+                                </div> &nbsp;&nbsp;&nbsp;
+                                    <div>
+                                        <button className="button__small blue" onClick={() => this.handleSubmit()}>
+                                            <FontAwesomeIcon icon={faCheck}/> &nbsp;
+                                            Enter
+                                    </button> &nbsp;&nbsp;&nbsp;
+                                        <button className="button__small red" onClick={() => this.handleDeleteEdge()}>
+                                            <FontAwesomeIcon icon={faTrash}/> &nbsp;
+                                            Delete
                                         </button>
-                                    </Modal.Body>
-                                </Modal>  
-                            </Fragment>  
+                                    </div>
+                                </Modal.Body>
+                            </Modal>  
+                        </Fragment>  
+                            // : // Creating a new edge line between 2 nodes
+                            // <Fragment> 
+                            //     <Modal show={this.props.showModalPopup} onHide={this.handleClose} 
+                            //         size="lg"  
+                            //         aria-labelledby="contained-modal-title-vcenter"  
+                            //         centered>  
+                            //         <Modal.Header closeButton>  
+                            //             <Modal.Title id="sign-in-title">  
+                            //                 Choose edgedhfddzfgzsg
+                            //             </Modal.Title>  
+                            //         </Modal.Header>  
+                            //         <Modal.Body>  
+                            //             <select value={this.state.edge} onChange={this.handleChooseEdge}>
+                            //                 {this.props.edgeTypes.map((option) => (
+                            //                     <option value={Object.keys(option)}>
+                            //                         {Object.keys(option)}
+                            //                     </option>)) // Display current options from created edgeTypes
+                            //                 }
+                            //             </select>
+                            //             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            //             <button onClick={() => this.handleSubmit()}>
+                            //                 Select
+                            //             </button>
+                            //         </Modal.Body>
+                            //     </Modal>  
+                            // </Fragment>  
             );  
     }  
 }  

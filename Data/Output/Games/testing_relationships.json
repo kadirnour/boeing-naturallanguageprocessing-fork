@@ -1,0 +1,18 @@
+{
+    "graph": {
+        "edges": [],
+        "nodes": [
+            {
+                "color": "#e04141",
+                "id": 1,
+                "label": "sdfsdf"
+            },
+            {
+                "color": "#e04141",
+                "id": 2,
+                "label": "test"
+            }
+        ]
+    },
+    "edgeTypes": []
+}

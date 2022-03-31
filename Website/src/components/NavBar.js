@@ -1,5 +1,4 @@
 import React from 'react';
-//import logo from '../images/logo.png';
 import "react-step-progress-bar/styles.css";
 import { ProgressBar, Step } from "react-step-progress-bar";
 

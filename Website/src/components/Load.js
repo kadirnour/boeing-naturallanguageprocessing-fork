@@ -22,11 +22,11 @@ class Load extends React.Component {
                         <div className="load-content-box">
                             <div className="load-content-box--centered">
                                 <div className="load-input-box">
-                                    <button onClick={() => this.props.loaded(false)} className="button">
+                                    <button onClick={() => this.props.reset(false)} className="button">
                                         <FontAwesomeIcon icon={faPlus}/> &nbsp;
                                         Create a new Taxonomy
                                     </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <button onClick={() => this.props.loaded(true)} className="button">
+                                    <button onClick={() => this.props.reset(true)} className="button">
                                         <FontAwesomeIcon icon={faUpload}/> &nbsp;
                                         Load from Taxonomy
                                     </button>

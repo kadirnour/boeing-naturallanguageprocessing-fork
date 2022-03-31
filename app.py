@@ -84,7 +84,7 @@ Returns: weights
 @app.route('/loadCorpus', methods = ['POST'])
 def loadCorpus():
     location = request.get_json(force=True)
-    corpusName = location['corpusName']
+    corpusName = location['corpus']
     return Data.read_weights(Path(location['output']), corpusName)
        
 
@@ -95,7 +95,7 @@ Description: writes the categories to the master .csv
 @app.route('/saveCategories', methods = ['POST'])
 def saveCategories():
     inputInfo = request.get_json(force=True)
-    Taxonomy.write_categories(inputInfo['output'], inputInfo['corpusName'], inputInfo['categories'])
+    Taxonomy.write_categories(inputInfo['output'], inputInfo['corpus'], inputInfo['categories'])
     return ""
 
 
@@ -106,5 +106,5 @@ Description: writes relationships to .csv
 @app.route('/saveRelationships', methods = ['POST'])
 def saveRelationships():
     inputInfo = request.get_json(force=True)
-    Taxonomy.write_relationships(inputInfo['input'], inputInfo['corpus'], inputInfo['graph'], inputInfo['relationshipTypes'])
+    Taxonomy.write_relationships(inputInfo['output'], inputInfo['corpus'], inputInfo['graph'], inputInfo['edgeTypes'])
     return ""

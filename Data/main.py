@@ -89,9 +89,9 @@ def read_weights(dir, corpusName):
             print(vis_data)
     else:
         vis_data['graph'] = {'nodes': [], 'edges': []}
-        vis_data['relationshipTypes'] = []
+        vis_data['edgeTypes'] = []
 
-    return {'weight': corpus_data, 'graph': vis_data['graph'], 'relationshipTypes': vis_data['relationshipTypes']}
+    return {'weight': corpus_data, 'graph': vis_data['graph'], 'edgeTypes': vis_data['edgeTypes']}
 
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
