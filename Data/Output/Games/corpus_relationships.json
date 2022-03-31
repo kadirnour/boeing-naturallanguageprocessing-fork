@@ -1,0 +1,13 @@
+{
+    "graph": {
+        "nodes": [
+            {
+                "id": 1,
+                "label": "test",
+                "color": "#e04141"
+            }
+        ],
+        "edges": []
+    },
+    "edgeTypes": []
+}

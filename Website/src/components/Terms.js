@@ -4,12 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowsRotate, faBackward, faForward, faFileArrowDown, faFileLines, faAngleRight, faAngleLeft, faRotateRight, faTrash }
     from '@fortawesome/free-solid-svg-icons'
 
-
-/*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-Function: 
-Description:
-Returns:
-'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
 class Terms extends React.Component {
     constructor(props) {
         super(props);
@@ -23,97 +17,69 @@ class Terms extends React.Component {
     ###################################################################################*/
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: isShowPopup
+    Description: decides if the popup should be shown
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
-    isShowPopup = (status, type, r) => {  
-        this.setState({showModalPopup: status,
-            type:type,
-            modalTerm: r});
+    isShowPopup = (status, type, row) => {  
+        this.setState({showModalPopup: status, // true to show popup
+            type:type, // which modal should be displayed
+            modalTerm: row // the term that the modal is displaying
+        });
     };  
-
-
-    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
-    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
-    componentDidMount = () => {
-        if(this.props.load) {
-            this.props.loadCorpus()
-        } else {
-            this.props.getTerms()
-        }
-    }
-
-
-    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
-    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/ 
-    handleChange = (event) => {
-        this.setState({[event.target.name]: event.target.value})
-    }
-
 
     /*##################################################################################
                                         Select Functions
     ###################################################################################*/
 
-    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
-    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/ 
-    selectTerm = (r) => {
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: selectTerm
+    Description: user selects a term from the list (the row the term is in)
+    Returns: sets in state selected terms
+    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/ 
+    selectTerm = (row) => {
         let selectedTerms = this.state.selectedTerms
-        let newSelectedTerm = r//.toString()
-        selectedTerms.push(newSelectedTerm)
-        this.setState({selectedTerms: selectedTerms })
+        selectedTerms.push(row)
+
+        this.setState({selectedTerms: selectedTerms})
     }
 
-
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: checkSelectedTerm
+    Description: checks if the row is selected or not
+    Returns: true if the row is selected already
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/ 
-    checkSelectedTerm = (r) => {
-        let check = r//.toString()
-        if (this.state.selectedTerms.includes(check)) {
+    checkSelectedTerm = (row) => {
+        if (this.state.selectedTerms.includes(row)) {
             return true
         }
         return false
     }
 
-
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: removedSelectedTerm
+    Description: removes the selected term from the list
+    Returns: sets in state the new selected terms
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/ 
-    removedSelectedTerm = (r) => {
+    removedSelectedTerm = (row) => {
         let selectedTerms = this.state.selectedTerms
-        let newSelectedTerm = r//.toString()
-        for (let x = 0; x < this.state.selectedTerms.length; x++) {
-            if (this.state.selectedTerms[x] === newSelectedTerm) {
-                if (x == 0) {
+
+        for (let i = 0; i < this.state.selectedTerms.length; i++) { // each currently selected term
+            if (this.state.selectedTerms[i] === row) { // this is the row to deselect
+                if (i == 0) { // the selected terms list only has one item
                     selectedTerms.shift()
-                } else {
-                    selectedTerms.splice(x, 1)
+                } else { // the selected terms list has multiple items
+                    selectedTerms.splice(i, 1)
                 }
             }
         }
+
         this.setState({selectedTerms: selectedTerms})
     }
 
-
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: clearSelected
+    Description: clears all selected terms from the list
+    Returns: sets in state a empty selected terms list
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/ 
     clearSelected = () => {
         this.setState({selectedTerms: []})
@@ -123,12 +89,15 @@ class Terms extends React.Component {
     /*##################################################################################
                                         Term Functions
     ###################################################################################*/
-    
+   
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: deleteTerms
+    Description: deletes terms from selected list out of weight dictionary
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/ 
     deleteTerms = () => {
         this.props.deleteTerms(this.state.selectedTerms)
         this.clearSelected()
     }
-
 
 
     /*##################################################################################
@@ -136,14 +105,14 @@ class Terms extends React.Component {
     ###################################################################################*/
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: renderTermTable
+    Description: renders the terms from weight dictionary as a table
+    Returns: list of terms
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/ 
-    renderTable = () => {
+    renderTermTable = () => {
         const table = []
-        if ((this.state.page * 100) + 100 > Object.keys(this.props.weightDictionary).length) {
-            for (let r = this.state.page * 100; r < Object.keys(this.props.weightDictionary).length; r++) {
+        if ((this.state.page * 100) + 100 > Object.keys(this.props.weightDictionary).length) { // if there are less then 100 terms in the weight dictionary
+            for (let r = this.state.page * 100; r < Object.keys(this.props.weightDictionary).length; r++) { // pagination, only display 100 terms
                 table.push(
                     <tr key = {r} className={"table-row" + (this.checkSelectedTerm(r) === true ? " table-row--selected" : "")}>
                         <td onClick={() => (this.checkSelectedTerm(r) ? 
@@ -168,15 +137,14 @@ class Terms extends React.Component {
                         <td className="table-data">
                             <button className="button" onClick={() => this.isShowPopup(true, "", r)}>
                               <FontAwesomeIcon icon={faFileLines}/> &nbsp; 
-
                               Sentences
                             </button>
                         </td>
                     </tr>
                 )
             }
-        } else {
-            for (let r = this.state.page * 100; r < (this.state.page * 100) + 100; r++) {
+        } else { // there are more then 100 terms in the weight dictionary
+            for (let r = this.state.page * 100; r < (this.state.page * 100) + 100; r++) { // pagination, only display 100 terms
                 table.push(
                     <tr key = {r} className={"table-row" + (this.checkSelectedTerm(r) === true ? " table-row--selected" : "")}>
                         <td onClick={() => (this.checkSelectedTerm(r) ?
@@ -194,12 +162,9 @@ class Terms extends React.Component {
                             :
                             this.selectTerm(r))}> {Object.values(this.props.weightDictionary)[r].weight}
                         </td>
-
                         <td className="table-data">
                             <button className="button" onClick={() => this.isShowPopup(true,"", r)}>
-
                                 <FontAwesomeIcon icon={faFileLines}/> &nbsp; 
-
                                 Sentences
                             </button>
                         </td>
@@ -215,41 +180,51 @@ class Terms extends React.Component {
                                         Page Functions
     ###################################################################################*/
 
-    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
-    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/ 
-    page = (direction) => {
-        if (direction == 'next') {
-            this.setState({page: this.state.page + 1})
-        } else {
-            this.setState({page: this.state.page - 1})
+    /*''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: componentDidMount
+    Description: either runs the parser or loads from .csv whenever this page is viewed
+    ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
+    componentDidMount = () => {
+        if(this.props.load) { // load from .csv
+            this.props.loadCorpus()
+        } else { // run parser
+            this.props.getTerms()
         }
     }
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: page
+    Description: pagination, current page number of terms
+    Returns: sets in state current page number
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/ 
+    page = (direction) => {
+        if (direction == 'next') { // go forward a page
+            this.setState({page: this.state.page + 1})
+        } else { // go back a page
+            this.setState({page: this.state.page - 1})
+        }
+    }
+
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: saveWeight
+    Description: opens save confirmation to save the weight dictionary to .csv
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/ 
     saveWeight = () => {
         this.isShowPopup(true, "confirm", -1)
     }
 
-    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
+    /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    Function: confirmSave
+    Description: the save has been confirmed, save weight dictionary to .csv
     Returns:
-    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/ 
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/ 
     confirmSave = () =>{
         this.props.saveWeight()
     }
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: 
-    Description:
-    Returns:
+    Function: render
+    Description: renders Terms page from pipeline
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/ 
     render() {
         return (
@@ -269,7 +244,7 @@ class Terms extends React.Component {
                         <div className="terms-content-box">
                             <div className="terms-content-box--centered">
                                 <div className="terms-input-box">
-                                    {this.props.load ?
+                                    {this.props.load ? // loading mode (you are loading from a .csv)
                                         <div>
                                             <button className="button__small" onClick={() => this.props.loadCorpus()}>
                                                 <FontAwesomeIcon icon={faArrowsRotate}/> &nbsp; 
@@ -280,7 +255,7 @@ class Terms extends React.Component {
                                                 Save Weights:
                                             </button>
                                         </div>
-                                        :
+                                        : // creating a new taxonomy
                                         <div>  
                                             <button className="button__small" onClick={() => this.props.getTerms()}>
                                                 <FontAwesomeIcon icon={faArrowsRotate}/> &nbsp; 
@@ -316,17 +291,18 @@ class Terms extends React.Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {Object.keys(this.props.weightDictionary).length === 0 ?
+                                            {Object.keys(this.props.weightDictionary).length === 0 ? // there are not terms in weight dictionary
                                                 <tr>
                                                     <td></td>
                                                 </tr>
-                                                : this.renderTable()} 
+                                                : 
+                                                this.renderTermTable()} 
                                         </tbody>
                                     </table>
                                 </div>
                                 <div className="terms-button-box">
                                     <div className="terms-input-box">
-                                            {this.state.page == 0 ?
+                                            {this.state.page == 0 ? // page 0
                                                 <button className="button__small--disabled" disabled={true} onClick={() => this.page('pervious')}>
                                                     <FontAwesomeIcon icon={faAngleLeft}/> &nbsp; 
                                                     Previous:
@@ -338,37 +314,36 @@ class Terms extends React.Component {
                                                 </button>
                                             } &nbsp;&nbsp;&nbsp;
                                             {this.state.page} &nbsp;&nbsp;&nbsp;
-                                            {(this.state.page * 100) + 100 < Object.keys(this.props.weightDictionary).length ?
+                                            {(this.state.page * 100) + 100 < Object.keys(this.props.weightDictionary).length ? // there are still terms to page through
                                                 <button className="button__small" onClick={() => this.page('next')}>
                                                     Next: &nbsp; 
                                                     <FontAwesomeIcon icon={faAngleRight}/>
                                                 </button>
-                                                :
+                                                : // there are no more terms to page through
                                                 <button className="button__small--disabled" disabled={true} onClick={() => this.page('next')}>
                                                     Next: &nbsp; 
                                                     <FontAwesomeIcon icon={faAngleRight}/>
                                                 </button>
                                             }
                                     </div>
-                                    
                                     <div className="terms-input-box">
-                                        {this.state.selectedTerms.length != 0 ?
+                                        {this.state.selectedTerms.length != 0 ? // terms have been selected
                                             <button className="button__small" onClick={() => this.clearSelected()}> 
                                                 <FontAwesomeIcon icon={faRotateRight}/> &nbsp; 
                                                 Clear Selected
                                             </button> 
-                                            :
+                                            : // no terms have been selected
                                             <button disabled={true} className="button__small--disabled" onClick={() => this.clearSelected()}>
                                                 <FontAwesomeIcon icon={faRotateRight}/> &nbsp; 
                                                 Clear Selected
                                             </button>
                                         } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        {this.state.selectedTerms.length != 0 ?
+                                        {this.state.selectedTerms.length != 0 ? // terms have been selected
                                             <button className="button__small red" onClick={() => this.deleteTerms()}>
                                                 <FontAwesomeIcon icon={faTrash}/> &nbsp; 
                                                 Delete Terms
                                             </button> 
-                                            :
+                                            : // no terms have been selected
                                             <button disabled={true} className="button__small--disabled" onClick={() => this.deleteTerms()}>
                                                 <FontAwesomeIcon icon={faTrash}/> &nbsp; 
                                                 Delete Terms
@@ -376,8 +351,6 @@ class Terms extends React.Component {
                                         }
                                     </div>
                                 </div>  
-
-                                
                             </div>
                             <div className="page-button-box">
                                 <button className="button__small" onClick={() => this.props.prevPage()}>
@@ -386,7 +359,7 @@ class Terms extends React.Component {
                                 </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <button className="button__small" onClick={() =>  {this.props.nextPage()}}>
                                     Forward &nbsp; 
-                                    <FontAwesomeIcon icon={faForward}/> &nbsp; 
+                                    <FontAwesomeIcon icon={faForward}/>
                                 </button>
                             </div>
                         </div>
