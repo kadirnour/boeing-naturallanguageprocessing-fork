@@ -40,10 +40,10 @@ class App extends React.Component {
   Returns: sets name of files (filesList) in state
   '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   getFiles = async() => {
-    if (this.state.input == "") { // no input location entered
+    if (this.state.input === "") { // no input location entered
       console.log("Error: no input location entered")
       return false;
-    } else if (this.state.output == "") { // no output location entered
+    } else if (this.state.output === "") { // no output location entered
       console.log("Error: no output location entered")
       return false;
     }
@@ -155,9 +155,21 @@ class App extends React.Component {
             this.setState({weightDictionary: data['weight'],
               graph: data['graph'],
               edgeTypes: data['edgeTypes'],
-              nodeID: data['graph'].nodes[data['graph'].nodes.length - 1].id // updates node id for graph
+              nodeID: this.deriveNodeID(data['graph']) // updates node id for graph
             })})
             .then(() => {this.deriveCategories()}) // Needed to load categories
+  }
+
+  /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  Function: deriveNodeID
+  Description: gets the last nodes id from the graph, needed because there might not be any nodes
+  Returns: the node id
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
+  deriveNodeID = async(data) => {
+    if (data.nodes.length !== 0) {
+      return data.nodes[data.nodes.length - 1].id
+    }
+    return 0
   }
 
   /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -327,7 +339,7 @@ class App extends React.Component {
 
     for (let r = 0; r < Object.keys(Object.values(this.state.categories)[category]).length; r++) { // for each term that was in the category
       toAdd.push([Object.keys(Object.values(this.state.categories)[category])[r], // term name
-        Object.values (Object.values(this.state.categories) [category]) [r]]) // term context
+        Object.values (Object.values(this.state.categories)[category])[r]]) // term context
     }
 
     for (let r = 0; r < Object.keys(toAdd).length; r++) { // for each term
@@ -335,7 +347,7 @@ class App extends React.Component {
     }
 
     for (let r = 0; r < this.state.graph.nodes.length; r++) { // for each node in graph
-      if (this.state.graph.nodes[r].label == Object.keys(this.state.categories)[category]) { // the node is the same as the category to be deleted
+      if (this.state.graph.nodes[r].label === Object.keys(this.state.categories)[category]) { // the node is the same as the category to be deleted
         newNodes.splice(r, 1) // delete that node
       }
     }
@@ -378,9 +390,9 @@ class App extends React.Component {
       this.setState({mode: 33})
     } else if (this.state.mode === 33) { // Document
       this.setState({mode: 66})
-    } else if (this.state.mode == 66) { // Terms
+    } else if (this.state.mode === 66) { // Terms
       this.setState({mode: 99})
-    } else if (this.state.mode == 99) { // Taxonomy
+    } else if (this.state.mode === 99) { // Taxonomy
       this.setState({mode: 100})
     }
   }
@@ -393,11 +405,11 @@ class App extends React.Component {
   prevPage = () => {
     if (this.state.mode === 100) { // Taxonomy
       this.setState({mode: 99})
-    } else if (this.state.mode == 99) { // Categories
+    } else if (this.state.mode === 99) { // Categories
       this.setState({mode: 66})
-    } else if (this.state.mode == 66) { // Terms
+    } else if (this.state.mode === 66) { // Terms
       this.setState({mode: 33})
-    } else if (this.state.mode == 33) { // Document
+    } else if (this.state.mode === 33) { // Document
       this.setState({mode: 0})
     }
   }
@@ -469,7 +481,7 @@ class App extends React.Component {
     return (
       <div className="body">
         <NavBar mode={this.state.mode}/>
-        {this.state.mode == 0 ? // Load
+        {this.state.mode === 0 ? // Load
           <Load reset={this.reset}/>
           :
           this.state.mode === 33 ? // Document
@@ -477,8 +489,8 @@ class App extends React.Component {
               prevPage={this.prevPage}
               setInput={this.setInput}
               setOutput={this.setOutput}
-              oldInput={this.state.input}
-              oldOutput={this.state.output}
+              input={this.state.input}
+              output={this.state.output}
               Files={this.getFiles}
               selectedFiles={this.state.selectedFiles}
               filesList={this.state.filesList}
@@ -491,6 +503,7 @@ class App extends React.Component {
               this.state.mode === 66 ? // Terms
                 <Terms getTerms={this.getTerms}
                   loadCorpus = {this.loadCorpus}
+                  output={this.state.output}
                   nextPage={this.nextPage}
                   prevPage={this.prevPage}
                   saveWeight={this.saveWeight}

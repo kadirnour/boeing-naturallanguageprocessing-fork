@@ -45,19 +45,19 @@ class Taxonomy extends React.Component {
             events: { // Logic for selecting nodes
                 click: ({ nodes, edges }) => {
                     this.setState({selectedEdges: edges}) // Adds selected edges to state
-                    if(nodes.length == 2) { // Two nodes are selected
-                        if(this.state.node1 == -1) { // Deals with bug where user drags a node instead of clicking and node is not added to nodes list
+                    if(nodes.length === 2) { // Two nodes are selected
+                        if(this.state.node1 === -1) { // Deals with bug where user drags a node instead of clicking and node is not added to nodes list
                             this.setState({node1: nodes[0]}) // Sets node1 to the first node in the list as default
                         }
                         let node2 = -1
                         for(let i = 0; i < nodes.length; i++) {  // Deals with bug where user drags a node instead of clicking and node is not added to nodes list
-                            if(nodes[i] != this.state.node1) {
+                            if(nodes[i] !== this.state.node1) {
                                 node2 = nodes[i] // Sets node2 to the other node in the list as default
                             }
                         }
                         this.setState({selectedNodes: nodes,
                             node2: node2})
-                    } else if (nodes.length == 1) { // One node selected
+                    } else if (nodes.length === 1) { // One node selected
                         this.setState({selectedNodes: nodes,
                             node1: nodes[0]})
                     } else { // No nodes are selected
@@ -79,7 +79,7 @@ class Taxonomy extends React.Component {
     Returns: sets in state modal status, modal type, and row
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     isShowPopup = (status, type, row) => {  
-        if (type == "nouns") { // modal will show nouns found in node (category)
+        if (type === "nouns") { // modal will show nouns found in node (category)
             this.getNouns()
         }
 
@@ -152,12 +152,12 @@ class Taxonomy extends React.Component {
         let to = ""
         for(let i = 0; i < this.state.selectedEdges.length; i++) { // for each edge in seleceted edges
             for(let g = 0; g < this.state.graph.edges.length; g++) { // for each edge in graph
-                if(this.state.selectedEdges[i] == this.state.graph.edges[g].id) { // graph edge and selected edge are the same
+                if(this.state.selectedEdges[i] === this.state.graph.edges[g].id) { // graph edge and selected edge are the same
                     for(let i = 0; i < this.state.graph.nodes.length; i++) { // each node in graph nodes
-                        if(this.state.graph.nodes[i].id == this.state.graph.edges[g].from){ // selected edge from is the same as graph node
+                        if(this.state.graph.nodes[i].id === this.state.graph.edges[g].from){ // selected edge from is the same as graph node
                             from = this.state.graph.nodes[i].label
                         }
-                        if(this.state.graph.nodes[i].id == this.state.graph.edges[g].to){ // selected edge to is the same as graph node
+                        if(this.state.graph.nodes[i].id === this.state.graph.edges[g].to){ // selected edge to is the same as graph node
                             to = this.state.graph.nodes[i].label
                         }
                     }
@@ -201,8 +201,8 @@ class Taxonomy extends React.Component {
         let newGraph = {...this.state.graph}
 
         for(let i = 0; i < this.state.graph.edges.length; i++) { // Removes edges if nodes already have an edge between them
-            if(this.state.graph.edges[i].from == this.state.selectedNodes[0] && this.state.graph.edges[i].to == this.state.selectedNodes[1]
-            || this.state.graph.edges[i].from == this.state.selectedNodes[1] && this.state.graph.edges[i].to == this.state.selectedNodes[0]) {
+            if((this.state.graph.edges[i].from === this.state.selectedNodes[0] && this.state.graph.edges[i].to === this.state.selectedNodes[1])
+            || (this.state.graph.edges[i].from === this.state.selectedNodes[1] && this.state.graph.edges[i].to === this.state.selectedNodes[0])) {
                 newEdges.splice(i, 1)
             }
         }
@@ -224,12 +224,12 @@ class Taxonomy extends React.Component {
     Returns: true if edge exists or if the name is empty
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     checkEdgeExists = (relationship) => {
-        if(relationship.toString() == "") { // must name the edge type
+        if(relationship.toString() === "") { // must name the edge type
             return true
         }
-        if(this.state.edgeTypes.length != 0) { // checks if the edge already exists
+        if(this.state.edgeTypes.length !== 0) { // checks if the edge already exists
             for(let i = 0; i < this.state.edgeTypes.length; i++) {
-                if(Object.keys(this.state.edgeTypes[i]) == relationship.toString()) {
+                if(Object.keys(this.state.edgeTypes[i]) === relationship.toString()) {
                     return true
                 }
             }
@@ -264,7 +264,7 @@ class Taxonomy extends React.Component {
         let oldRelationship = Object.keys(this.state.edgeTypes[this.state.row]) // Name of old relationship. Used to index which relationship lines need to be updated.
 
         for(let i = 0; i < this.state.graph.edges.length; i++) { // updates all edges that have been updated
-            if(this.state.graph.edges[i].relationship == oldRelationship) {
+            if(this.state.graph.edges[i].relationship === oldRelationship) {
                 edgesCopy[i].color = color
                 edgesCopy[i].relationship = relationship
             }
@@ -311,7 +311,7 @@ class Taxonomy extends React.Component {
 
         for(let i = 0; i < this.state.selectedEdges.length; i++) { // removes edge from graph edges
             for(let g = 0; g < this.state.graph.edges.length; g++) {
-                if(this.state.selectedEdges[i] == this.state.graph.edges[g].id) {
+                if(this.state.selectedEdges[i] === this.state.graph.edges[g].id) {
                     edgesCopy.splice(g, 1)
                 }
             }
@@ -350,7 +350,7 @@ class Taxonomy extends React.Component {
         let label = ""
 
         for(let i = 0; i < this.state.graph.nodes.length; i++) { // gets the label of the node
-            if(this.state.graph.nodes[i].id == this.state.selectedNodes[0]){
+            if(this.state.graph.nodes[i].id === this.state.selectedNodes[0]){
                 label = this.state.graph.nodes[i].label
             }
         }
@@ -432,8 +432,8 @@ class Taxonomy extends React.Component {
                                         <FontAwesomeIcon icon={faCirclePlus}/> &nbsp; 
                                         Create New Edge Type
                                     </button>  &nbsp;
-                                    {this.state.selectedNodes.length == 2 ? // two nodes have been selected
-                                        this.state.edgeTypes.length == 0 ? // no edge types are created
+                                    {this.state.selectedNodes.length === 2 ? // two nodes have been selected
+                                        this.state.edgeTypes.length === 0 ? // no edge types are created
                                             <button disabled={true} className="button--disabled taxonomy__buttons" onClick={() => this.isShowPopup(true, "createNewEdge", -1)}>
                                                 <FontAwesomeIcon icon={faPlus}/> &nbsp; 
                                                 Create New Edge
@@ -449,7 +449,7 @@ class Taxonomy extends React.Component {
                                             Create New Edge
                                         </button>
                                     } &nbsp;
-                                    {this.state.selectedNodes.length == 1 ? // one node has been selected
+                                    {this.state.selectedNodes.length === 1 ? // one node has been selected
                                         <button className="button taxonomy__buttons" onClick={() => this.isShowPopup(true, "nouns", -1)}>
                                             <FontAwesomeIcon icon={faFileLines}/> &nbsp;
                                             See Nouns
@@ -460,7 +460,7 @@ class Taxonomy extends React.Component {
                                             See Nouns
                                         </button>
                                     } &nbsp;
-                                    {this.state.selectedEdges.length == 0 ? // 0 edges have been selected
+                                    {this.state.selectedEdges.length === 0 ? // 0 edges have been selected
                                         <button disabled={true} className="button--disabled taxonomy__buttons">
                                             <FontAwesomeIcon icon={faTrash}/>
                                             Delete Edge
@@ -468,7 +468,7 @@ class Taxonomy extends React.Component {
                                         : // more than 0 edges have been selected
                                         <button className="button taxonomy__buttons red" onClick={() => this.deleteEdge()}>
                                             <FontAwesomeIcon icon={faTrash}/>
-                                            {this.state.selectedEdges.length == 1 ? // 1 edge has been selected
+                                            {this.state.selectedEdges.length === 1 ? // 1 edge has been selected
                                                 "Delete Edge" 
                                                 : // multiple edges have been selected
                                                 "Delete Edges"

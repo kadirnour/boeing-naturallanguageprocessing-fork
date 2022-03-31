@@ -3,10 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faUpload } from '@fortawesome/free-solid-svg-icons'
 
 class Load extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    
+
     /*''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     Function: render
     Description: renders screen to create a new taxonomy or load from one

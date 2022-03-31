@@ -212,7 +212,7 @@ class Categories extends React.Component {
 
         for (let i = 0; i < this.state.selectedWeightTerms.length; i++) {
             if (this.state.selectedWeightTerms[i] === row.toString()) {
-                if (i == 0) {
+                if (i === 0) {
                     selectedWeightTerms.shift()
                 } else {
                     selectedWeightTerms.splice(i, 1)
@@ -244,7 +244,7 @@ class Categories extends React.Component {
 
         for (let x = 0; x < this.state.selectedTerms.length; x++) { // for each term in selected terms
             if (this.state.selectedTerms[x] === categoryIndex.toString() + termIndex.toString()) { // the selected term is the same as the term we are deselecting
-                if (x == 0) { // the selected terms list is empty
+                if (x === 0) { // the selected terms list is empty
                     newSelectedTerms.shift()
                 } else { // the selected terms list is not empty
                     newSelectedTerms.splice(x, 1)
@@ -302,7 +302,7 @@ class Categories extends React.Component {
     Returns: sets page in state
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     pageTerms = (direction) => {
-        if (direction == 'next') { // next page
+        if (direction === 'next') { // next page
             this.setState({pageTerms: this.state.pageTerms + 1})
         } else { // previous page
             this.setState({pageTerms: this.state.pageTerms - 1})
@@ -316,7 +316,7 @@ class Categories extends React.Component {
     Returns: sets page in state
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     pageCategory = (direction) => {
-        if (direction == 'next') { // next page
+        if (direction === 'next') { // next page
             this.setState({pageCategory: this.state.pageCategory + 1})
         } else { // previous page
             this.setState({pageCategory: this.state.pageCategory - 1})
@@ -429,7 +429,7 @@ class Categories extends React.Component {
                                     </div>
                                     <div className="categories-button-box">
                                         <div className="categories-input-box">
-                                            {this.state.pageTerms == 0 ? // at page 0
+                                            {this.state.pageTerms === 0 ? // at page 0
                                                 <button className="button__small--disabled" disabled={true} onClick={() => this.pageTerms('pervious')}>
                                                     <FontAwesomeIcon icon={faAngleLeft}/> &nbsp;
                                                     Previous:
@@ -483,7 +483,7 @@ class Categories extends React.Component {
                                         {this.state.categoryRow === -1 ? // category has not been selected
                                             null 
                                             : // category has been selected
-                                            this.state.selectedTerms.length == 0 ? // term in category has not been selected
+                                            this.state.selectedTerms.length === 0 ? // term in category has not been selected
                                                 <button disabled={true} onClick={() => this.deleteFromCategory()} className="button--disabled categories__buttons">
                                                     <FontAwesomeIcon icon={faLeftLong}/>
                                                 </button> 
@@ -496,7 +496,7 @@ class Categories extends React.Component {
                                         {this.state.categoryRow === -1 ? // category has not been selected
                                             null 
                                             : // category has been selected
-                                            this.state.selectedWeightTerms.length == 0 ? // term in category has not been selected
+                                            this.state.selectedWeightTerms.length === 0 ? // term in category has not been selected
                                                 <button disabled={true} className="button--disabled categories__buttons" onClick={() => this.addToCategory()}>
                                                     <FontAwesomeIcon icon={faRightLong}/>
                                                 </button> 
@@ -506,7 +506,7 @@ class Categories extends React.Component {
                                                 </button>
                                         }
                                         &nbsp;
-                                        {this.state.selectedWeightTerms.length != 0 || this.state.selectedTerms.length != 0 ? // there are terms selected
+                                        {this.state.selectedWeightTerms.length !== 0 || this.state.selectedTerms.length !== 0 ? // there are terms selected
                                             <button className="button categories__buttons" onClick={() => this.clearSelected()}>
                                                 <FontAwesomeIcon icon={faRotateRight}/> &nbsp; 
                                                 Clear Selected
@@ -561,7 +561,7 @@ class Categories extends React.Component {
                                             </div>
                                             <div className="categories-button-box">
                                                 <div className="categories-input-box">
-                                                    {this.state.pageCategory == 0 ? // page 0
+                                                    {this.state.pageCategory === 0 ? // page 0
                                                         <button className="button__small--disabled" disabled={true} onClick={() => this.pageCategory('pervious')}>
                                                             <FontAwesomeIcon icon={faAngleLeft}/> &nbsp;
                                                             Previous:

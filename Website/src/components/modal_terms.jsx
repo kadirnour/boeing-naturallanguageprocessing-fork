@@ -60,7 +60,7 @@ class ModalPopup extends Component {
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     render() {  
         return (  
-            this.props.type == "confirm"? // save confirmation (.csv)
+            this.props.type === "confirm"? // save confirmation (.csv)
             <Fragment>  
                 <Modal show={this.props.showModalPopup} onHide={this.handleClose}
                     size="lg"  

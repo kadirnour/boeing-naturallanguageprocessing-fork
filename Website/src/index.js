@@ -17,8 +17,8 @@ Function: index.js
 Description: Loads react webpage
 '''''''''''''''''''''''''''''''''''*/
 ReactDOM.render(
-  <React.StrictMode>
+  <React.Fragment>
     <App />
-  </React.StrictMode>,
+  </React.Fragment>,
   document.getElementById('root')
 );

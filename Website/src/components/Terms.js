@@ -65,7 +65,7 @@ class Terms extends React.Component {
 
         for (let i = 0; i < this.state.selectedTerms.length; i++) { // each currently selected term
             if (this.state.selectedTerms[i] === row) { // this is the row to deselect
-                if (i == 0) { // the selected terms list only has one item
+                if (i === 0) { // the selected terms list only has one item
                     selectedTerms.shift()
                 } else { // the selected terms list has multiple items
                     selectedTerms.splice(i, 1)
@@ -185,7 +185,7 @@ class Terms extends React.Component {
     Description: either runs the parser or loads from .csv whenever this page is viewed
     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     componentDidMount = () => {
-        if(this.props.load) { // load from .csv
+        if (this.props.load) { // load from .csv
             this.props.loadCorpus()
         } else { // run parser
             this.props.getTerms()
@@ -198,7 +198,7 @@ class Terms extends React.Component {
     Returns: sets in state current page number
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/ 
     page = (direction) => {
-        if (direction == 'next') { // go forward a page
+        if (direction === 'next') { // go forward a page
             this.setState({page: this.state.page + 1})
         } else { // go back a page
             this.setState({page: this.state.page - 1})
@@ -302,7 +302,7 @@ class Terms extends React.Component {
                                 </div>
                                 <div className="terms-button-box">
                                     <div className="terms-input-box">
-                                            {this.state.page == 0 ? // page 0
+                                            {this.state.page === 0 ? // page 0
                                                 <button className="button__small--disabled" disabled={true} onClick={() => this.page('pervious')}>
                                                     <FontAwesomeIcon icon={faAngleLeft}/> &nbsp; 
                                                     Previous:
@@ -327,7 +327,7 @@ class Terms extends React.Component {
                                             }
                                     </div>
                                     <div className="terms-input-box">
-                                        {this.state.selectedTerms.length != 0 ? // terms have been selected
+                                        {this.state.selectedTerms.length !== 0 ? // terms have been selected
                                             <button className="button__small" onClick={() => this.clearSelected()}> 
                                                 <FontAwesomeIcon icon={faRotateRight}/> &nbsp; 
                                                 Clear Selected
@@ -338,7 +338,7 @@ class Terms extends React.Component {
                                                 Clear Selected
                                             </button>
                                         } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        {this.state.selectedTerms.length != 0 ? // terms have been selected
+                                        {this.state.selectedTerms.length !== 0 ? // terms have been selected
                                             <button className="button__small red" onClick={() => this.deleteTerms()}>
                                                 <FontAwesomeIcon icon={faTrash}/> &nbsp; 
                                                 Delete Terms

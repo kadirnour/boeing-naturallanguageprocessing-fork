@@ -131,7 +131,7 @@ class Documents extends React.Component {
                                                 Submit Input Folder:
                                             </button>
                                             <div className="document-location-box"> &nbsp; 
-                                                Input Location: {this.props.oldInput}
+                                                Input Location: {this.props.input}
                                             </div>   
                                         </div>
                                         <hr className="hr"/>
@@ -148,7 +148,7 @@ class Documents extends React.Component {
                                                 Submit Output Folder:
                                             </button>
                                             <div className="document-location-box">
-                                                &nbsp; Output Location: {this.props.oldOutput}
+                                                &nbsp; Output Location: {this.props.output}
                                             </div>
                                         </div>
                                         <hr className="hr"/>
@@ -174,10 +174,10 @@ class Documents extends React.Component {
                                                 Submit Output Folder: 
                                             </button>
                                             <div className="document-location-box"> &nbsp; 
-                                                Output Location: {this.props.oldOutput}
+                                                Output Location: {this.props.output}
                                             </div>
                                         </div>
-                                        <hr class="hr"/>
+                                        <hr className="hr"/>
                                         <div className="document-input-box"> &nbsp;&nbsp;
                                             <input onChange={this.handleChange} size="75" name="corpusName" 
                                                 placeholder="Will write over files with the same name"/> &nbsp;&nbsp;&nbsp;

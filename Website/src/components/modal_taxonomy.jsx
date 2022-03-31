@@ -80,12 +80,12 @@ class ModalPopup extends Component {
     Description: either saves edge types and graph to .csv, creates a new edge type, submits a edge type edit, or creates an edge between 2 nodes
     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     handleSubmit = () => {
-        this.props.type=="confirm" ? // confirm save to .csv
+        this.props.type === "confirm" ? // confirm save to .csv
             this.props.confirmSave():
-        this.props.type == "createNewEdgeType" ? // Creating a new edge type
+        this.props.type === "createNewEdgeType" ? // Creating a new edge type
             this.props.createEdgeType(this.state.color, this.state.edge)
             :
-            this.props.type == "editEdgeType" ? // Editing an existing edge type
+            this.props.type === "editEdgeType" ? // Editing an existing edge type
                 this.props.editEdgeType(this.state.color, this.state.edge)
                 : // Creating a new edge line between 2 nodes
                 this.props.createEdge(this.state.color, this.state.edge)
@@ -106,7 +106,7 @@ class ModalPopup extends Component {
         let color;
 
         for(let i = 0; i < this.props.edgeTypes.length; i++) { // gets the selected edge types name and color from edge type list
-            if(Object.keys(this.props.edgeTypes[i]) == event.target.value) {
+            if(Object.keys(this.props.edgeTypes[i]) === event.target.value) {
                 color = (Object.values(this.props.edgeTypes[i])).toString()
             }
         }
@@ -157,7 +157,7 @@ class ModalPopup extends Component {
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     render() {  
         return (  
-            this.props.type == "confirm" ? // save confirmation to .csv
+            this.props.type === "confirm" ? // save confirmation to .csv
                 <Fragment>  
                     <Modal show={this.props.showModalPopup} onHide={this.handleClose}
                         size="lg"  
@@ -179,7 +179,7 @@ class ModalPopup extends Component {
                     </Modal>  
                 </Fragment>
                 :
-                this.props.type == "nouns" ? // load nouns from a node
+                this.props.type === "nouns" ? // load nouns from a node
                     <Fragment>  
                         <Modal show={this.props.showModalPopup} onHide={this.handleClose} onShow={this.handleCreateLoad}
                             size="lg"  
@@ -200,7 +200,7 @@ class ModalPopup extends Component {
                                         </tr>
                                     </thead>
                                     <tbody className="table-body--taxonomy">
-                                        {this.props.nouns == null ? // there are no nouns in node
+                                        {this.props.nouns === null ? // there are no nouns in node
                                             null 
                                             : // there are nouns in node
                                             this.renderTermTable()
@@ -211,7 +211,7 @@ class ModalPopup extends Component {
                         </Modal>  
                     </Fragment>  
                     : 
-                    this.props.type == "createNewEdgeType" ? // Creating a new edge type
+                    this.props.type === "createNewEdgeType" ? // Creating a new edge type
                         <Fragment>  
                             <Modal show={this.props.showModalPopup} onHide={this.handleClose} onShow={this.handleCreateLoad}
                                 size="lg"  
@@ -242,7 +242,7 @@ class ModalPopup extends Component {
                             </Modal>  
                         </Fragment>  
                         :
-                        this.props.type == "createNewEdge" ? // Creating a new edge line between 2 nodes
+                        this.props.type === "createNewEdge" ? // Creating a new edge line between 2 nodes
                          <Fragment> 
                              <Modal show={this.props.showModalPopup} onHide={this.handleClose}
                                  size="lg"  
@@ -273,7 +273,7 @@ class ModalPopup extends Component {
                             </Modal>  
                         </Fragment> 
                         : 
-                        // this.props.type == "editEdgeType" ? // Editing a edge type
+                        // this.props.type === "editEdgeType" ? // Editing a edge type
                         <Fragment>   
                             <Modal show={this.props.showModalPopup} onHide={this.handleClose} onShow={this.handleEditLoad}
                                 size="lg"  

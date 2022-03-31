@@ -42,7 +42,7 @@ class ModalPopup extends Component {
     Description: saves categories to .csv or creates a new category
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     handleSubmit = () => {
-        if (this.props.type=="confirm"){ // confirmation to save to .csv
+        if (this.props.type === "confirm"){ // confirmation to save to .csv
             this.props.confirmSave()
             this.handleClose();
         }
@@ -61,7 +61,7 @@ class ModalPopup extends Component {
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     render() {  
         return ( 
-            this.props.type == "confirm"? // save confirmation (.csv)
+            this.props.type === "confirm"? // save confirmation (.csv)
             <Fragment>  
             <Modal show={this.props.showModalPopup} onHide={this.handleClose}
                 size="lg"  
