@@ -20,13 +20,13 @@ https://github.com/WSUCptSCapstone-Fall2021Spring2022/boeing-naturallanguageproc
  ## Incomplete Issues/User Stories
  Here are links to issues we worked on but did not complete in this sprint:
  Edge Editing
- * URL of issue 1 <<Edge editing code broken on merge>>
+ * https://github.com/WSUCptSCapstone-Fall2021Spring2022/boeing-naturallanguageprocessing/issues/49 <<Edge editing code broken on merge>>
 
 ## Code Files for Review
 Please review the following code files, which were actively developed during this sprint, for quality:
- * [Name of code file 1](https://github.com/your_repo/file_extension)
- * [Name of code file 2](https://github.com/your_repo/file_extension)
- * [Name of code file 3](https://github.com/your_repo/file_extension)
+ * [Taxonomy](https://github.com/WSUCptSCapstone-Fall2021Spring2022/boeing-naturallanguageprocessing/Taxonomy)
+ * [Data](https://github.com/WSUCptSCapstone-Fall2021Spring2022/boeing-naturallanguageprocessing/Data)
+ * [Website](https://github.com/WSUCptSCapstone-Fall2021Spring2022/boeing-naturallanguageprocessing/Website)
  
 ## Retrospective Summary
 Here's what went well:
