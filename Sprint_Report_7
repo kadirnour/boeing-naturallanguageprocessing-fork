@@ -35,9 +35,9 @@ Here's what went well:
   * Plenty of refactoring work.
  
 Here's what we'd like to improve:
-   * Refactoring
+   * Refactoring and documentation
   
 Here are changes we plan to implement in the next sprint:
    * Testing
    * Docker Containerization
-   * Item x
+   * Documentation for code and on github.
