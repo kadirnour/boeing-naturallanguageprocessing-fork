@@ -1,10 +1,5 @@
-#from csv import reader
-#import csv
 from Data import main as Data
 
-#Saves weights from state to csv everytime button is pressed to reflect changes#
-
-# master method that takes
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 Function: Save Weights
 Description: Gets the file location for the weights save.

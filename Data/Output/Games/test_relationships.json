@@ -3,42 +3,45 @@
         "edges": [
             {
                 "color": "#000000",
-                "from": 8,
-                "id": "f3ff9ab7-7e60-4645-b768-6ea747ae178b",
-                "relationship": "",
-                "to": 7,
+                "from": 1,
+                "id": "41edeb01-e933-4052-9870-7e9aefa7a193",
+                "relationship": "b",
+                "to": 2,
                 "width": 3
             },
             {
-                "from": 8,
-                "to": 9,
-                "color": "#000000",
-                "width": 3,
-                "relationship": "",
-                "id": "f1dfb210-bad3-4715-a209-3408e238488b"
+                "color": "#273e23",
+                "from": 3,
+                "id": "f099610a-aff7-47d2-9a98-28e62ea9d938",
+                "relationship": "g",
+                "to": 1,
+                "width": 3
             }
         ],
         "nodes": [
             {
                 "color": "#e04141",
-                "id": 7,
-                "label": "gdfg"
+                "id": 1,
+                "label": "1"
             },
             {
                 "color": "#e04141",
-                "id": 8,
-                "label": "dfgdfg"
+                "id": 2,
+                "label": "2"
             },
             {
-                "id": 9,
-                "label": "tyteste",
-                "color": "#e04141"
+                "color": "#e04141",
+                "id": 3,
+                "label": "3"
             }
         ]
     },
-    "edgeTypes": [
+    "relationships": [
         {
-            "gdfgdf": "#000000"
+            "b": "#000000"
+        },
+        {
+            "g": "#273e23"
         }
     ]
 }

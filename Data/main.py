@@ -45,54 +45,47 @@ def parser_to_csv(totalTimeStr, costPerNounStr, terms, uniqueNouns, totalNouns, 
         for noun in terms:
             nounwriter.writerow([noun.text, noun.contextSentences, noun.occurances])
 
-
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 Function: write_weights
 Description: write weights to file
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-def write_weights(file, weightDictionary):
+def write_weights(file, termsDictionary):
     with open(file, 'w', newline='') as master:
         master.truncate(0)
         writer = csv.writer(master)
-        for term in weightDictionary:
-            context = weightDictionary[term]['context']
-            freq = weightDictionary[term]['frequency']
-            weight = weightDictionary[term]['weight']
+        for term in termsDictionary:
+            context = termsDictionary[term]['context']
+            freq = termsDictionary[term]['frequency']
+            weight = termsDictionary[term]['weight']
             writer.writerow([term, context, freq, weight])
-
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 Function: read_weights
 Description: read weights from file
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-def read_weights(dir, corpusName):
+def read_weights(dir, taxonomyName):
     vis_data = {}
-    corpus_data = {}
-    visName = corpusName + '_relationships.json'
-    corpusName = corpusName + '.csv'
+    taxonomy_data = {}
+    visName = taxonomyName + '_relationships.json'
+    taxonomyName = taxonomyName + '.csv'
 
-    if Path(dir / corpusName).exists():
-        # loads weights 
-        with open(dir / corpusName, 'r') as corpus:
-            rowreader = csv.reader(corpus, delimiter=',')
+    if Path(dir / taxonomyName).exists():
+        with open(dir / taxonomyName, 'r') as taxonomy: # loads weights 
+            rowreader = csv.reader(taxonomy, delimiter=',')
             for row in rowreader:
                 if len(row) == 5:
-                    print('here')
-                    corpus_data.update({row[0]: {"context": literal_eval(row[1]), "frequency": row[2], "weight": row[3], "category": row[4]}})
+                    taxonomy_data.update({row[0]: {"context": literal_eval(row[1]), "frequency": row[2], "weight": row[3], "category": row[4]}})
                 else:
-                    corpus_data.update({row[0]: {"context": literal_eval(row[1]), "frequency": row[2], "weight": row[3]}})
+                    taxonomy_data.update({row[0]: {"context": literal_eval(row[1]), "frequency": row[2], "weight": row[3]}})
     
     if Path(dir / visName).exists():
-        # loads visualization 
-        with open(dir / visName, 'r') as f:
+        with open(dir / visName, 'r') as f: # loads visualization
             vis_data = json.load(f)
-            print(vis_data)
     else:
         vis_data['graph'] = {'nodes': [], 'edges': []}
-        vis_data['edgeTypes'] = []
+        vis_data['relationships'] = []
 
-    return {'weight': corpus_data, 'graph': vis_data['graph'], 'edgeTypes': vis_data['edgeTypes']}
-
+    return {'taxonomy': taxonomy_data, 'graph': vis_data['graph'], 'relationships': vis_data['relationships']}
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 Function: write_to_csv
@@ -103,7 +96,6 @@ def write_to_csv(data_write, file_path):
         csv_writer = csv.writer(write_obj)
         for row in data_write:
             csv_writer.writerow(row)
-
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 Function: write_to_json

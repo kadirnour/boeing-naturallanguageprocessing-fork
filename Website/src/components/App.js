@@ -15,15 +15,15 @@ Returns: current page
 class App extends React.Component { 
   constructor(props) {
     super(props);
-    this.state = {weightDictionary: {}, //contains {noun: (context, frequency, weight)}
+    this.state = {termsDictionary: {}, //contains {noun: (context, frequency, weight)}
       mode: 0, //indicates which page to load and how much of the navbar progess bar should be loaded
       categories: {}, //contains {category: {noun}}
       input: "", //input folder location
       output: "", //output folder location
       filesList: {}, //list of files found in input location. {fileName: extension}
       selectedFiles: {}, //files to be parsed. {fileName: extension}
-      corpusName: 'corpus', //master corpus name for this taxonomy
-      edgeTypes: [], //relationship types between categories. [{name: color}]
+      taxonomy: 'master', //master taxonomy name
+      relationships: [], //relationship types between categories. [{name: color}]
       graph: {nodes: [], edges: []}, //relationship graph. {nodes: [{color, id, label}], edges:[{color, id, width, from, to, relationship}]}
       nodeID: 0, // ID for nodes
       load: false //loading from or creating a new taxonomy
@@ -80,7 +80,7 @@ class App extends React.Component {
   /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
   Function: getWeights
   Description: runs parser on selected files from input location
-  Returns: sets weightDictionary in state
+  Returns: sets termsDictionary in state
   '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   getWeights = async() => {
     let info = {output: this.state.output, files: this.state.selectedFiles}
@@ -90,7 +90,7 @@ class App extends React.Component {
       headers:{"content_type": "application/json"},
       body: JSON.stringify(info)})
         .then(res => res.json())
-          .then(data => {this.setState({weightDictionary: data})})
+          .then(data => {this.setState({termsDictionary: data})})
   }
 
 
@@ -99,13 +99,13 @@ class App extends React.Component {
   ######################################################################################################*/
 
   /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-  Function: saveWeight
-  Description: writes weight dictionary to .csv
+  Function: saveTaxonomy
+  Description: writes taxonomy dictionary to .csv
   '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
-  saveWeight = async() => {
-    let input = {output: this.state.output, corpus: this.state.corpusName, weightDictionary: this.state.weightDictionary}
+  saveTaxonomy = async() => {
+    let input = {output: this.state.output, taxonomy: this.state.taxonomy, termsDictionary: this.state.termsDictionary}
 
-    await fetch('/saveWeight', {
+    await fetch('/saveTaxonomy', {
       method: "POST",
       headers:{"content_type": "application/json"},
       body: JSON.stringify(input)})
@@ -116,7 +116,7 @@ class App extends React.Component {
   Description: writes categories to .csv
   '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   saveCategories = async(cat) => {
-    let inputInfo = {output: this.state.output, corpus: this.state.corpusName, categories: this.state.categories}
+    let inputInfo = {output: this.state.output, taxonomy: this.state.taxonomy, categories: this.state.categories}
 
     await fetch('/saveCategories', {
       method: "POST",
@@ -130,7 +130,7 @@ class App extends React.Component {
   Description: writes relationships to a .json file
   '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   saveRelationships = async() => {
-    let inputInfo = {output: this.state.output, corpus: this.state.corpusName, graph: this.state.graph, edgeTypes: this.state.edgeTypes}
+    let inputInfo = {output: this.state.output, taxonomy: this.state.taxonomy, graph: this.state.graph, relationships: this.state.relationships}
 
     await fetch('/saveRelationships', {
       method: "POST",
@@ -139,22 +139,22 @@ class App extends React.Component {
   }
 
   /*''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-  Function: loadCorpus
-  Description: loads weight dictionary, graphs, and categories from given file in output location
-  Returns: sets weight dictionary in state
+  Function: loadTaxonomy
+  Description: loads taxonomy dictionary, graphs, and categories from given file in output location
+  Returns: sets taxonomy dictionary in state
   '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
-  loadCorpus = async() => {
-    let info = {output: this.state.output, corpus: this.state.corpusName}
+  loadTaxonomy = async() => {
+    let info = {output: this.state.output, taxonomy: this.state.taxonomy}
 
-    await fetch('loadCorpus', {
+    await fetch('loadTaxonomy', {
       method: "POST",
       headers:{"content_type": "application/json",},
       body: JSON.stringify(info)})
         .then(res => res.json())
           .then(data => {
-            this.setState({weightDictionary: data['weight'],
+            this.setState({termsDictionary: data['taxonomy'],
               graph: data['graph'],
-              edgeTypes: data['edgeTypes'],
+              relationships: data['relationships'],
               nodeID: this.deriveNodeID(data['graph']) // updates node id for graph
             })})
             .then(() => {this.deriveCategories()}) // Needed to load categories
@@ -165,7 +165,7 @@ class App extends React.Component {
   Description: gets the last nodes id from the graph, needed because there might not be any nodes
   Returns: the node id
   '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
-  deriveNodeID = async(data) => {
+  deriveNodeID = (data) => {
     if (data.nodes.length !== 0) {
       return data.nodes[data.nodes.length - 1].id
     }
@@ -174,13 +174,13 @@ class App extends React.Component {
 
   /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
   Function: deriveCategories
-  Description: creates a dictionary of categories from weightDictionary
+  Description: creates a dictionary of categories from termsDictionary
   Returns: sets categories from .csv in state
   '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   deriveCategories = async() => {
     let cat = {};
 
-    for(let [key, value] of Object.entries(this.state.weightDictionary)){
+    for(let [key, value] of Object.entries(this.state.termsDictionary)){
       if(Object.keys(value).includes('category')){
         let subCategory = cat[value['category']];
         if(subCategory){
@@ -209,7 +209,7 @@ class App extends React.Component {
   deleteFromCategory = (termsIndex) => {
     const toMove = []
     const newCat = {...this.state.categories}
-    const newWeights = {...this.state.weightDictionary}
+    const newWeights = {...this.state.termsDictionary}
 
     for (let r = 0; r < termsIndex.length; r++) { // for each term to be moved, find category/ term information
       toMove.push([Object.keys(this.state.categories)[termsIndex[r][0]], // category name
@@ -224,7 +224,7 @@ class App extends React.Component {
     }
 
     this.setState({categories: newCat, 
-      weightDictionary: newWeights})
+      termsDictionary: newWeights})
   }
 
   /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -233,13 +233,13 @@ class App extends React.Component {
   Returns: sets new weight dictionary in state
   '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   deleteTerms = (terms) => {
-    const newWeights = {...this.state.weightDictionary}
+    const newWeights = {...this.state.termsDictionary}
 
     for (let r = 0; r < terms.length; r++) { // for each term to be deleted
-      delete newWeights[Object.keys(this.state.weightDictionary)[terms[r]]] // delete term out of newWeights
+      delete newWeights[Object.keys(this.state.termsDictionary)[terms[r]]] // delete term out of newWeights
     }
 
-    this.setState({weightDictionary: newWeights})
+    this.setState({termsDictionary: newWeights})
   }
 
 
@@ -313,8 +313,8 @@ class App extends React.Component {
  
     for (let r = 0; r < termsIndex.length; r++) { // for each term get info
       toAdd.push([Object.keys(this.state.categories)[category], // name of category
-        Object.keys(this.state.weightDictionary)[termsIndex[r]], // name of term
-        Object.values(this.state.weightDictionary)[termsIndex[r]]]) // context of term
+        Object.keys(this.state.termsDictionary)[termsIndex[r]], // name of term
+        Object.values(this.state.termsDictionary)[termsIndex[r]]]) // context of term
     }
 
     for (let r = 0; r < toAdd.length; r++) { // for each term add to category
@@ -331,7 +331,7 @@ class App extends React.Component {
   Returns: sets new graph in state, sets new weight dictionary (without associated category in terms), and sets new categories
   '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
   deleteCategory = (category) => {
-    const newWeights = {...this.state.weightDictionary} // weights dictionary
+    const newWeights = {...this.state.termsDictionary} // weights dictionary
     const newCategories = {...this.state.categories} // categories
     const toAdd = [] // terms to put back into terms list 
     const newGraph = {...this.state.graph} // graph
@@ -357,7 +357,7 @@ class App extends React.Component {
     delete newCategories[Object.keys(this.state.categories)[category]] // delete the category from  categories
 
     this.setState({categories: newCategories,
-      weightDictionary: newWeights,
+      termsDictionary: newWeights,
       graph: newGraph})
   }
 
@@ -367,13 +367,13 @@ class App extends React.Component {
   ##################################################################################*/
 
   /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-  Function: saveTaxonomy
-  Description: used to set the graph and edge types in state
-  Returns: sets graph and edge types in state
+  Function: saveGraph
+  Description: used to set the graph and relationships in state
+  Returns: sets graph and relationships in state
   '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
-  saveTaxonomy = (graph, edgeTypes) => {
+  saveGraph = (graph, relationships) => {
     this.setState({graph: graph,
-      edgeTypes: edgeTypes})
+      relationships: relationships})
   }
   
   /*##################################################################################
@@ -424,9 +424,9 @@ class App extends React.Component {
       this.setState({load: true,
         input: "",
         output: "",
-        weightDictionary: {},
+        termsDictionary: {},
         categories: {},
-        edgeTypes: [],
+        relationships: [],
         selectedFiles: {},
         filesList: {},
         graph: {nodes: [], edges: []}
@@ -435,9 +435,9 @@ class App extends React.Component {
       this.setState({load: false,
         input: "",
         output: "",
-        weightDictionary: {},
+        termsDictionary: {},
         categories: {},
-        edgeTypes: [],
+        relationships: [],
         selectedFiles: {},
         filesList: {},
         graph: {nodes: [], edges: []}
@@ -465,21 +465,21 @@ class App extends React.Component {
   }
 
   /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-  Function: setCorpusName
-  Description: master corpus name (used to name master .csv)
-  Returns: sets in state the corpus name
+  Function: setTaxonomyName
+  Description: master taxonomy name (used to name master .csv)
+  Returns: sets in state the taxonomy name
   '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
-  setCorpusName = (name) => {
-    this.setState({corpusName: name})
+  setTaxonomyName = (name) => {
+    this.setState({taxonomy: name})
   }
 
   /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
   Function: render
   Description: renders the different pages in pipeline
-  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
-  render() {
-    return (
-      <div className="body">
+  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/ 
+  render() { 
+    return ( 
+      <div className="body"> 
         <NavBar mode={this.state.mode}/>
         {this.state.mode === 0 ? // Load
           <Load reset={this.reset}/>
@@ -491,29 +491,28 @@ class App extends React.Component {
               setOutput={this.setOutput}
               input={this.state.input}
               output={this.state.output}
-              Files={this.getFiles}
+              getFiles={this.getFiles}
               selectedFiles={this.state.selectedFiles}
               filesList={this.state.filesList}
               removeFile={this.removeFile}
               addFile={this.addFile}
-              setCorpusName={this.setCorpusName}
+              setTaxonomyName={this.setTaxonomyName}
               load={this.state.load}
-              corpusName={this.state.corpusName}/> 
+              taxonomy={this.state.taxonomy}/> 
               : 
               this.state.mode === 66 ? // Terms
                 <Terms getTerms={this.getTerms}
-                  loadCorpus = {this.loadCorpus}
+                  loadTaxonomy = {this.loadTaxonomy}
                   output={this.state.output}
                   nextPage={this.nextPage}
                   prevPage={this.prevPage}
-                  saveWeight={this.saveWeight}
-                  weightDictionary={this.state.weightDictionary}
+                  termsDictionary={this.state.termsDictionary}
                   deleteTerms={this.deleteTerms}
-                  save={this.saveCorpus}
+                  saveTaxonomy={this.saveTaxonomy}
                   load={this.state.load}/> 
                   :
                   this.state.mode === 99 ? // Categories
-                    <Categories weightDictionary={this.state.weightDictionary}
+                    <Categories termsDictionary={this.state.termsDictionary}
                       nextPage={this.nextPage}
                       prevPage={this.prevPage}
                       createCategory={this.createCategory}
@@ -526,8 +525,8 @@ class App extends React.Component {
                       <Taxonomy saveRelationships={this.saveRelationships}
                         prevPage={this.prevPage}
                         categories={this.state.categories}
-                        saveTaxonomy={this.saveTaxonomy}
-                        edgeTypes={this.state.edgeTypes}
+                        saveGraph={this.saveGraph}
+                        relationships={this.state.relationships}
                         graph={this.state.graph}/>
         }  
       </div>

@@ -5,7 +5,7 @@ import { faFolder, faFile, faArrowsRotate, faPlus, faMinus, faBackward, faForwar
 class Documents extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {corpusName: 'corpus'} // default master corpus name
+        this.state = {taxonomy: 'master'} // default master taxonomy name
     }
 
     /*##################################################################################
@@ -57,7 +57,7 @@ class Documents extends React.Component {
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     Function: handleChange
     Description: updates when a user types in input box
-    Returns: sets in state input, output, or corpus name
+    Returns: sets in state input, output, or taxonomy name
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     handleChange = (event) => {
         this.setState({[event.target.name]: event.target.value})
@@ -80,11 +80,11 @@ class Documents extends React.Component {
     }
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: submitCorpus
-    Description: submits name of master corpus
+    Function: submitTaxonomy
+    Description: submits name of master taxonomy
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
-    submitCorpus = () => {
-        this.props.setCorpusName(this.state.corpusName)
+    submitTaxonomy = () => {
+        this.props.setTaxonomyName(this.state.taxonomy)
     }
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -110,11 +110,11 @@ class Documents extends React.Component {
                     <div className="document-wrapper">
                         {this.props.load ? // load or create from a taxonomy
                             <h2 className="document-header">
-                                Load From Taxonomy
+                                Document Corpus (Load)
                             </h2>
                             :
                             <h2 className="document-header">
-                                Create a New Taxonomy
+                                Document Corpus (Create)
                             </h2>
                         }
                         <div className="document-content-box">
@@ -128,10 +128,10 @@ class Documents extends React.Component {
                                                 placeholder="C:\Users\user\OneDrive\Desktop\boeing-naturallanguageprocessing\Data\Input" size="75"/> &nbsp;&nbsp;&nbsp;
                                             <button className="button" onClick={() => this.submitInput()}>
                                                 <FontAwesomeIcon icon={faFolder}/> &nbsp;
-                                                Submit Input Folder:
+                                                Submit Input Location
                                             </button>
-                                            <div className="document-location-box"> &nbsp; 
-                                                Input Location: {this.props.input}
+                                            <div className="document-location-box">
+                                                Input: {this.props.input}
                                             </div>   
                                         </div>
                                         <hr className="hr"/>
@@ -145,22 +145,22 @@ class Documents extends React.Component {
                                                 placeholder="C:\Users\user\OneDrive\Desktop\boeing-naturallanguageprocessing\Data\Output" size="75"/> &nbsp;&nbsp;&nbsp;
                                             <button className="button" onClick={() => this.submitOutput()}>
                                                 <FontAwesomeIcon icon={faFolder}/> &nbsp;
-                                                Submit Output Folder:
+                                                Submit Output Location
                                             </button>
                                             <div className="document-location-box">
-                                                &nbsp; Output Location: {this.props.output}
+                                                Output: {this.props.output}
                                             </div>
                                         </div>
                                         <hr className="hr"/>
                                         <div className="document-input-box"> &nbsp;&nbsp;
-                                            <input onChange={this.handleChange} size="75" name="corpusName" 
+                                            <input onChange={this.handleChange} size="75" name="taxonomy" 
                                                 placeholder="Will write over files with the same name"/> &nbsp;&nbsp;&nbsp;
-                                            <button className="button" onClick={() => this.submitCorpus()}>
+                                            <button className="button" onClick={() => this.submitTaxonomy()}>
                                                 <FontAwesomeIcon icon={faFile}/> &nbsp; 
-                                                Submit Corpus Name: 
+                                                Submit Taxonomy Name: 
                                             </button>
-                                            <div className="document-location-box"> &nbsp; 
-                                                Corpus Name: {this.props.corpusName}
+                                            <div className="document-location-box">
+                                                Name: {this.props.taxonomy}
                                             </div>
                                         </div>
                                     </>
@@ -171,22 +171,22 @@ class Documents extends React.Component {
                                                 placeholder="C:\Users\user\OneDrive\Desktop\boeing-naturallanguageprocessing\Data\Output" size="75"/> &nbsp;&nbsp;&nbsp;
                                             <button className="button" onClick={() => this.submitOutput()}>
                                                 <FontAwesomeIcon icon={faFolder}/> &nbsp; 
-                                                Submit Output Folder: 
+                                                Submit Output Location 
                                             </button>
-                                            <div className="document-location-box"> &nbsp; 
-                                                Output Location: {this.props.output}
+                                            <div className="document-location-box">
+                                                Output: {this.props.output}
                                             </div>
                                         </div>
                                         <hr className="hr"/>
                                         <div className="document-input-box"> &nbsp;&nbsp;
-                                            <input onChange={this.handleChange} size="75" name="corpusName" 
-                                                placeholder="Will write over files with the same name"/> &nbsp;&nbsp;&nbsp;
-                                            <button className="button" onClick={() => this.submitCorpus()}> 
+                                            <input onChange={this.handleChange} size="75" name="taxonomy" 
+                                                placeholder="Files with the same name will be overwritten in output location"/> &nbsp;&nbsp;&nbsp;
+                                            <button className="button" onClick={() => this.submitTaxonomy()}> 
                                                 <FontAwesomeIcon icon={faFile}/> &nbsp; 
-                                                Submit Corpus Name: 
+                                                Submit Taxonomy Name: 
                                             </button>
-                                            <div className="document-location-box"> &nbsp; 
-                                                Corpus Name: {this.props.corpusName}
+                                            <div className="document-location-box">
+                                                Name: {this.props.taxonomy}
                                             </div>
                                         </div>
                                     </>
@@ -197,7 +197,7 @@ class Documents extends React.Component {
                                     <>
                                         <hr className="hr"/>
                                         <div> &nbsp;&nbsp;
-                                            <button className="button" onClick={() => this.props.Files()}> 
+                                            <button className="button" onClick={() => this.props.getFiles()}> 
                                                 <FontAwesomeIcon icon={faArrowsRotate}/> &nbsp; 
                                                 Get Files From Input Folder: 
                                             </button>

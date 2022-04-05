@@ -14,18 +14,18 @@ class Load extends React.Component {
                 <div className="container">
                     <div className="load-wrapper">
                         <h2 className="load-header">
-                            Create/ Load Taxonomy
+                            Create or Load a Taxonomy
                         </h2>
                         <div className="load-content-box">
                             <div className="load-content-box--centered">
                                 <div className="load-input-box">
                                     <button onClick={() => this.props.reset(false)} className="button">
                                         <FontAwesomeIcon icon={faPlus}/> &nbsp;
-                                        Create a new Taxonomy
+                                        Create
                                     </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <button onClick={() => this.props.reset(true)} className="button">
                                         <FontAwesomeIcon icon={faUpload}/> &nbsp;
-                                        Load from Taxonomy
+                                        Load
                                     </button>
                                 </div>
                             </div>

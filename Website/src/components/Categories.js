@@ -45,20 +45,20 @@ class Categories extends React.Component {
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/
     renderTermsTable = () => {
         const table = []
-        if ((this.state.pageTerms * 100) + 100 > Object.keys(this.props.weightDictionary).length) { // there are less than 100 terms in weights dictionary
-            for (let r = this.state.pageTerms * 100; r < Object.keys(this.props.weightDictionary).length; r++) { // pagination, render only 100 terms
-                if(!this.props.weightDictionary[Object.keys(this.props.weightDictionary)[r]].category){
+        if ((this.state.pageTerms * 100) + 100 > Object.keys(this.props.termsDictionary).length) { // there are less than 100 terms in weights dictionary
+            for (let r = this.state.pageTerms * 100; r < Object.keys(this.props.termsDictionary).length; r++) { // pagination, render only 100 terms
+                if(!this.props.termsDictionary[Object.keys(this.props.termsDictionary)[r]].category){
                     table.push(
                         <tr key = {r} className={"table-row" + (this.checkSelectedWeight(r) === true ? " table-row--selected" : "")}
                             onClick={() => (this.checkSelectedWeight(r) ? this.removeSelectedWeightTerm(r) : this.selectWeightTerm(r))}>
                             <td>
-                                {Object.keys(this.props.weightDictionary)[r]}
+                                {Object.keys(this.props.termsDictionary)[r]}
                             </td>
                             <td>
-                                {Object.values(this.props.weightDictionary)[r].frequency}
+                                {Object.values(this.props.termsDictionary)[r].frequency}
                             </td>
                             <td>
-                                {Object.values(this.props.weightDictionary)[r].weight}
+                                {Object.values(this.props.termsDictionary)[r].weight}
                             </td>
                         </tr>
                     )
@@ -66,18 +66,18 @@ class Categories extends React.Component {
             }
         } else { // there are more than 100 terms in weights dictionary
             for (let r = this.state.pageTerms * 100; r < (this.state.pageTerms * 100) + 100; r++) { // pagination, render only 100 terms
-                if(!this.props.weightDictionary[Object.keys(this.props.weightDictionary)[r]].category){
+                if(!this.props.termsDictionary[Object.keys(this.props.termsDictionary)[r]].category){
                     table.push(
                         <tr key = {r} className={"table-row" + (this.checkSelectedWeight(r) === true ? " table-row--selected" : "")}
                             onClick={() => (this.checkSelectedWeight(r) ? this.removeSelectedWeightTerm(r) : this.selectWeightTerm(r))}>
                             <td>
-                                {Object.keys(this.props.weightDictionary)[r]}
+                                {Object.keys(this.props.termsDictionary)[r]}
                             </td>
                             <td>
-                                {Object.values(this.props.weightDictionary)[r].frequency}
+                                {Object.values(this.props.termsDictionary)[r].frequency}
                             </td>
                             <td>
-                                {Object.values(this.props.weightDictionary)[r].weight}
+                                {Object.values(this.props.termsDictionary)[r].weight}
                             </td>
                         </tr>
                     )
@@ -417,7 +417,7 @@ class Categories extends React.Component {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {Object.keys(this.props.weightDictionary).length === 0 ? // weight dictionary is empty
+                                                {Object.keys(this.props.termsDictionary).length === 0 ? // weight dictionary is empty
                                                     <tr>
                                                         <td></td>
                                                     </tr>
@@ -441,7 +441,7 @@ class Categories extends React.Component {
                                                 </button>
                                             } &nbsp;&nbsp;&nbsp;
                                             {this.state.pageTerms} &nbsp;&nbsp;&nbsp;
-                                            {(this.state.pageTerms * 100) + 100 <  Object.keys(this.props.weightDictionary).length ? // there are still more terms to page through
+                                            {(this.state.pageTerms * 100) + 100 <  Object.keys(this.props.termsDictionary).length ? // there are still more terms to page through
                                                 <button className="button__small" onClick={() => this.pageTerms('next')}>
                                                     Next: &nbsp; 
                                                     <FontAwesomeIcon icon={faAngleRight}/>

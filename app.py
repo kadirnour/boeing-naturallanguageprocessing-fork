@@ -64,28 +64,26 @@ def getWeights():
 #####################################################################################################
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''
-Function: saveWeights
-Description: writes weights to the master corpus
+Function: saveTaxonomy
+Description: writes weights to the master taxonomy
 '''''''''''''''''''''''''''''''''''''''''''''''''''''
-@app.route('/saveWeight', methods = ['POST'])
-def saveWeight():
+@app.route('/saveTaxonomy', methods = ['POST'])
+def saveTaxonomy():
     info = request.get_json(force=True)
-    weightDictionary = info['weightDictionary']
-    corpusName = info['corpus'] + '.csv'
-    Data.write_weights(Path(info['output']) / corpusName, weightDictionary)
+    taxonomyName = info['taxonomy'] + '.csv'
+    Data.write_weights(Path(info['output']) / taxonomyName, info['termsDictionary'])
     return ""
 
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-Function: loadCorpus
-Description: reads weights from master corpus
-Returns: weights
+Function: loadTaxonomy
+Description: reads terms from master taxonomy
+Returns: terms and context
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-@app.route('/loadCorpus', methods = ['POST'])
-def loadCorpus():
+@app.route('/loadTaxonomy', methods = ['POST'])
+def loadTaxonomy():
     location = request.get_json(force=True)
-    corpusName = location['corpus']
-    return Data.read_weights(Path(location['output']), corpusName)
+    return Data.read_weights(Path(location['output']), location['taxonomy'])
        
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -95,7 +93,7 @@ Description: writes the categories to the master .csv
 @app.route('/saveCategories', methods = ['POST'])
 def saveCategories():
     inputInfo = request.get_json(force=True)
-    Taxonomy.write_categories(inputInfo['output'], inputInfo['corpus'], inputInfo['categories'])
+    Taxonomy.write_categories(inputInfo['output'], inputInfo['taxonomy'], inputInfo['categories'])
     return ""
 
 
@@ -106,5 +104,5 @@ Description: writes relationships to .csv
 @app.route('/saveRelationships', methods = ['POST'])
 def saveRelationships():
     inputInfo = request.get_json(force=True)
-    Taxonomy.write_relationships(inputInfo['output'], inputInfo['corpus'], inputInfo['graph'], inputInfo['edgeTypes'])
+    Taxonomy.write_relationships(inputInfo['output'], inputInfo['taxonomy'], inputInfo['graph'], inputInfo['relationships'])
     return ""

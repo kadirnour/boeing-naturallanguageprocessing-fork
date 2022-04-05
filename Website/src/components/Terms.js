@@ -111,27 +111,27 @@ class Terms extends React.Component {
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/ 
     renderTermTable = () => {
         const table = []
-        if ((this.state.page * 100) + 100 > Object.keys(this.props.weightDictionary).length) { // if there are less then 100 terms in the weight dictionary
-            for (let r = this.state.page * 100; r < Object.keys(this.props.weightDictionary).length; r++) { // pagination, only display 100 terms
+        if ((this.state.page * 100) + 100 > Object.keys(this.props.termsDictionary).length) { // if there are less then 100 terms in the weight dictionary
+            for (let r = this.state.page * 100; r < Object.keys(this.props.termsDictionary).length; r++) { // pagination, only display 100 terms
                 table.push(
                     <tr key = {r} className={"table-row" + (this.checkSelectedTerm(r) === true ? " table-row--selected" : "")}>
                         <td onClick={() => (this.checkSelectedTerm(r) ? 
                             this.removedSelectedTerm(r)
                             :
                             this.selectTerm(r))}>
-                            {Object.keys(this.props.weightDictionary)[r]}
+                            {Object.keys(this.props.termsDictionary)[r]}
                         </td>
                         <td onClick={() => (this.checkSelectedTerm(r) ?
                             this.removedSelectedTerm(r)
                             :
                             this.selectTerm(r))}> 
-                            {Object.values(this.props.weightDictionary)[r].frequency}
+                            {Object.values(this.props.termsDictionary)[r].frequency}
                         </td>
                         <td onClick={() => (this.checkSelectedTerm(r) ?
                             this.removedSelectedTerm(r)
                             :
                             this.selectTerm(r))}>
-                            {Object.values(this.props.weightDictionary)[r].weight}
+                            {Object.values(this.props.termsDictionary)[r].weight}
                         </td>
 
                         <td className="table-data">
@@ -150,17 +150,17 @@ class Terms extends React.Component {
                         <td onClick={() => (this.checkSelectedTerm(r) ?
                             this.removedSelectedTerm(r)
                             :
-                            this.selectTerm(r))}> {Object.keys(this.props.weightDictionary)[r]}
+                            this.selectTerm(r))}> {Object.keys(this.props.termsDictionary)[r]}
                         </td>
                         <td onClick={() => (this.checkSelectedTerm(r) ?
                             this.removedSelectedTerm(r)
                             :
-                            this.selectTerm(r))}> {Object.values(this.props.weightDictionary)[r].frequency}
+                            this.selectTerm(r))}> {Object.values(this.props.termsDictionary)[r].frequency}
                         </td>
                         <td onClick={() => (this.checkSelectedTerm(r) ?
                             this.removedSelectedTerm(r)
                             :
-                            this.selectTerm(r))}> {Object.values(this.props.weightDictionary)[r].weight}
+                            this.selectTerm(r))}> {Object.values(this.props.termsDictionary)[r].weight}
                         </td>
                         <td className="table-data">
                             <button className="button" onClick={() => this.isShowPopup(true,"", r)}>
@@ -186,7 +186,7 @@ class Terms extends React.Component {
     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/   
     componentDidMount = () => {
         if (this.props.load) { // load from .csv
-            this.props.loadCorpus()
+            this.props.loadTaxonomy()
         } else { // run parser
             this.props.getTerms()
         }
@@ -206,10 +206,10 @@ class Terms extends React.Component {
     }
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    Function: saveWeight
+    Function: saveTaxonomy
     Description: opens save confirmation to save the weight dictionary to .csv
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/ 
-    saveWeight = () => {
+    saveTaxonomy = () => {
         this.isShowPopup(true, "confirm", -1)
     }
 
@@ -219,7 +219,7 @@ class Terms extends React.Component {
     Returns:
     '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''*/ 
     confirmSave = () =>{
-        this.props.saveWeight()
+        this.props.saveTaxonomy()
     }
 
     /*'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -235,35 +235,35 @@ class Terms extends React.Component {
                             onPopupClose={this.isShowPopup}
                             type={this.state.type}
                             confirmSave={this.confirmSave}
-                            term={Object.keys(this.props.weightDictionary)[this.state.modalTerm]}
-                            sentences={Object.values(this.props.weightDictionary)[this.state.modalTerm]}
+                            term={Object.keys(this.props.termsDictionary)[this.state.modalTerm]}
+                            sentences={Object.values(this.props.termsDictionary)[this.state.modalTerm]}
                         />
                         <h2 className="terms-header">
-                            Term Extraction/ Selection
+                            Term Extraction
                         </h2>
                         <div className="terms-content-box">
                             <div className="terms-content-box--centered">
                                 <div className="terms-input-box">
                                     {this.props.load ? // loading mode (you are loading from a .csv)
                                         <div>
-                                            <button className="button__small" onClick={() => this.props.loadCorpus()}>
+                                            <button className="button__small" onClick={() => this.props.loadTaxonomy()}>
                                                 <FontAwesomeIcon icon={faArrowsRotate}/> &nbsp; 
-                                                Refresh Weights:
+                                                Refresh Terms:
                                             </button> &nbsp;&nbsp;&nbsp;
-                                            <button className="button__small" onClick={() => this.saveWeight()}>
+                                            <button className="button__small" onClick={() => this.saveTaxonomy()}>
                                                 <FontAwesomeIcon icon={faFileArrowDown}/> &nbsp; 
-                                                Save Weights:
+                                                Save Terms:
                                             </button>
                                         </div>
                                         : // creating a new taxonomy
                                         <div>  
                                             <button className="button__small" onClick={() => this.props.getTerms()}>
                                                 <FontAwesomeIcon icon={faArrowsRotate}/> &nbsp; 
-                                                Refresh Weights:
+                                                Refresh Terms:
                                             </button> &nbsp;&nbsp;&nbsp;
-                                            <button className="button__small" onClick={() => this.saveWeight()}>
+                                            <button className="button__small" onClick={() => this.saveTaxonomy()}>
                                                 <FontAwesomeIcon icon={faFileArrowDown}/> &nbsp; 
-                                                Save Weights:
+                                                Save Terms:
                                             </button>
                                         </div>
                                     } 
@@ -291,11 +291,11 @@ class Terms extends React.Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {Object.keys(this.props.weightDictionary).length === 0 ? // there are not terms in weight dictionary
+                                            {Object.keys(this.props.termsDictionary).length === 0 ? // there are not terms in weight dictionary
                                                 <tr>
                                                     <td></td>
                                                 </tr>
-                                                : 
+                                                : // there are terms in weight dictionary
                                                 this.renderTermTable()} 
                                         </tbody>
                                     </table>
@@ -307,14 +307,14 @@ class Terms extends React.Component {
                                                     <FontAwesomeIcon icon={faAngleLeft}/> &nbsp; 
                                                     Previous:
                                                 </button> 
-                                                :
+                                                : // page not 0
                                                 <button className="button__small" onClick={() => this.page('pervious')}>
                                                     <FontAwesomeIcon icon={faAngleLeft}/> &nbsp; 
                                                     Previous:
                                                 </button>
                                             } &nbsp;&nbsp;&nbsp;
                                             {this.state.page} &nbsp;&nbsp;&nbsp;
-                                            {(this.state.page * 100) + 100 < Object.keys(this.props.weightDictionary).length ? // there are still terms to page through
+                                            {(this.state.page * 100) + 100 < Object.keys(this.props.termsDictionary).length ? // there are still terms to page through
                                                 <button className="button__small" onClick={() => this.page('next')}>
                                                     Next: &nbsp; 
                                                     <FontAwesomeIcon icon={faAngleRight}/>

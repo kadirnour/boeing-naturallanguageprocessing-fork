@@ -8,7 +8,7 @@ Description: Finds frequencies and weights of terms
 Returns: A dictionary with Key: term, Value: {frequency, weight}
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 def create_weight_dictionary(output, files):
-    weightDictionary = {}
+    termsDictionary = {}
     folder = os.listdir(output)
     filesCount = len(files)
     for file in folder:
@@ -23,8 +23,8 @@ def create_weight_dictionary(output, files):
                     miniDict = {} # {frequency, weight}
                     frequency = int(row[2])
                     weight = frequency / filesCount
-                    if row[0] in weightDictionary: # term is already in frequency_dict
-                        miniDict = weightDictionary.get(row[0])
+                    if row[0] in termsDictionary: # term is already in frequency_dict
+                        miniDict = termsDictionary.get(row[0])
                         newFrequency = miniDict.get("frequency") + frequency
                         miniDict["frequency"] = newFrequency
                         row[2] = newFrequency
@@ -37,5 +37,5 @@ def create_weight_dictionary(output, files):
                         miniDict["weight"] = weight
                         row.append(weight)
                         miniDict["context"] = [(file[0:-10], ast.literal_eval(row[1]))]
-                    weightDictionary[row[0]] = miniDict # update frequency_dict
-    return weightDictionary
+                    termsDictionary[row[0]] = miniDict # update frequency_dict
+    return termsDictionary
