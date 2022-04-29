@@ -4,10 +4,13 @@ from Parser import Spacy
 from Parser import text_factory
 from tests.test_data.test_term_dictionaries import *
 
+import pytest
+
 test_data = Path('tests/test_data')
 
+@pytest.mark.skip(reason="Helper function")
 def test_accuracy(file, check):
-    text = text_factory.get_text(test_data / file)
+    text = text_factory.get_text(file)
     total_nouns = Spacy.get_terms(text)
     correct_counts = 0
     extra_counts = 0
@@ -31,11 +34,21 @@ def test_accuracy(file, check):
     print(str(extra_counts) + " False Positives")
     print(str(sum(check.values())) + " Expected Occur")
     print(str(sum(d.values())) + " Actual Occur")
+
+
     # print("Total accuracy = " + str(round(correct_counts / sum(d.values()), 2) * 100))
 
 def test_accuracy_blank():
     test_accuracy((test_data / 'txt_files'/ 'blank.txt'), BlankDocumentTerms)
 
+def test_accuracy_EldenMount():
+    test_accuracy((test_data / 'txt_files'/ 'EldenRingMount.txt'), EldenRingMountTerms)
+
+def test_accuracy_EldenStance():
+    test_accuracy((test_data / 'txt_files'/ 'EldenRingStance.txt'), EldenRingStanceTerms)
+
 
 if __name__ == '__main__':
-    print((test_data / 'txt_files'/ 'blank.txt').exists())
+    test_accuracy((test_data / 'txt_files'/ 'blank.txt'), BlankDocumentTerms)
+    test_accuracy((test_data / 'txt_files'/ 'EldenRingMount.txt'), EldenRingMountTerms)
+    test_accuracy((test_data / 'txt_files'/ 'EldenRingStance.txt'), EldenRingStanceTerms)
