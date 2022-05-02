@@ -1,6 +1,6 @@
 test_sentences_10_nouns.csv
 Unique nouns: 12,Total nouns: 12
-Total time: 0.879 sec,Cost per noun: 73.227 ms
+Total time: 0.927 sec,Cost per noun: 77.233 ms
 the queen,['The Queen of England lives in Buckingham Palace.'],1
 england,['The Queen of England lives in Buckingham Palace.'],1
 buckingham palace,['The Queen of England lives in Buckingham Palace.'],1
