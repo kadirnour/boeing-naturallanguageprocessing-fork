@@ -1,6 +1,6 @@
 EldenRingStance_nouns.csv
 Unique nouns: 25,Total nouns: 28
-Total time: 0.821 sec,Cost per noun: 29.328 ms
+Total time: 0.914 sec,Cost per noun: 32.639 ms
 sekiro,"['Similar to Sekiro: Shadows Die Twice, during Combat you should be careful not to lose your Stance in order to avoid getting staggered.']",1
 combat,"['Similar to Sekiro: Shadows Die Twice, during Combat you should be careful not to lose your Stance in order to avoid getting staggered.', ""During combat, you can block your Enemy's attack by holding the block button, however if you block each attack only when it's necessary, the game will consider that you performed a perfect Block.""]",2
 stance,"['Similar to Sekiro: Shadows Die Twice, during Combat you should be careful not to lose your Stance in order to avoid getting staggered.', ""Perfect Blocks will save your Stance, and waste the Enemy's Stance, but if you block earlier or keep blocking longer than necessary, you will lose some Stance while your Enemy saves it.""]",2

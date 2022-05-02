@@ -68,7 +68,7 @@ def single_parse(filePath):
     uniqueNouns = len(terms)
     totalNouns = Noun.get_total_nouns(terms)
 
-    costPerNoun = (elapsedTime * 1000) / totalNouns
+    costPerNoun = 0 if totalNouns == 0 else (elapsedTime * 1000) / totalNouns
     costPerNounStr = "Cost per noun: " + str(round(costPerNoun, 3)) + " ms"
     
 

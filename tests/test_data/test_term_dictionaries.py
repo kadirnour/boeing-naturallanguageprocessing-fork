@@ -20,4 +20,5 @@ EldenRingStanceTerms = {"sekiro": 1, "combat": 2, "stance": 1, "enemy's stance":
         "a perfect block": 1, "perfect blocks": 1, "the enemy's stance": 1, "some stance": 1, "enemy": 1, 
         "successful parry": 1, "an attempt": 1, "parrying": 1, "a lot": 1, "heavy strikes": 1, "sneak attacks": 1, 
         "the opponent's stance": 1}
+
 EldenRingStealthTerms = {}

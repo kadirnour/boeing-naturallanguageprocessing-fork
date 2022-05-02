@@ -2,11 +2,13 @@ import time
 from pathlib import Path
 from Parser import Spacy
 from Parser import text_factory
+from Parser.main import initializer, parse, single_parse
 from tests.test_data.test_term_dictionaries import *
 
 import pytest
 
 test_data = Path('tests/test_data')
+files = ['blank', 'EldenRingMount', 'EldenRingStance', 'EldenRingStelth', 'test_sentences_10']
 
 @pytest.mark.skip(reason="Helper function")
 def test_accuracy(file, check):
@@ -36,8 +38,6 @@ def test_accuracy(file, check):
     print(str(sum(d.values())) + " Actual Occur")
 
 
-    # print("Total accuracy = " + str(round(correct_counts / sum(d.values()), 2) * 100))
-
 def test_accuracy_blank():
     test_accuracy((test_data / 'txt_files'/ 'blank.txt'), BlankDocumentTerms)
 
@@ -46,6 +46,13 @@ def test_accuracy_EldenMount():
 
 def test_accuracy_EldenStance():
     test_accuracy((test_data / 'txt_files'/ 'EldenRingStance.txt'), EldenRingStanceTerms)
+
+def test_full_run_single():
+    initializer(test_data)
+    single_parse((test_data / 'txt_files'/ 'EldenRingMount.txt'))
+
+def test_full_run_multi():
+    parse(test_data / 'docx_files', test_data, files)
 
 
 if __name__ == '__main__':
