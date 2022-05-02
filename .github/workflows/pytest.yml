@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: PyTest
 
 # Controls when the workflow will run
 on:
@@ -34,4 +34,4 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          pytest -rP -vv ../tests
+          pytest -rP -vv tests
