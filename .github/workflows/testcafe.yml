@@ -24,7 +24,16 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          python -m spacy download en_core_web_sm
+      #
+      - name: Start Flask server
+        run: flask run
+      
       # Runs a single command using the runners shell
       - name: Run a one-line script
         uses: DevExpress/testcafe-action@latest
